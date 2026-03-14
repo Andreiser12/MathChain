@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37012.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathChain.Domain", "Domain\MathChain.Domain.csproj", "{D407C959-C88A-4CA4-949F-DE543C4FEF11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathChain.Blockchain", "Blockchain\MathChain.Blockchain.csproj", "{B275D5DF-D977-469B-AC26-51DE47A576CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathChain.API", "API\MathChain.API.csproj", "{4FE085CD-0DC7-40D1-8345-930800B7B7F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathChain.WPF", "WPF\MathChain.WPF.csproj", "{CD569AAE-647D-4DFC-A933-D2E5D2F8EB97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathChain.Tests", "Tests\MathChain.Tests.csproj", "{F8289BD7-68A6-46C7-8C23-35B932F3D31C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D407C959-C88A-4CA4-949F-DE543C4FEF11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D407C959-C88A-4CA4-949F-DE543C4FEF11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D407C959-C88A-4CA4-949F-DE543C4FEF11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D407C959-C88A-4CA4-949F-DE543C4FEF11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B275D5DF-D977-469B-AC26-51DE47A576CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B275D5DF-D977-469B-AC26-51DE47A576CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B275D5DF-D977-469B-AC26-51DE47A576CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B275D5DF-D977-469B-AC26-51DE47A576CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FE085CD-0DC7-40D1-8345-930800B7B7F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FE085CD-0DC7-40D1-8345-930800B7B7F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FE085CD-0DC7-40D1-8345-930800B7B7F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FE085CD-0DC7-40D1-8345-930800B7B7F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD569AAE-647D-4DFC-A933-D2E5D2F8EB97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD569AAE-647D-4DFC-A933-D2E5D2F8EB97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD569AAE-647D-4DFC-A933-D2E5D2F8EB97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD569AAE-647D-4DFC-A933-D2E5D2F8EB97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8289BD7-68A6-46C7-8C23-35B932F3D31C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8289BD7-68A6-46C7-8C23-35B932F3D31C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8289BD7-68A6-46C7-8C23-35B932F3D31C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8289BD7-68A6-46C7-8C23-35B932F3D31C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB5E2B18-CB5B-4794-8EC3-D1FCBE074877}
+	EndGlobalSection
+EndGlobal

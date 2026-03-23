@@ -9,7 +9,74 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\API\MathChain.API.csproj" />
+    <None Remove="Assets\Images\AI_Image.png" />
+    <None Remove="Assets\Images\Algebra_Image.png" />
+    <None Remove="Assets\Images\BasicFormulas_Image.png" />
+    <None Remove="Assets\Images\Calculus_Image.png" />
+    <None Remove="Assets\Images\Chapters.png" />
+    <None Remove="Assets\Images\Geometry_Image.png" />
+    <None Remove="Assets\Images\int1pex.png" />
+    <None Remove="Assets\Images\Integrals_Image.png" />
+    <None Remove="Assets\Images\Soon_Image.png" />
+    <None Remove="Assets\Images\Statistics_Image.png" />
+    <None Remove="Assets\Images\Trigonometry_Image.png" />
+    <None Remove="Assets\Models\Chapter1\int1pex.mtl" />
+    <None Remove="Assets\Models\Chapter1\int1pex.obj" />
+    <None Remove="Assets\Models\int1pex.obj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Models\Chapter1\int1pex.mtl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Models\Chapter1\int1pex.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HelixToolkit.Wpf" Version="3.1.2" />
+    <PackageReference Include="WpfMath" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\MathChain.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Images\AI_Image.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\Algebra_Image.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\BasicFormulas_Image.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\Calculus_Image.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\Chapters.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\Geometry_Image.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\int1pex.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\Integrals_Image.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\Soon_Image.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\Statistics_Image.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\Trigonometry_Image.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

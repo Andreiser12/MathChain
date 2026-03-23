@@ -1,0 +1,280 @@
+﻿<Page x:Class="MathChain.WPF.Views.BasicFormulasPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MathChain.WPF.Views"
+      xmlns:helix="http://helix-toolkit.org/wpf"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="BasicFormulasPage">
+
+    <Grid Background="#1A1A2E">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+               Text="Formulas"
+               Foreground="#00D4FF"
+               FontSize="24"
+               FontWeight="Bold"
+               HorizontalAlignment="Center"
+               Margin="0,20,0,20"/>
+        <Border Grid.Row="1" Background="#1A1A2E"/>
+
+        <UniformGrid Grid.Row="1" Columns="3" Rows="2" Margin="20">
+
+            <Button MaxWidth="350" MaxHeight="300" BorderThickness="0">
+
+                <Button.Resources>
+                    <Style x:Key="StilPozaNormal" TargetType="Image">
+                        <Setter Property="Visibility" Value="Visible"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMouseOver,
+                             RelativeSource={RelativeSource AncestorType=Button}}"
+                             Value="True">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+
+                    <Style x:Key="StilHolograma3D" TargetType="helix:HelixViewport3D">
+                        <Setter Property="Visibility" Value="Hidden"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMouseOver,
+                             RelativeSource={RelativeSource AncestorType=Button}}"
+                             Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+
+                </Button.Resources>
+                
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <helix:HelixViewport3D Grid.Row="0"
+                                           Style="{StaticResource StilHolograma3D}"
+                                           ShowViewCube="False"
+                                           Background="#1E293B">
+                        <helix:DefaultLights/>
+                        <helix:FileModelVisual3D Source="Assets\Models\Chapter1\int1pex.obj">
+                            <helix:FileModelVisual3D.Transform>
+                                <Transform3DGroup>
+                                    <ScaleTransform3D ScaleX="2" ScaleY="2" ScaleZ="2"/>
+                                    
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0,1,0" Angle="176"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+                                    
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="1,0,0" Angle="30"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+
+                                    <!--<RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0,0,1" Angle="-5"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>-->
+
+                                </Transform3DGroup>
+                               
+                            </helix:FileModelVisual3D.Transform>
+                        </helix:FileModelVisual3D>
+                    </helix:HelixViewport3D>
+                    
+                    <Image Grid.Row="0"
+                           Style="{StaticResource StilPozaNormal}"
+                       Source="/Assets/Images/int1pex.png"
+                       Stretch="Uniform"
+                       Margin="10"/>
+
+                    <TextBlock Grid.Row="1"
+                           Text="1"
+                           Foreground="White"
+                           TextAlignment="Center"
+                           Margin="10"/>
+
+                </Grid>
+
+            </Button>
+
+
+            <Button  Margin="10"
+                Background="#2A2A40"
+                BorderThickness="0"
+                MaxWidth="350" MaxHeight="300"
+                Click="BasicFormulasButton_Click">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Image Grid.Row="0"
+                       Source="/Assets/Images/Soon_Image.png" 
+                       Stretch="UniformToFill"
+                       Margin="10"/>
+
+                    <TextBlock Grid.Row="1"
+                           Text=""
+                           Foreground="White"
+                           TextAlignment="Center"
+                           Margin="10"/>
+
+                </Grid>
+
+            </Button>
+
+
+            <Button Margin="10"
+                Background="#2A2A40"
+                BorderThickness="0"
+                MaxWidth="350" MaxHeight="300"
+                Click="BasicFormulasButton_Click">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Image Grid.Row="0"
+                       Source="/Assets/Images/Soon_Image.png" 
+                       Stretch="UniformToFill"
+                       Margin="10"/>
+
+                    <TextBlock Grid.Row="1"
+                           Text=""
+                           Foreground="White"
+                           TextAlignment="Center"
+                           Margin="10"/>
+
+                </Grid>
+
+            </Button>
+
+
+            <Button Margin="10"
+                Background="#2A2A40"
+                BorderThickness="0"
+                MaxWidth="350" MaxHeight="300"
+                Click="BasicFormulasButton_Click">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Image Grid.Row="0"
+                       Source="/Assets/Images/Soon_Image.png" 
+                       Stretch="UniformToFill"
+                       Margin="10"/>
+
+                    <TextBlock Grid.Row="1"
+                           Text=""
+                           Foreground="White"
+                           TextAlignment="Center"
+                           Margin="10"/>
+
+                </Grid>
+
+            </Button>
+
+
+            <Button Margin="10"
+                Background="#2A2A40"
+                BorderThickness="0"
+                MaxWidth="350" MaxHeight="300"
+                Click="BasicFormulasButton_Click">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Image Grid.Row="0"
+                       Source="/Assets/Images/Soon_Image.png" 
+                       Stretch="UniformToFill"
+                       Margin="10"/>
+
+                    <TextBlock Grid.Row="1"
+                           Text=""
+                           Foreground="White"
+                           TextAlignment="Center"
+                           Margin="10"/>
+
+                </Grid>
+
+            </Button>
+
+
+            <Button Margin="10"
+                Background="#2A2A40"
+                BorderThickness="0"
+                MaxWidth="350" MaxHeight="300"
+                Click="BasicFormulasButton_Click">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Image Grid.Row="0"
+                       Source="/Assets/Images/Soon_Image.png" 
+                       Stretch="UniformToFill"
+                       Margin="10"/>
+
+                    <TextBlock Grid.Row="1"
+                           Text=""
+                           Foreground="White"
+                           TextAlignment="Center"
+                           Margin="10"/>
+
+                </Grid>
+
+            </Button>
+
+
+        </UniformGrid>
+
+        <Grid Grid.Row="2" Margin="20,0,20,20">
+            <Button Content="Back"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Padding="10,5"
+                    Background="#2A2A40"
+                    Foreground="White"
+                    BorderThickness="0"
+                    Click="BackButton_Click"/>
+            <Button Content="Start Exercises" 
+                    HorizontalAlignment="Right" 
+                    Width="180" Height="40" 
+                    Background="#00D4FF" 
+                    Foreground="#1A1A2E" 
+                    FontSize="16" 
+                    FontWeight="Bold"
+                    BorderThickness="0"
+                    Click="StartExercisesButton_Click"/>
+        </Grid>
+
+    </Grid>
+</Page>

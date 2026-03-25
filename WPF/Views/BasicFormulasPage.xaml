@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MathChain.WPF.Views"
       xmlns:helix="http://helix-toolkit.org/wpf"
+      xmlns:math="clr-namespace:WpfMath.Controls;assembly=WpfMath"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="BasicFormulasPage">
@@ -27,20 +28,33 @@
 
         <UniformGrid Grid.Row="1" Columns="3" Rows="2" Margin="20">
 
-            <Button MaxWidth="350" MaxHeight="300" BorderThickness="0">
+            <Button MaxWidth="350" MaxHeight="300" 
+                    BorderThickness="0"
+                    Margin="10" 
+                    Background="#2A2A40">
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="CardBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="2"
+                                BorderBrush="Transparent"
+                                CornerRadius="10"
+                                Padding="15">
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="CardBorder" Property="BorderBrush" Value="#00D4FF"/>
+                                <Setter TargetName="CardBorder" Property="Background" Value="#32324A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Button.Template>
 
                 <Button.Resources>
-                    <Style x:Key="StilPozaNormal" TargetType="Image">
-                        <Setter Property="Visibility" Value="Visible"/>
-
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsMouseOver,
-                             RelativeSource={RelativeSource AncestorType=Button}}"
-                             Value="True">
-                                <Setter Property="Visibility" Value="Hidden"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
 
                     <Style x:Key="StilHolograma3D" TargetType="helix:HelixViewport3D">
                         <Setter Property="Visibility" Value="Hidden"/>
@@ -50,6 +64,16 @@
                              RelativeSource={RelativeSource AncestorType=Button}}"
                              Value="True">
                                 <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+
+                    <Style x:Key="StilFormulaNormal" TargetType="math:FormulaControl">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Button}}" Value="True">
+                                <Setter Property="Visibility" Value="Hidden"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -66,42 +90,39 @@
                     <helix:HelixViewport3D Grid.Row="0"
                                            Style="{StaticResource StilHolograma3D}"
                                            ShowViewCube="False"
-                                           Background="#1E293B">
+                                           Background="Transparent">
                         <helix:DefaultLights/>
                         <helix:FileModelVisual3D Source="Assets\Models\Chapter1\int1pex.obj">
                             <helix:FileModelVisual3D.Transform>
                                 <Transform3DGroup>
-                                    <ScaleTransform3D ScaleX="2" ScaleY="2" ScaleZ="2"/>
+                                    <ScaleTransform3D ScaleX="3" ScaleY="3" ScaleZ="3"/>
                                     
                                     <RotateTransform3D>
                                         <RotateTransform3D.Rotation>
                                             <AxisAngleRotation3D Axis="0,1,0" Angle="176"/>
                                         </RotateTransform3D.Rotation>
                                     </RotateTransform3D>
-                                    
+
                                     <RotateTransform3D>
                                         <RotateTransform3D.Rotation>
                                             <AxisAngleRotation3D Axis="1,0,0" Angle="30"/>
                                         </RotateTransform3D.Rotation>
                                     </RotateTransform3D>
 
-                                    <!--<RotateTransform3D>
-                                        <RotateTransform3D.Rotation>
-                                            <AxisAngleRotation3D Axis="0,0,1" Angle="-5"/>
-                                        </RotateTransform3D.Rotation>
-                                    </RotateTransform3D>-->
-
                                 </Transform3DGroup>
                                
                             </helix:FileModelVisual3D.Transform>
                         </helix:FileModelVisual3D>
                     </helix:HelixViewport3D>
-                    
-                    <Image Grid.Row="0"
-                           Style="{StaticResource StilPozaNormal}"
-                       Source="/Assets/Images/int1pex.png"
-                       Stretch="Uniform"
-                       Margin="10"/>
+
+                    <math:FormulaControl Grid.Row="0"
+                                         Style="{StaticResource StilFormulaNormal}"
+                                         Formula="\int \frac{1}{x} \,dx = \ln|x| + C"
+                                         Foreground="White"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Margin="20"
+                                         Scale="30"/>
 
                     <TextBlock Grid.Row="1"
                            Text="1"
@@ -114,11 +135,58 @@
             </Button>
 
 
-            <Button  Margin="10"
-                Background="#2A2A40"
-                BorderThickness="0"
-                MaxWidth="350" MaxHeight="300"
-                Click="BasicFormulasButton_Click">
+            <Button MaxWidth="350" MaxHeight="300" 
+        BorderThickness="0"
+        Margin="10" 
+        Background="#2A2A40">
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="CardBorder"
+                    Background="{TemplateBinding Background}"
+                    BorderThickness="2"
+                    BorderBrush="Transparent"
+                    CornerRadius="10"
+                    Padding="15">
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="CardBorder" Property="BorderBrush" Value="#00D4FF"/>
+                                <Setter TargetName="CardBorder" Property="Background" Value="#32324A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Button.Template>
+
+                <Button.Resources>
+
+                    <Style x:Key="StilHolograma3D" TargetType="helix:HelixViewport3D">
+                        <Setter Property="Visibility" Value="Hidden"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMouseOver,
+                 RelativeSource={RelativeSource AncestorType=Button}}"
+                 Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+
+                    <Style x:Key="StilFormulaNormal" TargetType="math:FormulaControl">
+                        <Setter Property="Visibility" Value="Visible"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Button}}" Value="True">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+
+                </Button.Resources>
+
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -126,27 +194,106 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <Image Grid.Row="0"
-                       Source="/Assets/Images/Soon_Image.png" 
-                       Stretch="UniformToFill"
-                       Margin="10"/>
+                    <helix:HelixViewport3D Grid.Row="0"
+                               Style="{StaticResource StilHolograma3D}"
+                               ShowViewCube="False"
+                               Background="Transparent">
+                        <helix:DefaultLights/>
+                        <helix:FileModelVisual3D Source="Assets\Models\Chapter1\intxlan.obj">
+                            <helix:FileModelVisual3D.Transform>
+                                <Transform3DGroup>
+                                    <ScaleTransform3D ScaleX="3" ScaleY="3" ScaleZ="3"/>
+
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0,1,0" Angle="176"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="1,0,0" Angle="30"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+
+                                </Transform3DGroup>
+
+                            </helix:FileModelVisual3D.Transform>
+                        </helix:FileModelVisual3D>
+                    </helix:HelixViewport3D>
+
+                    <math:FormulaControl Grid.Row="0"
+                             Style="{StaticResource StilFormulaNormal}"
+                             Formula="\int x^n \, dx = \frac{x^{n+1}}{n+1} + C"
+                             Foreground="White"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Margin="20"
+                             Scale="30"/>
 
                     <TextBlock Grid.Row="1"
-                           Text=""
-                           Foreground="White"
-                           TextAlignment="Center"
-                           Margin="10"/>
+               Text="1"
+               Foreground="White"
+               TextAlignment="Center"
+               Margin="10"/>
 
                 </Grid>
 
             </Button>
 
 
-            <Button Margin="10"
-                Background="#2A2A40"
-                BorderThickness="0"
-                MaxWidth="350" MaxHeight="300"
-                Click="BasicFormulasButton_Click">
+            <Button MaxWidth="350" MaxHeight="300" 
+                    BorderThickness="0"
+                    Margin="10" 
+                    Background="#2A2A40">
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="CardBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="2"
+                                BorderBrush="Transparent"
+                                CornerRadius="10"
+                                Padding="15">
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="CardBorder" Property="BorderBrush" Value="#00D4FF"/>
+                                <Setter TargetName="CardBorder" Property="Background" Value="#32324A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Button.Template>
+
+                <Button.Resources>
+
+                    <Style x:Key="StilHolograma3D" TargetType="helix:HelixViewport3D">
+                        <Setter Property="Visibility" Value="Hidden"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMouseOver,
+                                 RelativeSource={RelativeSource AncestorType=Button}}"
+                                 Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+
+                    <Style x:Key="StilFormulaNormal" TargetType="math:FormulaControl">
+                        <Setter Property="Visibility" Value="Visible"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Button}}" Value="True">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+
+                </Button.Resources>
+
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -154,27 +301,106 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <Image Grid.Row="0"
-                       Source="/Assets/Images/Soon_Image.png" 
-                       Stretch="UniformToFill"
-                       Margin="10"/>
+                    <helix:HelixViewport3D Grid.Row="0"
+                       Style="{StaticResource StilHolograma3D}"
+                       ShowViewCube="False"
+                       Background="Transparent">
+                        <helix:DefaultLights/>
+                        <helix:FileModelVisual3D Source="Assets\Models\Chapter1\intelax.obj">
+                            <helix:FileModelVisual3D.Transform>
+                                <Transform3DGroup>
+                                    <ScaleTransform3D ScaleX="3" ScaleY="3" ScaleZ="3"/>
+
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0,1,0" Angle="176"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="1,0,0" Angle="30"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+
+                                </Transform3DGroup>
+
+                            </helix:FileModelVisual3D.Transform>
+                        </helix:FileModelVisual3D>
+                    </helix:HelixViewport3D>
+
+                    <math:FormulaControl Grid.Row="0"
+                         Style="{StaticResource StilFormulaNormal}"
+                         Formula="\int e^x \, dx = e^x + C"
+                         Foreground="White"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         Margin="20"
+                         Scale="30"/>
 
                     <TextBlock Grid.Row="1"
-                           Text=""
-                           Foreground="White"
-                           TextAlignment="Center"
-                           Margin="10"/>
+                        Text="1"
+                        Foreground="White"
+                        TextAlignment="Center"
+                        Margin="10"/>
 
                 </Grid>
 
             </Button>
 
 
-            <Button Margin="10"
-                Background="#2A2A40"
-                BorderThickness="0"
-                MaxWidth="350" MaxHeight="300"
-                Click="BasicFormulasButton_Click">
+            <Button MaxWidth="350" MaxHeight="300" 
+                    BorderThickness="0"
+                    Margin="10" 
+                    Background="#2A2A40">
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="CardBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="2"
+                                BorderBrush="Transparent"
+                                CornerRadius="10"
+                                Padding="15">
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="CardBorder" Property="BorderBrush" Value="#00D4FF"/>
+                                <Setter TargetName="CardBorder" Property="Background" Value="#32324A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Button.Template>
+
+                <Button.Resources>
+
+                    <Style x:Key="StilHolograma3D" TargetType="helix:HelixViewport3D">
+                        <Setter Property="Visibility" Value="Hidden"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMouseOver,
+                     RelativeSource={RelativeSource AncestorType=Button}}"
+                     Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+
+                    <Style x:Key="StilFormulaNormal" TargetType="math:FormulaControl">
+                        <Setter Property="Visibility" Value="Visible"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Button}}" Value="True">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+
+                </Button.Resources>
+
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -182,27 +408,106 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <Image Grid.Row="0"
-                       Source="/Assets/Images/Soon_Image.png" 
-                       Stretch="UniformToFill"
-                       Margin="10"/>
+                    <helix:HelixViewport3D Grid.Row="0"
+                                           Style="{StaticResource StilHolograma3D}"
+                                           ShowViewCube="False"
+                                           Background="Transparent">
+                        <helix:DefaultLights/>
+                        <helix:FileModelVisual3D Source="Assets\Models\Chapter1\intsinx.obj">
+                            <helix:FileModelVisual3D.Transform>
+                                <Transform3DGroup>
+                                    <ScaleTransform3D ScaleX="3" ScaleY="3" ScaleZ="3"/>
+
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0,1,0" Angle="176"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="1,0,0" Angle="30"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+
+                                </Transform3DGroup>
+
+                            </helix:FileModelVisual3D.Transform>
+                        </helix:FileModelVisual3D>
+                    </helix:HelixViewport3D>
+
+                    <math:FormulaControl Grid.Row="0"
+                                         Style="{StaticResource StilFormulaNormal}"
+                                         Formula="\int \sin{x} \, dx = -\cos{x} + C"
+                                         Foreground="White"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Margin="20"
+                                         Scale="25"/>
 
                     <TextBlock Grid.Row="1"
-                           Text=""
-                           Foreground="White"
-                           TextAlignment="Center"
-                           Margin="10"/>
+                                Text="1"
+                                Foreground="White"
+                                TextAlignment="Center"
+                                Margin="10"/>
 
                 </Grid>
 
             </Button>
 
 
-            <Button Margin="10"
-                Background="#2A2A40"
-                BorderThickness="0"
-                MaxWidth="350" MaxHeight="300"
-                Click="BasicFormulasButton_Click">
+            <Button MaxWidth="350" MaxHeight="300" 
+        BorderThickness="0"
+        Margin="10" 
+        Background="#2A2A40">
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="CardBorder"
+                    Background="{TemplateBinding Background}"
+                    BorderThickness="2"
+                    BorderBrush="Transparent"
+                    CornerRadius="10"
+                    Padding="15">
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="CardBorder" Property="BorderBrush" Value="#00D4FF"/>
+                                <Setter TargetName="CardBorder" Property="Background" Value="#32324A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Button.Template>
+
+                <Button.Resources>
+
+                    <Style x:Key="StilHolograma3D" TargetType="helix:HelixViewport3D">
+                        <Setter Property="Visibility" Value="Hidden"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMouseOver,
+         RelativeSource={RelativeSource AncestorType=Button}}"
+         Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+
+                    <Style x:Key="StilFormulaNormal" TargetType="math:FormulaControl">
+                        <Setter Property="Visibility" Value="Visible"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Button}}" Value="True">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+
+                </Button.Resources>
+
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -210,16 +515,48 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <Image Grid.Row="0"
-                       Source="/Assets/Images/Soon_Image.png" 
-                       Stretch="UniformToFill"
-                       Margin="10"/>
+                    <helix:HelixViewport3D Grid.Row="0"
+                               Style="{StaticResource StilHolograma3D}"
+                               ShowViewCube="False"
+                               Background="Transparent">
+                        <helix:DefaultLights/>
+                        <helix:FileModelVisual3D Source="Assets\Models\Chapter1\intdin1peraddinxla2plusala2dxobj.obj">
+                            <helix:FileModelVisual3D.Transform>
+                                <Transform3DGroup>
+                                    <ScaleTransform3D ScaleX="1.8" ScaleY="1.8" ScaleZ="1.8"/>
+
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0,1,0" Angle="176"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="1,0,0" Angle="30"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+
+                                </Transform3DGroup>
+
+                            </helix:FileModelVisual3D.Transform>
+                        </helix:FileModelVisual3D>
+                    </helix:HelixViewport3D>
+
+                    <math:FormulaControl Grid.Row="0"
+                             Style="{StaticResource StilFormulaNormal}"
+                             Formula="\int \frac{1}{\sqrt{x^2+a^2}} \, dx = \ln|x+\sqrt{x^2+a^2}| + C"
+                             Foreground="White"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Margin="20"
+                             Scale="15"/>
 
                     <TextBlock Grid.Row="1"
-                           Text=""
-                           Foreground="White"
-                           TextAlignment="Center"
-                           Margin="10"/>
+                    Text="1"
+                    Foreground="White"
+                    TextAlignment="Center"
+                    Margin="10"/>
 
                 </Grid>
 

@@ -61,11 +61,12 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Verify Answer" Width="150" Height="45" Margin="0,0,10,0"
+                <Button x:Name="VerifyAnswer"
+                        Content="Verify Answer" Width="150" Height="45" Margin="0,0,10,0"
                         Background="#00D4FF" Foreground="#1A1A2E" FontSize="16" FontWeight="Bold" BorderThickness="0" Click="VerifyAnswer_Click"/>
 
                 <Button Content="Next" Width="100" Height="45"
-                        Background="#00D4FF" Foreground="#1A1A2E" FontSize="16" FontWeight="Bold" BorderThickness="0"/>
+                        Background="#00D4FF" Foreground="#1A1A2E" FontSize="16" FontWeight="Bold" BorderThickness="0" Click="NextProblemButton_Click"/>
             </StackPanel>
 
         </Grid>

@@ -22,6 +22,14 @@
     <None Remove="Assets\Images\Trigonometry_Image.png" />
     <None Remove="Assets\Models\Chapter1\int1pex.mtl" />
     <None Remove="Assets\Models\Chapter1\int1pex.obj" />
+    <None Remove="Assets\Models\Chapter1\intdin1peraddinxla2plusala2dxobj.mtl" />
+    <None Remove="Assets\Models\Chapter1\intdin1peraddinxla2plusala2dxobj.obj" />
+    <None Remove="Assets\Models\Chapter1\intelax.mtl" />
+    <None Remove="Assets\Models\Chapter1\intelax.obj" />
+    <None Remove="Assets\Models\Chapter1\intsinx.mtl" />
+    <None Remove="Assets\Models\Chapter1\intsinx.obj" />
+    <None Remove="Assets\Models\Chapter1\intxlan.mtl" />
+    <None Remove="Assets\Models\Chapter1\intxlan.obj" />
     <None Remove="Assets\Models\int1pex.obj" />
   </ItemGroup>
 
@@ -32,10 +40,37 @@
     <Content Include="Assets\Models\Chapter1\int1pex.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Models\Chapter1\intdin1peraddinxla2plusala2dxobj.mtl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Models\Chapter1\intdin1peraddinxla2plusala2dxobj.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Models\Chapter1\intelax.mtl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Models\Chapter1\intelax.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Models\Chapter1\intsinx.mtl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Models\Chapter1\intsinx.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Models\Chapter1\intxlan.mtl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Models\Chapter1\intxlan.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AddressXception.WalletConnect.Core" Version="1.7.3" />
+    <PackageReference Include="AddressXception.WalletConnect.Desktop" Version="1.7.3" />
     <PackageReference Include="HelixToolkit.Wpf" Version="3.1.2" />
+    <PackageReference Include="QRCoder" Version="1.7.0" />
     <PackageReference Include="WpfMath" Version="2.1.0" />
   </ItemGroup>
 

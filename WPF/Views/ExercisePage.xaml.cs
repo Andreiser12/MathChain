@@ -2,6 +2,7 @@
 using MathChain.WPF.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 
 namespace MathChain.WPF.Views
@@ -11,13 +12,29 @@ namespace MathChain.WPF.Views
     /// </summary>
     public partial class ExercisePage : Page
     {
-        private double exactSolution = 1.0;
-        private double epsilon = 0.001;
+        private WolframService _wolfram;
+        private double _currentExactSolution = 0;
+        private double _epsilon = 10;
         public ExercisePage()
         {
             InitializeComponent();
-            string mockWolframAlphaResponse = @"\int_{1}^{e} \frac{1}{x} \,dx";
-            FormulaDisplay.Formula = mockWolframAlphaResponse;
+            _wolfram = new WolframService();
+
+            LoadNewProblemAsync();
+        }
+
+        private async void LoadNewProblemAsync()
+        {
+            var (query, latex) = _wolfram.GenerateRandomIntegral();
+
+            FormulaDisplay.Formula = "\\text{Conectare Wolfram...}";
+
+            VerifyAnswer.IsEnabled = false;
+
+            _currentExactSolution = await _wolfram.GetExactSolutionAsync(query);
+
+            FormulaDisplay.Formula = latex;
+            VerifyAnswer.IsEnabled = true;
         }
 
         private void GoToFormulas_Click(object sender, RoutedEventArgs e)
@@ -26,27 +43,32 @@ namespace MathChain.WPF.Views
 
         private void VerifyAnswer_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            string userInput = AnswerBox.Text.Trim();
+            string userInput = AnswerBox.Text.Replace(",", ".");
 
             if (double.TryParse(userInput, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double userAnswer))
             {
-                if (Math.Abs(userAnswer - exactSolution) <= epsilon)
+                if (Math.Abs(userAnswer*1000 - _currentExactSolution*1000) <= _epsilon)
                 {
-                    System.Windows.MessageBox.Show("Corect! Ai rezolvat perfect integrala.", "Rezultat", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-
-                    AnswerBox.BorderBrush = System.Windows.Media.Brushes.LimeGreen;
+                    MessageBox.Show("Răspuns Corect! Validat de Wolfram Alpha.", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+                    AnswerBox.BorderBrush = Brushes.LimeGreen;
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("Incorect. Mai verifică o dată calculele!", "Rezultat", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
-                    AnswerBox.BorderBrush = System.Windows.Media.Brushes.Red;
+                    MessageBox.Show($"Greșit! Încearcă din nou.", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+                    AnswerBox.BorderBrush = Brushes.Red;
                 }
             }
             else
             {
-                System.Windows.MessageBox.Show("Te rog să introduci un număr valid (folosește punctul pentru zecimale, ex: 1.002).", "Eroare format", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                MessageBox.Show("Introdu un număr valid!", "Atenție", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+        }
+
+        private void NextProblemButton_Click(object sender, RoutedEventArgs e)
+        {
+            AnswerBox.Text = "";
+            AnswerBox.BorderBrush = Brushes.Gray;
+            LoadNewProblemAsync();
         }
     }
 }

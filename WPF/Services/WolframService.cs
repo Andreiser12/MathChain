@@ -5,7 +5,7 @@ namespace MathChain.WPF.Services
 {
     class WolframService
     {
-        private readonly string _appId = "";
+        private readonly string _appId = Environment.GetEnvironmentVariable("WOLFRAM_API_KEY");
         private readonly HttpClient _client;
         private readonly Random _random;
 

@@ -43,16 +43,6 @@ namespace MathChain.Domain.Repositories
 
         public IEnumerable<MathProblem> GetByDifficulty(DifficultyLevel difficulty)
         {
-            //List<MathProblem> difficultyProblems = new List<MathProblem>();
-            //foreach (var problem in _problems)
-            //{
-            //    if (problem.Difficulty == difficulty)
-            //    {
-            //        difficultyProblems.Add(problem);
-            //    }
-            //}
-            //return difficultyProblems;
-
             return _problems.Where(p => p.Difficulty == difficulty);
         }
 

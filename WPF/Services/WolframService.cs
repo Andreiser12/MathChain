@@ -35,7 +35,15 @@ namespace MathChain.WPF.Services
             {
                 string url = $"http://api.wolframalpha.com/v2/query?input={Uri.EscapeDataString(mathQuery)}&appid={_appId}";
 
-                HttpResponseMessage response = await _client.GetAsync(url);
+                var response = await _client.GetAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    string errorContent = await response.Content.ReadAsStringAsync();
+
+                    return 0;
+                }
+
                 response.EnsureSuccessStatusCode();
 
                 string xmlResponse = await response.Content.ReadAsStringAsync();

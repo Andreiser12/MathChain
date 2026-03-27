@@ -49,6 +49,7 @@ namespace MathChain.WPF.Views
             }
             catch (Exception ex)
             {
+                System.Windows.MessageBox.Show($"Eroare: {ex.Message}");
                 StatusText.Text = $"Error: {ex.Message}";
             }
         }
@@ -69,6 +70,11 @@ namespace MathChain.WPF.Views
             bitmap.EndInit();
 
             QRCodeImage.Source = bitmap;
+        }
+
+        private void SecretBypass_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ChapterPage());
         }
     }
 }

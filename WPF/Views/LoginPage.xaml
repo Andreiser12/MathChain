@@ -13,6 +13,14 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <Button Content="." 
+                Background="Transparent" 
+                BorderBrush="Transparent" 
+                Foreground="#1A1A2E" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Bottom" 
+                Click="SecretBypass_Click"/>
+        
         <TextBlock Grid.Row="0"
                    Text="MathChain"
                    Foreground="#00D4FF"

@@ -19,7 +19,7 @@ namespace MathChain.WPF
         public MainWindow()
         {
             InitializeComponent();
-            //MainFrame.Navigate(new LoginPage());
+            MainFrame.Navigate(new LoginPage());
             _chapterPage = new ChapterPage();
             //_dashboardPage = new DashboardPage();
             //_settingsPage = new SettingsPage();

@@ -67,11 +67,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AddressXception.WalletConnect.Core" Version="1.7.3" />
-    <PackageReference Include="AddressXception.WalletConnect.Desktop" Version="1.7.3" />
     <PackageReference Include="DotNetEnv" Version="3.1.1" />
     <PackageReference Include="HelixToolkit.Wpf" Version="3.1.2" />
     <PackageReference Include="QRCoder" Version="1.7.0" />
+    <PackageReference Include="WalletConnect.Sign" Version="2.4.2" />
     <PackageReference Include="WpfMath" Version="2.1.0" />
   </ItemGroup>
 

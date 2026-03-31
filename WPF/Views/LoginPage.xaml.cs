@@ -45,7 +45,7 @@ namespace MathChain.WPF.Views
                 AppSession.WalletAddress = walletAddress;
 
                 await Task.Delay(1000);
-                NavigationService.Navigate(new ChapterPage());
+                NavigationService.Navigate(new DashboardPage());
             }
             catch (Exception ex)
             {
@@ -74,7 +74,7 @@ namespace MathChain.WPF.Views
 
         private void SecretBypass_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ChapterPage());
+            NavigationService.Navigate(new DashboardPage());
         }
     }
 }

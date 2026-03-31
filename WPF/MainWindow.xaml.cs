@@ -10,7 +10,7 @@ namespace MathChain.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        //private readonly DashboardPage _dashboardPage;
+        private readonly DashboardPage _dashboardPage;
         private readonly ChapterPage _chapterPage;
         //private readonly SettingsPage _settingsPage;
         //private readonly AccountPage _accountPage;
@@ -19,9 +19,9 @@ namespace MathChain.WPF
         public MainWindow()
         {
             InitializeComponent();
-            //MainFrame.Navigate(new LoginPage());
+            MainFrame.Navigate(new LoginPage());
             _chapterPage = new ChapterPage();
-            //_dashboardPage = new DashboardPage();
+            _dashboardPage = new DashboardPage();
             //_settingsPage = new SettingsPage();
             //_accountPage = new AccountPage();
             //MainFrame.Navigate(_dashboardPage);
@@ -29,6 +29,7 @@ namespace MathChain.WPF
 
         private void DashboardButton_Click(object sender, RoutedEventArgs e)
         {
+            MainFrame.Navigate(_dashboardPage);
         }
 
         private void ChaptersButton_Click(object sender, RoutedEventArgs e)

@@ -2,11 +2,6 @@
 using MathChain.Domain.Entities;
 using MathChain.Domain.Enums;
 using MathChain.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MathChain.Tests.Domain
 {
@@ -16,7 +11,6 @@ namespace MathChain.Tests.Domain
         public void GetAll_RetrurnsAllProblems()
         {
             var inMemoryRepo = new InMemoryMathProblemRepository();
-
             var result = inMemoryRepo.GetAll();
             result.Should().NotBeEmpty();
             result.Should().HaveCountGreaterThan(0);

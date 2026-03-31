@@ -1,4 +1,7 @@
-﻿using System.Net.Http;
+﻿using System.Globalization;
+using System.Net.Http;
+using System.Text.RegularExpressions;
+using System.Windows;
 using System.Xml.Linq;
 
 namespace MathChain.WPF.Services
@@ -79,24 +82,24 @@ namespace MathChain.WPF.Services
                     {
                         var parts = resultText.Split('/');
                         if (parts.Length == 2 &&
-                            double.TryParse(parts[0], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double numarator) &&
-                            double.TryParse(parts[1], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double numitor) &&
+                            double.TryParse(parts[0], NumberStyles.Any, CultureInfo.InvariantCulture, out double numarator) &&
+                            double.TryParse(parts[1], NumberStyles.Any, CultureInfo.InvariantCulture, out double numitor) &&
                             numitor != 0)
                         {
                             return numarator / numitor;
                         }
                     }
 
-                    var match = System.Text.RegularExpressions.Regex.Match(resultText, @"[-+]?[0-9]*\.?[0-9]+");
+                    var match = Regex.Match(resultText, @"[-+]?[0-9]*\.?[0-9]+");
                     if (match.Success)
                     {
-                        if (double.TryParse(match.Value, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double exactResult))
+                        if (double.TryParse(match.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out double exactResult))
                         {
                             return exactResult;
                         }
                     }
 
-                    System.Windows.MessageBox.Show($"Eșec la parsare. Textul brut de la Wolfram a fost: '{rawText}'");
+                    MessageBox.Show($"Eșec la parsare. Textul brut de la Wolfram a fost: '{rawText}'");
                     return 0;
                 }
 
@@ -104,7 +107,7 @@ namespace MathChain.WPF.Services
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show("Eroare de sistem: \n" + ex.Message);
+                MessageBox.Show("Eroare de sistem: \n" + ex.Message);
                 return 0;
             }
         }

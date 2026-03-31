@@ -1,5 +1,7 @@
 ﻿using FluentAssertions;
 using MathChain.Domain.Entities;
+using MathChain.Domain.Enums;
+using MathChain.Domain.Repositories;
 
 namespace MathChain.Tests.Domain
 {
@@ -54,5 +56,6 @@ namespace MathChain.Tests.Domain
             var result = integralProblem.ValidateSolution("0.334");
             result.Should().BeTrue();
         }
+
     }
 }

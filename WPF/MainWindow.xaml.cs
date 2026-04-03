@@ -24,7 +24,6 @@ namespace MathChain.WPF
             _dashboardPage = new DashboardPage();
             //_settingsPage = new SettingsPage();
             //_accountPage = new AccountPage();
-            //MainFrame.Navigate(_dashboardPage);
         }
 
         private void DashboardButton_Click(object sender, RoutedEventArgs e)

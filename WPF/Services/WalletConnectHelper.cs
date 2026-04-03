@@ -1,9 +1,8 @@
-﻿using System.ComponentModel;
-using System.Security.Policy;
-using WalletConnectSharp.Core;
+﻿using WalletConnectSharp.Core;
 using WalletConnectSharp.Sign;
 using WalletConnectSharp.Sign.Models;
 using WalletConnectSharp.Sign.Models.Engine;
+using WalletConnectSharp.Storage;
 
 namespace MathChain.WPF.Services
 {
@@ -20,6 +19,7 @@ namespace MathChain.WPF.Services
             var options = new SignClientOptions()
             {
                 ProjectId = projectId,
+                Storage = new InMemoryStorage(),
                 Metadata = new Metadata()
                 {
                     Name = "MathChain",
@@ -38,13 +38,12 @@ namespace MathChain.WPF.Services
                     {
                         "eip155", new ProposedNamespace()
                         {
-                            Methods = new[] { "eth_sendTransaction", "personal_sign" },
-                            Chains = new[] { "eip155:11155111" },
-                            Events = new[] { "chainChanged", "accountsChanged" }
+                            Methods = ["eth_sendTransaction", "personal_sign"],
+                            Chains = ["eip155:11155111"],
+                            Events = ["chainChanged", "accountsChanged"]
                         }
                     }
                 }
-                
             };
 
             _connectionData = await _client.Connect(connectOptions);

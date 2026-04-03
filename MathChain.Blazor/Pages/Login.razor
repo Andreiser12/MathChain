@@ -1,0 +1,63 @@
+﻿@page "/"
+@page "/login"
+@inject IJSRuntime JS
+@inject AppSession Session
+@inject NavigationManager Nav
+
+
+<MudContainer MaxWidth="MaxWidth.Small" Class="mt-16">
+	<MudPaper Elevation="4" Class="pa-8 d-flex flex-column align-center gap-4">
+		<MudText Typo="Typo.h4">Connect Wallet</MudText>
+
+		<MudButton Variant="Variant.Filled"
+				   Color="Color.Primary"
+				   @onclick="ConnectWallet">
+			Connect MetaMask
+		</MudButton>
+
+		@if (!string.IsNullOrEmpty(_address))
+		{
+			<MudText Typo="Typo.body1"
+					 Color="Color.Success">
+				Connected:@_address[..8]...
+			</MudText>
+		}
+
+		@if (!string.IsNullOrEmpty(_errorMessage))
+		{
+			<MudAlert Severity="Severity.Error">@_errorMessage</MudAlert>
+		}
+	</MudPaper>
+</MudContainer>
+
+
+
+@code
+{
+	string _address = string.Empty;
+	string _errorMessage = string.Empty;
+
+	protected override void OnInitialized()
+	{
+		if (Session.IsConnected)
+		{
+			Nav.NavigateTo("/chapters");
+		}
+	}
+
+	async Task ConnectWallet()
+	{
+		_address = await JS.InvokeAsync<string>("connectMetaMask");
+
+		if (string.IsNullOrEmpty(_address))
+		{
+			_errorMessage = "Failed to connect MetaMask. Please ensure you have MetaMask installed and try again.";
+			return;
+		}
+
+		Session.WalletAddress = _address;
+		Session.IsConnected = true;
+		Nav.NavigateTo("/chapters");
+
+	}
+}

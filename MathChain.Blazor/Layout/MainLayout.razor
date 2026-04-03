@@ -1,0 +1,47 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="@_mudTheme" IsDarkMode=true/>
+    <MudDialogProvider/>
+    <MudSnackbarProvider/>
+
+    <MudLayout>
+        <MudAppBar>
+            <MudButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())"></MudButton>
+			<MudText Typo="Typo.h6">MathChain</MudText>
+        </MudAppBar>
+
+    <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
+            <MudNavMenu>
+                <MudNavLink Href="/dashboard" Icon="@Icons.Material.Filled.Dashboard">Dashboard</MudNavLink>
+                <MudNavLink Href="/chapters" Icon="@Icons.Material.Filled.MenuBook">Chapters</MudNavLink>
+                <MudNavLink Href="/settings" Icon="@Icons.Material.Filled.Settings">Settings</MudNavLink>
+                <MudNavLink Href="/account" Icon="@Icons.Material.Filled.AccountCircle">Account</MudNavLink>
+            </MudNavMenu>
+        </MudDrawer>
+
+        <MudMainContent>
+			@Body
+        </MudMainContent>
+
+    </MudLayout>
+
+@code 
+{
+    private MudTheme _mudTheme = new MudTheme()
+    {
+        PaletteDark = new PaletteDark()
+        {
+            Primary = Colors.Indigo.Accent4,
+            Background = "#1A1A2E",
+            Surface = "#16213E",
+			AppbarBackground = "#0F3460"
+        }
+	};
+
+    private bool _drawerOpen = true;
+
+    private void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+	}
+}

@@ -1,0 +1,117 @@
+﻿@page "/chapters"
+@inject IJSRuntime JS
+@inject AppSession Session
+@inject NavigationManager Nav
+
+<style>
+	.hover-effect {
+		transition: all 0.3s ease-in-out;
+		border: 2px solid transparent;
+	}
+
+		.hover-effect:hover {
+			transform: translateY(-5px);
+			border: 2px solid #536DFE;
+			box-shadow: 0 0 15px rgba(83, 109, 254, 0.4);
+		}
+
+</style>
+
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4">
+	<MudText Typo="Typo.h4" Align="Align.Center" Class="mb-8">Select a Chapter</MudText>
+
+	<MudGrid>
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/calculus")'>
+				<MudCardMedia Image="Assets/Images/Calculus_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Calculus</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/algebra")'>
+				<MudCardMedia Image="Assets/Images/Algebra_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Algebra</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/geometry")'>
+				<MudCardMedia Image="Assets/Images/Geometry_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Geometry</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/trigonometry")'>
+				<MudCardMedia Image="Assets/Images/Trigonometry_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Trigonometry</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/statistics")'>
+				<MudCardMedia Image="Assets/Images/Statistics_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Statistics</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/artificial_intelligence")'>
+				<MudCardMedia Image="Assets/Images/AI_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Artificial Intelligence</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+	</MudGrid>
+</MudContainer>
+
+
+
+@code
+{
+	protected override void OnInitialized()
+	{
+		if (!Session.IsConnected)
+		{
+			Nav.NavigateTo("/login");
+		}
+	}
+}

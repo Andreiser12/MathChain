@@ -1,0 +1,36 @@
+﻿@page "/artificial_intelligence"
+@inject IJSRuntime JS
+@inject AppSession Session
+@inject NavigationManager Nav
+
+<style>
+	.hover-effect {
+		transition: all 0.3s ease-in-out;
+		border: 2px solid transparent;
+	}
+
+	.hover-effect:hover {
+		transform: translateY(-5px);
+		border: 2px solid #536DFE;
+		box-shadow: 0 0 15px rgba(83, 109, 254, 0.4);
+	}
+
+</style>
+
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4">
+	<MudText Typo="Typo.h4" Align="Align.Center" Class="mb-8">Artificial Intelligence available soon!</MudText>
+</MudContainer>
+
+
+
+@code
+{
+	protected override void OnInitialized()
+	{
+		if (!Session.IsConnected)
+		{
+			Nav.NavigateTo("/login");
+		}
+	}
+}

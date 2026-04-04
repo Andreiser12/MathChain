@@ -1,0 +1,89 @@
+﻿@page "/basic_formulas"
+@inject IJSRuntime JS
+
+<style>
+	.formula-card {
+		position: relative;
+		height: 150px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+		border-radius: 8px;
+		background-color: #16213E;
+	}
+
+	.formula-2d {
+		position: absolute;
+		transition: opacity 0.3s ease-in-out;
+		opacity: 1;
+		width: 100%;
+		text-align: center;
+	}
+
+	.formula-3d {
+		position: absolute;
+		transition: opacity 0.3s ease-in-out;
+		opacity: 0;
+		pointer-events: auto;
+		width: 100%;
+		height: 100%;
+	}
+
+	.formula-card:hover .formula-2d {
+		opacity: 0;
+	}
+
+	.formula-card:hover .formula-3d {
+		opacity: 1;
+	}
+
+</style>
+
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-6">
+	<MudText Typo="Typo.h4" Align="Align.Center" Class="mb-8">Basic Formulas</MudText>
+
+	<MudGrid>
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4" Class="p-4">
+				<MudText Typo="Typo.subtitle1" Align="Align.Center" Class="mb-2"></MudText>
+
+				<div class="formula-card" @onmouseenter="Load3DModel" @onmouseleave="Unload3DModel">
+
+					<div class="formula-2d">
+						<span id="formula1-2d">$$\int \frac{1}{x} \,dx = \ln|x| + C$$</span>
+					</div>
+
+					<div class="formula-3d">
+						<canvas id="formula1-canvas"></canvas>
+					</div>
+
+				</div>
+			</MudCard>
+		</MudItem>
+	</MudGrid>
+</MudContainer>
+
+
+
+@code
+{
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await JS.InvokeVoidAsync("formatMath");
+		}
+	}
+
+	private async Task Load3DModel()
+	{
+		await JS.InvokeVoidAsync("math3D.loadModel", "formula1-canvas", "Assets/3DModels/int1pex.glb");
+	}
+
+	private async Task Unload3DModel()
+	{
+		await JS.InvokeVoidAsync("math3D.stopModel", "formula1-canvas");
+	}
+}

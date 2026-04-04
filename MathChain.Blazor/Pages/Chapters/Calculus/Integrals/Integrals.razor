@@ -1,0 +1,52 @@
+﻿@page "/integrals"
+@inject IJSRuntime JS
+@inject AppSession Session
+@inject NavigationManager Nav
+
+<style>
+	.hover-effect {
+		transition: all 0.3s ease-in-out;
+		border: 2px solid transparent;
+	}
+
+		.hover-effect:hover {
+			transform: translateY(-5px);
+			border: 2px solid #536DFE;
+			box-shadow: 0 0 15px rgba(83, 109, 254, 0.4);
+		}
+
+</style>
+
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4">
+	<MudText Typo="Typo.h4" Align="Align.Center" Class="mb-8">Select a Chapter</MudText>
+
+	<MudGrid>
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/basic_formulas")'>
+				<MudCardMedia Image="Assets/Images/BasicFormulas_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Basic Formulas</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+	</MudGrid>
+</MudContainer>
+
+
+
+@code
+{
+	protected override void OnInitialized()
+	{
+		if (!Session.IsConnected)
+		{
+			Nav.NavigateTo("/login");
+		}
+	}
+}

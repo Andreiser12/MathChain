@@ -98,9 +98,6 @@
     <Resource Include="Assets\Images\Geometry_Image.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\Images\int1pex.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Assets\Images\Integrals_Image.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

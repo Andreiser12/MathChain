@@ -1,4 +1,4 @@
-#  MathChain: Web3 Educational SaaS
+#  MathChain
 
 ![Visual Studio](https://img.shields.io/badge/Visual%20Studio-5C2D91.svg?style=for-the-badge&logo=visual-studio&logoColor=white)
 ![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
@@ -17,79 +17,66 @@
 
 
 ##  Overview
-  MathChain is a decentralized educational platform that bridges 
-advanced mathematics, 3D visualization, and Web3 technology. 
-It transforms traditional 2D mathematical formulas into interactive 
-3D meshes and leverages a decentralized pay-per-view SaaS model 
-for step-by-step problem-solving.It was initially conceived as a **desktop application using 
-WPF**, where core concepts like 
-OOP architecture, MVVM pattern, Helix Toolkit 3D rendering, and 
-Nethereum blockchain integration were designed and implemented. 
-
-  During development, it became clear that a **Web3 application 
-belongs in the browser**. This insight led to a architectural pivot 
-toward **Blazor WebAssembly**, replacing the desktop frontend while 
-preserving the entire backend, blockchain layer, and domain logic.
-
-  The WPF prototype remains in the repository as a testament to the 
-iterative development process and demonstrates proficiency in both 
-desktop and web C# development paradigms.
+Mathchain is a Web3 Software as a Service educational platform, its purpose is to have a better understanding about mathematical problems in domains such as calculus, algebra, geometry, artificial intelligence, etc. The approach of learning formulas consists of transforming classic 2D formulas into interactive 3D formulas. Each learning chapter concludes with an evaluation system, using the Wolfram Alpha API to generate mathematical problems.
 
 ##  Key Features
-- **Interactive 3D Math Visualization**: Renders mathematical 
-  formulas as interactive 3D meshes.
-- **Algorithmic Problem Generation**: Integrates Wolfram Alpha API 
-  to dynamically generate, compute, and validate calculus integrals 
-  off-chain.
-- **Web3 Micro-Transactions**: Custom Solidity Smart Contract on 
-  Ethereum Sepolia testnet handles payments for unlocking 
-  step-by-step solutions.
-- **Decentralized Authentication**: MetaMask wallet login replaces 
-  vulnerable centralized authentication systems.
+- Interaction with 3D models.
+- Generating and validating math problems.
+- A Solidity Smart Contract deployed on Ethereum Sepolia testnet for payments to unlock step-by-step solutions.
+- Decentralized authentication via Metamask/Phantom wallet.
 
 ## Tech Stack
 
 ### Frontend
-- **Blazor WebAssembly** — primary web interface
+- **Blazor WebAssembly** — web interface
 - **MudBlazor** — UI component library
+- **Three.js** — 3D model rendering in browser
+- **KaTeX** — LaTeX formula rendering
 - **WPF + Helix Toolkit** — desktop prototype with 3D rendering
-- **WpfMath** — LaTeX formula rendering
-- **JavaScript Interop** — MetaMask integration
+- **WpfMath** — LaTeX formula rendering (WPF)
+- **JavaScript Interop** — wallet integration
 
 
 ### Backend
-- **ASP.NET Core Web API** — REST API layer
+- **ASP.NET Core Web API** — REST API architecture
 - **Wolfram Alpha API** — mathematical validation
+- **xUnit** — unit testing framework
 - **C# / .NET 8**
 
-### Blockchain / Web3
+### Blockchain and Web3
 - **Solidity** — smart contract language
 - **Remix IDE** — contract development and deployment
 - **Ethereum Sepolia Testnet** — blockchain network
 - **Nethereum** — C# Web3 integration
 - **WalletConnect v2** — wallet connectivity
 
+> [!NOTE]  
+>  Mathchain was initially developed as a desktop application using WPF. However, realizing that an educational application like this is much better suited for the browser, the project is currently moving to **Blazor WebAssembly**. The original WPF prototype will remain available in the repository until the Blazor version reaches the same level.
+
 ## Architecture
-MathChain uses a hybrid architecture to maximize efficiency 
+ A hybrid architecture is used to maximize efficiency 
 and minimize gas fees:
 
 1. **Off-Chain Validation**: Mathematical validation is handled 
-   by Wolfram Alpha for zero-latency feedback.
+   by Wolfram Alpha..
 2. **On-Chain SaaS Logic**: Premium content unlocking is handled 
-   by a Smart Contract — a trustless, automated vending machine 
-   for educational content.
+   by a Smart Contract.
 3. **Decentralized Identity**: User identity is established through 
-   MetaMask wallet signatures — no passwords, no database.
+   MetaMask/Phantom wallet signatures.
 
 ## Prerequisites
-- Visual Studio 2022
-- .NET 8 SDK
-- MetaMask browser extension
-- A Wolfram Alpha Developer AppID
-- An Infura/Alchemy RPC URL for Sepolia
-- A MetaMask wallet with Sepolia Test ETH
-- A WalletConnect Cloud Project ID
-- A .env file in the root of the WPF project containing: CONTRACT_ADDRESS, INFURA_RPC_URL, METAMASK_PRIVATE_KEY, WOLFRAM_API_KEY and PROJECT_ID
+- **Visual Studio 2022** or above installed.
+- **.NET 8 SDK** installed.
+- **MetaMask/Phantom** browser extension installed and a wallet funded with **Sepolia Test ETH**.
+- A **Wolfram Alpha Developer AppID**.
+- An **Infura** or **Alchemy** RPC URL for the Sepolia Testnet.
+- A **WalletConnect Cloud Project ID**.
+- A `.env` file located in the root of the WPF project containing the following variables:
+  ```env
+  CONTRACT_ADDRESS=your_contract_address
+  INFURA_RPC_URL=your_rpc_url
+  WOLFRAM_API_KEY=your_wolfram_api_key
+  PROJECT_ID=your_walletconnect_project_id
   
 ## Licence
 * This project is licensed under the MIT License.

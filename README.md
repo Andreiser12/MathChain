@@ -25,6 +25,56 @@ Mathchain is a Web3 Software as a Service educational platform, its purpose is t
 - A Solidity Smart Contract deployed on Ethereum Sepolia testnet for payments to unlock step-by-step solutions.
 - Decentralized authentication via Metamask/Phantom wallet.
 
+## Preview
+
+### Connect Wallet Page - WPF
+
+<div>
+<img src="Domain/Media/walletconnectpageWPF.png"/>
+</div>
+
+### Chapters Page - WPF
+
+<div>
+<img src="Domain/Media/chapterspageWPF.png"/>
+</div>
+
+### Video - WPF
+
+<div>
+<img src="Domain/Media/mathchainGIF.gif"/>
+</div>
+
+> [!NOTE]  
+>  The WPF project will be removed soon.
+
+### Connect Wallet Page - web
+
+<div>
+<img src="Domain/Media/connectwalletWEB.png"/>
+</div>
+
+### Chapters Page - web
+
+<div>
+<img src="Domain/Media/chaptersrageWEB.png"/>
+</div>
+
+### Latex Formula - web
+
+<div>
+<img src="Domain/Media/formulalatexWEB.png"/>
+</div>
+
+### 3D Formula - web
+
+<div>
+<img src="Domain/Media/formula3dWEB.png"/>
+</div>
+
+> [!NOTE]  
+>  All formulas are rendered in Blender.
+
 ## Tech Stack
 
 ### Frontend
@@ -77,6 +127,19 @@ and minimize gas fees:
   INFURA_RPC_URL=your_rpc_url
   WOLFRAM_API_KEY=your_wolfram_api_key
   PROJECT_ID=your_walletconnect_project_id
+  
+## Setup
+1. Clone the repository.
+2. Create `.env` file with required variables.
+3. Set Multiple Startup Projects: API + Blazor.
+4. Run the solution.
+
+## Roadmap
+- Wolfram Alpha integration in Blazor.
+- Delete WPF project.
+- Implement Dashboard, Account and Settings pages in Blazor project.
+- Bring more formulas from Blender.
+- Add a scientific calculator for exercise page.
   
 ## Licence
 * This project is licensed under the MIT License.

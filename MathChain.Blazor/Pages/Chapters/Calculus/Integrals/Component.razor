@@ -1,0 +1,59 @@
+<style>
+	.formula-card {
+		position: relative;
+		height: 150px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+		border-radius: 8px;
+		background-color: transparent;
+	}
+
+	.formula-2d {
+		position: absolute;
+		transition: opacity 0.3s ease-in-out;
+		opacity: 1;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+	}
+
+	.formula-2d .katex-display {
+		font-size: 2.2rem;
+		margin: 0 !important;
+		padding: 0 !important;
+		width: 100%;
+	}
+
+	.formula-2d .katex {
+		white-space: nowrap;
+	}
+
+	.formula-3d {
+		position: absolute;
+		transition: opacity 0.3s ease-in-out;
+		opacity: 0;
+		pointer-events: auto;
+		width: 100%;
+		height: 100%;
+	}
+
+	#shared-3d-canvas {
+		position: fixed;
+		pointer-events: none;
+		display: none;
+		z-index: 100;
+	}
+
+	.formula-card:hover .formula-2d {
+		opacity: 0;
+	}
+
+	.formula-card:hover .formula-3d {
+		opacity: 1;
+	}
+
+</style>

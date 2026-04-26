@@ -1,67 +1,33 @@
 ﻿@page "/basic_formulas"
 @inject IJSRuntime JS
 
-<style>
-	.formula-card {
-		position: relative;
-		height: 150px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		overflow: hidden;
-		border-radius: 8px;
-		background-color: transparent;
-	}
-
-	.formula-2d {
-		position: absolute;
-		transition: opacity 0.3s ease-in-out;
-		opacity: 1;
-		width: 100%;
-		text-align: center;
-	}
-
-	.formula-3d {
-		position: absolute;
-		transition: opacity 0.3s ease-in-out;
-		opacity: 0;
-		pointer-events: auto;
-		width: 100%;
-		height: 100%;
-	}
-
-	.formula-card:hover .formula-2d {
-		opacity: 0;
-	}
-
-	.formula-card:hover .formula-3d {
-		opacity: 1;
-	}
-
-</style>
+<Component/>
 
 
 <MudContainer MaxWidth="MaxWidth.Large" Class="mt-6">
 	<MudText Typo="Typo.h4" Align="Align.Center" Class="mb-8">Basic Formulas</MudText>
 
 	<MudGrid>
-		<MudItem xs="12" sm="6" md="4">
-			<MudCard Elevation="4" Class="p-4" Style="background-color: #222222">
-				<MudText Typo="Typo.subtitle1" Align="Align.Center" Class="mb-2"></MudText>
+		@foreach (var formula in _formulas)
+		{
+			<MudItem xs="12" sm="6" md="4">
+				<MudCard Elevation="4" Class="p-4" Style="background-color: #222222">
+					<MudText Typo="Typo.subtitle1" Align="Align.Center" Class="mb-2"></MudText>
 
-				<div class="formula-card" @onmouseenter="Load3DModel" @onmouseleave="Unload3DModel">
+					<div class="formula-card" @onmouseenter="(() => Load3DModel(formula))" @onmouseleave="(() => Unload3DModel(formula))">
+						<div class="formula-2d">
+							<span>
+								@formula.Latex
+							</span> 
+						</div>
 
-					<div class="formula-2d" style="font-size: 1.6em;">
-						<span id="formula1-2d">$$\int \frac{1}{x} \,dx = \ln|x| + C$$</span>
+						<div class="formula-3d">
+							<canvas id="@($"{formula.Id}-canvas")"></canvas>
+						</div>
 					</div>
-
-					<div class="formula-3d">
-						<canvas id="formula1-canvas"></canvas>
-					</div>
-
-				</div>
-			</MudCard>
-		</MudItem>
+				</MudCard>
+			</MudItem>
+		}
 	</MudGrid>
 </MudContainer>
 
@@ -69,21 +35,145 @@
 
 @code
 {
+	public class Formula
+	{
+		public string Id { get; set; } = "";
+		public string Latex { get; set; } = "";
+		public string ModelPath { get; set; } = "";
+	}
+
+	private List<Formula> _formulas = new List<Formula>
+	{
+		new Formula
+		{
+			Id = "formula1",
+			Latex = @"$$\int a \,dx = ax + C$$",
+			ModelPath = "Assets/3DModels/inta.glb"
+		},
+
+		new Formula
+		{
+			Id = "formula2",
+			Latex = @"$$\int x^n \,dx = \frac{x^{n+1}}{n+1} + C$$",
+			ModelPath = "Assets/3DModels/intxlan.glb"
+		},
+
+		new Formula
+		{
+			Id = "formula3",
+			Latex = @"$$\int \frac{1}{x} \,dx = \ln|x| + C$$",
+			ModelPath = "Assets/3DModels/int1pex.glb"
+		},
+
+		new Formula
+		{
+			Id = "formula4",
+			Latex = @"$$\int a^x \,dx = \frac{a^x}{\ln a} + C$$",
+			ModelPath = "Assets/3DModels/intalax.glb"
+		},
+
+		new Formula
+		{
+			Id = "formula5",
+			Latex = @"$$\int e^x \,dx = e^x + C$$",
+			ModelPath = "Assets/3DModels/intelax.glb"
+		},
+
+		new Formula
+		{
+			Id = "formula6",
+			Latex = @"$$\int \frac{1}{x^2-a^2} \,dx = \frac{1}{2a} \ln \left|\frac{x-a}{x+a}\right| + C$$",
+			ModelPath = "Assets/3DModels/int1pexla2minusala2.glb"
+		},
+
+		new Formula
+		{
+			Id = "formula7",
+			Latex = @"$$\int \frac{1}{x^2+a^2} \,dx = \frac{1}{a} \arctan{\frac{x}{a}} + C$$",
+			ModelPath = "Assets/3DModels/int1pexla2plusala2.glb"
+		},
+
+		new Formula
+		{
+			Id = "formula8",
+			Latex = @"$$\int \frac{1}{\sqrt{a^2-x^2}} \,dx = \arcsin{\frac{x}{a}} + C$$",
+			ModelPath = "Assets/3DModels/int1peradala2minusxla2.glb"
+		},
+
+		new Formula
+		{
+			Id = "formula9",
+			Latex = @"$$\int \frac{1}{\sqrt{x^2+a^2}} \,dx = \ln|x + \sqrt{x^2 + a^2}| + C$$",
+			ModelPath = "Assets/3DModels/int1peradxla2plusala2.glb"
+		},
+
+		new Formula
+		{
+			Id = "formula10",
+			Latex = @"$$\int \frac{1}{\sqrt{x^2-a^2}} \,dx = \ln|x + \sqrt{x^2 - a^2}| + C$$",
+			ModelPath = "Assets/3DModels/int1peradxla2minusala2.glb"
+		},
+
+		new Formula
+		{
+			Id = "formula11",
+			Latex = @"$$\int \sin x \,dx = -\cos x + C$$",
+			ModelPath = "Assets/3DModels/intsinx.glb"
+		},
+
+		new Formula
+		{
+			Id = "formula12",
+			Latex = @"$$\int \cos x \,dx = \sin x + C$$",
+			ModelPath = "Assets/3DModels/intcosx.glb"
+		},
+
+		new Formula
+		{
+			Id = "formula13",
+			Latex = @"$$\int \tan x \,dx = -\ln|\cos x| + C$$",
+			ModelPath = "Assets/3DModels/inttanx.glb"
+		},
+
+		new Formula
+		{
+			Id = "formula14",
+			Latex = @"$$\int \cot x \,dx = \ln|\sin x| + C$$",
+			ModelPath = "Assets/3DModels/intcotx.glb"
+		},
+
+		new Formula
+		{
+			Id = "formula15",
+			Latex = @"$$\int \frac{1}{cos^2{x}} \,dx = \tan x + C$$",
+			ModelPath = "Assets/3DModels/int1pecosla2x.glb"
+		},
+
+		new Formula
+		{
+			Id = "formula16",
+			Latex = @"$$\int \frac{1}{\sin^2{x}} \,dx = -\cot x + C$$",
+			ModelPath = "Assets/3DModels/int1pesinla2x.glb"
+		},
+	};
+
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
 		{
 			await JS.InvokeVoidAsync("formatMath");
+			await Task.Delay(200);
+			await JS.InvokeVoidAsync("autoScaleFormulas");
 		}
 	}
 
-	private async Task Load3DModel()
+	private async Task Load3DModel(Formula formula)
 	{
-		await JS.InvokeVoidAsync("math3D.loadModel", "formula1-canvas", "Assets/3DModels/int1pex.glb");
+		await JS.InvokeVoidAsync("math3D.loadModel", formula.Id + "-canvas", formula.ModelPath);
 	}
 
-	private async Task Unload3DModel()
+	private async Task Unload3DModel(Formula formula)
 	{
-		await JS.InvokeVoidAsync("math3D.stopModel", "formula1-canvas");
+		await JS.InvokeVoidAsync("math3D.stopModel", formula.Id + "-canvas", formula.ModelPath);
 	}
 }

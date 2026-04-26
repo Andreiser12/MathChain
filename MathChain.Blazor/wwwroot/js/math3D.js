@@ -3,6 +3,11 @@ window.math3D_instances = {};
 
 window.math3D = {
     loadModel: function (canvasId, modelPath) {
+        const existing = window.math3D_instances[canvasId];
+        if (existing) {
+            return;
+        }
+
         const canvas = document.getElementById(canvasId);
         if (!canvas) return;
 
@@ -19,6 +24,10 @@ window.math3D = {
         const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
         renderer.setSize(width, height);
         renderer.setPixelRatio(window.devicePixelRatio);
+
+        const pmremGenerator = new THREE.PMREMGenerator(renderer);
+        const environment = new THREE.RoomEnvironment();
+        scene.environment = pmremGenerator.fromScene(environment, 0.01).texture;
 
         const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 5);
         scene.add(hemiLight);
@@ -76,7 +85,7 @@ window.math3D = {
         const instance = window.math3D_instances[canvasId];
         if (instance) {
             cancelAnimationFrame(instance.animationId);
-
+            instance.renderer.dispose();
             delete window.math3D_instances[canvasId];
         }
     }

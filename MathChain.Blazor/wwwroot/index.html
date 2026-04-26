@@ -41,6 +41,26 @@
                 throwOnError: false
             });
         };
+
+        window.autoScaleFormulas = async function () {
+            await document.fonts.ready;
+
+            document.querySelectorAll('.formula-2d').forEach(container => {
+                const formula = container.querySelector('.katex-display');
+                if (!formula) return;
+
+                formula.style.transform = 'scale(1)';
+
+                const containerWidth = container.offsetWidth - 20;
+                const formulaWidth = formula.querySelector('.katex').offsetWidth;
+
+                if (formulaWidth > containerWidth) {
+                    const scale = containerWidth / formulaWidth;
+                    formula.style.transform = `scale(${scale})`;
+                    formula.style.transformOrigin = 'center';
+                }
+            });
+        };
     </script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.138.0/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.138.0/examples/js/loaders/GLTFLoader.js"></script>
@@ -51,6 +71,7 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.138.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.138.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.138.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.138.0/examples/js/environments/RoomEnvironment.js"></script>
     <script src="js/math3D.js"></script>
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
     <script src="js/wallet.js"></script>

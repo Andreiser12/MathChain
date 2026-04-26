@@ -20,8 +20,8 @@ window.math3D = {
         renderer.setSize(width, height);
         renderer.setPixelRatio(window.devicePixelRatio);
 
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
-        scene.add(ambientLight);
+        const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 5);
+        scene.add(hemiLight);
 
         const loader = new THREE.GLTFLoader();
         let loadedModel = null;
@@ -31,9 +31,7 @@ window.math3D = {
 
             loadedModel.traverse((node) => {
                 if (node.isMesh) {
-                    node.material.emissive = new THREE.Color(0x536DFE);
                     node.material.emissiveIntensity = 2.5;
-                    node.material.color = new THREE.Color(0xffffff);
                 }
             });
 

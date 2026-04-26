@@ -1,17 +1,14 @@
 ﻿using MathChain.Domain.Entities;
 using MathChain.Domain.Enums;
 using MathChain.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace MathChain.Domain.Repositories
 {
-    public class InMemoryMathProblemRepository : IMathProblemRepository
+    public class InMemoryMathProblemData : IMathProblemData
     {
         private readonly List<MathProblem> _problems;
 
-        public InMemoryMathProblemRepository()
+        public InMemoryMathProblemData()
         {
             _problems = new List<MathProblem> 
             {

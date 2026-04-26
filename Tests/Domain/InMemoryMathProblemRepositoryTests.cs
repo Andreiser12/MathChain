@@ -10,7 +10,7 @@ namespace MathChain.Tests.Domain
         [Fact]
         public void GetAll_RetrurnsAllProblems()
         {
-            var inMemoryRepo = new InMemoryMathProblemRepository();
+            var inMemoryRepo = new InMemoryMathProblemData();
             var result = inMemoryRepo.GetAll();
             result.Should().NotBeEmpty();
             result.Should().HaveCountGreaterThan(0);
@@ -19,7 +19,7 @@ namespace MathChain.Tests.Domain
         [Fact]
         public void GetById_ExistingId_ReturnsProblem()
         {
-            var inMemoryRepo = new InMemoryMathProblemRepository();
+            var inMemoryRepo = new InMemoryMathProblemData();
             var existingProblem = inMemoryRepo.GetAll().First();
             var result = inMemoryRepo.GetById(existingProblem.Id);
             result.Should().NotBeNull();
@@ -29,7 +29,7 @@ namespace MathChain.Tests.Domain
         [Fact]
         public void GetById_NonExistingId_ReturnsNull()
         {
-            var inMemoryRepo = new InMemoryMathProblemRepository();
+            var inMemoryRepo = new InMemoryMathProblemData();
             var guidRandom = Guid.NewGuid();
             var result = inMemoryRepo.GetById(guidRandom);
             result.Should().BeNull();
@@ -38,7 +38,7 @@ namespace MathChain.Tests.Domain
         [Fact]
         public void GetByDifficulty_Easy_ReturnsOnlyEasyProblems()
         {
-            var inMemoryRepo = new InMemoryMathProblemRepository();
+            var inMemoryRepo = new InMemoryMathProblemData();
             inMemoryRepo.Add(new IntegralProblem
             {
                 Id = Guid.NewGuid(),
@@ -60,7 +60,7 @@ namespace MathChain.Tests.Domain
         [Fact]
         public void Add_NewProblem_IncreasesCount()
         {
-            var inMemoryRepository = new InMemoryMathProblemRepository();
+            var inMemoryRepository = new InMemoryMathProblemData();
             var initialCount = inMemoryRepository.GetAll().Count();
             inMemoryRepository.Add(new IntegralProblem
             {

@@ -10,9 +10,9 @@ namespace MathChain.API.Controllers
     public class IntegralController: ControllerBase
     {
         private readonly IBlockchainService _blockchainService;
-        private readonly IMathProblemRepository _mathProblemRepository;
+        private readonly IMathProblemData _mathProblemRepository;
 
-        public IntegralController(IBlockchainService blockchainService, IMathProblemRepository mathProblemRepository)
+        public IntegralController(IBlockchainService blockchainService, IMathProblemData mathProblemRepository)
         {
             _blockchainService = blockchainService;
             _mathProblemRepository = mathProblemRepository;

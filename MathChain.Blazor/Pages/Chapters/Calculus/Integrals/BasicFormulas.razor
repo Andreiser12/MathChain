@@ -10,7 +10,7 @@
 		justify-content: center;
 		overflow: hidden;
 		border-radius: 8px;
-		background-color: #16213E;
+		background-color: transparent;
 	}
 
 	.formula-2d {
@@ -46,12 +46,12 @@
 
 	<MudGrid>
 		<MudItem xs="12" sm="6" md="4">
-			<MudCard Elevation="4" Class="p-4">
+			<MudCard Elevation="4" Class="p-4" Style="background-color: #222222">
 				<MudText Typo="Typo.subtitle1" Align="Align.Center" Class="mb-2"></MudText>
 
 				<div class="formula-card" @onmouseenter="Load3DModel" @onmouseleave="Unload3DModel">
 
-					<div class="formula-2d">
+					<div class="formula-2d" style="font-size: 1.6em;">
 						<span id="formula1-2d">$$\int \frac{1}{x} \,dx = \ln|x| + C$$</span>
 					</div>
 

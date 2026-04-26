@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace MathChain.Domain.Interfaces
 {
-    public interface IMathProblemRepository
+    public interface IMathProblemData
     {
         MathProblem GetById(Guid id);
         IEnumerable<MathProblem> GetAll();

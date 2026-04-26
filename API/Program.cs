@@ -16,7 +16,7 @@ var blockchainConfig = new BlockchainConfig();
 
 builder.Services.AddSingleton(blockchainConfig);
 builder.Services.AddSingleton<IBlockchainService, BlockchainService>();
-builder.Services.AddSingleton<IMathProblemRepository, InMemoryMathProblemRepository>();
+builder.Services.AddSingleton<IMathProblemData, InMemoryMathProblemData>();
 
 var app = builder.Build();
 

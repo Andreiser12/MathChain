@@ -27,18 +27,6 @@ Mathchain is a Web3 Software as a Service educational platform, its purpose is t
 
 ## Preview
 
-### Connect Wallet Page - WPF
-
-<div>
-<img src="Domain/Media/walletconnectpageWPF.png"/>
-</div>
-
-### Chapters Page - WPF
-
-<div>
-<img src="Domain/Media/chapterspageWPF.png"/>
-</div>
-
 ### Video - WPF
 
 <div>
@@ -48,28 +36,10 @@ Mathchain is a Web3 Software as a Service educational platform, its purpose is t
 > [!NOTE]  
 >  The WPF project will be removed soon.
 
-### Connect Wallet Page - web
+### Video - Blazor
 
 <div>
-<img src="Domain/Media/connectwalletWEB.png"/>
-</div>
-
-### Chapters Page - web
-
-<div>
-<img src="Domain/Media/chaptersrageWEB.png"/>
-</div>
-
-### Latex Formula - web
-
-<div>
-<img src="Domain/Media/formulalatexWEB.png"/>
-</div>
-
-### 3D Formula - web
-
-<div>
-<img src="Domain/Media/formula3dWEB.png"/>
+<img src="Domain/Media/mathchainwebGIF.gif"/>
 </div>
 
 > [!NOTE]  
@@ -134,7 +104,7 @@ and minimize gas fees:
 3. Set Multiple Startup Projects: API + Blazor.
 4. Run the solution.
 
-## Roadmap
+## What's next?
 - Wolfram Alpha integration in Blazor.
 - Delete WPF project.
 - Implement Dashboard, Account and Settings pages in Blazor project.

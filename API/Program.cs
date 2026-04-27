@@ -1,7 +1,7 @@
 using MathChain.Blockchain;
 using MathChain.Blockchain.Services;
 using MathChain.Domain.Interfaces;
-using MathChain.Domain.Repositories;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +16,6 @@ var blockchainConfig = new BlockchainConfig();
 
 builder.Services.AddSingleton(blockchainConfig);
 builder.Services.AddSingleton<IBlockchainService, BlockchainService>();
-builder.Services.AddSingleton<IMathProblemData, InMemoryMathProblemData>();
 
 var app = builder.Build();
 

@@ -1,5 +1,6 @@
 ﻿@page "/basic_formulas"
 @inject IJSRuntime JS
+@using MathChain.Domain.Entities
 
 <Component/>
 
@@ -35,125 +36,134 @@
 
 @code
 {
-	public class Formula
-	{
-		public string Id { get; set; } = "";
-		public string Latex { get; set; } = "";
-		public string ModelPath { get; set; } = "";
-	}
-
 	private List<Formula> _formulas = new List<Formula>
 	{
 		new Formula
 		{
-			Id = "formula1",
+			Id = Guid.NewGuid(),
 			Latex = @"$$\int a \,dx = ax + C$$",
-			ModelPath = "Assets/3DModels/inta.glb"
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals"
 		},
 
 		new Formula
 		{
-			Id = "formula2",
+			Id = Guid.NewGuid(),
 			Latex = @"$$\int x^n \,dx = \frac{x^{n+1}}{n+1} + C$$",
-			ModelPath = "Assets/3DModels/intxlan.glb"
+			ModelPath = "Assets/3DModels/intxlan.glb",
+			Category = "Integrals"
 		},
 
 		new Formula
 		{
-			Id = "formula3",
+			Id = Guid.NewGuid(),
 			Latex = @"$$\int \frac{1}{x} \,dx = \ln|x| + C$$",
-			ModelPath = "Assets/3DModels/int1pex.glb"
+			ModelPath = "Assets/3DModels/int1pex.glb",
+			Category = "Integrals"
 		},
 
 		new Formula
 		{
-			Id = "formula4",
+			Id = Guid.NewGuid(),
 			Latex = @"$$\int a^x \,dx = \frac{a^x}{\ln a} + C$$",
-			ModelPath = "Assets/3DModels/intalax.glb"
+			ModelPath = "Assets/3DModels/intalax.glb",
+			Category = "Integrals"
 		},
 
 		new Formula
 		{
-			Id = "formula5",
+			Id = Guid.NewGuid(),
 			Latex = @"$$\int e^x \,dx = e^x + C$$",
-			ModelPath = "Assets/3DModels/intelax.glb"
+			ModelPath = "Assets/3DModels/intelax.glb",
+			Category = "Integrals"
 		},
 
 		new Formula
 		{
-			Id = "formula6",
+			Id =Guid.NewGuid(),
 			Latex = @"$$\int \frac{1}{x^2-a^2} \,dx = \frac{1}{2a} \ln \left|\frac{x-a}{x+a}\right| + C$$",
-			ModelPath = "Assets/3DModels/int1pexla2minusala2.glb"
+			ModelPath = "Assets/3DModels/int1pexla2minusala2.glb",
+			Category = "Integrals"
 		},
 
 		new Formula
 		{
-			Id = "formula7",
+			Id = Guid.NewGuid(),
 			Latex = @"$$\int \frac{1}{x^2+a^2} \,dx = \frac{1}{a} \arctan{\frac{x}{a}} + C$$",
-			ModelPath = "Assets/3DModels/int1pexla2plusala2.glb"
+			ModelPath = "Assets/3DModels/int1pexla2plusala2.glb",
+			Category = "Integrals"
 		},
 
 		new Formula
 		{
-			Id = "formula8",
+			Id = Guid.NewGuid(),
 			Latex = @"$$\int \frac{1}{\sqrt{a^2-x^2}} \,dx = \arcsin{\frac{x}{a}} + C$$",
-			ModelPath = "Assets/3DModels/int1peradala2minusxla2.glb"
+			ModelPath = "Assets/3DModels/int1peradala2minusxla2.glb",
+			Category = "Integrals"
 		},
 
 		new Formula
 		{
-			Id = "formula9",
+			Id = Guid.NewGuid(),
 			Latex = @"$$\int \frac{1}{\sqrt{x^2+a^2}} \,dx = \ln|x + \sqrt{x^2 + a^2}| + C$$",
-			ModelPath = "Assets/3DModels/int1peradxla2plusala2.glb"
+			ModelPath = "Assets/3DModels/int1peradxla2plusala2.glb",
+			Category = "Integrals"
 		},
 
 		new Formula
 		{
-			Id = "formula10",
+			Id = Guid.NewGuid(),
 			Latex = @"$$\int \frac{1}{\sqrt{x^2-a^2}} \,dx = \ln|x + \sqrt{x^2 - a^2}| + C$$",
-			ModelPath = "Assets/3DModels/int1peradxla2minusala2.glb"
+			ModelPath = "Assets/3DModels/int1peradxla2minusala2.glb",
+			Category = "Integrals"
 		},
 
 		new Formula
 		{
-			Id = "formula11",
+			Id = Guid.NewGuid(),
 			Latex = @"$$\int \sin x \,dx = -\cos x + C$$",
-			ModelPath = "Assets/3DModels/intsinx.glb"
+			ModelPath = "Assets/3DModels/intsinx.glb",
+			Category = "Integrals"
 		},
 
 		new Formula
 		{
-			Id = "formula12",
+			Id = Guid.NewGuid(),
 			Latex = @"$$\int \cos x \,dx = \sin x + C$$",
-			ModelPath = "Assets/3DModels/intcosx.glb"
+			ModelPath = "Assets/3DModels/intcosx.glb",
+			Category = "Integrals"
 		},
 
 		new Formula
 		{
-			Id = "formula13",
+			Id = Guid.NewGuid(),
 			Latex = @"$$\int \tan x \,dx = -\ln|\cos x| + C$$",
-			ModelPath = "Assets/3DModels/inttanx.glb"
+			ModelPath = "Assets/3DModels/inttanx.glb",
+			Category = "Integrals"
 		},
 
 		new Formula
 		{
-			Id = "formula14",
+			Id = Guid.NewGuid(),
 			Latex = @"$$\int \cot x \,dx = \ln|\sin x| + C$$",
-			ModelPath = "Assets/3DModels/intcotx.glb"
+			ModelPath = "Assets/3DModels/intcotx.glb",
+			Category = "Integrals"
 		},
 
 		new Formula
 		{
-			Id = "formula15",
+			Id = Guid.NewGuid(),
 			Latex = @"$$\int \frac{1}{cos^2{x}} \,dx = \tan x + C$$",
-			ModelPath = "Assets/3DModels/int1pecosla2x.glb"
+			ModelPath = "Assets/3DModels/int1pecosla2x.glb",
+			Category = "Integrals"
 		},
 
 		new Formula
 		{
-			Id = "formula16",
+			Id = Guid.NewGuid(),
 			Latex = @"$$\int \frac{1}{\sin^2{x}} \,dx = -\cot x + C$$",
-			ModelPath = "Assets/3DModels/int1pesinla2x.glb"
+			ModelPath = "Assets/3DModels/int1pesinla2x.glb",
+			Category = "Integrals"
 		},
 	};
 

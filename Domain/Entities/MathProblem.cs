@@ -13,7 +13,6 @@ namespace MathChain.Domain.Entities
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public DifficultyLevel Difficulty { get; set; }
-        public string ModelPath { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
 
         public abstract string GetProblemStatement();

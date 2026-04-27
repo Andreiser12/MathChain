@@ -1,7 +1,6 @@
 ﻿using MathChain.API.DTOs;
-using MathChain.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+using MathChain.Domain.Interfaces;
 
 namespace MathChain.API.Controllers
 {
@@ -10,12 +9,10 @@ namespace MathChain.API.Controllers
     public class IntegralController: ControllerBase
     {
         private readonly IBlockchainService _blockchainService;
-        private readonly IMathProblemData _mathProblemRepository;
 
-        public IntegralController(IBlockchainService blockchainService, IMathProblemData mathProblemRepository)
+        public IntegralController(IBlockchainService blockchainService)
         {
             _blockchainService = blockchainService;
-            _mathProblemRepository = mathProblemRepository;
         }
 
         [HttpPost("submit")]

@@ -1,5 +1,6 @@
 ﻿@page "/basic_formulas"
 @inject IJSRuntime JS
+@inject IDialogService DialogService
 @using MathChain.Domain.Entities
 
 <Component/>
@@ -15,7 +16,10 @@
 				<MudCard Elevation="4" Class="p-4" Style="background-color: #222222">
 					<MudText Typo="Typo.subtitle1" Align="Align.Center" Class="mb-2"></MudText>
 
-					<div class="formula-card" @onmouseenter="(() => Load3DModel(formula))" @onmouseleave="(() => Unload3DModel(formula))">
+					<div class="formula-card" 
+						@onmouseenter="(() => Load3DModel(formula))"
+						@onmouseleave="(() => Unload3DModel(formula))"
+						@ondblclick="(() => OpenFormulaDialog(formula))">
 						<div class="formula-2d">
 							<span>
 								@formula.Latex
@@ -43,7 +47,8 @@
 			Id = Guid.NewGuid(),
 			Latex = @"$$\int a \,dx = ax + C$$",
 			ModelPath = "Assets/3DModels/inta.glb",
-			Category = "Integrals"
+			Category = "Integrals",
+			Description = "The integral of a constant a is the (constant * x), plus the constant of integration C."
 		},
 
 		new Formula
@@ -185,5 +190,22 @@
 	private async Task Unload3DModel(Formula formula)
 	{
 		await JS.InvokeVoidAsync("math3D.stopModel", formula.Id + "-canvas", formula.ModelPath);
+	}
+
+	private async Task OpenFormulaDialog(Formula formula)
+	{
+		var parameters = new DialogParameters<FormulaDialog>
+		{
+			{ x => x.Formula, formula}
+		};
+
+		var options = new DialogOptions
+		{
+			CloseOnEscapeKey = true,
+			MaxWidth = MaxWidth.Medium,
+			FullWidth = true
+		};
+
+		await DialogService.ShowAsync<FormulaDialog>("Formula Details", parameters, options);
 	}
 }

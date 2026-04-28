@@ -1,0 +1,56 @@
+﻿@inject IDialogService DialogService
+@inject	IJSRuntime JS
+@using MathChain.Blazor.Pages.Chapters.Calculus.Integrals
+@using MathChain.Domain.Entities
+@implements	IAsyncDisposable
+
+<Component/>
+
+<MudDialog Style="background-color: #222222;">
+	<DialogContent>
+		<div class="formula-3d-dialog">
+			<canvas id="@($"{Formula.Id}-dialog-canvas")"></canvas>
+		</div>
+
+		<MudText Class="mt-4">
+			@Formula.Description
+		</MudText>
+	</DialogContent>
+	<DialogActions>
+		<MudButton OnClick="Cancel" Variant="Variant.Outlined">Back</MudButton>
+		<MudButton OnClick="Practice" Variant="Variant.Filled" Color="Color.Primary">Practice</MudButton>
+	</DialogActions>
+</MudDialog>
+
+
+@code {
+
+    [CascadingParameter]
+    public IMudDialogInstance Dialog { get; set; }
+
+    [Parameter]
+    public Formula Formula { get; set; }
+
+    async Task Cancel()
+    {
+        Dialog.Cancel();
+    }
+
+    void Practice()
+    {
+
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await JS.InvokeVoidAsync("math3D.stopModel", Formula.Id + "-dialog-canvas");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+		if (firstRender)
+		{
+			await JS.InvokeVoidAsync("math3D.loadModel", Formula.Id + "-dialog-canvas", Formula.ModelPath);
+		}
+	}
+}

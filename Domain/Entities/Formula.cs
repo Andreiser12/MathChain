@@ -7,5 +7,6 @@ namespace MathChain.Domain.Entities
         public string Latex { get; set; } = string.Empty;
         public string ModelPath { get; set; } = string.Empty;
         public string Category { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
     }
 }

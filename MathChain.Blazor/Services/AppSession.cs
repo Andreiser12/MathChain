@@ -5,6 +5,8 @@
         private string _walletAddress = string.Empty;
         public bool IsConnected { get; set; } = false;
 
+        public HashSet<Guid> MarkedFormulas { get; set; } = new();
+
         public string WalletAddress
         {
             get => _walletAddress;

@@ -196,7 +196,8 @@
 	{
 		var parameters = new DialogParameters<FormulaDialog>
 		{
-			{ x => x.Formula, formula}
+			{ x => x.Formula, formula},
+			{ x => x.TotalFormulas, _formulas.Count  }
 		};
 
 		var options = new DialogOptions

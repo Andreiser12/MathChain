@@ -1,5 +1,6 @@
 ﻿@inject IDialogService DialogService
 @inject	IJSRuntime JS
+@inject AppSession Session
 @using MathChain.Blazor.Pages.Chapters.Calculus.Integrals
 @using MathChain.Domain.Entities
 @implements	IAsyncDisposable
@@ -17,29 +18,57 @@
 		</MudText>
 	</DialogContent>
 	<DialogActions>
-		<MudButton OnClick="Cancel" Variant="Variant.Outlined">Back</MudButton>
-		<MudButton OnClick="Practice" Variant="Variant.Filled" Color="Color.Primary">Practice</MudButton>
+		<MudStack Row="true" Style="width: 100%;" Justify="Justify.SpaceBetween">
+			<MudButton OnClick="Cancel" Variant="Variant.Outlined">Back</MudButton>
+
+			<MudButton OnClick="PracticeThis" Variant="Variant.Filled" Color="Color.Primary">
+				Practice This Formula
+			</MudButton>
+
+			<MudButton OnClick="PracticeAll" Variant="Variant.Filled" Color="Color.Primary" Disabled="!CanPracticeAll">
+				Practice All Formulas
+			</MudButton>
+
+			<MudButton OnClick="MarkAsSeen" Variant="Variant.Outlined" Color="Color.Secondary">
+				Mark as Seen
+			</MudButton>
+		</MudStack>
 	</DialogActions>
 </MudDialog>
 
 
 @code {
 
-    [CascadingParameter]
-    public IMudDialogInstance Dialog { get; set; }
+	[CascadingParameter]
+	public IMudDialogInstance Dialog { get; set; }
 
-    [Parameter]
-    public Formula Formula { get; set; }
+	[Parameter]
+	public Formula Formula { get; set; }
 
-    async Task Cancel()
-    {
-        Dialog.Cancel();
-    }
+	[Parameter]
+	public int TotalFormulas { get; set; }
 
-    void Practice()
-    {
+	bool CanPracticeAll => Session.MarkedFormulas.Count == TotalFormulas;
 
-    }
+	async Task Cancel()
+	{
+		Dialog.Cancel();
+	}
+
+	void PracticeThis()
+	{
+
+	}
+
+	void PracticeAll()
+	{
+
+	}
+
+	void MarkAsSeen()
+	{
+		Session.MarkedFormulas.Add(Formula.Id);
+	}
 
     public async ValueTask DisposeAsync()
     {

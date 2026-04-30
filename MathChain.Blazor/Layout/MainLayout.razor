@@ -1,22 +1,27 @@
 ﻿@inherits LayoutComponentBase
 @inject AppSession Session
+@inject NavigationManager Nav
 
 <MudThemeProvider Theme="@_mudTheme" IsDarkMode=true />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
-	
+
 	@if (Session.IsConnected)
 	{
-		<MudAppBar>
-			<MudButton Icon="@Icons.Material.Filled.Menu"
-					   Color="Color.Inherit"
-					   Edge="Edge.Start"
-					   OnClick="@((e) => DrawerToggle())">
-			</MudButton>
-			<MudText Typo="Typo.h6">MathChain</MudText>
-		</MudAppBar>
+		@if (!IsPracticePage())
+
+		{
+			<MudAppBar>
+				<MudButton Icon="@Icons.Material.Filled.Menu"
+						   Color="Color.Inherit"
+						   Edge="Edge.Start"
+						   OnClick="@((e) => DrawerToggle())">
+				</MudButton>
+				<MudText Typo="Typo.h6" Align="Align.Center">MathChain</MudText>
+			</MudAppBar>
+		}
 
 		<MudDrawer @bind-Open="_drawerOpen"
 				   Elevation="2">
@@ -27,9 +32,10 @@
 				<MudNavLink Href="/account" Icon="@Icons.Material.Filled.AccountCircle">Account</MudNavLink>
 			</MudNavMenu>
 		</MudDrawer>
+
 	}
 
-	<MudMainContent>
+	<MudMainContent Style="@(IsPracticePage() ? "padding-top: 0 !important;" : "")">
 		@Body
 	</MudMainContent>
 
@@ -53,5 +59,10 @@
 	private void DrawerToggle()
 	{
 		_drawerOpen = !_drawerOpen;
+	}
+
+	private bool IsPracticePage()
+	{
+		return Nav.Uri.Contains("/practice");
 	}
 }

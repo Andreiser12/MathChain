@@ -1,6 +1,7 @@
 ﻿@inject IDialogService DialogService
 @inject	IJSRuntime JS
 @inject AppSession Session
+@inject NavigationManager Nav
 @using MathChain.Blazor.Pages.Chapters.Calculus.Integrals
 @using MathChain.Domain.Entities
 @implements	IAsyncDisposable
@@ -21,12 +22,13 @@
 		<MudStack Row="true" Style="width: 100%;" Justify="Justify.SpaceBetween">
 			<MudButton OnClick="Cancel" Variant="Variant.Outlined">Back</MudButton>
 
-			<MudButton OnClick="PracticeThis" Variant="Variant.Filled" Color="Color.Primary">
-				Practice This Formula
+			<MudButton Variant="Variant.Filled" Color="Color.Primary"
+			@onclick='() => Nav.NavigateTo("/practice")'>
+				Practice This
 			</MudButton>
 
 			<MudButton OnClick="PracticeAll" Variant="Variant.Filled" Color="Color.Primary" Disabled="!CanPracticeAll">
-				Practice All Formulas
+				Practice All
 			</MudButton>
 
 			<MudButton OnClick="MarkAsSeen" Variant="Variant.Outlined" Color="Color.Secondary">

@@ -1,4 +1,6 @@
-﻿using System.Globalization;
+﻿using MathChain.Domain.Entities;
+using Microsoft.VisualBasic.ApplicationServices;
+using System.Globalization;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -18,18 +20,20 @@ namespace MathChain.WPF.Services
             _random = new Random();
         }
 
-        public (string wolframQuery, string latexDisplay) GenerateRandomIntegral()
+        public (string wolframQuery, string latexDisplay) GenerateRandomPrimitive(Formula formula)
         {
             int a = _random.Next(2,10);
             int n = _random.Next(2, 6);
-            int lower = _random.Next(0,2);
-            int upper = _random.Next(3,5);
 
+            if(formula.Latex.Contains("int a "))
+            {
+                string query = $"integrate {a}x^{n} from {lower} to {upper}";
+                string latex = $"\\int_{lower}^{upper} {a}x^{n} \\,dx";
 
-            string query = $"integrate {a}x^{n} from {lower} to {upper}";
-            string latex = $"\\int_{lower}^{upper} {a}x^{n} \\,dx";
+                return (query, latex);
+            }
 
-            return (query, latex);
+            
         }
 
         public async Task<double> GetExactSolutionAsync(string mathQuery)

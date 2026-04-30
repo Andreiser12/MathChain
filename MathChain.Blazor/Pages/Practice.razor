@@ -1,0 +1,62 @@
+﻿@page "/practice"
+@inject AppSession Session
+@inject NavigationManager Nav
+@inject IJSRuntime JS
+
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge"
+              Style="display: flex; flex-direction: column; height: 100vh; padding: 8px 16px; overflow: hidden; box-sizing: border-box;">
+
+	<MudText Typo="Typo.h4" Color="Color.Primary" Class="mb-4" Align="Align.Center">
+		Practice Arena
+	</MudText>
+
+    <MudGrid Style="flex: 1; min-height: 0;">
+        <MudItem xs="8" Style="height: 100%;">
+            <MudPaper Class="pa-6"
+                      Style="height: 100%; background-color: #16213E; display: flex; flex-direction: column;">
+
+                <div class="d-flex justify-center align-center" style="flex: 1">
+                    <MudText Typo="Typo.h4">...</MudText>
+                </div>
+                
+                <div>
+                    <MudText Class="mb-2">
+                        Enter your result (number with maximum 3 decimal places):
+                    </MudText>
+                    <MudTextField @bind-Value="_userAnswer"
+                                  Variant="Variant.Outlined" />
+                </div>
+                
+            </MudPaper>
+        </MudItem>
+
+        <MudItem xs="4" Style="height: 100%;">
+            <MudPaper Class="pa-4 d-flex justify-center align-center"
+                      Style="height: 100%; background-color: #16213E;">
+                <MudText Color="Color.Tertiary">Scientific Calculator</MudText>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+
+    <MudStack Row="true" Style="width: 100%;" Class="mt-2" Justify="Justify.SpaceBetween">
+
+        <MudButton Variant="Variant.Filled" Style="background-color: #B71C1C;" OnClick="ExitPractice">Exit</MudButton>
+        <MudButton Variant="Variant.Filled" Style="background-color: #4DD0E1">Previous</MudButton>
+        <MudButton Variant="Variant.Filled" Style="background-color: #FF8F00">Hint</MudButton>
+        <MudButton Variant="Variant.Filled" Style="background-color: #7C4DFF" Disabled="true">View Solution</MudButton>
+        <MudButton Variant="Variant.Filled" Style="background-color: #76FF03">Verify Answer</MudButton>
+        <MudButton Variant="Variant.Filled" Style="background-color: #4DD0E1">Next</MudButton>
+    </MudStack>
+
+</MudContainer>
+
+
+@code {
+
+    private string _userAnswer;
+    private void ExitPractice()
+    {
+        Nav.NavigateTo("/chapters");
+	}
+}

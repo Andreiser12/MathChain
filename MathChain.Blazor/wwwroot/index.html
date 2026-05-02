@@ -42,6 +42,17 @@
             });
         };
 
+        window.renderFormula = function (elementId, latex) {
+            const el = document.getElementById(elementId);
+            if (el) {
+                el.innerHTML = '';
+                katex.render(latex, el, {
+                    displayMode: true,
+                    throwOnError: false
+                });
+            }
+        };
+
         window.autoScaleFormulas = async function () {
             await document.fonts.ready;
 

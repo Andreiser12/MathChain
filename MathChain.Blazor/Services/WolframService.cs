@@ -1,5 +1,6 @@
 ﻿using MathChain.Domain.Entities;
 using Microsoft.Extensions.Logging;
+using System.Globalization;
 using static MudBlazor.CategoryTypes;
 
 namespace MathChain.Blazor.Services
@@ -27,19 +28,42 @@ namespace MathChain.Blazor.Services
 
             switch(function)
             {
-                case "int a ":
+                case @"$$\int a \,dx = ax + C$$":
                     query = $"integrate {a} from 0 to 1";
                     latex = $"\\int {a} \\,dx";
                     break;
 
-                case "int x^n ":
-                    query = $"integrate x^{n} from 0 to 1";
-                    latex = $"\\int x^{n} \\,dx";
+                case @"$$\int x^n \,dx = \frac{x^{n+1}}{n+1} + C$$":
+                    query = $"integrate {a}x^{n} from 0 to 1";
+                    latex = $"\\int {a}x^{n} \\,dx";
+                    break;
+                default:
                     break;
             }
 
-
             return (query, latex);
         }
+
+        public async Task<double> GetExactSolutionAsync(string query)
+        {
+            try
+            {
+                var response = await _client.GetAsync(
+                    $"http://localhost:5065/api/wolfram/solve?query={Uri.EscapeDataString(query)}");
+
+                response.EnsureSuccessStatusCode();
+                var content = await response.Content.ReadAsStringAsync();
+
+                return double.Parse(content, CultureInfo.InvariantCulture);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("API call error: " + ex.Message);
+                return 0;
+            }
+        }
+
+
+
     }
 }

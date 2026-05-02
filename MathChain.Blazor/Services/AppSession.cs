@@ -1,10 +1,11 @@
-﻿namespace MathChain.Blazor.Services
+﻿using MathChain.Domain.Entities;
+
+namespace MathChain.Blazor.Services
 {
     public class AppSession
     {
         private string _walletAddress = string.Empty;
         public bool IsConnected { get; set; } = false;
-
         public HashSet<Guid> MarkedFormulas { get; set; } = new();
 
         public string WalletAddress
@@ -23,5 +24,7 @@
         {
             OnChange?.Invoke();
         }
+
+        public Formula? CurrentFormula { get; set; }
     }
 }

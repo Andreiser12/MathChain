@@ -14,6 +14,8 @@ builder.Services.AddScoped<AppSession>();
 
 builder.Services.AddScoped<ApiService>();
 
+builder.Services.AddScoped<WolframService>();
+
 builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();

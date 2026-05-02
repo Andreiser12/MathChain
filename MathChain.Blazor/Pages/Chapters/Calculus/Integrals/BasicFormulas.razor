@@ -40,6 +40,8 @@
 
 @code
 {
+	private static readonly string requirement = "Calculate the primitive, then evaluate at x = 1 and C = 0.";
+
 	private List<Formula> _formulas = new List<Formula>
 	{
 		new Formula
@@ -48,7 +50,8 @@
 			Latex = @"$$\int a \,dx = ax + C$$",
 			ModelPath = "Assets/3DModels/inta.glb",
 			Category = "Integrals",
-			Description = "The integral of a constant a is the (constant * x), plus the constant of integration C."
+			Description = "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+			Requirement = $"{requirement}"
 		},
 
 		new Formula
@@ -56,7 +59,8 @@
 			Id = Guid.NewGuid(),
 			Latex = @"$$\int x^n \,dx = \frac{x^{n+1}}{n+1} + C$$",
 			ModelPath = "Assets/3DModels/intxlan.glb",
-			Category = "Integrals"
+			Category = "Integrals",
+			Requirement = $"{requirement}"
 		},
 
 		new Formula

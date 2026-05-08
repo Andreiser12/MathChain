@@ -3,6 +3,8 @@
 @inject NavigationManager Nav
 @inject WolframService Wolfram
 @inject IJSRuntime JS
+@inject ISnackbar Snackbar
+@using MathChain.Domain.Entities
 
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge"
@@ -60,7 +62,7 @@
         <MudButton Variant="Variant.Filled" Style="background-color: #4DD0E1">Previous</MudButton>
         <MudButton Variant="Variant.Filled" Style="background-color: #FF8F00">Hint</MudButton>
         <MudButton Variant="Variant.Filled" Style="background-color: #7C4DFF" Disabled="true">View Solution</MudButton>
-        <MudButton Variant="Variant.Filled" Style="background-color: #76FF03">Verify Answer</MudButton>
+        <MudButton Variant="Variant.Filled" Style="background-color: #76FF03" OnClick="VerifyAnswer">Verify Answer</MudButton>
         <MudButton Variant="Variant.Filled" Style="background-color: #4DD0E1">Next</MudButton>
     </MudStack>
 
@@ -92,21 +94,38 @@
 
     private async Task GenerateNewExercise()
     {
-		var (query, latex) = Wolfram.GenerateRandomPrimitive(Session.CurrentFormula!);
-		_currentLatex = latex;
-		_currentAnswer = await Wolfram.GetExactSolutionAsync(query);
+        var (query, latex) = Wolfram.GenerateRandomPrimitive(Session.CurrentFormula!);
+        _currentLatex = latex;
+        _currentAnswer = await Wolfram.GetExactSolutionAsync(query);
     }
 
     void ExitPractice()
     {
         Nav.NavigateTo("javascript:history.back()");
-	}
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!string.IsNullOrEmpty(_currentLatex))
         {
             await JS.InvokeVoidAsync("renderFormula", "formula-display", _currentLatex);
+        }
+    }
+
+    private void VerifyAnswer()
+    {
+        var problem = new IntegralProblem
+        {
+			CorrectSolution = _currentAnswer,
+        };
+
+        if (problem.ValidateSolution(_userAnswer))
+        {
+            Snackbar.Add("Your answer is correct!", Severity.Success);
+        }
+        else
+        {
+			Snackbar.Add($"Incorrect answer. Please try again. The correct answer is {_currentAnswer}", Severity.Error);
         }
     }
 }

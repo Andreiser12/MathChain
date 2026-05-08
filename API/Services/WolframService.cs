@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace MathChain.API.Services
@@ -19,28 +20,63 @@ namespace MathChain.API.Services
         {
             try
             {
-                string url = $"http://api.wolframalpha.com/v2/query?input={Uri.EscapeDataString(mathQuery)}&appid={_appId}&format=plaintext";
+                string url = $"http://api.wolframalpha.com/v2/query?input={Uri.EscapeDataString(mathQuery)}&appid={_appId}";
 
-                HttpResponseMessage response = await _client.GetAsync(url);
+                var response = await _client.GetAsync(url);
+
                 response.EnsureSuccessStatusCode();
 
                 string xmlResponse = await response.Content.ReadAsStringAsync();
                 XDocument doc = XDocument.Parse(xmlResponse);
 
-                var resultPod = doc.Descendants("pod")
-                    .FirstOrDefault(p => p.Attribute("title")?.Value == "Definite integral"
-                                      || p.Attribute("title")?.Value == "Result");
+                var resultPod = doc.Descendants("pod").FirstOrDefault(p =>
+                    (p.Attribute("primary") != null && p.Attribute("primary").Value.ToLower() == "true") ||
+                    (p.Attribute("title") != null && (
+                        p.Attribute("title").Value.ToLower() == "result" ||
+                        p.Attribute("title").Value.ToLower() == "decimal approximation" ||
+                        p.Attribute("title").Value.ToLower() == "definite integral"
+                    )));
 
                 if (resultPod == null)
+                {
+                    var titles = string.Join(", ", doc.Descendants("pod").Select(p => p.Attribute("title")?.Value));
                     return 0;
+                }
 
-                var plaintext = resultPod.Descendants("plaintext").FirstOrDefault()?.Value;
+                string resultText = resultPod.Descendants("plaintext").FirstOrDefault()?.Value;
 
-                if (string.IsNullOrEmpty(plaintext))
+                if (!string.IsNullOrEmpty(resultText))
+                {
+                    string rawText = resultText;
+
+                    if (resultText.Contains("≈")) resultText = resultText.Split('≈').Last();
+                    else if (resultText.Contains("=")) resultText = resultText.Split('=').Last();
+
+                    resultText = resultText.Trim();
+
+                    if (resultText.Contains("/"))
+                    {
+                        var parts = resultText.Split('/');
+                        if (parts.Length == 2 &&
+                            double.TryParse(parts[0], NumberStyles.Any, CultureInfo.InvariantCulture, out double numerator) &&
+                            double.TryParse(parts[1], NumberStyles.Any, CultureInfo.InvariantCulture, out double denominator) &&
+                            denominator != 0)
+                        {
+                            return numerator / denominator;
+                        }
+                    }
+
+                    var match = Regex.Match(resultText, @"[-+]?[0-9]*\.?[0-9]+");
+                    if (match.Success)
+                    {
+                        if (double.TryParse(match.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out double exactResult))
+                        {
+                            return exactResult;
+                        }
+                    }
+
                     return 0;
-
-                if (double.TryParse(plaintext, NumberStyles.Any, CultureInfo.InvariantCulture, out double result))
-                    return result;
+                }
 
                 return 0;
             }

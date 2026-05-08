@@ -27,16 +27,7 @@ Mathchain is a Web3 Software as a Service educational platform, its purpose is t
 
 ## Preview
 
-### Video - WPF
-
-<div>
-<img src="Domain/Media/mathchainGIF.gif"/>
-</div>
-
-> [!NOTE]  
->  The WPF project will be removed soon.
-
-### Video - Blazor
+### Video
 
 <div>
 <img src="Domain/Media/mathchainwebGIF.gif"/>
@@ -52,8 +43,6 @@ Mathchain is a Web3 Software as a Service educational platform, its purpose is t
 - **MudBlazor** — UI component library
 - **Three.js** — 3D model rendering in browser
 - **KaTeX** — LaTeX formula rendering
-- **WPF + Helix Toolkit** — desktop prototype with 3D rendering
-- **WpfMath** — LaTeX formula rendering (WPF)
 - **JavaScript Interop** — wallet integration
 
 
@@ -71,7 +60,7 @@ Mathchain is a Web3 Software as a Service educational platform, its purpose is t
 - **WalletConnect v2** — wallet connectivity
 
 > [!NOTE]  
->  Mathchain was initially developed as a desktop application using WPF. However, realizing that an educational application like this is much better suited for the browser, the project is currently moving to **Blazor WebAssembly**. The original WPF prototype will remain available in the repository until the Blazor version reaches the same level.
+>  Mathchain was initially developed as a desktop application using WPF. However, realizing that an educational application like this is much better suited for the browser, the project was moved to **Blazor WebAssembly**. The original WPF prototype was deleted on 08.05.2026.
 
 ## Architecture
  A hybrid architecture is used to maximize efficiency 
@@ -105,11 +94,11 @@ and minimize gas fees:
 4. Run the solution.
 
 ## What's next?
-- Wolfram Alpha integration in Blazor.
-- Delete WPF project.
+- Integrate the blockchain logic, including the step-by-step solution system.
 - Implement Dashboard, Account and Settings pages in Blazor project.
 - Bring more formulas from Blender.
 - Add a scientific calculator for exercise page.
+- Mobile version.
   
 ## Licence
 * This project is licensed under the MIT License.

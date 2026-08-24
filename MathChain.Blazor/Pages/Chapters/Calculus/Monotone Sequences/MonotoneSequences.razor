@@ -1,0 +1,112 @@
+﻿@page "/monotone-sequences"
+@inject IJSRuntime JS
+@inject IDialogService DialogService
+@using MathChain.Domain.Entities
+
+<Component />
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-6">
+	<MudText Typo="Typo.h4" Align="Align.Center" Class="mb-8">Monotone Sequences</MudText>
+
+	<MudGrid>
+		@foreach (var formula in _formulas)
+		{
+			<MudItem xs="12" sm="6" md="4">
+				<MudCard Elevation="4" Class="p-4" Style="background-color: #222222">
+					<MudText Typo="Typo.subtitle1" Align="Align.Center" Class="mb-2"></MudText>
+
+					<div class="formula-card"
+						 @onmouseenter="(() => Load3DModel(formula))"
+						 @onmouseleave="(() => Unload3DModel(formula))"
+						 @ondblclick="(() => OpenFormulaDialog(formula))">
+						<div class="formula-2d">
+							<span>
+								@formula.Latex
+							</span>
+						</div>
+
+						<div class="formula-3d">
+							<canvas id="@($"{formula.Id}-canvas")"></canvas>
+						</div>
+					</div>
+				</MudCard>
+			</MudItem>
+		}
+	</MudGrid>
+</MudContainer>
+
+@code
+{
+	private static readonly string requirement = "Calculate the limit";
+
+	private List<Formula> _formulas = new List<Formula>
+	{
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\begin{aligned}
+					&a_n \text{ is ascending if }a_n\leq a_{n+1}\\
+					&a_n \text{ is strictly ascending if }a_n< a_{n+1}\\
+					&a_n \text{ is descending if }a_n\geq a_{n+1}\\
+					&a_n \text{ is strictly descending if }a_n> a_{n+1}
+					\end{aligned}$$",
+			ModelPath = "Assets/3DModels/LR1.glb",
+			Category = "Remarkable Limits",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\begin{aligned}
+					&\text{We can verify if a sequence is ascending or}\\
+					&\text{descending by using:}\\
+					&a_{n+1}-a_n>0 \text{ or } \frac{a_{n+1}}{a_n}>1
+					\end{aligned}$$",
+			ModelPath = "Assets/3DModels/LR1.glb",
+			Category = "Remarkable Limits",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+	};
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await JS.InvokeVoidAsync("formatMath");
+			await Task.Delay(400);
+			await JS.InvokeVoidAsync("autoScaleFormulas");
+		}
+	}
+
+	private async Task Load3DModel(Formula formula)
+	{
+		await JS.InvokeVoidAsync("math3D.loadModel", formula.Id + "-canvas", formula.ModelPath);
+	}
+
+	private async Task Unload3DModel(Formula formula)
+	{
+		await JS.InvokeVoidAsync("math3D.stopModel", formula.Id + "-canvas", formula.ModelPath);
+	}
+
+	private async Task OpenFormulaDialog(Formula formula)
+	{
+		var parameters = new DialogParameters<FormulaDialog>
+		{
+			{ x => x.Formula, formula},
+			{ x => x.TotalFormulas, _formulas.Count  }
+		};
+
+		var options = new DialogOptions
+		{
+			CloseOnEscapeKey = true,
+			MaxWidth = MaxWidth.Medium,
+			FullWidth = true
+		};
+
+		await DialogService.ShowAsync<FormulaDialog>("Formula Details", parameters, options);
+	}
+}
+

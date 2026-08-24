@@ -22,7 +22,7 @@ namespace MathChain.Domain.Entities
         {
             const int epsilon = 10;
 
-            if(double.TryParse(solution, System.Globalization.NumberStyles.Float,
+            if(double.TryParse(solution, NumberStyles.Float,
                 CultureInfo.InvariantCulture, out double parsedUserSolution))
             {
                 double userSolution = parsedUserSolution * 1000;

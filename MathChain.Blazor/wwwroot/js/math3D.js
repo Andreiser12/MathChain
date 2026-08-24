@@ -46,8 +46,17 @@ window.math3D = {
 
             const box = new THREE.Box3().setFromObject(loadedModel);
             const size = box.getSize(new THREE.Vector3());
-            const maxDim = Math.max(size.x, size.y, size.z);
-            const scale = 2 / maxDim;
+
+            const vFOV = camera.fov * Math.PI / 180;
+            const visibleHeight = 2 * Math.tan(vFOV / 2) * camera.position.z;
+            const visibleWidth = visibleHeight * camera.aspect;
+
+            const margin = 0.85;
+
+            const scaleX = (visibleWidth * margin) / size.x;
+            const scaleY = (visibleHeight * margin) / size.y;
+            const scale = Math.min(scaleX, scaleY); 
+
             loadedModel.scale.setScalar(scale);
 
             const center = box.getCenter(new THREE.Vector3());

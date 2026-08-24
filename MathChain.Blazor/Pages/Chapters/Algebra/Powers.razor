@@ -1,0 +1,172 @@
+﻿@page "/powers"
+@inject IJSRuntime JS
+@inject IDialogService DialogService
+@using MathChain.Domain.Entities
+
+<Component />
+
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-6">
+	<MudText Typo="Typo.h4" Align="Align.Center" Class="mb-8">Powers</MudText>
+
+	<MudGrid>
+		@foreach (var formula in _formulas)
+		{
+			<MudItem xs="12" sm="6" md="4">
+				<MudCard Elevation="4" Class="p-4" Style="background-color: #222222">
+					<MudText Typo="Typo.subtitle1" Align="Align.Center" Class="mb-2"></MudText>
+
+					<div class="formula-card"
+						 @onmouseenter="(() => Load3DModel(formula))"
+						 @onmouseleave="(() => Unload3DModel(formula))"
+						 @ondblclick="(() => OpenFormulaDialog(formula))">
+						<div class="formula-2d">
+							<span>
+								@formula.Latex
+							</span>
+						</div>
+
+						<div class="formula-3d">
+							<canvas id="@($"{formula.Id}-canvas")"></canvas>
+						</div>
+					</div>
+				</MudCard>
+			</MudItem>
+		}
+	</MudGrid>
+</MudContainer>
+
+
+
+@code
+{
+	private static readonly string requirement = "";
+
+	private List<Formula> _formulas = new List<Formula>
+	{
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$a^0=1$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$a^n=a\cdot a\cdot a\cdot ... \cdot a \text{ - } n\text{ times}$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$a^{-1}=\frac{1}{a}$$",
+			ModelPath = "Assets/3DModels/int1pex.glb",
+			Category = "Integrals"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$(a^n)^m=a^{n\cdot m}$$",
+			ModelPath = "Assets/3DModels/intalax.glb",
+			Category = "Integrals"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$a^n\cdot a^m= a^{n+m}$$",
+			ModelPath = "Assets/3DModels/intelax.glb",
+			Category = "Integrals"
+		},
+
+		new Formula
+		{
+			Id =Guid.NewGuid(),
+			Latex = @"$$a^n\cdot b^n= (a+b)^n$$",
+			ModelPath = "Assets/3DModels/int1pexla2minusala2.glb",
+			Category = "Integrals"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\frac{a^n}{a^m}=a^{n-m}$$",
+			ModelPath = "Assets/3DModels/int1pexla2plusala2(2).glb",
+			Category = "Integrals"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\frac{a^n}{b^n}=\left( \frac{a}{b} \right)^n$$",
+			ModelPath = "Assets/3DModels/int1peradala2minusxla2.glb",
+			Category = "Integrals"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\left( \frac{a}{b} \right)^{-n} = \left( \frac{b}{a} \right)^n$$",
+			ModelPath = "Assets/3DModels/int1peradxla2plusala2.glb",
+			Category = "Integrals"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\begin{cases}
+						a>1 \Rightarrow a^n < a^m \Leftrightarrow n<m \\
+						a\in(0, 1) \Rightarrow a^n < a^m \Leftrightarrow n > m
+						\end{cases}$$",
+			ModelPath = "Assets/3DModels/int1peradxla2plusala2.glb",
+			Category = "Integrals"
+		},
+	};
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await JS.InvokeVoidAsync("formatMath");
+			await Task.Delay(200);
+			await JS.InvokeVoidAsync("autoScaleFormulas");
+		}
+	}
+
+	private async Task Load3DModel(Formula formula)
+	{
+		await JS.InvokeVoidAsync("math3D.loadModel", formula.Id + "-canvas", formula.ModelPath);
+	}
+
+	private async Task Unload3DModel(Formula formula)
+	{
+		await JS.InvokeVoidAsync("math3D.stopModel", formula.Id + "-canvas", formula.ModelPath);
+	}
+
+	private async Task OpenFormulaDialog(Formula formula)
+	{
+		var parameters = new DialogParameters<FormulaDialog>
+		{
+			{ x => x.Formula, formula},
+			{ x => x.TotalFormulas, _formulas.Count  }
+		};
+
+		var options = new DialogOptions
+		{
+			CloseOnEscapeKey = true,
+			MaxWidth = MaxWidth.Medium,
+			FullWidth = true
+		};
+
+		await DialogService.ShowAsync<FormulaDialog>("Formula Details", parameters, options);
+	}
+}
+

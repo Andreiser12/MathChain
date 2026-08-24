@@ -1,0 +1,150 @@
+﻿@page "/indeterminate-forms"
+@inject IJSRuntime JS
+@inject IDialogService DialogService
+@using MathChain.Domain.Entities
+
+<Component />
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-6">
+	<MudText Typo="Typo.h4" Align="Align.Center" Class="mb-8">Indeterminate Forms</MudText>
+
+	<MudGrid>
+		@foreach (var formula in _formulas)
+		{
+			<MudItem xs="12" sm="6" md="4">
+				<MudCard Elevation="4" Class="p-4" Style="background-color: #222222">
+					<MudText Typo="Typo.subtitle1" Align="Align.Center" Class="mb-2"></MudText>
+
+					<div class="formula-card"
+						 @onmouseenter="(() => Load3DModel(formula))"
+						 @onmouseleave="(() => Unload3DModel(formula))"
+						 @ondblclick="(() => OpenFormulaDialog(formula))">
+						<div class="formula-2d">
+							<span>
+								@formula.Latex
+							</span>
+						</div>
+
+						<div class="formula-3d">
+							<canvas id="@($"{formula.Id}-canvas")"></canvas>
+						</div>
+					</div>
+				</MudCard>
+			</MudItem>
+		}
+	</MudGrid>
+</MudContainer>
+
+@code
+{
+	private static readonly string requirement = "Calculate the limit";
+
+	private List<Formula> _formulas = new List<Formula>
+	{
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\frac{\infty}{\infty}\Rightarrow\begin{cases}
+					\text{the rule of degrees}\\
+					\text{ OR}\\
+					\text{forced factor}
+				\end{cases}$$",
+			ModelPath = "Assets/3DModels/LR1.glb",
+			Category = "Remarkable Limits",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\infty-\infty\Rightarrow\begin{cases}
+					\text{amplify with the conjugate for radicals}\\
+					\text{ OR}\\
+					\text{forced factor}
+				\end{cases}$$",
+			ModelPath = "Assets/3DModels/LR2.glb",
+			Category = "Remarkable Limits",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\frac{0}{0}\Rightarrow \text{remarcable limits}$$",
+			ModelPath = "Assets/3DModels/LR3.glb",
+			Category = "Remarkable Limits",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$1^\infty\Rightarrow \text{the number } e$$",
+			ModelPath = "Assets/3DModels/LR4.glb",
+			Category = "Remarkable Limits",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$0^0\text{ and }\infty^\infty\Rightarrow \lim_{n\to \infty}x^{y_n}_n=\lim_{n\to \infty}e^{y_n\ln{x_n}}=e^{\lim\limits_{n\to \infty}y_n\ln{x_n}}$$",
+			ModelPath = "Assets/3DModels/LR5.glb",
+			Category = "Remarkable Limits",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id =Guid.NewGuid(),
+			Latex = @"$$0\cdot \infty\Rightarrow\lim_{n\to \infty}x_ny_n=\begin{cases}
+					\frac{x_n}{\frac{1}{y_n}}\Rightarrow \frac{0}{0}\\
+					\text{ OR }\\
+					\frac{y_n}{\frac{1}{x_n}}\Rightarrow \frac{\infty}{\infty}
+					\end{cases}$$",
+			ModelPath = "Assets/3DModels/LR6.glb",
+			Category = "Remarkable Limits",
+			Requirement = $"{requirement}"
+		},
+	};
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await JS.InvokeVoidAsync("formatMath");
+			await Task.Delay(400);
+			await JS.InvokeVoidAsync("autoScaleFormulas");
+		}
+	}
+
+	private async Task Load3DModel(Formula formula)
+	{
+		await JS.InvokeVoidAsync("math3D.loadModel", formula.Id + "-canvas", formula.ModelPath);
+	}
+
+	private async Task Unload3DModel(Formula formula)
+	{
+		await JS.InvokeVoidAsync("math3D.stopModel", formula.Id + "-canvas", formula.ModelPath);
+	}
+
+	private async Task OpenFormulaDialog(Formula formula)
+	{
+		var parameters = new DialogParameters<FormulaDialog>
+		{
+			{ x => x.Formula, formula},
+			{ x => x.TotalFormulas, _formulas.Count  }
+		};
+
+		var options = new DialogOptions
+		{
+			CloseOnEscapeKey = true,
+			MaxWidth = MaxWidth.Medium,
+			FullWidth = true
+		};
+
+		await DialogService.ShowAsync<FormulaDialog>("Formula Details", parameters, options);
+	}
+}
+

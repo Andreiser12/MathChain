@@ -19,7 +19,192 @@
 
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4">
-	<MudText Typo="Typo.h4" Align="Align.Center" Class="mb-8">Algebra available soon!</MudText>
+	<MudText Typo="Typo.h4" Align="Align.Center" Class="mb-8">Select a Chapter</MudText>
+
+	<MudGrid>
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/abb-calc")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Abbreviated Calculation</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/aritmetic-progressions")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Aritmetic Progressions</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/geometric-progressions")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Geometric Progressions</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/powers")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Powers</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/radicals")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Radicals</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/whole-part")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Whole Part</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/fractional-part")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Fractional Part</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/logarithms")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Logarithms</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/absolute-value")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Absolute Value</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/functions")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Functions</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/combinatorics")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Combinatorics</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/complex-numbers")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Complex Numbers</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/matrices")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Matrices</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/composition-laws")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Composition Laws</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+	</MudGrid>
 </MudContainer>
 
 

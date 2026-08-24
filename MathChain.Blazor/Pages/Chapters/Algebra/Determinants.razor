@@ -1,0 +1,263 @@
+﻿@page "/determinants"
+@inject IJSRuntime JS
+@inject IDialogService DialogService
+@using MathChain.Domain.Entities
+
+<Component />
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-6">
+	<MudText Typo="Typo.h4" Align="Align.Center" Class="mb-8">Determinants</MudText>
+
+	<MudGrid>
+		@foreach (var formula in _formulas)
+		{
+			<MudItem xs="12" sm="6" md="4">
+				<MudCard Elevation="4" Class="p-4" Style="background-color: #222222">
+					<MudText Typo="Typo.subtitle1" Align="Align.Center" Class="mb-2"></MudText>
+
+					<div class="formula-card"
+						 @onmouseenter="(() => Load3DModel(formula))"
+						 @onmouseleave="(() => Unload3DModel(formula))"
+						 @ondblclick="(() => OpenFormulaDialog(formula))">
+						<div class="formula-2d">
+							<span>
+								@formula.Latex
+							</span>
+						</div>
+
+						<div class="formula-3d">
+							<canvas id="@($"{formula.Id}-canvas")"></canvas>
+						</div>
+					</div>
+				</MudCard>
+			</MudItem>
+		}
+	</MudGrid>
+</MudContainer>
+
+
+
+@code
+{
+	private static readonly string requirement = "";
+
+	private List<Formula> _formulas = new List<Formula>
+	{
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\text{Sarrus's Rule}$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\begin{gather*}
+					\det{A}=\begin{vmatrix}
+						a & b & c \\
+						d & e & f \\
+						g & h & i
+					\end{vmatrix}=a\cdot (-1)^{1+1}\cdot \begin{vmatrix}
+						e&f\\
+						h&i
+					\end{vmatrix}+b\cdot (-1)^{1+2}\cdot \begin{vmatrix}
+						d&f\\
+						g&i
+					\end{vmatrix}+c\cdot (-1)^{1+3}\cdot \begin{vmatrix}
+						d&e\\
+						g&h
+					\end{vmatrix}\\
+					a,\text{ }b,\text{ }c \text{ must be on the same line or column}\\
+					b\cdot(-1)^{1+2}\implies\\
+					1=\text{current line of }b\\
+					2=\text{current column of }b
+				\end{gather*}$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\begin{vmatrix}
+					a & a & a \\
+					d & e & f \\
+					a & a & a
+				\end{vmatrix}=0$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\begin{vmatrix}
+					0 & 0 & 0 \\	
+					d & e & f \\
+					g & h & i
+				\end{vmatrix}=0$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\begin{vmatrix}
+					x\cdot a & x\cdot b \\
+					x\cdot c & x\cdot d \\
+				\end{vmatrix}=x\cdot \begin{vmatrix}
+					 a & b \\
+					 c & d \\
+				\end{vmatrix}$$ ",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\begin{vmatrix}
+					a+e & b+f\\
+					c+g & d+h
+				\end{vmatrix}=\begin{vmatrix}
+					 a & b \\
+					 c & d \\
+				\end{vmatrix}+\begin{vmatrix}
+					 e & f \\
+					 g & h \\
+				\end{vmatrix}$$ ",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\det{A}=\det{(A^t)}$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\det{(A\cdot B)}=det{A}\cdot \det{B}$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\det{(A^n)}=(\det{A})^n$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$A=\begin{vmatrix}
+					1 & 1 & 1 \\
+					a & b & c \\
+					a^2 & b^2 & c^2
+				\end{vmatrix}=(c-b)(c-a)(b-a)$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$A=\begin{vmatrix}
+					a & b & c \\
+					a^2 & b^2 & c^2 \\
+					a^3 & b^3 & c^3
+				\end{vmatrix}=a\cdot b\cdot c(c-b)(c-a)(b-a)$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$A=\begin{vmatrix}
+					1 & 1 & 1 \\
+					a^2 & b^2 & c^2 \\
+					a & b & c
+				\end{vmatrix}=-\begin{vmatrix}
+					1 & 1 & 1 \\
+					a & b & c \\
+					a^2 & b^2 & c^2
+				\end{vmatrix}=-(c-b)(c-a)(b-a)$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+	};
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await JS.InvokeVoidAsync("formatMath");
+			await Task.Delay(200);
+			await JS.InvokeVoidAsync("autoScaleFormulas");
+		}
+	}
+
+	private async Task Load3DModel(Formula formula)
+	{
+		await JS.InvokeVoidAsync("math3D.loadModel", formula.Id + "-canvas", formula.ModelPath);
+	}
+
+	private async Task Unload3DModel(Formula formula)
+	{
+		await JS.InvokeVoidAsync("math3D.stopModel", formula.Id + "-canvas", formula.ModelPath);
+	}
+
+	private async Task OpenFormulaDialog(Formula formula)
+	{
+		var parameters = new DialogParameters<FormulaDialog>
+		{
+			{ x => x.Formula, formula},
+			{ x => x.TotalFormulas, _formulas.Count  }
+		};
+
+		var options = new DialogOptions
+		{
+			CloseOnEscapeKey = true,
+			MaxWidth = MaxWidth.Medium,
+			FullWidth = true
+		};
+
+		await DialogService.ShowAsync<FormulaDialog>("Formula Details", parameters, options);
+	}
+}
+

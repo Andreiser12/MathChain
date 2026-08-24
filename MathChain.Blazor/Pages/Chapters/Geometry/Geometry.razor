@@ -19,7 +19,101 @@
 
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4">
-	<MudText Typo="Typo.h4" Align="Align.Center" Class="mb-8">Geometry available soon!</MudText>
+	<MudText Typo="Typo.h4" Align="Align.Center" Class="mb-8">Geometry</MudText>
+
+	<MudGrid>
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/vectors-in-plane")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Vectors in Plane</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/xoy-plane")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">xOy Plane</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/distance-points")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Distance Between Two Points</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/middle-point")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Middle Point</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/centroid")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Centroid</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/line-in-plane")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Line in Plane</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+		<MudItem xs="12" sm="6" md="4">
+			<MudCard Elevation="4"
+					 Class="cursor-pointer hover-effect"
+					 @onclick='() => Nav.NavigateTo("/determinants-in-geometry")'>
+				<MudCardMedia Image="Assets/Images/Integrals_Image.png"
+							  Height="200">
+				</MudCardMedia>
+				<MudCardContent>
+					<MudText Typo="Typo.h6" Align="Align.Center">Determinants in Geometry</MudText>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+
+	</MudGrid>
 </MudContainer>
 
 

@@ -1,0 +1,169 @@
+﻿@page "/inverse-trigonometric-functions"
+@inject IJSRuntime JS
+@inject IDialogService DialogService
+@using MathChain.Domain.Entities
+
+<Component />
+
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-6">
+	<MudText Typo="Typo.h4" Align="Align.Center" Class="mb-8">Inverse Trigonometric Functions</MudText>
+
+	<MudGrid>
+		@foreach (var formula in _formulas)
+		{
+			<MudItem xs="12" sm="6" md="4">
+				<MudCard Elevation="4" Class="p-4" Style="background-color: #222222">
+					<MudText Typo="Typo.subtitle1" Align="Align.Center" Class="mb-2"></MudText>
+
+					<div class="formula-card"
+						 @onmouseenter="(() => Load3DModel(formula))"
+						 @onmouseleave="(() => Unload3DModel(formula))"
+						 @ondblclick="(() => OpenFormulaDialog(formula))">
+						<div class="formula-2d">
+							<span>
+								@formula.Latex
+							</span>
+						</div>
+
+						<div class="formula-3d">
+							<canvas id="@($"{formula.Id}-canvas")"></canvas>
+						</div>
+					</div>
+				</MudCard>
+			</MudItem>
+		}
+	</MudGrid>
+</MudContainer>
+
+
+
+@code
+{
+	private static readonly string requirement = "Calculate the primitive, then evaluate at x = 1 and C = 0.";
+
+	private List<Formula> _formulas = new List<Formula>
+	{
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\begin{aligned}
+						&\arcsin:[-1,1]\to \left[ -\frac{\pi}{2},\frac{\pi}{2} \right]\\
+						&\sin{a}=b\Leftrightarrow a=\arcsin{b},\,a\in \left[ -\frac{\pi}{2},\frac{\pi}{2} \right],\, b\in[-1,1]\\
+						&\arcsin{(\sin{a})}=a,\, \forall a\in \left[ -\frac{\pi}{2},\frac{\pi}{2} \right]\\
+						&\arcsin{(\sin{b})}=b,\, \forall b\in [-1,1]\\
+						&\arcsin{(-a)}=-\arcsin{a},\, \forall a\in[-1,1]
+						\end{aligned}$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\begin{aligned}
+					&\arccos:[-1,1]\to [0,\pi]\\
+					&\cos{a}=b\Leftrightarrow a=\arccos{b},\,a\in [0,\pi],\, b\in[-1,1]\\
+					&\arccos{(\cos{a})}=a,\, \forall a\in [0,\pi]\\
+					&\arccos{(\cos{b})}=b,\, \forall b\in [-1,1]\\
+					&\arccos{(-a)}=\pi-\arccos{a},\, \forall a\in[-1,1]
+					\end{aligned}$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\begin{aligned}
+					&\arctan:\mathbb{R}\to \left( -\frac{\pi}{2},\frac{\pi}{2} \right)\\
+					&\tan{a}=b\Leftrightarrow a=\arctan{b},\,a\in \left( -\frac{\pi}{2},\frac{\pi}{2} \right),\, b\in\mathbb{R}\\
+					&\arctan{(\tan{a})}=a,\, \forall a\in \left( -\frac{\pi}{2},\frac{\pi}{2} \right)\\
+					&\arctan{(\tan{b})}=b,\, \forall b\in \mathbb{R}\\
+					&\arctan{(-a)}=-\arctan{a},\, \forall a\in\mathbb{R}
+					\end{aligned}$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\begin{aligned}
+					&\operatorname{arccot}:\mathbb{R}\to (0,\pi)\\
+					&\cot{a}=b\Leftrightarrow a=\operatorname{arccot}{b},\,a\in (0,\pi),\, b\in\mathbb{R}\\
+					&\operatorname{arccot}{(\cot{a})}=a,\, \forall a\in (0,\pi)\\
+					&\operatorname{arccot}{(\cot{b})}=b,\, \forall b\in \mathbb{R}\\
+					&\operatorname{arccot}{(-a)}=\pi-\operatorname{arccot}{a},\, \forall a\in\mathbb{R}
+					\end{aligned}$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\arcsin{a}+\arccos{a}=\frac{\pi}{2},\, \forall a\in [-1,1]$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\arctan{a}+\operatorname{arccot}{a}=\frac{\pi}{2},\, \forall a\in \mathbb{R}$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+			Requirement = $"{requirement}"
+		},
+	};
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await JS.InvokeVoidAsync("formatMath");
+			await Task.Delay(200);
+			await JS.InvokeVoidAsync("autoScaleFormulas");
+		}
+	}
+
+	private async Task Load3DModel(Formula formula)
+	{
+		await JS.InvokeVoidAsync("math3D.loadModel", formula.Id + "-canvas", formula.ModelPath);
+	}
+
+	private async Task Unload3DModel(Formula formula)
+	{
+		await JS.InvokeVoidAsync("math3D.stopModel", formula.Id + "-canvas", formula.ModelPath);
+	}
+
+	private async Task OpenFormulaDialog(Formula formula)
+	{
+		var parameters = new DialogParameters<FormulaDialog>
+		{
+			{ x => x.Formula, formula},
+			{ x => x.TotalFormulas, _formulas.Count  }
+		};
+
+		var options = new DialogOptions
+		{
+			CloseOnEscapeKey = true,
+			MaxWidth = MaxWidth.Medium,
+			FullWidth = true
+		};
+
+		await DialogService.ShowAsync<FormulaDialog>("Formula Details", parameters, options);
+	}
+}

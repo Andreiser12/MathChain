@@ -40,7 +40,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// dupã builder.Build()
 app.UseCors("AllowBlazor");
 
 //app.UseHttpsRedirection();

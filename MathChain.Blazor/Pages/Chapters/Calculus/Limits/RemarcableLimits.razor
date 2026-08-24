@@ -1,0 +1,165 @@
+﻿@page "/remarkable-limits"
+@inject IJSRuntime JS
+@inject IDialogService DialogService
+@using MathChain.Domain.Entities
+
+<Component/>
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-6">
+	<MudText Typo="Typo.h4" Align="Align.Center" Class="mb-8">Basic Formulas</MudText>
+
+	<MudGrid>
+		@foreach (var formula in _formulas)
+		{
+			<MudItem xs="12" sm="6" md="4">
+				<MudCard Elevation="4" Class="p-4" Style="background-color: #222222">
+					<MudText Typo="Typo.subtitle1" Align="Align.Center" Class="mb-2"></MudText>
+
+					<div class="formula-card"
+						 @onmouseenter="(() => Load3DModel(formula))"
+						 @onmouseleave="(() => Unload3DModel(formula))"
+						 @ondblclick="(() => OpenFormulaDialog(formula))">
+						<div class="formula-2d">
+							<span>
+								@formula.Latex
+							</span>
+						</div>
+
+						<div class="formula-3d">
+							<canvas id="@($"{formula.Id}-canvas")"></canvas>
+						</div>
+					</div>
+				</MudCard>
+			</MudItem>
+		}
+	</MudGrid>
+</MudContainer>
+
+@code
+{
+	private static readonly string requirement = "Calculate the limit";
+
+	private List<Formula> _formulas = new List<Formula>
+	{
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\lim_{n\to\infty}\left( 1 + \frac{1}{n}\right)^n=e$$",
+			ModelPath = "Assets/3DModels/LR1.glb",
+			Category = "Remarkable Limits",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\lim_{n\to 0}\left( 1 + n\right)^\frac{1}{n}=e$$",
+			ModelPath = "Assets/3DModels/LR2.glb",
+			Category = "Remarkable Limits",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\lim_{x\to 0}\frac{\ln{\left(1+x\right)}}{x}=1$$",
+			ModelPath = "Assets/3DModels/LR3.glb",
+			Category = "Remarkable Limits",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\lim_{x\to 0}\frac{a^x-1}{x}=\ln{a}$$",
+			ModelPath = "Assets/3DModels/LR4.glb",
+			Category = "Remarkable Limits",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\lim_{x\to 0}\frac{\left(1+x\right)^r - 1}{x}=r$$",
+			ModelPath = "Assets/3DModels/LR5.glb",
+			Category = "Remarkable Limits",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id =Guid.NewGuid(),
+			Latex = @"$$\lim_{x\to 0}\frac{\sin{x}}{x}=1$$",
+			ModelPath = "Assets/3DModels/LR6.glb",
+			Category = "Remarkable Limits",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\lim_{x\to 0}\frac{\tan{x}}{x}=1$$",
+			ModelPath = "Assets/3DModels/LR7.glb",
+			Category = "Remarkable Limits",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\lim_{x\to 0}\frac{\arcsin{x}}{x}=1$$",
+			ModelPath = "Assets/3DModels/LR8.glb",
+			Category = "Remarkable Limits",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\lim_{x\to 0}\frac{\arctan{x}}{x}=1$$",
+			ModelPath = "Assets/3DModels/LR9.glb",
+			Category = "Remarkable Limits",
+			Requirement = $"{requirement}"
+		}
+	};
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await JS.InvokeVoidAsync("formatMath");
+			await Task.Delay(400);
+			await JS.InvokeVoidAsync("autoScaleFormulas");
+		}
+	}
+
+	private async Task Load3DModel(Formula formula)
+	{
+		await JS.InvokeVoidAsync("math3D.loadModel", formula.Id + "-canvas", formula.ModelPath);
+	}
+
+	private async Task Unload3DModel(Formula formula)
+	{
+		await JS.InvokeVoidAsync("math3D.stopModel", formula.Id + "-canvas", formula.ModelPath);
+	}
+
+	private async Task OpenFormulaDialog(Formula formula)
+	{
+		var parameters = new DialogParameters<FormulaDialog>
+		{
+			{ x => x.Formula, formula},
+			{ x => x.TotalFormulas, _formulas.Count  }
+		};
+
+		var options = new DialogOptions
+		{
+			CloseOnEscapeKey = true,
+			MaxWidth = MaxWidth.Medium,
+			FullWidth = true
+		};
+
+		await DialogService.ShowAsync<FormulaDialog>("Formula Details", parameters, options);
+	}
+}
+

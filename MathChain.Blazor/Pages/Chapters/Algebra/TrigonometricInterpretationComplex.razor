@@ -1,0 +1,180 @@
+﻿@page "/trigonometric-interpretation"
+@inject IJSRuntime JS
+@inject IDialogService DialogService
+@using MathChain.Domain.Entities
+
+<Component />
+
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-6">
+	<MudText Typo="Typo.h4" Align="Align.Center" Class="mb-8">Trigonometric Interpretation</MudText>
+
+	<MudGrid>
+		@foreach (var formula in _formulas)
+		{
+			<MudItem xs="12" sm="6" md="4">
+				<MudCard Elevation="4" Class="p-4" Style="background-color: #222222">
+					<MudText Typo="Typo.subtitle1" Align="Align.Center" Class="mb-2"></MudText>
+
+					<div class="formula-card"
+						 @onmouseenter="(() => Load3DModel(formula))"
+						 @onmouseleave="(() => Unload3DModel(formula))"
+						 @ondblclick="(() => OpenFormulaDialog(formula))">
+						<div class="formula-2d">
+							<span>
+								@formula.Latex
+							</span>
+						</div>
+
+						<div class="formula-3d">
+							<canvas id="@($"{formula.Id}-canvas")"></canvas>
+						</div>
+					</div>
+				</MudCard>
+			</MudItem>
+		}
+	</MudGrid>
+</MudContainer>
+
+
+
+@code
+{
+	private static readonly string requirement = "";
+
+	private List<Formula> _formulas = new List<Formula>
+	{
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\begin{gather*}
+					z=x+iy\\
+					r=|z|=\sqrt{x^2+y^2}
+					\end{gather*}$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$z=r(\cos{a}+i\sin{a})$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\frac{1}{z}=\frac{1}{r}(\cos{(-a)}+i\sin{(-a)})$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\overline{|z|}=r(\cos{(-a)}+i\sin{(-a)})$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\sin{a}=\frac{y}{r}\text{ }\cos{a}=\frac{x}{r}\text{ }\tan{a}=\frac{y}{x}$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$z_1+z_2=(r_1\cdot \cos{a_1}+r_2\cdot \cos{a_2})+i(r_1\cdot \sin{a_1}+r_2\cdot \sin{a_2})$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$z_1\cdot z_2=r_1\cdot r_2(\cos{(a_1+a_2)}+i\sin{(a_1+a_2)})$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$\frac{z_1}{z_2}=\frac{r_1}{r_2}(\cos{(a_1-a_2)}+i\sin{(a_1-a_2)})$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+
+		new Formula
+		{
+			Id = Guid.NewGuid(),
+			Latex = @"$$z^n=r^n(\cos{(na)}+i\sin{(na)})$$",
+			ModelPath = "Assets/3DModels/inta.glb",
+			Category = "Integrals",
+			Description = "",
+			Requirement = $"{requirement}"
+		},
+	};
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await JS.InvokeVoidAsync("formatMath");
+			await Task.Delay(200);
+			await JS.InvokeVoidAsync("autoScaleFormulas");
+		}
+	}
+
+	private async Task Load3DModel(Formula formula)
+	{
+		await JS.InvokeVoidAsync("math3D.loadModel", formula.Id + "-canvas", formula.ModelPath);
+	}
+
+	private async Task Unload3DModel(Formula formula)
+	{
+		await JS.InvokeVoidAsync("math3D.stopModel", formula.Id + "-canvas", formula.ModelPath);
+	}
+
+	private async Task OpenFormulaDialog(Formula formula)
+	{
+		var parameters = new DialogParameters<FormulaDialog>
+		{
+			{ x => x.Formula, formula},
+			{ x => x.TotalFormulas, _formulas.Count  }
+		};
+
+		var options = new DialogOptions
+		{
+			CloseOnEscapeKey = true,
+			MaxWidth = MaxWidth.Medium,
+			FullWidth = true
+		};
+
+		await DialogService.ShowAsync<FormulaDialog>("Formula Details", parameters, options);
+	}
+}
+

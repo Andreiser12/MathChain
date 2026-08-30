@@ -1,4 +1,5 @@
 ﻿using MathChain.Domain.Entities;
+using MathChain.Domain.Enums;
 
 namespace MathChain.Blazor.Services
 {
@@ -7,6 +8,7 @@ namespace MathChain.Blazor.Services
         private string _walletAddress = string.Empty;
         public bool IsConnected { get; set; } = false;
         public HashSet<Guid> MarkedFormulas { get; set; } = new();
+        public UserRole Role { get; set; }
 
         public string WalletAddress
         {

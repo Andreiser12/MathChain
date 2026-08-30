@@ -1,0 +1,73 @@
+﻿@inject ApiService Api
+@inject AppSession Session
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <DialogContent>
+        @if (string.IsNullOrEmpty(_createdJoinCode))
+        {
+            <MudTextField @bind-Value="_className"
+                          Label="Name"
+                          Variant="Variant.Outlined"
+                          FullWidth="true" />
+        }
+        else
+        {
+            <MudText Typo="Typo.h6" Class="mb-2">Class created!</MudText>
+            <MudText>Share this join code with your students:</MudText>
+            <MudText Typo="Typo.h4" Color="Color.Primary" Align="Align.Center" Class="mt-4">
+                @_createdJoinCode
+            </MudText>
+        }
+    </DialogContent>
+    <DialogActions>
+        @if (string.IsNullOrEmpty(_createdJoinCode))
+        {
+            <MudButton OnClick="Cancel" Variant="Variant.Outlined">Cancel</MudButton>
+            <MudButton OnClick="CreateClass"
+                       Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       Disabled="string.IsNullOrWhiteSpace(_className)">
+                Create
+            </MudButton>
+        }
+        else
+        {
+            <MudButton OnClick="CloseWithResult" Variant="Variant.Filled" Color="Color.Primary">
+                Done
+            </MudButton>
+        }
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    public IMudDialogInstance Dialog { get; set; }
+
+    private string _className = string.Empty;
+    private string _createdJoinCode = string.Empty;
+    private ClassRoomDto _createdClassRoom;
+
+    void Cancel()
+    {
+        Dialog.Cancel();
+    }
+
+    async Task CreateClass()
+    {
+        try
+        {
+            _createdClassRoom = await Api.CreateClassRoomAsync(_className, Session.WalletAddress);
+            _createdJoinCode = _createdClassRoom.JoinCode;
+        }
+        catch
+        {
+            Snackbar.Add("Failed to create class. Please try again.", Severity.Error);
+        }
+    }
+
+    void CloseWithResult()
+    {
+        Dialog.Close(DialogResult.Ok(_createdClassRoom));
+    }
+}

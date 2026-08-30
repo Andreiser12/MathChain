@@ -1,0 +1,23 @@
+﻿<MudDialog>
+	<DialogContent>
+		<MudText Class="mb-4">Select your role: student or teacher.</MudText>
+		<MudStack Row="true" Justify="Justify.Center">
+			<MudButton Variant="Variant.Filled"
+						Color="Color.Primary"
+						OnClick="@(() => ChooseRole("Student"))">Student</MudButton>
+			<MudButton Variant="Variant.Filled"
+						Color="Color.Primary"
+					   OnClick="@(() => ChooseRole("Teacher"))">Teacher</MudButton>
+		</MudStack>
+	</DialogContent>
+</MudDialog>
+
+@code{
+	[CascadingParameter]
+	public IMudDialogInstance Dialog { get; set; }
+
+	void ChooseRole(string role)
+	{
+		Dialog.Close(DialogResult.Ok(role));
+	}
+}

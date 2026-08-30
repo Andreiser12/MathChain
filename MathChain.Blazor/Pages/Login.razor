@@ -1,9 +1,11 @@
-﻿@page "/"
+@page "/"
 @page "/login"
+@using MathChain.Domain.Enums
 @inject IJSRuntime JS
 @inject AppSession Session
 @inject NavigationManager Nav
-
+@inject ApiService Api
+@inject IDialogService DialogService
 
 <MudContainer MaxWidth="MaxWidth.Small" Class="mt-16">
 	<MudPaper Elevation="4" Class="pa-8 d-flex flex-column align-center gap-4">
@@ -30,10 +32,7 @@
 	</MudPaper>
 </MudContainer>
 
-
-
-@code
-{
+@code {
 	string _address = string.Empty;
 	string _errorMessage = string.Empty;
 
@@ -47,17 +46,66 @@
 
 	async Task ConnectWallet()
 	{
-		_address = await JS.InvokeAsync<string>("connectMetaMask");
+		_errorMessage = string.Empty;
 
-		if (string.IsNullOrEmpty(_address))
+		try
 		{
-			_errorMessage = "Failed to connect MetaMask. Please make sure you have MetaMask installed and try again!";
-			return;
+			_address = await JS.InvokeAsync<string>("connectMetaMask");
+
+			if (string.IsNullOrEmpty(_address))
+			{
+				_errorMessage = "Failed to connect MetaMask. Please make sure you have MetaMask installed and try again!";
+				return;
+			}
+
+			var userExists = await Api.CheckUserExistsAsync(_address);
+			UserDto? user = null;
+
+			if (userExists)
+			{
+				user = await Api.LoginAsync(_address, null);
+			}
+			else
+			{
+				var dialog = await DialogService.ShowAsync<ChooseRoleDialog>("Welcome to MathChain!");
+				var result = await dialog.Result;
+
+				if (result.Canceled || result.Data == null)
+				{
+					_errorMessage = "You must select a role to continue.";
+					return;
+				}
+
+				var chosenRole = result.Data.ToString();
+				user = await Api.LoginAsync(_address, chosenRole);
+			}
+
+			if (user == null)
+			{
+				_errorMessage = "Could not complete login. Please try again.";
+				return;
+			}
+
+			Session.WalletAddress = _address;
+			Session.IsConnected = true;
+			Session.Role = user.Role;
+
+			Nav.NavigateTo("/chapters");
 		}
-
-		Session.WalletAddress = _address;
-		Session.IsConnected = true;
-		Nav.NavigateTo("/chapters");
-
+		catch (JSException jsEx)
+		{
+			_errorMessage = "MetaMask connection failed. Please try again.";
+			Console.WriteLine($"JSException: {jsEx.Message}");
+		}
+		catch (HttpRequestException httpEx)
+		{
+			_errorMessage = $"API Server error ({httpEx.StatusCode}): Please make sure the API is running.";
+			Console.WriteLine($"HttpRequestException: {httpEx.Message}");
+		}
+		catch (Exception ex)
+		{
+			_errorMessage = $"An error occurred during login: {ex.Message}";
+			Console.WriteLine($"Exception: {ex.Message}");
+		}
 	}
 }

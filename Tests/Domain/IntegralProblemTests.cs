@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using MathChain.Domain.Entities;
 using MathChain.Domain.Enums;
-using MathChain.Domain.Repositories;
 
 namespace MathChain.Tests.Domain
 {

@@ -1,0 +1,115 @@
+﻿@page "/my-classes"
+@inject ApiService Api
+@inject AppSession Session
+@inject NavigationManager Nav
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-6">
+    <MudText Typo="Typo.h4" Class="mb-8">My Classes</MudText>
+
+    @if (Session.Role == UserRole.Teacher)
+    {
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   StartIcon="@Icons.Material.Filled.Add"
+                   OnClick="OpenCreateDialog"
+                   Class="mb-6">
+            Create new class
+        </MudButton>
+    }
+    else
+    {
+        <MudStack Row="true" Spacing="2" Class="mb-6">
+            <MudTextField @bind-Value="_joinCodeInput"
+                          Label="Class code"
+                          Variant="Variant.Outlined" />
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       OnClick="JoinClass"
+                       Disabled="string.IsNullOrWhiteSpace(_joinCodeInput)">
+                Join class
+            </MudButton>
+        </MudStack>
+    }
+
+    @if (_classRooms == null)
+    {
+        <MudText>Loading...</MudText>
+    }
+    else if (!_classRooms.Any())
+    {
+        <MudText Color="Color.Secondary">
+            @(Session.Role == UserRole.Teacher
+                ? "You haven't created any classes yet."
+                : "You are not enrolled in any classes yet.")
+        </MudText>
+    }
+    else
+    {
+        <MudGrid>
+            @foreach (var classRoom in _classRooms)
+            {
+                <MudItem xs="12" sm="6" md="4">
+                    <MudCard Elevation="4" Class="pa-4">
+                        <MudText Typo="Typo.h6">@classRoom.Name</MudText>
+                        @if (Session.Role == UserRole.Teacher)
+                        {
+                            <MudText Color="Color.Secondary">Code: @classRoom.JoinCode</MudText>
+                        }
+                    </MudCard>
+                </MudItem>
+            }
+        </MudGrid>
+    }
+</MudContainer>
+
+@code
+{
+    private List<ClassRoomDto>? _classRooms;
+    private string _joinCodeInput = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!Session.IsConnected)
+        {
+            Nav.NavigateTo("/login");
+            return;
+        }
+
+        await LoadClassRooms();
+    }
+
+    private async Task LoadClassRooms()
+    {
+        _classRooms = Session.Role == UserRole.Teacher
+            ? await Api.GetClassRoomsByTeacherAsync(Session.WalletAddress)
+            : await Api.GetClassRoomsByStudentAsync(Session.WalletAddress);
+    }
+
+    private async Task OpenCreateDialog()
+    {
+        var dialog = await DialogService.ShowAsync<CreateClassRoomDialog>("Create new class");
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            await LoadClassRooms();
+        }
+    }
+
+    private async Task JoinClass()
+    {
+        try
+        {
+            await Api.JoinClassRoomAsync(_joinCodeInput, Session.WalletAddress);
+            _joinCodeInput = string.Empty;
+            await LoadClassRooms();
+            Snackbar.Add("Successfully joined the class!", Severity.Success);
+        }
+        catch
+        {
+            Snackbar.Add("Invalid code or already enrolled.", Severity.Error);
+        }
+    }
+}

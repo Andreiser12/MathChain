@@ -86,6 +86,7 @@ and minimize gas fees:
   INFURA_RPC_URL=your_rpc_url
   WOLFRAM_API_KEY=your_wolfram_api_key
   PROJECT_ID=your_walletconnect_project_id
+  PINATA_JWT=your_pinata_jwt
   
 ## Setup
 1. Clone the repository.

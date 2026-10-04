@@ -8,12 +8,12 @@ namespace MathChain.Blazor.Services
     public class WolframService
     {
         private readonly string _appId = Environment.GetEnvironmentVariable("WOLFRAM_API_KEY");
-        private readonly HttpClient _client;
+        private readonly HttpClient _httpClient;
         private readonly Random _random;
 
         public WolframService()
         {
-            _client = new HttpClient();
+            _httpClient = new HttpClient();
             _random = new Random();
         }
 
@@ -48,7 +48,7 @@ namespace MathChain.Blazor.Services
         {
             try
             {
-                var response = await _client.GetAsync(
+                var response = await _httpClient.GetAsync(
                     $"http://localhost:5065/api/wolfram/solve?query={Uri.EscapeDataString(query)}");
 
                 response.EnsureSuccessStatusCode();

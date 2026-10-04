@@ -1,0 +1,26 @@
+<MudPaper Elevation="0" Square="true" Style="background-color: transparent;" Class="pa-6">
+    <MudStack Row="true" Justify="Justify.FlexStart" Class="my-4">
+        <MudButton Variant="Variant.Filled"
+                   Style="background-color: #005ea6; color: #ffffff; font-size: 1.25rem; font-weight: 500; text-transform: none; padding: 10px 24px; border-radius: 0px;"
+                   OnClick="OpenNewMessageDialog">
+            + Mesaj nou
+        </MudButton>
+    </MudStack>
+
+    <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.1rem;">
+        Niciun mesaj trimis în această clasă.
+    </MudText>
+</MudPaper>
+
+@code {
+    [Parameter]
+    public ClassRoomDto? ClassRoom { get; set; }
+
+    [Parameter]
+    public string? ClassId { get; set; }
+
+    private void OpenNewMessageDialog()
+    {
+        // Logica ta C# pentru trimitere mesaj
+    }
+}

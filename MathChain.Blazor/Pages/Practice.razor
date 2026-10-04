@@ -1,4 +1,4 @@
-﻿@page "/practice"
+@page "/practice"
 @inject AppSession Session
 @inject NavigationManager Nav
 @inject WolframService Wolfram
@@ -77,6 +77,11 @@
 
     protected override async Task OnInitializedAsync()
     {
+        if (!Session.IsConnected)
+        {
+            await Session.RestoreSessionAsync();
+        }
+
         if(!Session.IsConnected)
         {
             Nav.NavigateTo("/login");

@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>MathChain.Blazor</RootNamespace>
+    <AssemblyName>MathChain.Blazor</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +20,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\MyClasses\Tabs\Assignments\" />
+    <Folder Include="Pages\MyClasses\Tabs\Gradebook\" />
+    <Folder Include="Pages\MyClasses\Tabs\Messages\" />
+    <Folder Include="Pages\MyClasses\Tabs\Media\" />
+    <Folder Include="Pages\MyClasses\Tabs\Statistics\" />
+    <Folder Include="Pages\MyClasses\Tabs\Tests\" />
     <Folder Include="wwwroot\Assets\Images\" />
   </ItemGroup>
 

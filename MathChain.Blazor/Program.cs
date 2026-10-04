@@ -16,6 +16,8 @@ builder.Services.AddScoped<ApiService>();
 
 builder.Services.AddScoped<WolframService>();
 
+builder.Services.AddScoped<IpfsService>();
+
 builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();

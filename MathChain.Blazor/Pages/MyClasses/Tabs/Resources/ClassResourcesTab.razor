@@ -1,0 +1,382 @@
+@inject IDialogService DialogService
+@inject AppSession Session
+@inject IJSRuntime JS
+@inject ISnackbar Snackbar
+@inject IpfsService IpfsService
+@inject ApiService ApiService
+
+<style>
+    .btn-add-resource {
+        background-color: #005ea6 !important;
+        color: #ffffff !important;
+        font-size: 1.25rem !important;
+        font-weight: 500 !important;
+        text-transform: none !important;
+        padding: 10px 24px !important;
+        border-radius: 0px !important;
+    }
+
+    .btn-add-resource:hover {
+        background-color: #004e8a !important;
+    }
+
+    .week-card {
+        background-color: #005ea6 !important;
+        color: #ffffff !important;
+        border-radius: 0px !important;
+    }
+
+    .week-header {
+        height: 54px;
+    }
+
+    .week-toggle-btn {
+        background-color: #00447a !important;
+        color: #ffffff !important;
+        border-radius: 0px !important;
+        width: 54px !important;
+        height: 54px !important;
+    }
+
+    .week-title {
+        font-size: 1.3rem !important;
+        font-weight: 500 !important;
+        color: #ffffff !important;
+    }
+
+    .btn-delete-week,
+    .btn-delete-resource {
+        color: #e53935 !important;
+    }
+
+    .collapse-content {
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .resource-item-row {
+        padding-left: 54px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .resource-title {
+        font-size: 1.2rem !important;
+        color: #ffffff !important;
+    }
+
+    .empty-resources-text {
+        font-size: 1.05rem !important;
+        color: rgba(255, 255, 255, 0.6) !important;
+        padding-left: 54px;
+    }
+</style>
+
+<!-- + Add new resource (align left) -->
+<MudStack Row="true" Justify="Justify.FlexStart" Class="my-6">
+    <MudButton Variant="Variant.Filled"
+               Class="btn-add-resource"
+               OnClick="OpenAddMaterialDialog">
+        + Add new resource
+    </MudButton>
+</MudStack>
+
+<!-- Săptămâni disponibile (generate dinamic de la StartDate până la EndDate) -->
+@foreach (var week in _weeks)
+{
+    <MudPaper Elevation="0" Square="true" Class="week-card mb-5 w-100">
+        <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Class="week-header pr-4">
+            <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3" Class="h-100">
+                <MudIconButton Icon="@(week.IsOpen ? Icons.Material.Filled.ArrowDownward : Icons.Material.Filled.ArrowForward)"
+                               Class="week-toggle-btn"
+                               OnClick="() => week.IsOpen = !week.IsOpen" />
+                <MudText Class="week-title">
+                    Week @week.Number: @week.StartDate.ToString("dd.MM.yyyy") - @week.EndDate.ToString("dd.MM.yyyy")
+                </MudText>
+            </MudStack>
+
+        </MudStack>
+
+        <MudCollapse Expanded="week.IsOpen">
+            <MudStack Spacing="0" Class="collapse-content">
+                @if (week.Materials.Any())
+                {
+                    @foreach (var material in week.Materials)
+                    {
+                        <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Class="material-item-row py-3 pr-4">
+                            <MudText Class="material-title">@material.FileName</MudText>
+                            
+                            <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="1">
+                                @if (!string.IsNullOrEmpty(material.IpfsHash))
+                                {
+                                    <MudIconButton Icon="@Icons.Material.Filled.Download"
+                                                   Href="@ApiService.GetIpfsDownloadUrl(material.IpfsHash, material.FileName)"
+                                                   Style="color: #ffffff;"
+                                                   Size="Size.Medium" />
+                                }
+
+                                <MudIconButton Icon="@Icons.Material.Filled.Delete" 
+                                               Class="btn-delete-material" 
+                                               Size="Size.Medium" 
+                                               OnClick="async () => await DeleteMaterial(week, material)" />
+                            </MudStack>
+                        </MudStack>
+                    }
+                }
+                else
+                {
+                    <MudText Class="empty-materials-text py-3">
+                        Niciun material încărcat pentru această săptămână.
+                    </MudText>
+                }
+            </MudStack>
+        </MudCollapse>
+    </MudPaper>
+}
+
+@code {
+        [Parameter]
+        public ClassRoomDto? ClassRoom { get; set; }
+
+        [Parameter]
+        public string? ClassId { get; set; }
+
+    // Modele de date pentru rubrică
+    public class WeekItem
+    {
+        public int Number { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public bool IsOpen { get; set; }
+        public List<MaterialItem> Materials { get; set; } = new();
+    }
+
+    public class MaterialItem
+    {
+        public Guid Id { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string FileName { get; set; } = string.Empty;
+        public string IpfsHash { get; set; } = string.Empty;
+    }
+
+    private List<WeekItem> _weeks = new();
+    private Guid? _lastLoadedClassId;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        Guid? targetId = ClassRoom?.Id;
+        if (!targetId.HasValue && !string.IsNullOrWhiteSpace(ClassId) && Guid.TryParse(ClassId, out var parsedId))
+        {
+            targetId = parsedId;
+        }
+
+        if (targetId.HasValue && targetId != _lastLoadedClassId)
+        {
+            _lastLoadedClassId = targetId;
+            await InitializeWeeksAsync(targetId.Value, ClassRoom);
+        }
+        else if (!_weeks.Any())
+        {
+            GenerateDefaultWeeks();
+            if (targetId.HasValue)
+            {
+                await LoadMaterialsAsync(targetId.Value);
+            }
+        }
+    }
+
+    private async Task InitializeWeeksAsync(Guid classId, ClassRoomDto? classRoom)
+    {
+        // 1. Verificăm dacă clasa are StartDate și EndDate setate în DTO
+        if (classRoom?.StartDate.HasValue == true && classRoom?.EndDate.HasValue == true)
+        {
+            GenerateWeeks(classRoom.StartDate.Value, classRoom.EndDate.Value);
+            await LoadMaterialsAsync(classId);
+            return;
+        }
+
+        // 2. Verificăm în sesiunea curentă (salvate la crearea clasei)
+        if (Session.ClassRoomDates.TryGetValue(classId, out var sessionDates))
+        {
+            GenerateWeeks(sessionDates.StartDate, sessionDates.EndDate);
+            await LoadMaterialsAsync(classId);
+            return;
+        }
+
+        // 3. Verificăm în localStorage
+        try
+        {
+            var storedDates = await JS.InvokeAsync<string?>("localStorage.getItem", $"class_dates_{classId}");
+            if (!string.IsNullOrEmpty(storedDates))
+            {
+                var parts = storedDates.Split('|');
+                if (parts.Length == 2 &&
+                    DateTime.TryParse(parts[0], out var savedFrom) &&
+                    DateTime.TryParse(parts[1], out var savedTo))
+                {
+                    Session.ClassRoomDates[classId] = (savedFrom, savedTo);
+                    GenerateWeeks(savedFrom, savedTo);
+                    await LoadMaterialsAsync(classId);
+                    return;
+                }
+            }
+        }
+        catch { }
+
+        // Fallback dacă nu sunt date setate
+        GenerateDefaultWeeks();
+        await LoadMaterialsAsync(classId);
+    }
+
+    private async Task LoadMaterialsAsync(Guid classId)
+    {
+        try
+        {
+            var dbMaterials = await ApiService.GetMaterialsByClassAsync(classId);
+            foreach (var week in _weeks)
+            {
+                week.Materials.Clear();
+            }
+
+            foreach (var mat in dbMaterials)
+            {
+                var targetWeek = _weeks.FirstOrDefault(w => w.Number == mat.WeekNumber);
+                if (targetWeek != null)
+                {
+                    targetWeek.Materials.Add(new MaterialItem
+                    {
+                        Id = mat.Id,
+                        Title = mat.Title,
+                        FileName = mat.FileName,
+                        IpfsHash = mat.IpfsHash
+                    });
+                }
+            }
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading materials: {ex.Message}");
+        }
+    }
+
+    private void GenerateDefaultWeeks()
+    {
+        var today = DateTime.Today;
+        int daysUntilTuesday = ((int)DayOfWeek.Tuesday - (int)today.DayOfWeek + 7) % 7;
+        var defaultFrom = today.AddDays(daysUntilTuesday == 0 ? 0 : daysUntilTuesday - 7);
+        var defaultTo = defaultFrom.AddDays(93);
+        GenerateWeeks(defaultFrom, defaultTo);
+    }
+
+    // Generare săptămâni conform calendarului clasei
+    public void GenerateWeeks(DateTime fromDate, DateTime toDate)
+    {
+        _weeks.Clear();
+
+        DateTime currentStart = fromDate.Date;
+        int weekNumber = 1;
+
+        while (currentStart <= toDate.Date)
+        {
+            int daysUntilSunday = ((int)DayOfWeek.Sunday - (int)currentStart.DayOfWeek + 7) % 7;
+            DateTime currentSunday = currentStart.AddDays(daysUntilSunday);
+            DateTime currentEnd = currentSunday >= toDate.Date ? toDate.Date : currentSunday;
+
+            var week = new WeekItem
+            {
+                Number = weekNumber++,
+                StartDate = currentStart,
+                EndDate = currentEnd,
+                IsOpen = (weekNumber == 2) // Prima săptămână este deschisă implicit
+            };
+
+            _weeks.Add(week);
+            currentStart = currentSunday.AddDays(1);
+        }
+    }
+
+    private async Task DeleteMaterial(WeekItem week, MaterialItem material)
+    {
+        week.Materials.Remove(material);
+        if (material.Id != Guid.Empty)
+        {
+            await ApiService.DeleteMaterialAsync(material.Id);
+        }
+        Snackbar.Add("Material șters.", Severity.Info);
+        StateHasChanged();
+    }
+
+    private async Task OpenAddMaterialDialog()
+    {
+        var options = new DialogOptions
+        {
+            NoHeader = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+            CloseButton = false
+        };
+
+        var parameters = new DialogParameters<AddResourceDialog>
+        {
+            { x => x.AvailableWeeks, _weeks.Select(w => w.Number).ToList() }
+        };
+
+        var dialog = await DialogService.ShowAsync<AddResourceDialog>("", parameters, options);
+        var result = await dialog.Result;
+
+        // C# hook pentru când userul adaugă un material
+        if (result != null && !result.Canceled && result.Data is AddResourceDialog.MaterialResultDto materialDto)
+        {
+            // Materialul este asociat direct săptămânii selectate din dropdown
+            if (materialDto.File == null || !materialDto.WeekNumber.HasValue)
+            {
+                Snackbar.Add("Incomplete material data,", Severity.Warning);
+                return;
+            }
+
+            Snackbar.Add("The material is uploading!", Severity.Info);
+
+            string? ipfsHash = await UploadMaterialFileAsync(materialDto.File);
+
+            if (string.IsNullOrEmpty(ipfsHash))
+            {
+                Snackbar.Add("Failed to upload material.", Severity.Error);
+                return;
+            }
+
+            var targetWeek = _weeks.FirstOrDefault(w => w.Number == materialDto.WeekNumber.Value);
+            if (targetWeek != null)
+            {
+                Guid currentClassId = _lastLoadedClassId ?? ClassRoom?.Id ?? Guid.Empty;
+                ClassMaterialDto? savedDb = null;
+
+                if (currentClassId != Guid.Empty)
+                {
+                    savedDb = await ApiService.AddMaterialAsync(
+                        currentClassId,
+                        materialDto.WeekNumber.Value,
+                        materialDto.Title,
+                        materialDto.Description,
+                        materialDto.FileName,
+                        ipfsHash);
+                }
+
+                targetWeek.Materials.Add(new MaterialItem
+                {
+                    Id = savedDb?.Id ?? Guid.NewGuid(),
+                    Title = materialDto.Title,
+                    FileName = materialDto.FileName,
+                    IpfsHash = ipfsHash
+                });
+
+                targetWeek.IsOpen = true;
+                Snackbar.Add($"Material added successfully in week {targetWeek.Number}.", Severity.Success);
+                StateHasChanged();
+            }
+        }
+    }
+
+    private async Task<string?> UploadMaterialFileAsync(IBrowserFile file)
+    {
+        return await IpfsService.UploadFileToIpfsAsync(file);
+    }
+}

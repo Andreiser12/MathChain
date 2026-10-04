@@ -1,72 +1,204 @@
-﻿@inject ApiService Api
+@inject ApiService Api
 @inject AppSession Session
 @inject ISnackbar Snackbar
+@inject IJSRuntime JS
+
+<style>
+    ::deep .mud-dialog {
+        background-color: #005ea6 !important;
+        border-radius: 0px !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+        max-width: 500px !important;
+    }
+    /* Asigură fundal alb, margini drepte și text negru pentru input-uri și calendar */
+    .white-field {
+        background-color: #ffffff !important;
+        border-radius: 0px !important;
+    }
+    .white-field .mud-input {
+        background-color: #ffffff !important;
+        border-radius: 0px !important;
+    }
+    .white-field .mud-input-slot {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        padding: 10px 14px !important;
+        font-size: 1.1rem !important;
+    }
+    .white-field .mud-input-adornment {
+        background-color: #ffffff !important;
+        color: #005ea6 !important;
+        padding-right: 8px !important;
+    }
+    .white-field .mud-input-outlined-border {
+        border: none !important;
+    }
+    .mud-popover {
+        z-index: 9999 !important;
+        border-radius: 0px !important;
+    }
+    .mud-popover .mud-picker {
+        border-radius: 0px !important;
+    }
+</style>
 
 <MudDialog>
     <DialogContent>
-        @if (string.IsNullOrEmpty(_createdJoinCode))
-        {
-            <MudTextField @bind-Value="_className"
-                          Label="Name"
-                          Variant="Variant.Outlined"
-                          FullWidth="true" />
-        }
-        else
-        {
-            <MudText Typo="Typo.h6" Class="mb-2">Class created!</MudText>
-            <MudText>Share this join code with your students:</MudText>
-            <MudText Typo="Typo.h4" Color="Color.Primary" Align="Align.Center" Class="mt-4">
-                @_createdJoinCode
-            </MudText>
-        }
+        <MudPaper Elevation="0" Square="true" Style="background-color: #005ea6; color: #ffffff;" Class="pa-6">
+            
+            @if (string.IsNullOrEmpty(_createdJoinCode))
+            {
+                <!-- Titlu -->
+                <MudText Typo="Typo.h5" Align="Align.Center" Style="font-weight: 500; color: #ffffff;" Class="mb-6">
+                    Create new class
+                </MudText>
+                <!-- Alertă pentru erori de validare -->
+                @if (!string.IsNullOrEmpty(_errorMessage))
+                {
+                    <MudAlert Severity="Severity.Warning" Dense="true" Square="true" Class="mb-4">
+                        @_errorMessage
+                    </MudAlert>
+                }
+                <MudStack Spacing="4">
+                    <!-- Rând Name -->
+                    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+                        <MudText Typo="Typo.h6" Style="width: 80px; color: #ffffff; font-weight: 400;">
+                            Name:
+                        </MudText>
+                        <MudTextField @bind-Value="_className"
+                                      Variant="Variant.Outlined"
+                                      Margin="Margin.Dense"
+                                      Class="white-field flex-grow-1"
+                                      Placeholder="Ex: Clasa a XII-a A" />
+                    </MudStack>
+                    <!-- Rând From (MudDatePicker cu format dd-mm-yyyy) -->
+                    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+                        <MudText Typo="Typo.h6" Style="width: 80px; color: #ffffff; font-weight: 400;">
+                            From:
+                        </MudText>
+                        <MudDatePicker @bind-Date="_fromDate"
+                                       DateFormat="dd-MM-yyyy"
+                                       Placeholder="dd-mm-yyyy"
+                                       Editable="true"
+                                       AutoClose="true"
+                                       Variant="Variant.Outlined"
+                                       Margin="Margin.Dense"
+                                       Class="white-field flex-grow-1" />
+                    </MudStack>
+                    <!-- Rând To (MudDatePicker cu format dd-mm-yyyy) -->
+                    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+                        <MudText Typo="Typo.h6" Style="width: 80px; color: #ffffff; font-weight: 400;">
+                            To:
+                        </MudText>
+                        <MudDatePicker @bind-Date="_toDate"
+                                       DateFormat="dd-MM-yyyy"
+                                       Placeholder="dd-mm-yyyy"
+                                       Editable="true"
+                                       AutoClose="true"
+                                       Variant="Variant.Outlined"
+                                       Margin="Margin.Dense"
+                                       Class="white-field flex-grow-1" />
+                    </MudStack>
+                    <!-- Buton Create -->
+                    <MudStack Row="true" Justify="Justify.FlexEnd" Class="mt-4">
+                        <MudButton Variant="Variant.Filled"
+                                   Style="background-color: #f5a623; color: #ffffff; font-size: 1.25rem; font-weight: 500; text-transform: none; padding: 8px 36px; border-radius: 0px;"
+                                   OnClick="CreateClass">
+                            Create
+                        </MudButton>
+                    </MudStack>
+                </MudStack>
+            }
+            else
+            {
+                <!-- Ecran de confirmare cu Codul Clasei -->
+                <MudText Typo="Typo.h5" Align="Align.Center" Style="font-weight: 500; color: #ffffff;" Class="mb-3">
+                    Class created!
+                </MudText>
+                
+                <MudText Typo="Typo.body1" Align="Align.Center" Style="color: rgba(255,255,255,0.8);" Class="mb-3">
+                    Share this code with students:
+                </MudText>
+                <MudPaper Elevation="0" Square="true" Style="background-color: rgba(255,255,255,0.1); border: 1px dashed rgba(255,255,255,0.4);" Class="pa-4 my-4">
+                    <MudText Typo="Typo.h3" Align="Align.Center" Style="font-weight: 700; color: #ffffff; letter-spacing: 2px;">
+                        @_createdJoinCode
+                    </MudText>
+                </MudPaper>
+                <MudStack Row="true" Justify="Justify.FlexEnd" Class="mt-4">
+                    <MudButton Variant="Variant.Filled"
+                               Style="background-color: #f5a623; color: #ffffff; font-size: 1.15rem; font-weight: 500; text-transform: none; padding: 8px 32px; border-radius: 0px;"
+                               OnClick="CloseWithResult">
+                        Done
+                    </MudButton>
+                </MudStack>
+            }
+        </MudPaper>
     </DialogContent>
-    <DialogActions>
-        @if (string.IsNullOrEmpty(_createdJoinCode))
-        {
-            <MudButton OnClick="Cancel" Variant="Variant.Outlined">Cancel</MudButton>
-            <MudButton OnClick="CreateClass"
-                       Variant="Variant.Filled"
-                       Color="Color.Primary"
-                       Disabled="string.IsNullOrWhiteSpace(_className)">
-                Create
-            </MudButton>
-        }
-        else
-        {
-            <MudButton OnClick="CloseWithResult" Variant="Variant.Filled" Color="Color.Primary">
-                Done
-            </MudButton>
-        }
-    </DialogActions>
 </MudDialog>
 
 @code {
     [CascadingParameter]
-    public IMudDialogInstance Dialog { get; set; }
+    public IMudDialogInstance Dialog { get; set; } = default!;
 
     private string _className = string.Empty;
+    private DateTime? _fromDate;
+    private DateTime? _toDate;
+    private string _errorMessage = string.Empty;
+
     private string _createdJoinCode = string.Empty;
-    private ClassRoomDto _createdClassRoom;
+    private ClassRoomDto? _createdClassRoom;
 
-    void Cancel()
+    private async Task CreateClass()
     {
-        Dialog.Cancel();
-    }
 
-    async Task CreateClass()
-    {
+        _errorMessage = string.Empty;
+        
+        if(string.IsNullOrEmpty(_className))
+        {
+            _errorMessage = "Please enter a class name.";
+            return;
+        }
+
+        if(_toDate==null || _fromDate==null)
+        {
+            _errorMessage = "Please select both 'From' and 'To' dates.";
+            return;
+        }
+
+        if(_toDate < _fromDate)
+        {
+            _errorMessage = "The 'To' date cannot be earlier than the 'From' date.";
+            return;
+        }
+
         try
         {
             _createdClassRoom = await Api.CreateClassRoomAsync(_className, Session.WalletAddress);
-            _createdJoinCode = _createdClassRoom.JoinCode;
+            
+            if (_createdClassRoom != null)
+            {
+                _createdJoinCode = _createdClassRoom.JoinCode;
+                _createdClassRoom.StartDate = _fromDate;
+                _createdClassRoom.EndDate = _toDate;
+
+                if (_fromDate.HasValue && _toDate.HasValue)
+                {
+                    Session.ClassRoomDates[_createdClassRoom.Id] = (_fromDate.Value, _toDate.Value);
+                    try
+                    {
+                        await JS.InvokeVoidAsync("localStorage.setItem", $"class_dates_{_createdClassRoom.Id}", $"{_fromDate.Value:O}|{_toDate.Value:O}");
+                    }
+                    catch { }
+                }
+            }
         }
-        catch
+        catch(Exception ex)
         {
-            Snackbar.Add("Failed to create class. Please try again.", Severity.Error);
+            _errorMessage = $"An error occurred while creating the class: {ex.Message}";
         }
     }
 
-    void CloseWithResult()
+    private void CloseWithResult()
     {
         Dialog.Close(DialogResult.Ok(_createdClassRoom));
     }

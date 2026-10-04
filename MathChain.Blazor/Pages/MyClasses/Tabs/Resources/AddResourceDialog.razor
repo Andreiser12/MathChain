@@ -1,0 +1,252 @@
+@inject ISnackbar Snackbar
+
+<style>
+    ::deep .mud-dialog {
+        background-color: #005ea6 !important;
+        border-radius: 0px !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+        max-width: 580px !important;
+    }
+
+    /* Asigură fundal alb și text negru pentru input-urile MudBlazor */
+    .white-field .mud-input-slot {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        padding: 10px 14px !important;
+        font-size: 1.1rem !important;
+    }
+
+    .white-field .mud-input-outlined-border {
+        border: none !important;
+    }
+
+    /* Drop-up menu styling */
+    .sharp-week-menu {
+        background-color: #232238 !important;
+        color: #ffffff !important;
+        border-radius: 0px !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        max-height: 220px !important;
+        overflow-y: auto !important;
+    }
+
+    .sharp-week-menu .mud-list-item {
+        color: #ffffff !important;
+        border-radius: 0px !important;
+    }
+
+    .sharp-week-menu .mud-list-item:hover {
+        background-color: #005ea6 !important;
+    }
+</style>
+
+<MudDialog>
+    <DialogContent>
+        <MudPaper Elevation="0" Square="true" Style="background-color: #005ea6; color: #ffffff;" Class="pa-6">
+            <MudStack Spacing="4">
+                <!-- Title Field -->
+                <div>
+                    <MudText Typo="Typo.h6" Style="color: white; font-weight: 400;" Class="mb-1">
+                        Title:
+                    </MudText>
+                    <MudTextField @bind-Value="_title"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense"
+                                  Class="white-field"
+                                  Placeholder="Ex: Curs 1 - Integrale" />
+                </div>
+
+                <!-- Description Field -->
+                <div>
+                    <MudText Typo="Typo.h6" Style="color: white; font-weight: 400;" Class="mb-1">
+                        Description:
+                    </MudText>
+                    <MudTextField @bind-Value="_description"
+                                  Variant="Variant.Outlined"
+                                  Lines="4"
+                                  Class="white-field"
+                                  Placeholder="Descrierea materialului..." />
+                </div>
+
+                <!-- MudFileUpload: Butonul Select files -->
+                <div>
+                    <MudFileUpload T="IBrowserFile" FilesChanged="OnFileSelected" Accept=".pdf,.png,.jpg,.jpeg,.doc,.docx">
+                        <CustomContent>
+                            <MudButton Variant="Variant.Filled"
+                                       OnClick="context.OpenFilePickerAsync"
+                                       Style="background-color: #424242; color: #ffffff; text-transform: none; font-size: 1.15rem; padding: 8px 22px; border-radius: 0px;">
+                                Select files
+                            </MudButton>
+                        </CustomContent>
+                    </MudFileUpload>
+                </div>
+
+                <!-- File Preview Box (MudPaper gri deschis) -->
+                <MudPaper Elevation="0" 
+                          Square="true" 
+                          Style="background-color: #cccccc; min-height: 110px;" 
+                          Class="d-flex align-center justify-center pa-4">
+                    @if (_selectedFile == null)
+                    {
+                        <MudText Style="color: #666666; font-size: 1.05rem;">
+                            No file selected
+                        </MudText>
+                    }
+                    else
+                    {
+                        <MudPaper Elevation="1" Square="true" Class="d-flex align-center justify-space-between w-100 pa-3" Style="background-color: rgba(255,255,255,0.7);">
+                            <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3">
+                                <MudIcon Icon="@Icons.Material.Filled.AttachFile" Style="color: #005ea6;" />
+                                <div>
+                                    <MudText Typo="Typo.subtitle1" Style="font-weight: 600; color: #111;">
+                                        @_selectedFile.Name
+                                    </MudText>
+                                    <MudText Typo="Typo.caption" Style="color: #555;">
+                                        @FormatFileSize(_selectedFile.Size)
+                                    </MudText>
+                                </div>
+                            </MudStack>
+                            <MudIconButton Icon="@Icons.Material.Filled.Close"
+                                           Color="Color.Error"
+                                           Size="Size.Small"
+                                           OnClick="RemoveFile" />
+                        </MudPaper>
+                    }
+                </MudPaper>
+
+                <!-- Bottom Row: Select week (Drop-up) & Add Button -->
+                <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Class="mt-2">
+                    
+                    <!-- Drop-up Menu: Select week (deschidere în sus) -->
+                    <MudMenu AnchorOrigin="Origin.TopLeft" 
+                             TransformOrigin="Origin.BottomLeft" 
+                             Dense="true" 
+                             PopoverClass="sharp-week-menu">
+                        <ActivatorContent>
+                            <MudButton Variant="Variant.Filled"
+                                       OnClick="@context.ToggleAsync"
+                                       Style="background-color: #424242; color: #ffffff; text-transform: none; font-size: 1.15rem; padding: 8px 22px; border-radius: 0px;"
+                                       EndIcon="@Icons.Material.Filled.ArrowDropUp">
+                                @(_selectedWeek.HasValue ? $"Week {_selectedWeek.Value}" : "Select week")
+                            </MudButton>
+                        </ActivatorContent>
+                        <ChildContent>
+                            @if (WeeksList.Any())
+                            {
+                                @foreach (var weekNum in WeeksList)
+                                {
+                                    <MudMenuItem OnClick="() => _selectedWeek = weekNum">
+                                        Week @weekNum
+                                    </MudMenuItem>
+                                }
+                            }
+                            else
+                            {
+                                <MudMenuItem Disabled="true">Nicio săptămână disponibilă</MudMenuItem>
+                            }
+                        </ChildContent>
+                    </MudMenu>
+
+                    <!-- Add Button -->
+                    <MudButton Variant="Variant.Filled"
+                               Style="background-color: #f5a623; color: #ffffff; font-size: 1.25rem; font-weight: 500; text-transform: none; padding: 8px 36px; border-radius: 0px;"
+                               OnClick="Submit">
+                        Add
+                    </MudButton>
+                </MudStack>
+
+            </MudStack>
+        </MudPaper>
+    </DialogContent>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    public IMudDialogInstance Dialog { get; set; } = default!;
+
+    [Parameter]
+    public List<int> AvailableWeeks { get; set; } = new();
+
+    private IEnumerable<int> WeeksList => AvailableWeeks.Any() ? AvailableWeeks : Enumerable.Range(1, 14);
+
+    private string _title = string.Empty;
+    private string _description = string.Empty;
+    private IBrowserFile? _selectedFile;
+    private int? _selectedWeek;
+
+    public class MaterialResultDto
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public IBrowserFile? File { get; set; }
+        public string FileName { get; set; } = string.Empty;
+        public long FileSize { get; set; }
+        public int? WeekNumber { get; set; }
+        public DateTime AddedAt { get; set; } = DateTime.Now;
+    }
+
+    private void OnFileSelected(IBrowserFile file)
+    {
+        if(file != null)
+        {
+            _selectedFile = file;
+            if (string.IsNullOrWhiteSpace(_title))
+            {
+                _title = Path.GetFileNameWithoutExtension(_selectedFile.Name);
+            }
+            StateHasChanged();
+        }
+    }
+
+    private void RemoveFile()
+    {
+        _selectedFile = null;
+    }
+
+    private string FormatFileSize(long bytes)
+    {
+        if (bytes < 1024)
+        {
+            return $"{bytes} B";
+        }
+        if (bytes < 1024 * 1024)
+        {
+            return $"{bytes / 1024.0:F1} KB";
+        }
+        return $"{bytes / (1024.0 * 1024.0):F2} MB";
+    }
+
+    private void Submit()
+    {
+        if (string.IsNullOrWhiteSpace(_title))
+        {
+            Snackbar.Add("Please enter a title for the material.", Severity.Warning);
+            return;
+        }
+
+        if (_selectedFile == null)
+        {
+            Snackbar.Add("Please select a file to upload.", Severity.Warning);
+            return;
+        }
+
+        if (!_selectedWeek.HasValue)
+        {
+            Snackbar.Add("Please select a week for this material.", Severity.Warning);
+            return;
+        }
+
+        var result = new MaterialResultDto
+        {
+            Title = _title,
+            Description = _description,
+            File = _selectedFile,
+            FileName = _selectedFile.Name,
+            FileSize = _selectedFile.Size,
+            WeekNumber = _selectedWeek.Value,
+            AddedAt = DateTime.Now
+        };
+
+        Dialog.Close(DialogResult.Ok(result));
+    }
+}

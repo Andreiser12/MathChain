@@ -1,8 +1,10 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
+@implements IDisposable
 @inject AppSession Session
 @inject NavigationManager Nav
 
 <MudThemeProvider Theme="@_mudTheme" IsDarkMode=true />
+<MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
@@ -16,9 +18,7 @@
 			<MudAppBar>
 
 				<MudIconButton Icon="@Icons.Material.Filled.ArrowBack"
-							   Color="Color.Inherit" OnClick="GoBack" Align="Align.Start">
-
-				</MudIconButton>
+							   Color="Color.Inherit" OnClick="GoBack" />
 			</MudAppBar>
 		}
 
@@ -41,6 +41,8 @@
 				<MudNavLink Href="/settings" Icon="@Icons.Material.Filled.Settings">Settings</MudNavLink>
 				<MudDivider />
 				<MudNavLink Href="/account" Icon="@Icons.Material.Filled.AccountCircle">Account</MudNavLink>
+				<MudDivider />
+				<MudNavLink OnClick="HandleLogout" Icon="@Icons.Material.Filled.Logout" Style="color: #ff5252; cursor: pointer;">Disconnect</MudNavLink>
 				<MudDivider />
 			</MudNavMenu>
 		</MudDrawer>
@@ -68,6 +70,20 @@
 
 	private bool _drawerOpen = true;
 
+	protected override async Task OnInitializedAsync()
+	{
+		Session.OnChange += StateHasChanged;
+		if (!Session.IsConnected)
+		{
+			await Session.RestoreSessionAsync();
+		}
+	}
+
+	public void Dispose()
+	{
+		Session.OnChange -= StateHasChanged;
+	}
+
 	private void DrawerToggle()
 	{
 		_drawerOpen = !_drawerOpen;
@@ -81,5 +97,11 @@
 	void GoBack()
 	{
 		Nav.NavigateTo("javascript:history.back()");
+	}
+
+	async Task HandleLogout()
+	{
+		await Session.LogoutAsync();
+		Nav.NavigateTo("/login");
 	}
 }

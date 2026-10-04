@@ -1,4 +1,4 @@
-﻿using MathChain.Domain.Entities;
+using MathChain.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.X509Certificates;
 
@@ -15,6 +15,7 @@ namespace MathChain.API.Data
         public DbSet<AssignmentBase> Assignmentss { get; set; }
         public DbSet<Submission> Submissions { get; set; }
         public DbSet<Grade> Grades { get; set; }
+        public DbSet<ClassMaterial> ClassMaterials { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

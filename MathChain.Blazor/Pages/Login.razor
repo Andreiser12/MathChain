@@ -8,26 +8,43 @@
 @inject IDialogService DialogService
 
 <MudContainer MaxWidth="MaxWidth.Small" Class="mt-16">
-	<MudPaper Elevation="4" Class="pa-8 d-flex flex-column align-center gap-4">
-		<MudText Typo="Typo.h4">Connect Wallet</MudText>
+	<MudPaper Elevation="4" Class="pa-8 d-flex flex-column align-center gap-4" Style="background-color: #16213e; color: #ffffff; border-radius: 8px;">
+		<MudText Typo="Typo.h4" Style="font-weight: 600; color: #ffffff;">Connect Wallet</MudText>
+		<MudText Typo="Typo.body2" Style="color: rgba(255, 255, 255, 0.6); text-align: center;">
+			Alege portofelul pentru a te conecta în MathChain
+		</MudText>
 
-		<MudButton Variant="Variant.Filled"
-				   Color="Color.Primary"
-				   @onclick="ConnectWallet">
-			Connect MetaMask
-		</MudButton>
+		<MudStack Spacing="3" Class="w-100 mt-2" Style="max-width: 320px;">
+			<MudButton Variant="Variant.Filled"
+					   Style="background-color: #f6851b; color: #ffffff; font-weight: 600; text-transform: none; font-size: 1.05rem;"
+					   FullWidth="true"
+					   Size="Size.Large"
+					   StartIcon="@Icons.Material.Filled.AccountBalanceWallet"
+					   OnClick='() => ConnectWithWallet("metamask")'>
+				Connect MetaMask
+			</MudButton>
+
+			<MudButton Variant="Variant.Filled"
+					   Style="background-color: #ab9ff2; color: #1a1a2e; font-weight: 600; text-transform: none; font-size: 1.05rem;"
+					   FullWidth="true"
+					   Size="Size.Large"
+					   StartIcon="@Icons.Material.Filled.Token"
+					   OnClick='() => ConnectWithWallet("phantom")'>
+				Connect Phantom
+			</MudButton>
+		</MudStack>
 
 		@if (!string.IsNullOrEmpty(_address))
 		{
 			<MudText Typo="Typo.body1"
-					 Color="Color.Success">
-				Connected:@_address[..8]...
+					 Color="Color.Success" Class="mt-2">
+				Connected: @_address[..8]...
 			</MudText>
 		}
 
 		@if (!string.IsNullOrEmpty(_errorMessage))
 		{
-			<MudAlert Severity="Severity.Error">@_errorMessage</MudAlert>
+			<MudAlert Severity="Severity.Error" Class="mt-2 w-100">@_errorMessage</MudAlert>
 		}
 	</MudPaper>
 </MudContainer>
@@ -36,25 +53,39 @@
 	string _address = string.Empty;
 	string _errorMessage = string.Empty;
 
-	protected override void OnInitialized()
+	protected override async Task OnInitializedAsync()
 	{
+		if (!Session.IsConnected)
+		{
+			await Session.RestoreSessionAsync();
+		}
+
 		if (Session.IsConnected)
 		{
-			Nav.NavigateTo("/chapters");
+			if (Session.Role == UserRole.Teacher)
+			{
+				Nav.NavigateTo("/my-classes");
+			}
+			else
+			{
+				Nav.NavigateTo("/chapters");
+			}
 		}
 	}
 
-	async Task ConnectWallet()
+	async Task ConnectWithWallet(string walletType)
 	{
 		_errorMessage = string.Empty;
 
 		try
 		{
-			_address = await JS.InvokeAsync<string>("connectMetaMask");
+			string jsMethod = walletType == "phantom" ? "connectPhantom" : "connectMetaMask";
+			_address = await JS.InvokeAsync<string>(jsMethod);
 
 			if (string.IsNullOrEmpty(_address))
 			{
-				_errorMessage = "Failed to connect MetaMask. Please make sure you have MetaMask installed and try again!";
+				string walletName = walletType == "phantom" ? "Phantom" : "MetaMask";
+				_errorMessage = $"Conexiunea cu {walletName} nu a fost confirmată. Verifică popup-ul extensiei (sau dacă portofelul este deblocat) și încearcă din nou.";
 				return;
 			}
 
@@ -70,9 +101,9 @@
 				var dialog = await DialogService.ShowAsync<ChooseRoleDialog>("Welcome to MathChain!");
 				var result = await dialog.Result;
 
-				if (result.Canceled || result.Data == null)
+				if (result == null || result.Canceled || result.Data == null)
 				{
-					_errorMessage = "You must select a role to continue.";
+					_errorMessage = "Trebuie să selectezi un rol pentru a continua.";
 					return;
 				}
 
@@ -82,29 +113,34 @@
 
 			if (user == null)
 			{
-				_errorMessage = "Could not complete login. Please try again.";
+				_errorMessage = "Nu s-a putut finaliza autentificarea. Te rugăm să încerci din nou.";
 				return;
 			}
 
-			Session.WalletAddress = _address;
-			Session.IsConnected = true;
-			Session.Role = user.Role;
+			await Session.SetSessionAsync(_address, user.Role);
 
-			Nav.NavigateTo("/chapters");
+			if (user.Role == UserRole.Teacher)
+			{
+				Nav.NavigateTo("/my-classes");
+			}
+			else
+			{
+				Nav.NavigateTo("/chapters");
+			}
 		}
 		catch (JSException jsEx)
 		{
-			_errorMessage = "MetaMask connection failed. Please try again.";
+			_errorMessage = $"Eroare JavaScript la conectare: {jsEx.Message}";
 			Console.WriteLine($"JSException: {jsEx.Message}");
 		}
 		catch (HttpRequestException httpEx)
 		{
-			_errorMessage = $"API Server error ({httpEx.StatusCode}): Please make sure the API is running.";
+			_errorMessage = $"Eroare API Server ({httpEx.StatusCode}): Asigură-te că backend-ul rulează.";
 			Console.WriteLine($"HttpRequestException: {httpEx.Message}");
 		}
 		catch (Exception ex)
 		{
-			_errorMessage = $"An error occurred during login: {ex.Message}";
+			_errorMessage = $"A apărut o eroare la autentificare: {ex.Message}";
 			Console.WriteLine($"Exception: {ex.Message}");
 		}
 	}

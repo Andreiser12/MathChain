@@ -1,0 +1,215 @@
+@page "/class/{Id}"
+@inject ApiService Api
+@inject AppSession Session
+@inject NavigationManager Nav
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+@inject IJSRuntime JS
+
+<style>
+    * {
+        border-radius: 0px !important;
+    }
+
+    /* Tab bar full width */
+    .full-width-tabs,
+    .mud-tabs-tabbar {
+        background-color: #232238 !important;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        width: 100% !important;
+    }
+
+    .mud-tabs-tabbar-content {
+        width: 100% !important;
+        display: block !important;
+    }
+
+    .mud-tabs-tabbar-content .mud-tabs-tabbar-wrapper,
+    .mud-tabs-tabbar-wrapper {
+        width: 100% !important;
+        display: flex !important;
+    }
+
+    .mud-tabs-tabbar-wrapper > :not(.mud-tab-slider) {
+        flex: 1 1 0px !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        display: flex !important;
+    }
+
+    .mud-tab {
+        flex: 1 1 0px !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        color: #b0b0c0 !important;
+        font-size: 1.05rem !important;
+        font-weight: 500 !important;
+        text-transform: uppercase !important;
+        min-height: 48px !important;
+        justify-content: center !important;
+    }
+
+    .mud-tab-active {
+        color: #9c88ff !important;
+    }
+</style>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-2 px-6">
+
+    <!-- Top Header Bar: Codul clasei | Numele clasei | Sterge clasa -->
+    <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Class="w-100 py-3 mb-2">
+        
+        <!-- Left: Back Arrow + Codul clasei -->
+        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+            <MudText Style="font-size: 2.2rem; font-weight: 500; color: #ffffff; letter-spacing: 0.5px;">
+                @(_classRoom?.JoinCode ?? "Codul clasei")
+            </MudText>
+        </MudStack>
+
+        <!-- Center: Numele clasei -->
+        <MudText Align="Align.Center" Style="font-size: 2.2rem; font-weight: 500; color: #ffffff;">
+            @(_classRoom?.Name ?? "Numele clasei")
+        </MudText>
+
+        <!-- Right: Sterge clasa -->
+        <MudButton Variant="Variant.Filled"
+                   Style="background-color: #e53935; color: #ffffff; font-size: 1.8rem; font-weight: 500; text-transform: none; padding: 8px 36px; border-radius: 0px; line-height: 1.2;"
+                   OnClick="ConfirmDeleteClass">
+            Delete Class
+        </MudButton>
+    </MudStack>
+
+    <!-- Tabs Navigation Bar -->
+    <MudTabs Elevation="0" 
+             Class="full-width-tabs"
+             ApplyEffectsToContainer="true" 
+             Color="Color.Transparent" 
+             SliderColor="Color.Secondary"
+             MinimumTabWidth="0px">
+
+        <!-- TAB 1: RESOURCES -->
+        <MudTabPanel Text="RESOURCES">
+            <ClassResourcesTab ClassRoom="_classRoom" />
+        </MudTabPanel>
+
+        <!-- TAB 2: TEME -->
+        <MudTabPanel Text="ASSIGNMENTS" Icon="@Icons.Material.Filled.Assignment">
+            <MudPaper Elevation="0" Square="true" Style="background-color: transparent;" Class="pa-8">
+                <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.1rem;">
+                    Secțiunea Teme.
+                </MudText>
+            </MudPaper>
+        </MudTabPanel>
+
+        <!-- TAB 3: TESTE -->
+        <MudTabPanel Text="TESTS" Icon="@Icons.Material.Filled.HelpOutline">
+            <MudPaper Elevation="0" Square="true" Style="background-color: transparent;" Class="pa-8">
+                <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.1rem;">
+                    Secțiunea Teste.
+                </MudText>
+            </MudPaper>
+        </MudTabPanel>
+
+        <!-- TAB 4: CATALOG -->
+        <MudTabPanel Text="GRADEBOOK" Icon="@Icons.Material.Filled.People">
+            <MudPaper Elevation="0" Square="true" Style="background-color: transparent;" Class="pa-8">
+                <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.1rem;">
+                    Secțiunea Catalog.
+                </MudText>
+            </MudPaper>
+        </MudTabPanel>
+
+        <!-- TAB 5: STATISTICI -->
+        <MudTabPanel Text="STATISTICS" Icon="@Icons.Material.Filled.BarChart">
+            <MudPaper Elevation="0" Square="true" Style="background-color: transparent;" Class="pa-8">
+                <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.1rem;">
+                    Secțiunea Statistici.
+                </MudText>
+            </MudPaper>
+        </MudTabPanel>
+
+        <!-- TAB 6: MESAJE -->
+        <MudTabPanel Text="MESSAGES" Icon="@Icons.Material.Filled.Message">
+            <MudPaper Elevation="0" Square="true" Style="background-color: transparent;" Class="pa-8">
+                <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.1rem;">
+                    Secțiunea Mesaje.
+                </MudText>
+            </MudPaper>
+        </MudTabPanel>
+
+        <!-- TAB 7: POZE -->
+        <MudTabPanel Text="MEDIA" Icon="@Icons.Material.Filled.PhotoLibrary">
+            <MudPaper Elevation="0" Square="true" Style="background-color: transparent;" Class="pa-8">
+                <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.1rem;">
+                    Secțiunea Poze.
+                </MudText>
+            </MudPaper>
+        </MudTabPanel>
+
+    </MudTabs>
+
+</MudContainer>
+
+@code {
+    [Parameter]
+    public string Id { get; set; } = string.Empty;
+
+    private ClassRoomDto? _classRoom;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!Session.IsConnected)
+        {
+            await Session.RestoreSessionAsync();
+        }
+
+        if (Guid.TryParse(Id, out var classId))
+        {
+            try
+            {
+                _classRoom = await Api.GetClassRoomByIdAsync(classId);
+            }
+            catch { }
+
+            if (_classRoom == null && !string.IsNullOrWhiteSpace(Session.WalletAddress))
+            {
+                var classes = await Api.GetClassRoomsByTeacherAsync(Session.WalletAddress);
+                _classRoom = classes?.FirstOrDefault(c => c.Id == classId);
+            }
+        }
+    }
+
+    private async Task ConfirmDeleteClass()
+    {
+        if (_classRoom == null) return;
+
+        bool? result = await DialogService.ShowMessageBoxAsync(
+            "Confirmare Ștergere",
+            $"Ești sigur că vrei să ștergi clasa \"{_classRoom.Name}\"? Toate datele asociate vor fi pierdute.",
+            yesText: "Șterge definitiv",
+            cancelText: "Anulează");
+
+        if (result == true)
+        {
+            try
+            {
+                var success = await Api.DeleteClassRoomAsync(_classRoom.Id);
+                if (success)
+                {
+                    Snackbar.Add("Clasa a fost ștearsă cu succes.", Severity.Success);
+                    Nav.NavigateTo("/my-classes");
+                }
+                else
+                {
+                    Snackbar.Add("Nu s-a putut șterge clasa.", Severity.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"Eroare la ștergerea clasei: {ex.Message}", Severity.Error);
+            }
+        }
+    }
+}

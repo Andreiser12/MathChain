@@ -101,3 +101,110 @@ a, .btn-link {
 code {
     color: #c02d76;
 }
+
+/* Full-width class details tabs */
+.full-width-tabs .mud-tabs-tabbar {
+    background-color: #232238 !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    width: 100% !important;
+}
+
+.full-width-tabs .mud-tabs-tabbar-content {
+    width: 100% !important;
+    display: block !important;
+}
+
+.full-width-tabs .mud-tabs-tabbar-content .mud-tabs-tabbar-wrapper,
+.full-width-tabs .mud-tabs-tabbar-wrapper {
+    width: 100% !important;
+    display: flex !important;
+}
+
+.full-width-tabs .mud-tabs-tabbar-wrapper > :not(.mud-tab-slider) {
+    flex: 1 1 0px !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+}
+
+.full-width-tabs .mud-tab {
+    flex: 1 1 0px !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    color: #b0b0c0 !important;
+    font-size: 1.05rem !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+    min-height: 48px !important;
+    justify-content: center !important;
+}
+
+.full-width-tabs .mud-tab.mud-tab-active {
+    color: #9c88ff !important;
+}
+
+/* Materials Tab Styling */
+.btn-add-material {
+    background-color: #005ea6 !important;
+    color: #ffffff !important;
+    font-size: 1.25rem !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+    padding: 10px 24px !important;
+    border-radius: 0px !important;
+}
+
+.btn-add-material:hover {
+    background-color: #004e8a !important;
+}
+
+.week-card {
+    background-color: #005ea6 !important;
+    color: #ffffff !important;
+    border-radius: 0px !important;
+}
+
+.week-header {
+    height: 54px;
+}
+
+.week-toggle-btn {
+    background-color: #00447a !important;
+    color: #ffffff !important;
+    border-radius: 0px !important;
+    width: 54px !important;
+    height: 54px !important;
+}
+
+.week-title {
+    font-size: 1.3rem !important;
+    font-weight: 500 !important;
+    color: #ffffff !important;
+}
+
+.btn-delete-week,
+.btn-delete-material {
+    color: #e53935 !important;
+}
+
+.collapse-content {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.material-item-row {
+    padding-left: 54px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.material-title {
+    font-size: 1.2rem !important;
+    color: #ffffff !important;
+}
+
+.empty-materials-text {
+    font-size: 1.05rem !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    padding-left: 54px;
+}

@@ -27,6 +27,7 @@ var blockchainConfig = new BlockchainConfig();
 builder.Services.AddSingleton(blockchainConfig);
 builder.Services.AddSingleton<IBlockchainService, BlockchainService>();
 
+builder.Services.AddHttpClient();
 builder.Services.AddHttpClient<WolframService>();
 
 builder.Services.AddDbContext<MathChainDbContext>(options =>

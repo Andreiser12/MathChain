@@ -3,6 +3,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using MathChain.Domain.Enums;
 
+using Microsoft.Extensions.Configuration;
+
 namespace MathChain.Blazor.Services
 {
     public class ApiService
@@ -15,10 +17,15 @@ namespace MathChain.Blazor.Services
             Converters = { new JsonStringEnumConverter() }
         };
 
-        public ApiService(HttpClient httpClient)
+        public ApiService(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
-            _baseUrl = "https://localhost:7146/api";
+            _baseUrl = configuration["ApiBaseUrl"] ?? "https://localhost:7146/api";
+        }
+
+        public string GetIpfsDownloadUrl(string ipfsHash, string fileName)
+        {
+            return $"{_baseUrl}/ipfs/download/{ipfsHash}?fileName={Uri.EscapeDataString(fileName)}";
         }
 
         public async Task<string> SubmitSolutionAsync(Guid problemId, string walletAddress, double solution)
@@ -136,6 +143,76 @@ namespace MathChain.Blazor.Services
             var content = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<List<ClassRoomDto>>(content, _jsonOptions);
         }
+
+        public async Task<ClassRoomDto?> GetClassRoomByIdAsync(Guid id)
+        {
+            var response = await _httpClient.GetAsync($"{_baseUrl}/classroom/{id}");
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<ClassRoomDto>(content, _jsonOptions);
+        }
+
+        public async Task<bool> DeleteClassRoomAsync(Guid id)
+        {
+            var response = await _httpClient.DeleteAsync($"{_baseUrl}/classroom/{id}");
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<List<ClassMaterialDto>> GetMaterialsByClassAsync(Guid classRoomId)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"{_baseUrl}/classroom/{classRoomId}/materials");
+                if (!response.IsSuccessStatusCode) return new List<ClassMaterialDto>();
+                var content = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<List<ClassMaterialDto>>(content, _jsonOptions) ?? new List<ClassMaterialDto>();
+            }
+            catch
+            {
+                return new List<ClassMaterialDto>();
+            }
+        }
+
+        public async Task<ClassMaterialDto?> AddMaterialAsync(Guid classRoomId, int weekNumber, string title, string description, string fileName, string ipfsHash)
+        {
+            try
+            {
+                var json = JsonSerializer.Serialize(new
+                {
+                    ClassRoomId = classRoomId,
+                    WeekNumber = weekNumber,
+                    Title = title,
+                    Description = description,
+                    FileName = fileName,
+                    IpfsHash = ipfsHash
+                });
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync($"{_baseUrl}/classroom/{classRoomId}/materials", content);
+                if (!response.IsSuccessStatusCode) return null;
+                var resContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<ClassMaterialDto>(resContent, _jsonOptions);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public async Task<bool> DeleteMaterialAsync(Guid materialId)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"{_baseUrl}/classroom/materials/{materialId}");
+                return response.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 
     public class UserDto
@@ -152,6 +229,20 @@ namespace MathChain.Blazor.Services
         public string Name { get; set; }
         public string TeacherWallet { get; set; }
         public string JoinCode { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+    }
+
+    public class ClassMaterialDto
+    {
+        public Guid Id { get; set; }
+        public Guid ClassRoomId { get; set; }
+        public int WeekNumber { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string FileName { get; set; } = string.Empty;
+        public string IpfsHash { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
     }
 }

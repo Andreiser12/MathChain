@@ -1,63 +1,76 @@
-﻿@page "/my-classes"
+@page "/my-classes"
 @inject ApiService Api
 @inject AppSession Session
 @inject NavigationManager Nav
 @inject IDialogService DialogService
 @inject ISnackbar Snackbar
 
-<MudContainer MaxWidth="MaxWidth.Large" Class="mt-6">
-    <MudText Typo="Typo.h4" Class="mb-8">My Classes</MudText>
+<style>
+    * {
+        border-radius: 0px !important;
+    }
 
-    @if (Session.Role == UserRole.Teacher)
-    {
-        <MudButton Variant="Variant.Filled"
-                   Color="Color.Primary"
-                   StartIcon="@Icons.Material.Filled.Add"
-                   OnClick="OpenCreateDialog"
-                   Class="mb-6">
-            Create new class
-        </MudButton>
+    .sharp-class-card {
+        cursor: pointer;
+        transition: background-color 0.15s ease-in-out;
+        user-select: none;
     }
-    else
-    {
-        <MudStack Row="true" Spacing="2" Class="mb-6">
-            <MudTextField @bind-Value="_joinCodeInput"
-                          Label="Class code"
-                          Variant="Variant.Outlined" />
+
+    .sharp-class-card:hover {
+        background-color: #006ec4 !important;
+    }
+</style>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-2 px-6">
+    
+    <!-- Topbar: Centered Title + Right Button using MudGrid -->
+    <MudGrid Class="align-center mb-10 w-100">
+        <MudItem xs="12" sm="3" Class="d-none d-sm-flex"></MudItem>
+        
+        <MudItem xs="12" sm="6">
+            <MudText Typo="Typo.h3" Align="Align.Center" Style="color: white; font-weight: 500;">
+                My classes
+            </MudText>
+        </MudItem>
+
+        <MudItem xs="12" sm="3" Class="d-flex justify-sm-end justify-center">
             <MudButton Variant="Variant.Filled"
-                       Color="Color.Primary"
-                       OnClick="JoinClass"
-                       Disabled="string.IsNullOrWhiteSpace(_joinCodeInput)">
-                Join class
+                       Style="background-color: #005ea6; color: #ffffff; font-size: 1.15rem; font-weight: 500; text-transform: none; padding: 10px 24px; border-radius: 0px;"
+                       OnClick="OpenCreateDialog">
+                + Create new class
             </MudButton>
-        </MudStack>
-    }
+        </MudItem>
+    </MudGrid>
 
     @if (_classRooms == null)
     {
-        <MudText>Loading...</MudText>
+        <MudStack AlignItems="AlignItems.Center" Class="mt-12">
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+        </MudStack>
     }
     else if (!_classRooms.Any())
     {
-        <MudText Color="Color.Secondary">
-            @(Session.Role == UserRole.Teacher
-                ? "You haven't created any classes yet."
-                : "You are not enrolled in any classes yet.")
-        </MudText>
+        <MudStack AlignItems="AlignItems.Center" Class="mt-12">
+            <MudText Typo="Typo.h6" Style="color: rgba(255, 255, 255, 0.6);">
+                You haven't created any classes yet.
+            </MudText>
+        </MudStack>
     }
     else
     {
-        <MudGrid>
+        <MudGrid Spacing="6">
             @foreach (var classRoom in _classRooms)
             {
                 <MudItem xs="12" sm="6" md="4">
-                    <MudCard Elevation="4" Class="pa-4">
-                        <MudText Typo="Typo.h6">@classRoom.Name</MudText>
-                        @if (Session.Role == UserRole.Teacher)
-                        {
-                            <MudText Color="Color.Secondary">Code: @classRoom.JoinCode</MudText>
-                        }
-                    </MudCard>
+                    <MudPaper Elevation="0" 
+                              Square="true" 
+                              Class="d-flex align-center justify-center pa-4 sharp-class-card" 
+                              Style="background-color: #005ea6; height: 190px; color: #ffffff; border-radius: 0px;"
+                              @onclick="() => OpenClass(classRoom)">
+                        <MudText Align="Align.Center" Style="font-size: 1.4rem; font-weight: 500; color: #ffffff;">
+                            @classRoom.Name
+                        </MudText>
+                    </MudPaper>
                 </MudItem>
             }
         </MudGrid>
@@ -67,10 +80,14 @@
 @code
 {
     private List<ClassRoomDto>? _classRooms;
-    private string _joinCodeInput = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
+        if (!Session.IsConnected)
+        {
+            await Session.RestoreSessionAsync();
+        }
+
         if (!Session.IsConnected)
         {
             Nav.NavigateTo("/login");
@@ -82,34 +99,30 @@
 
     private async Task LoadClassRooms()
     {
-        _classRooms = Session.Role == UserRole.Teacher
-            ? await Api.GetClassRoomsByTeacherAsync(Session.WalletAddress)
-            : await Api.GetClassRoomsByStudentAsync(Session.WalletAddress);
+        _classRooms = await Api.GetClassRoomsByTeacherAsync(Session.WalletAddress);
     }
 
     private async Task OpenCreateDialog()
     {
-        var dialog = await DialogService.ShowAsync<CreateClassRoomDialog>("Create new class");
+        var options = new DialogOptions
+        {
+            NoHeader = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+            CloseButton = false
+        };
+
+        var dialog = await DialogService.ShowAsync<CreateClassRoomDialog>("", options);
         var result = await dialog.Result;
 
-        if (!result.Canceled)
+        if (result != null && !result.Canceled)
         {
             await LoadClassRooms();
         }
     }
 
-    private async Task JoinClass()
+    private void OpenClass(ClassRoomDto classRoom)
     {
-        try
-        {
-            await Api.JoinClassRoomAsync(_joinCodeInput, Session.WalletAddress);
-            _joinCodeInput = string.Empty;
-            await LoadClassRooms();
-            Snackbar.Add("Successfully joined the class!", Severity.Success);
-        }
-        catch
-        {
-            Snackbar.Add("Invalid code or already enrolled.", Severity.Error);
-        }
+        Nav.NavigateTo($"/class/{classRoom.Id}");
     }
 }

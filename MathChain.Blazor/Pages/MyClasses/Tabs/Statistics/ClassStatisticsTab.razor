@@ -1,0 +1,13 @@
+<MudPaper Elevation="0" Square="true" Style="background-color: transparent;" Class="pa-6">
+    <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.1rem;">
+        Statistici și progres pentru această clasă.
+    </MudText>
+</MudPaper>
+
+@code {
+    [Parameter]
+    public ClassRoomDto? ClassRoom { get; set; }
+
+    [Parameter]
+    public string? ClassId { get; set; }
+}

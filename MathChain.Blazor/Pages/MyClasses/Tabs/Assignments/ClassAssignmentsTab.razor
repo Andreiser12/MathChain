@@ -1,15 +1,321 @@
-<MudPaper Elevation="0" Square="true" Style="background-color: transparent;" Class="pa-6">
-    <MudStack Row="true" Justify="Justify.FlexStart" Class="my-4">
+@inject IDialogService DialogService
+@inject AppSession Session
+@inject IJSRuntime JS
+@inject ISnackbar Snackbar
+@inject IpfsService IpfsService
+@inject ApiService ApiService
+
+<style>
+    .btn-add-hw {
+        background-color: #005ea6 !important;
+        color: #ffffff !important;
+        font-size: 1.25rem !important;
+        font-weight: 500 !important;
+        text-transform: none !important;
+        padding: 10px 24px !important;
+        border-radius: 0px !important;
+    }
+
+    .btn-add-hw:hover {
+        background-color: #004e8a !important;
+    }
+
+    .hw-card {
+        background-color: #005ea6 !important;
+        color: #ffffff !important;
+        border-radius: 0px !important;
+        min-height: 56px;
+    }
+
+    .hw-title-link {
+        font-size: 1.3rem !important;
+        font-weight: 500 !important;
+        color: #ffffff !important;
+        cursor: pointer;
+    }
+
+    .hw-title-link:hover {
+        text-decoration: underline;
+    }
+
+    .hw-date-text {
+        font-size: 1.15rem !important;
+        color: rgba(255, 255, 255, 0.9) !important;
+    }
+
+    .btn-delete-hw {
+        color: #e53935 !important;
+    }
+
+    .back-btn {
+        color: #ffffff !important;
+        border-radius: 0px !important;
+    }
+
+    .hw-header-title {
+        font-size: 2.2rem !important;
+        font-weight: 500 !important;
+        color: #ffffff !important;
+    }
+
+    .counter-badge {
+        font-size: 2.2rem !important;
+        font-weight: 500 !important;
+        color: #ffffff !important;
+    }
+
+    .submission-card {
+        background-color: #005ea6 !important;
+        color: #ffffff !important;
+        border-radius: 0px !important;
+    }
+
+    .border-ontime {
+        border: 2px solid #4caf50 !important;
+    }
+
+    .border-late {
+        border: 2px solid #ff9800 !important;
+    }
+
+    .student-header-row {
+        cursor: pointer;
+        padding: 12px 18px;
+    }
+
+    .student-name {
+        font-size: 1.25rem !important;
+        font-weight: 500 !important;
+        color: #ffffff !important;
+    }
+
+    .submitted-date {
+        font-size: 1.1rem !important;
+        color: rgba(255, 255, 255, 0.85) !important;
+    }
+
+    .submission-content-box {
+        background-color: #005ea6 !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 16px 24px;
+    }
+
+    .feedback-input .mud-input-slot {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        padding: 10px 14px !important;
+        font-size: 1.1rem !important;
+        border-radius: 0px !important;
+    }
+
+    .feedback-input .mud-input-outlined-border {
+        border: none !important;
+    }
+
+    .grade-input {
+        width: 75px !important;
+        display: inline-block;
+    }
+
+    .grade-input .mud-input-slot {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        padding: 6px 10px !important;
+        font-size: 1.1rem !important;
+        text-align: center !important;
+        font-weight: 600 !important;
+    }
+
+    .grade-input .mud-input-outlined-border {
+        border: none !important;
+    }
+
+    .btn-send-grade {
+        background-color: #f5a623 !important;
+        color: #ffffff !important;
+        font-size: 1.15rem !important;
+        font-weight: 500 !important;
+        text-transform: none !important;
+        padding: 6px 32px !important;
+        border-radius: 0px !important;
+    }
+</style>
+
+@if (_selectedHomework == null)
+{
+    <!-- VEDERE 1: LISTA DE TEME -->
+    <MudStack Row="true" Justify="Justify.FlexStart" Class="my-6">
         <MudButton Variant="Variant.Filled"
-                   Style="background-color: #005ea6; color: #ffffff; font-size: 1.25rem; font-weight: 500; text-transform: none; padding: 10px 24px; border-radius: 0px;">
-            + Adaugă temă
+                   Class="btn-add-hw"
+                   OnClick="OpenAddHomeworkDialog">
+            + Add new homework
         </MudButton>
     </MudStack>
 
-    <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.1rem;">
-        Nicio temă adăugată pentru această clasă.
-    </MudText>
-</MudPaper>
+    @if (!_homeworks.Any())
+    {
+        <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.15rem;" Class="mt-4">
+            No homework assignments added for this class.
+        </MudText>
+    }
+    else
+    {
+        <MudStack Spacing="3" Class="w-100">
+            @foreach (var hw in _homeworks)
+            {
+                <MudPaper Elevation="0" Square="true" Class="hw-card px-5 py-3 w-100">
+                    <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween">
+                        
+                        <MudText Class="hw-title-link" @onclick="() => SelectHomework(hw)">
+                            @hw.Title
+                        </MudText>
+
+                        <div>
+                            @if (!string.IsNullOrEmpty(hw.IpfsHash))
+                            {
+                                <MudButton Variant="Variant.Filled"
+                                           StartIcon="@Icons.Material.Filled.Download"
+                                           Href="@ApiService.GetIpfsDownloadUrl(hw.IpfsHash, hw.FileName ?? "assignment.pdf")"
+                                           Style="background-color: #00447a; color: #ffffff; text-transform: none; border-radius: 0px;"
+                                           Size="Size.Small">
+                                    @(hw.FileName ?? "download pdf")
+                                </MudButton>
+                            }
+                            else
+                            {
+                                <MudText Style="color: rgba(255,255,255,0.4); font-size: 0.95rem;">
+                                    No file attached
+                                </MudText>
+                            }
+                        </div>
+
+                        <MudText Class="hw-date-text">
+                            @FormatHomeworkPeriod(hw)
+                        </MudText>
+
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                       Class="btn-delete-hw"
+                                       Size="Size.Medium"
+                                       OnClick="() => DeleteHomework(hw)" />
+                    </MudStack>
+                </MudPaper>
+            }
+        </MudStack>
+    }
+}
+else
+{
+    <!-- VEDERE 2: SUBMISSIUNI ELEVI -->
+    <MudPaper Elevation="0" Square="true" Style="background-color: transparent;" Class="w-100">
+        
+        <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Class="mb-6">
+            <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3">
+                <MudIconButton Icon="@Icons.Material.Filled.ArrowBack"
+                               Class="back-btn"
+                               Size="Size.Large"
+                               OnClick="BackToHomeworkList" />
+
+                <MudText Class="hw-header-title">
+                    @_selectedHomework.Title
+                </MudText>
+            </MudStack>
+
+            <MudText Class="counter-badge">
+                @($"{_submissions.Count}/{_totalEnrolledStudents}")
+            </MudText>
+        </MudStack>
+
+        @if (!_submissions.Any())
+        {
+            <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.15rem;">
+                No students have submitted this homework yet.
+            </MudText>
+        }
+        else
+        {
+            <MudStack Spacing="3" Class="w-100">
+                @foreach (var sub in _submissions)
+                {
+                    bool isLate = IsSubmissionLate(_selectedHomework, sub.Dto);
+
+                    <MudPaper Elevation="0" Square="true" Class="@($"submission-card {(isLate ? "border-late" : "border-ontime")}")">
+                        
+                        <div class="student-header-row d-flex align-center justify-space-between"
+                             @onclick="() => sub.IsExpanded = !sub.IsExpanded">
+                            
+                            <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3">
+                                <MudIcon Icon="@(sub.IsExpanded ? Icons.Material.Filled.ArrowDownward : Icons.Material.Filled.ArrowForward)"
+                                         Style="color: #ffffff;" />
+                                
+                                <MudText Class="student-name">
+                                    @sub.Dto.StudentName
+                                </MudText>
+                            </MudStack>
+
+                            <MudText Class="submitted-date">
+                                @($"submitted: {sub.Dto.SubmittedAt:dd.MM.yyyy HH:mm}")
+                            </MudText>
+                        </div>
+
+                        <MudCollapse Expanded="sub.IsExpanded">
+                            <MudStack Spacing="3" Class="submission-content-box">
+                                
+                                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3">
+                                    <MudText Style="font-size: 1.2rem; color: #ffffff;">pdf</MudText>
+                                    @if (!string.IsNullOrEmpty(sub.Dto.IpfsHash))
+                                    {
+                                        <MudButton Variant="Variant.Filled"
+                                                   StartIcon="@Icons.Material.Filled.ArrowDownward"
+                                                   Href="@ApiService.GetIpfsDownloadUrl(sub.Dto.IpfsHash, sub.Dto.FileName ?? "student_submission.pdf")"
+                                                   Style="background-color: #003766; color: #ffffff; text-transform: none; border-radius: 0px;"
+                                                   Size="Size.Small">
+                                            download
+                                        </MudButton>
+                                    }
+                                    else
+                                    {
+                                        <MudText Style="color: rgba(255,255,255,0.5);">No file attached</MudText>
+                                    }
+                                </MudStack>
+
+                                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+                                    <MudText Style="font-size: 1.2rem; color: #ffffff; font-weight: 500;">
+                                        grade:
+                                    </MudText>
+                                    <MudTextField @bind-Value="sub.GradeInput"
+                                                  Variant="Variant.Outlined"
+                                                  Margin="Margin.Dense"
+                                                  Class="grade-input" />
+                                    <MudText Style="font-size: 1.2rem; color: #ffffff;">/ 10</MudText>
+                                </MudStack>
+
+                                <div>
+                                    <MudText Style="font-size: 1.2rem; color: #ffffff; font-weight: 400;" Class="mb-1">
+                                        feedback:
+                                    </MudText>
+                                    <MudTextField @bind-Value="sub.FeedbackInput"
+                                                  Variant="Variant.Outlined"
+                                                  Lines="3"
+                                                  Class="feedback-input"
+                                                  Placeholder="Write feedback for student..." />
+                                </div>
+
+                                <MudStack Row="true" Justify="Justify.FlexEnd" Class="mt-1">
+                                    <MudButton Variant="Variant.Filled"
+                                               Class="btn-send-grade"
+                                               OnClick="() => SaveGrade(sub)">
+                                        send
+                                    </MudButton>
+                                </MudStack>
+
+                            </MudStack>
+                        </MudCollapse>
+                    </MudPaper>
+                }
+            </MudStack>
+        }
+    </MudPaper>
+}
 
 @code {
     [Parameter]
@@ -17,4 +323,152 @@
 
     [Parameter]
     public string? ClassId { get; set; }
+
+    public class SubmissionUiItem
+    {
+        public SubmissionItemDto Dto { get; set; } = new();
+        public bool IsExpanded { get; set; }
+        public string GradeInput { get; set; } = "10";
+        public string FeedbackInput { get; set; } = string.Empty;
+    }
+
+    private List<AssignmentItemDto> _homeworks = new();
+    private AssignmentItemDto? _selectedHomework;
+    private List<SubmissionUiItem> _submissions = new();
+    private int _totalEnrolledStudents = 0;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await LoadHomeworks();
+    }
+
+    private async Task LoadHomeworks()
+    {
+        if (ClassRoom == null) return;
+        _homeworks = await ApiService.GetAssignmentAsync(ClassRoom.Id);
+
+        var gradebook = await ApiService.GetGradebookAsync(ClassRoom.Id);
+        _totalEnrolledStudents = gradebook.Count;
+        StateHasChanged();
+    }
+
+    private async Task SelectHomework(AssignmentItemDto hw)
+    {
+        _selectedHomework = hw;
+        var list = await ApiService.GetAssignmentSubmissionsAsync(hw.Id);
+        _submissions = list.Select(s => new SubmissionUiItem
+        {
+            Dto = s,
+            IsExpanded = false,
+            GradeInput = s.Score.HasValue ? s.Score.Value.ToString() : "10",
+            FeedbackInput = s.Feedback ?? string.Empty
+        }).ToList();
+        StateHasChanged();
+    }
+
+    private void BackToHomeworkList()
+    {
+        _selectedHomework = null;
+        _submissions.Clear();
+    }
+
+    private string FormatHomeworkPeriod(AssignmentItemDto hw)
+    {
+        string fromStr = hw.StartTime.ToString("dd.MM.yyyy HH:mm");
+        if (hw.DueTime.HasValue)
+        {
+            return $"{fromStr} - {hw.DueTime.Value:dd.MM.yyyy HH:mm}";
+        }
+        return $"{fromStr} - No deadline";
+    }
+
+    private bool IsSubmissionLate(AssignmentItemDto hw, SubmissionItemDto sub)
+    {
+        if (!hw.DueTime.HasValue) return false;
+        return sub.SubmittedAt > hw.DueTime.Value;
+    }
+
+    private async Task OpenAddHomeworkDialog()
+    {
+        if (ClassRoom == null) return;
+
+        var options = new DialogOptions
+        {
+            NoHeader = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+            CloseButton = false
+        };
+
+        var dialog = await DialogService.ShowAsync<AddHomeworkDialog>("", options);
+        var result = await dialog.Result;
+
+        if (result != null && !result.Canceled && result.Data is AddHomeworkDialog.HomeworkResultDto dto)
+        {
+            string? ipfsHash = null;
+            if (dto.File != null)
+            {
+                Snackbar.Add("Uploading assignment file to IPFS...", Severity.Info);
+                ipfsHash = await IpfsService.UploadFileToIpfsAsync(dto.File);
+            }
+
+            bool success = await ApiService.CreateAssignmentAsync(
+                ClassRoom.Id,
+                dto.Title,
+                dto.Description,
+                dto.StartTime,
+                dto.DueTime,
+                dto.FileName,
+                ipfsHash
+            );
+
+            if (success)
+            {
+                Snackbar.Add("Homework added successfully!", Severity.Success);
+                await LoadHomeworks();
+            }
+            else
+            {
+                Snackbar.Add("Failed to save homework to database.", Severity.Error);
+            }
+        }
+    }
+
+    private async Task DeleteHomework(AssignmentItemDto hw)
+    {
+        bool success = await ApiService.DeleteAssignmentAsync(hw.Id);
+        if (success)
+        {
+            _homeworks.Remove(hw);
+            Snackbar.Add("Homework deleted.", Severity.Info);
+            StateHasChanged();
+        }
+        else
+        {
+            Snackbar.Add("Failed to delete homework.", Severity.Error);
+        }
+    }
+
+    private async Task SaveGrade(SubmissionUiItem sub)
+    {
+        if (!double.TryParse(sub.GradeInput, out double score))
+        {
+            Snackbar.Add("Please enter a valid numeric grade.", Severity.Warning);
+            return;
+        }
+
+        bool success = await ApiService.GradeSubmissionAsync(sub.Dto.Id, score, sub.FeedbackInput);
+        if (success)
+        {
+            sub.Dto.Score = score;
+            sub.Dto.Feedback = sub.FeedbackInput;
+            sub.IsExpanded = false;
+            Snackbar.Add($"Grade {score} saved for {sub.Dto.StudentName}!", Severity.Success);
+            StateHasChanged();
+        }
+        else
+        {
+            Snackbar.Add("Failed to save grade.", Severity.Error);
+        }
+    }
 }

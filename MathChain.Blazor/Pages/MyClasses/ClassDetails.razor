@@ -96,11 +96,7 @@
 
         <!-- TAB 2: TEME -->
         <MudTabPanel Text="ASSIGNMENTS" Icon="@Icons.Material.Filled.Assignment">
-            <MudPaper Elevation="0" Square="true" Style="background-color: transparent;" Class="pa-8">
-                <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.1rem;">
-                    Secțiunea Teme.
-                </MudText>
-            </MudPaper>
+            <ClassAssignmentsTab ClassRoom="_classRoom" ClassId="@Id" />
         </MudTabPanel>
 
         <!-- TAB 3: TESTE -->
@@ -114,11 +110,7 @@
 
         <!-- TAB 4: CATALOG -->
         <MudTabPanel Text="GRADEBOOK" Icon="@Icons.Material.Filled.People">
-            <MudPaper Elevation="0" Square="true" Style="background-color: transparent;" Class="pa-8">
-                <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.1rem;">
-                    Secțiunea Catalog.
-                </MudText>
-            </MudPaper>
+            <ClassGradebookTab ClassRoom="_classRoom" ClassId="@Id" />
         </MudTabPanel>
 
         <!-- TAB 5: STATISTICI -->
@@ -132,20 +124,12 @@
 
         <!-- TAB 6: MESAJE -->
         <MudTabPanel Text="MESSAGES" Icon="@Icons.Material.Filled.Message">
-            <MudPaper Elevation="0" Square="true" Style="background-color: transparent;" Class="pa-8">
-                <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.1rem;">
-                    Secțiunea Mesaje.
-                </MudText>
-            </MudPaper>
+            <ClassMessagesTab ClassRoom="_classRoom" ClassId="@Id" />
         </MudTabPanel>
 
-        <!-- TAB 7: POZE -->
+        <!-- TAB 7: POZE / MEDIA -->
         <MudTabPanel Text="MEDIA" Icon="@Icons.Material.Filled.PhotoLibrary">
-            <MudPaper Elevation="0" Square="true" Style="background-color: transparent;" Class="pa-8">
-                <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.1rem;">
-                    Secțiunea Poze.
-                </MudText>
-            </MudPaper>
+            <ClassMediaTab ClassRoom="_classRoom" ClassId="@Id" />
         </MudTabPanel>
 
     </MudTabs>

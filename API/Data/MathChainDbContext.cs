@@ -12,10 +12,13 @@ namespace MathChain.API.Data
         public DbSet<User> Users { get; set; }
         public DbSet<ClassRoom> ClassRooms { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
-        public DbSet<AssignmentBase> Assignmentss { get; set; }
+        public DbSet<AssignmentBase> Assignments { get; set; }
         public DbSet<Submission> Submissions { get; set; }
         public DbSet<Grade> Grades { get; set; }
-        public DbSet<ClassMaterial> ClassMaterials { get; set; }
+        public DbSet<ClassResource> ClassMaterials { get; set; }
+        public DbSet<ClassAnnouncement> ClassAnnouncements { get; set; }
+        public DbSet<MessageComment> MessagesComments { get; set; }
+        public DbSet<ClassMedia> ClassMedia { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,7 +26,7 @@ namespace MathChain.API.Data
 
             modelBuilder.Entity<AssignmentBase>()
                 .HasDiscriminator<string>("AssignmentType")
-                .HasValue<Homework>("Homework")
+                .HasValue<Assignment>("Homework")
                 .HasValue<Test>("Test");
 
             modelBuilder.Entity<User>()

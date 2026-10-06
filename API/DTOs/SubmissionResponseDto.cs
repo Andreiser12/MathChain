@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MathChain.Domain.Entities
+﻿namespace MathChain.API.DTOs
 {
-    public class Submission
+    public class SubmissionResponseDto
     {
         public Guid Id { get; set; }
         public Guid AssignmentId { get; set; }
         public string StudentWallet { get; set; } = string.Empty;
+        public string StudentName { get; set; } = string.Empty;
         public string? FileName { get; set; }
         public string? IpfsHash { get; set; }
-        public string Content { get; set; } = string.Empty;
         public DateTime SubmittedAt { get; set; }
-        
+        public double? Score { get; set; }
+        public string? Feedback { get; set; }
     }
 }

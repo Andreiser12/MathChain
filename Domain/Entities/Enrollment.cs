@@ -11,6 +11,7 @@ namespace MathChain.Domain.Entities
         public Guid Id { get; set; }
         public Guid ClassRoomId { get; set; }
         public string StudentWallet { get; set; } = string.Empty;
+        public int? FinalGrade { get; set; }
         public DateTime CreatedAt { get; set; }
     }
 }

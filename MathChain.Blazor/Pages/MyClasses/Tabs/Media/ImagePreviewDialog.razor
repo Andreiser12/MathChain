@@ -1,0 +1,85 @@
+@inject ApiService ApiService
+
+<style>
+    ::deep .mud-dialog {
+        background-color: #1b1b2f !important;
+        border-radius: 0px !important;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8) !important;
+        max-width: 900px !important;
+    }
+
+    .preview-modal-header {
+        background-color: #005ea6;
+        color: #ffffff;
+        padding: 12px 20px;
+    }
+
+    .preview-modal-img {
+        max-width: 100%;
+        max-height: 75vh;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .btn-preview-download {
+        background-color: #f5a623 !important;
+        color: #ffffff !important;
+        text-transform: none !important;
+        border-radius: 0px !important;
+        font-weight: 500 !important;
+    }
+
+    .btn-preview-download:hover {
+        background-color: #e09612 !important;
+    }
+</style>
+
+<MudDialog>
+    <DialogContent>
+        <div class="d-flex flex-column">
+            <!-- Header bar -->
+            <div class="preview-modal-header d-flex align-center justify-space-between mb-3">
+                <MudText Typo="Typo.subtitle1" Style="font-weight: 600; color: #ffffff;">
+                    @FileName
+                </MudText>
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+                    <MudButton Variant="Variant.Filled"
+                               Href="@ApiService.GetIpfsDownloadUrl(IpfsHash, FileName)"
+                               Target="_blank"
+                               StartIcon="@Icons.Material.Filled.Download"
+                               Class="btn-preview-download">
+                        Download
+                    </MudButton>
+                    <MudIconButton Icon="@Icons.Material.Filled.Close"
+                                   Color="Color.Inherit"
+                                   OnClick="Close" />
+                </MudStack>
+            </div>
+
+            <!-- Image display -->
+            <div class="pa-2 d-flex justify-center align-center" style="background-color: #000000; min-height: 300px;">
+                <img src="@ApiService.GetIpfsDownloadUrl(IpfsHash, FileName)"
+                     alt="@FileName"
+                     class="preview-modal-img" />
+            </div>
+        </div>
+    </DialogContent>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    public IMudDialogInstance Dialog { get; set; } = default!;
+
+    [Parameter]
+    public string FileName { get; set; } = string.Empty;
+
+    [Parameter]
+    public string IpfsHash { get; set; } = string.Empty;
+
+    private void Close()
+    {
+        Dialog.Close();
+    }
+}

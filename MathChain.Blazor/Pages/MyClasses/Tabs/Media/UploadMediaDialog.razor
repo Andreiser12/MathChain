@@ -1,0 +1,196 @@
+@inject ISnackbar Snackbar
+
+<style>
+    ::deep .mud-dialog {
+        background-color: #005ea6 !important;
+        border-radius: 0px !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+        max-width: 580px !important;
+    }
+
+    .media-dialog-container {
+        background-color: #005ea6 !important;
+        color: #ffffff !important;
+        border-radius: 0px !important;
+        padding: 24px;
+    }
+
+    .media-select-label {
+        background-color: #4a4a4a !important;
+        color: #ffffff !important;
+        display: inline-block;
+        padding: 6px 16px;
+        font-size: 1.15rem;
+        font-weight: 500;
+        border-radius: 0px !important;
+    }
+
+    .media-dropzone {
+        background-color: #cccccc !important;
+        min-height: 220px;
+        border: 2px dashed #999999;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        transition: background-color 0.2s ease;
+    }
+
+    .media-dropzone:hover {
+        background-color: #bbbbbb !important;
+    }
+
+    .media-preview-img {
+        max-height: 200px;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+    .btn-upload-submit {
+        background-color: #f5a623 !important;
+        color: #ffffff !important;
+        font-size: 1.25rem !important;
+        font-weight: 500 !important;
+        text-transform: none !important;
+        padding: 8px 36px !important;
+        border-radius: 0px !important;
+    }
+
+    .btn-upload-submit:hover {
+        background-color: #e09612 !important;
+    }
+
+    .btn-dialog-cancel {
+        background-color: transparent !important;
+        color: rgba(255, 255, 255, 0.8) !important;
+        font-size: 1.1rem !important;
+        text-transform: none !important;
+        border-radius: 0px !important;
+    }
+
+    .btn-dialog-cancel:hover {
+        color: #ffffff !important;
+    }
+</style>
+
+<MudDialog>
+    <DialogContent>
+        <div class="media-dialog-container">
+            <MudStack Spacing="4">
+                
+                <!-- Label: Select a file: -->
+                <div>
+                    <span class="media-select-label">Select a file:</span>
+                </div>
+
+                <!-- Gray Dropzone / File Picker Box -->
+                <MudFileUpload T="IBrowserFile" FilesChanged="OnFileSelected" Accept=".png,.jpg,.jpeg,.webp,.gif">
+                    <CustomContent>
+                        <div class="media-dropzone pa-4" @onclick="context.OpenFilePickerAsync">
+                            @if (!string.IsNullOrEmpty(_previewUrl))
+                            {
+                                <img src="@_previewUrl" alt="Preview" class="media-preview-img" />
+                                <MudText Typo="Typo.caption" Style="color: #222; font-weight: 600;" Class="mt-2">
+                                    @_selectedFile?.Name (@FormatFileSize(_selectedFile?.Size ?? 0))
+                                </MudText>
+                            }
+                            else
+                            {
+                                <MudIcon Icon="@Icons.Material.Filled.CloudUpload" Size="Size.Large" Style="color: #555; font-size: 3rem;" />
+                                <MudText Typo="Typo.body1" Style="color: #333; font-weight: 500;" Class="mt-2 text-center">
+                                    Click to choose an image from your device
+                                </MudText>
+                                <MudText Typo="Typo.caption" Style="color: #666;" Class="text-center">
+                                    Supports PNG, JPG, JPEG, WEBP
+                                </MudText>
+                            }
+                        </div>
+                    </CustomContent>
+                </MudFileUpload>
+
+                <!-- Actions: Cancel & Upload button -->
+                <MudStack Row="true" Justify="Justify.FlexEnd" AlignItems="AlignItems.Center" Spacing="3" Class="mt-2">
+                    <MudButton OnClick="Cancel" Class="btn-dialog-cancel">
+                        Cancel
+                    </MudButton>
+                    <MudButton OnClick="Submit" Class="btn-upload-submit">
+                        Upload
+                    </MudButton>
+                </MudStack>
+
+            </MudStack>
+        </div>
+    </DialogContent>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    public IMudDialogInstance Dialog { get; set; } = default!;
+
+    private IBrowserFile? _selectedFile;
+    private string? _previewUrl;
+
+    public class UploadMediaResult
+    {
+        public IBrowserFile File { get; set; } = default!;
+        public string FileName { get; set; } = string.Empty;
+        public long FileSize { get; set; }
+    }
+
+    private async Task OnFileSelected(IBrowserFile file)
+    {
+        if (file != null)
+        {
+            _selectedFile = file;
+
+            try
+            {
+                // Creează URL de preview direct din fișierul selectat
+                var buffer = new byte[file.Size];
+                using var stream = file.OpenReadStream(maxAllowedSize: 15 * 1024 * 1024);
+                await stream.ReadExactlyAsync(buffer);
+                var base64 = Convert.ToBase64String(buffer);
+                _previewUrl = $"data:{file.ContentType};base64,{base64}";
+            }
+            catch
+            {
+                _previewUrl = null;
+            }
+
+            StateHasChanged();
+        }
+    }
+
+    private string FormatFileSize(long bytes)
+    {
+        if (bytes < 1024) return $"{bytes} B";
+        if (bytes < 1024 * 1024) return $"{bytes / 1024.0:F1} KB";
+        return $"{bytes / (1024.0 * 1024.0):F2} MB";
+    }
+
+    private void Cancel()
+    {
+        Dialog.Cancel();
+    }
+
+    private void Submit()
+    {
+        if (_selectedFile == null)
+        {
+            Snackbar.Add("Please select an image file first.", Severity.Warning);
+            return;
+        }
+
+        var result = new UploadMediaResult
+        {
+            File = _selectedFile,
+            FileName = _selectedFile.Name,
+            FileSize = _selectedFile.Size
+        };
+
+        Dialog.Close(DialogResult.Ok(result));
+    }
+}

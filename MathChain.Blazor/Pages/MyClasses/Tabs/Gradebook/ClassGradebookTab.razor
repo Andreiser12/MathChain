@@ -1,16 +1,244 @@
-<MudPaper Elevation="0" Square="true" Style="background-color: transparent;" Class="pa-6">
-    <MudStack Row="true" Justify="Justify.FlexStart" Class="my-4">
-        <MudButton Variant="Variant.Filled"
-                   Style="background-color: #005ea6; color: #ffffff; font-size: 1.25rem; font-weight: 500; text-transform: none; padding: 10px 24px; border-radius: 0px;"
-                   OnClick="OpenAddStudentDialog">
-            + Adaugă elev
-        </MudButton>
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+@inject ApiService ApiService
+@inject AppSession Session
+
+<style>
+    .student-grade-card {
+        background-color: #005ea6 !important;
+        color: #ffffff !important;
+        border-radius: 0px !important;
+        min-height: 56px;
+    }
+
+    .student-header-row {
+        cursor: pointer;
+        padding: 14px 20px;
+    }
+
+    .student-title {
+        font-size: 1.35rem !important;
+        font-weight: 500 !important;
+        color: #ffffff !important;
+    }
+
+    .btn-kick-student {
+        background-color: #e53935 !important;
+        color: #ffffff !important;
+        border-radius: 0px !important;
+        min-width: 44px !important;
+        height: 40px !important;
+        padding: 4px 10px !important;
+    }
+
+    .btn-kick-student:hover {
+        background-color: #c62828 !important;
+    }
+
+    .grade-content-panel {
+        background-color: #005ea6 !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 20px 24px;
+    }
+
+    .grade-label {
+        font-size: 1.3rem !important;
+        font-weight: 500 !important;
+        color: #ffffff !important;
+    }
+
+    .grade-entry-row {
+        font-size: 1.15rem !important;
+        color: rgba(255, 255, 255, 0.95) !important;
+    }
+
+    .final-grade-box {
+        background-color: #003766 !important;
+        border-radius: 0px !important;
+        width: 130px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff !important;
+        font-size: 2.2rem !important;
+        font-weight: 600 !important;
+    }
+
+    .btn-final-grade {
+        background-color: #f5a623 !important;
+        color: #ffffff !important;
+        font-size: 1.15rem !important;
+        font-weight: 500 !important;
+        text-transform: none !important;
+        border-radius: 0px !important;
+        width: 130px !important;
+        padding: 8px 16px !important;
+    }
+
+    .btn-final-grade:hover {
+        background-color: #d48b13 !important;
+    }
+
+    .btn-finalize-all {
+        background-color: #f5a623 !important;
+        color: #ffffff !important;
+        font-size: 1.15rem !important;
+        font-weight: 500 !important;
+        text-transform: none !important;
+        border-radius: 0px !important;
+        padding: 8px 24px !important;
+    }
+
+    .btn-finalize-all:hover:not(:disabled) {
+        background-color: #d48b13 !important;
+    }
+
+    .btn-reopen {
+        background-color: transparent !important;
+        color: #ffffff !important;
+        border: 1px solid #ffffff !important;
+        border-radius: 0px !important;
+        text-transform: none !important;
+        font-size: 1.05rem !important;
+        padding: 6px 18px !important;
+    }
+</style>
+
+<!-- HEADER ACTIONS -->
+<MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Class="my-6">
+    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3">
+        <MudText Style="font-size: 1.4rem; font-weight: 500; color: #ffffff;">
+            Enrolled Students: @_students.Count
+        </MudText>
+
+        @if (_isFinalized)
+        {
+            <MudChip T="string" Color="Color.Success" Variant="Variant.Filled" Style="border-radius: 0px; font-weight: 500;">
+                ✓ Grades Finalized
+            </MudChip>
+        }
+        else
+        {
+            <MudText Style="color: rgba(255, 255, 255, 0.7); font-size: 1.1rem;">
+                (Final grades calculated: @_students.Count(s => s.Dto.FinalGrade.HasValue)/@_students.Count)
+            </MudText>
+        }
     </MudStack>
 
-    <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.1rem;">
-        Catalogul este gol. Niciun elev înscris.
+    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+        @if (!_isFinalized)
+        {
+            <MudButton Variant="Variant.Filled"
+                       Class="btn-finalize-all"
+                       Disabled="@(!CanFinalizeGrades)"
+                       OnClick="ConfirmFinalizeGrades">
+                Finalize Grades
+            </MudButton>
+        }
+        else
+        {
+            <MudButton Variant="Variant.Outlined"
+                       Class="btn-reopen"
+                       OnClick="ReopenGrades">
+                Reopen for Retakes / Improvements
+            </MudButton>
+        }
+    </MudStack>
+</MudStack>
+
+<!-- STUDENT LIST -->
+@if (!_students.Any())
+{
+    <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.15rem;" Class="mt-4">
+        No students enrolled in this class yet.
     </MudText>
-</MudPaper>
+}
+else
+{
+    <MudStack Spacing="3" Class="w-100">
+        @foreach (var student in _students)
+        {
+            <MudPaper Elevation="0" Square="true" Class="student-grade-card w-100">
+
+                <div class="student-header-row d-flex align-center justify-space-between"
+                     @onclick="() => student.IsExpanded = !student.IsExpanded">
+
+                    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3">
+                        <MudIcon Icon="@(student.IsExpanded ? Icons.Material.Filled.ArrowDownward : Icons.Material.Filled.ArrowForward)"
+                                 Style="color: #ffffff;" />
+
+                        <MudText Class="student-title">
+                            @student.Dto.StudentName
+                        </MudText>
+                    </MudStack>
+
+                    <div @onclick:stopPropagation="true">
+                        <MudIconButton Icon="@Icons.Material.Filled.PersonRemove"
+                                       Class="btn-kick-student"
+                                       Size="Size.Medium"
+                                       OnClick="() => ConfirmRemoveStudent(student)" />
+                    </div>
+                </div>
+
+                <MudCollapse Expanded="student.IsExpanded">
+                    <div class="grade-content-panel">
+                        <MudGrid Spacing="4" Justify="Justify.SpaceBetween" Class="align-center">
+
+                            <!-- Left: Grades list -->
+                            <MudItem xs="12" sm="8">
+                                <MudText Class="grade-label mb-2">
+                                    Grades:
+                                </MudText>
+
+                                @if (!student.Dto.Grades.Any())
+                                {
+                                    <MudText Style="color: rgba(255, 255, 255, 0.6); font-style: italic; font-size: 1.05rem;">
+                                        No grades recorded yet.
+                                    </MudText>
+                                }
+                                else
+                                {
+                                    <MudStack Spacing="2" Class="mt-1">
+                                        @foreach (var g in student.Dto.Grades)
+                                        {
+                                            <MudText Class="grade-entry-row">
+                                                @($"{g.GradedAt:dd.MM.yyyy}: {g.Score}")
+                                            </MudText>
+                                        }
+                                    </MudStack>
+                                }
+                            </MudItem>
+
+                            <!-- Right: Final Grade Box -->
+                            <MudItem xs="12" sm="4" Class="d-flex flex-column align-end justify-center">
+                                <MudStack Spacing="2" AlignItems="AlignItems.Center">
+                                    
+                                    <div class="final-grade-box">
+                                        @if (student.Dto.FinalGrade.HasValue)
+                                        {
+                                            <span>@student.Dto.FinalGrade.Value</span>
+                                        }
+                                    </div>
+
+                                    <MudButton Variant="Variant.Filled"
+                                               Class="btn-final-grade"
+                                               Disabled="_isFinalized"
+                                               OnClick="() => CalculateFinalGrade(student)">
+                                        Final Grade
+                                    </MudButton>
+
+                                </MudStack>
+                            </MudItem>
+
+                        </MudGrid>
+                    </div>
+                </MudCollapse>
+
+            </MudPaper>
+        }
+    </MudStack>
+}
 
 @code {
     [Parameter]
@@ -19,8 +247,106 @@
     [Parameter]
     public string? ClassId { get; set; }
 
-    private void OpenAddStudentDialog()
+    public class StudentGradebookUiItem
     {
-        // Logica ta C# pentru adăugare elev / catalog
+        public StudentGradebookDto Dto { get; set; } = new();
+        public bool IsExpanded { get; set; }
+    }
+
+    private List<StudentGradebookUiItem> _students = new();
+    private bool _isFinalized = false;
+
+    private bool CanFinalizeGrades => _students.Any() && _students.All(s => s.Dto.FinalGrade.HasValue);
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await LoadGradebook();
+    }
+
+    private async Task LoadGradebook()
+    {
+        if (ClassRoom == null) return;
+        var list = await ApiService.GetGradebookAsync(ClassRoom.Id);
+        _students = list.Select(d => new StudentGradebookUiItem
+        {
+            Dto = d,
+            IsExpanded = false
+        }).ToList();
+        StateHasChanged();
+    }
+
+    private async Task CalculateFinalGrade(StudentGradebookUiItem student)
+    {
+        if (!student.Dto.Grades.Any())
+        {
+            Snackbar.Add($"Cannot calculate final grade for {student.Dto.StudentName}: No grades recorded.", Severity.Warning);
+            return;
+        }
+
+        if (ClassRoom == null) return;
+
+        double average = student.Dto.Grades.Average(g => g.Score);
+        int finalRounded = (int)Math.Round(average, MidpointRounding.AwayFromZero);
+
+        bool success = await ApiService.SetFinalGradeAsync(ClassRoom.Id, student.Dto.StudentWallet, finalRounded);
+        if (success)
+        {
+            student.Dto.FinalGrade = finalRounded;
+            Snackbar.Add($"Final grade {finalRounded} saved for {student.Dto.StudentName}!", Severity.Success);
+            StateHasChanged();
+        }
+        else
+        {
+            Snackbar.Add("Failed to save final grade.", Severity.Error);
+        }
+    }
+
+    private async Task ConfirmRemoveStudent(StudentGradebookUiItem student)
+    {
+        if (ClassRoom == null) return;
+
+        bool? confirmed = await DialogService.ShowMessageBoxAsync(
+            "Remove Student",
+            $"Are you sure you want to remove {student.Dto.StudentName} from this class?",
+            yesText: "Remove",
+            cancelText: "Cancel");
+
+        if (confirmed == true)
+        {
+            bool success = await ApiService.RemoveStudentFromClassAsync(ClassRoom.Id, student.Dto.StudentWallet);
+            if (success)
+            {
+                _students.Remove(student);
+                Snackbar.Add($"{student.Dto.StudentName} has been removed from the class.", Severity.Info);
+                StateHasChanged();
+            }
+            else
+            {
+                Snackbar.Add("Failed to remove student.", Severity.Error);
+            }
+        }
+    }
+
+    private async Task ConfirmFinalizeGrades()
+    {
+        bool? confirmed = await DialogService.ShowMessageBoxAsync(
+            "Finalize Grades",
+            "Are you sure you want to finalize all grades for this class? The gradebook will be locked.",
+            yesText: "Finalize",
+            cancelText: "Cancel");
+
+        if (confirmed == true)
+        {
+            _isFinalized = true;
+            Snackbar.Add("All grades have been successfully finalized!", Severity.Success);
+            StateHasChanged();
+        }
+    }
+
+    private void ReopenGrades()
+    {
+        _isFinalized = false;
+        Snackbar.Add("Gradebook unlocked for retakes and improvements.", Severity.Info);
+        StateHasChanged();
     }
 }

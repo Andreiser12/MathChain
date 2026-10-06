@@ -2,7 +2,7 @@ using System;
 
 namespace MathChain.Domain.Entities
 {
-    public class ClassMaterial
+    public class ClassResource
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public Guid ClassRoomId { get; set; }

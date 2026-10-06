@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace MathChain.Domain.Entities
 {
-    public class Homework : AssignmentBase
+    public class Assignment : AssignmentBase
     {
+        public DateTime StartTime { get; set; } = DateTime.UtcNow;
         public DateTime? DueTime { get; set; }
+        public string? FileName { get; set; }
+        public string? IpfsHash { get; set; }
     }
 }

@@ -230,7 +230,7 @@
     {
         try
         {
-            var dbMaterials = await ApiService.GetMaterialsByClassAsync(classId);
+            var dbMaterials = await ApiService.GetResourcesByClassAsync(classId);
             foreach (var week in _weeks)
             {
                 week.Materials.Clear();
@@ -299,7 +299,7 @@
         week.Materials.Remove(material);
         if (material.Id != Guid.Empty)
         {
-            await ApiService.DeleteMaterialAsync(material.Id);
+            await ApiService.DeleteResourceAsync(material.Id);
         }
         Snackbar.Add("Material șters.", Severity.Info);
         StateHasChanged();
@@ -347,11 +347,11 @@
             if (targetWeek != null)
             {
                 Guid currentClassId = _lastLoadedClassId ?? ClassRoom?.Id ?? Guid.Empty;
-                ClassMaterialDto? savedDb = null;
+                ClassResourceDto? savedDb = null;
 
                 if (currentClassId != Guid.Empty)
                 {
-                    savedDb = await ApiService.AddMaterialAsync(
+                    savedDb = await ApiService.AddResourceAsync(
                         currentClassId,
                         materialDto.WeekNumber.Value,
                         materialDto.Title,

@@ -1,15 +1,182 @@
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+@inject ApiService ApiService
+@inject IpfsService IpfsService
+@inject AppSession Session
+
+<style>
+    .btn-upload-media {
+        background-color: #005ea6 !important;
+        color: #ffffff !important;
+        font-size: 1.25rem !important;
+        font-weight: 500 !important;
+        text-transform: none !important;
+        padding: 10px 24px !important;
+        border-radius: 0px !important;
+    }
+
+    .btn-upload-media:hover {
+        background-color: #004e8a !important;
+    }
+
+    .media-card {
+        background-color: #005ea6 !important;
+        color: #ffffff !important;
+        border-radius: 0px !important;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .media-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    .media-thumb-wrapper {
+        position: relative;
+        width: 100%;
+        height: 190px;
+        background-color: #0b0b14;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .media-thumb-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.25s ease;
+    }
+
+    .media-thumb-wrapper:hover .media-thumb-img {
+        transform: scale(1.05);
+    }
+
+    .media-overlay-zoom {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        opacity: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.2s ease;
+    }
+
+    .media-thumb-wrapper:hover .media-overlay-zoom {
+        opacity: 1;
+    }
+
+    .media-card-footer {
+        background-color: #005ea6;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .media-filename {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 500;
+        color: #ffffff !important;
+    }
+
+    .media-meta {
+        color: rgba(255, 255, 255, 0.75) !important;
+        font-size: 0.8rem;
+    }
+
+    .btn-delete-media {
+        background-color: #e53935 !important;
+        color: #ffffff !important;
+        border-radius: 0px !important;
+    }
+
+    .btn-delete-media:hover {
+        background-color: #c62828 !important;
+    }
+</style>
+
 <MudPaper Elevation="0" Square="true" Style="background-color: transparent;" Class="pa-6">
+    
+    <!-- Top Row: + upload Button -->
     <MudStack Row="true" Justify="Justify.FlexStart" Class="my-4">
         <MudButton Variant="Variant.Filled"
-                   Style="background-color: #005ea6; color: #ffffff; font-size: 1.25rem; font-weight: 500; text-transform: none; padding: 10px 24px; border-radius: 0px;"
-                   OnClick="OpenUploadMediaDialog">
-            + Încarcă poză
+                   Class="btn-upload-media"
+                   OnClick="OpenUploadDialog">
+            + upload
         </MudButton>
     </MudStack>
 
-    <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.1rem;">
-        Nicio poză încărcată pentru această clasă.
-    </MudText>
+    <!-- Content Area: Loading / Empty / Photo Gallery Grid -->
+    @if (_isLoading)
+    {
+        <MudStack AlignItems="AlignItems.Center" Class="py-12">
+            <MudProgressCircular Indeterminate="true" Color="Color.Primary" Size="Size.Large" />
+            <MudText Style="color: rgba(255, 255, 255, 0.7);" Class="mt-3">
+                Loading photos...
+            </MudText>
+        </MudStack>
+    }
+    else if (_mediaList == null || !_mediaList.Any())
+    {
+        <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.15rem;" Class="py-6">
+            No photos uploaded yet for this class.
+        </MudText>
+    }
+    else
+    {
+        <MudGrid Spacing="3" Class="mt-2">
+            @foreach (var item in _mediaList)
+            {
+                <MudItem xs="12" sm="6" md="4" lg="3">
+                    <MudPaper Elevation="2" Square="true" Class="media-card">
+                        
+                        <!-- Thumbnail area (Clickable for zoom lightbox) -->
+                        <div class="media-thumb-wrapper" @onclick="() => OpenPreview(item)">
+                            <img src="@ApiService.GetIpfsDownloadUrl(item.IpfsHash, item.FileName)"
+                                 alt="@item.FileName"
+                                 class="media-thumb-img"
+                                 loading="lazy" />
+                            <div class="media-overlay-zoom">
+                                <MudIcon Icon="@Icons.Material.Filled.ZoomIn" Style="font-size: 2.5rem; color: #ffffff;" />
+                            </div>
+                        </div>
+
+                        <!-- Card Footer: Name, Date & Actions (Download, Delete) -->
+                        <div class="media-card-footer d-flex align-center justify-space-between px-3 py-2">
+                            <div style="overflow: hidden; max-width: 65%;">
+                                <MudText Typo="Typo.body2" Class="media-filename" title="@item.FileName">
+                                    @item.FileName
+                                </MudText>
+                                <MudText Typo="Typo.caption" Class="media-meta">
+                                    @item.CreatedAt.ToString("dd.MM.yyyy") • @FormatWallet(item.UploaderWallet)
+                                </MudText>
+                            </div>
+                            <MudStack Row="true" Spacing="1" AlignItems="AlignItems.Center">
+                                <MudIconButton Icon="@Icons.Material.Filled.Download"
+                                               Href="@ApiService.GetIpfsDownloadUrl(item.IpfsHash, item.FileName)"
+                                               Target="_blank"
+                                               Size="Size.Small"
+                                               Style="color: #ffffff;"
+                                               title="Download photo" />
+                                <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                               OnClick="() => ConfirmDelete(item)"
+                                               Size="Size.Small"
+                                               Class="btn-delete-media"
+                                               title="Delete photo" />
+                            </MudStack>
+                        </div>
+
+                    </MudPaper>
+                </MudItem>
+            }
+        </MudGrid>
+    }
+
 </MudPaper>
 
 @code {
@@ -19,8 +186,124 @@
     [Parameter]
     public string? ClassId { get; set; }
 
-    private void OpenUploadMediaDialog()
+    private List<ClassMediaDto> _mediaList = new();
+    private bool _isLoading = false;
+
+    protected override async Task OnParametersSetAsync()
     {
-        // Logica ta C# pentru încărcare poze / media
+        await LoadMedia();
+    }
+
+    private async Task LoadMedia()
+    {
+        if (ClassRoom == null) return;
+        _isLoading = true;
+        try
+        {
+            _mediaList = await ApiService.GetClassMediaAsync(ClassRoom.Id);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error loading photos: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task OpenUploadDialog()
+    {
+        if (ClassRoom == null) return;
+
+        var options = new DialogOptions
+        {
+            NoHeader = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+            CloseButton = false
+        };
+
+        var dialog = await DialogService.ShowAsync<UploadMediaDialog>("", options);
+        var result = await dialog.Result;
+
+        if (result != null && !result.Canceled && result.Data is UploadMediaDialog.UploadMediaResult uploadData)
+        {
+            Snackbar.Add("Uploading photo to IPFS...", Severity.Info);
+            string? ipfsHash = await IpfsService.UploadFileToIpfsAsync(uploadData.File);
+
+            if (string.IsNullOrEmpty(ipfsHash))
+            {
+                Snackbar.Add("Failed to upload photo to IPFS.", Severity.Error);
+                return;
+            }
+
+            string uploader = Session.WalletAddress ?? "User";
+            bool success = await ApiService.AddClassMediaAsync(ClassRoom.Id, uploadData.FileName, ipfsHash, uploader);
+
+            if (success)
+            {
+                Snackbar.Add("Photo uploaded to gallery!", Severity.Success);
+                await LoadMedia();
+            }
+            else
+            {
+                Snackbar.Add("Failed to save photo in gallery.", Severity.Error);
+            }
+        }
+    }
+
+    private async Task OpenPreview(ClassMediaDto media)
+    {
+        var parameters = new DialogParameters
+        {
+            { "FileName", media.FileName },
+            { "IpfsHash", media.IpfsHash }
+        };
+
+        var options = new DialogOptions
+        {
+            NoHeader = true,
+            MaxWidth = MaxWidth.Medium,
+            FullWidth = true,
+            CloseButton = false
+        };
+
+        await DialogService.ShowAsync<ImagePreviewDialog>("", parameters, options);
+    }
+
+    private async Task ConfirmDelete(ClassMediaDto media)
+    {
+        bool? confirmed = await DialogService.ShowMessageBoxAsync(
+            "Delete Photo",
+            $"Are you sure you want to delete '{media.FileName}'?",
+            yesText: "Delete",
+            cancelText: "Cancel");
+
+        if (confirmed == true)
+        {
+            bool success = await ApiService.DeleteClassMediaAsync(media.Id);
+            if (success)
+            {
+                _mediaList.Remove(media);
+                Snackbar.Add("Photo deleted.", Severity.Info);
+                StateHasChanged();
+            }
+            else
+            {
+                Snackbar.Add("Failed to delete photo.", Severity.Error);
+            }
+        }
+    }
+
+    private string FormatWallet(string wallet)
+    {
+        if (string.IsNullOrWhiteSpace(wallet)) return "Anonymous";
+        if (wallet.Length > 10)
+        {
+            return $"{wallet.Substring(0, 6)}...{wallet.Substring(wallet.Length - 4)}";
+        }
+        return wallet;
     }
 }

@@ -1,0 +1,115 @@
+@inject ISnackbar Snackbar
+
+<style>
+    ::deep .mud-dialog {
+        background-color: #005ea6 !important;
+        border-radius: 0px !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+        max-width: 620px !important;
+    }
+
+    .white-field .mud-input-slot {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        padding: 8px 12px !important;
+        font-size: 1.05rem !important;
+    }
+
+    .white-field .mud-input-outlined-border {
+        border: none !important;
+    }
+
+    .btn-send-msg {
+        background-color: #f5a623 !important;
+        color: #ffffff !important;
+        font-size: 1.25rem !important;
+        font-weight: 500 !important;
+        text-transform: none !important;
+        padding: 8px 36px !important;
+        border-radius: 0px !important;
+    }
+
+    .btn-send-msg:hover {
+        background-color: #d48b13 !important;
+    }
+</style>
+
+<MudDialog>
+    <DialogContent>
+        <MudPaper Elevation="0" Square="true" Style="background-color: #005ea6; color: #ffffff;" Class="pa-6">
+            <MudStack Spacing="4">
+
+                <!-- Title Field -->
+                <div>
+                    <MudText Typo="Typo.h6" Style="color: white; font-weight: 400;" Class="mb-1">
+                        title:
+                    </MudText>
+                    <MudTextField @bind-Value="_title"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense"
+                                  Class="white-field"
+                                  Placeholder="Announcement title..." />
+                </div>
+
+                <!-- Message Field -->
+                <div>
+                    <MudText Typo="Typo.h6" Style="color: white; font-weight: 400;" Class="mb-1">
+                        message:
+                    </MudText>
+                    <MudTextField @bind-Value="_message"
+                                  Variant="Variant.Outlined"
+                                  Lines="5"
+                                  Class="white-field"
+                                  Placeholder="Write your announcement here..." />
+                </div>
+
+                <!-- Bottom Row: Send Button -->
+                <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.FlexEnd" Class="mt-2">
+                    <MudButton Variant="Variant.Filled"
+                               Class="btn-send-msg"
+                               OnClick="Submit">
+                        send
+                    </MudButton>
+                </MudStack>
+
+            </MudStack>
+        </MudPaper>
+    </DialogContent>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    public IMudDialogInstance Dialog { get; set; } = default!;
+
+    private string _title = string.Empty;
+    private string _message = string.Empty;
+
+    public class MessageResultDto
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Message { get; set; } = string.Empty;
+    }
+
+    private void Submit()
+    {
+        if (string.IsNullOrWhiteSpace(_title))
+        {
+            Snackbar.Add("Please enter a title for the announcement.", Severity.Warning);
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(_message))
+        {
+            Snackbar.Add("Please enter the message content.", Severity.Warning);
+            return;
+        }
+
+        var result = new MessageResultDto
+        {
+            Title = _title,
+            Message = _message
+        };
+
+        Dialog.Close(DialogResult.Ok(result));
+    }
+}

@@ -1,0 +1,299 @@
+@inject ISnackbar Snackbar
+
+<style>
+    ::deep .mud-dialog {
+        background-color: #005ea6 !important;
+        border-radius: 0px !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+        max-width: 620px !important;
+    }
+
+    .white-field .mud-input-slot {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        padding: 8px 12px !important;
+        font-size: 1.05rem !important;
+    }
+
+    .white-field .mud-input-outlined-border {
+        border: none !important;
+    }
+
+    .picker-white input {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        padding: 8px 10px !important;
+    }
+
+    .picker-white .mud-input-outlined-border {
+        border: none !important;
+    }
+
+    .btn-now {
+        background-color: #ffffff !important;
+        color: #005ea6 !important;
+        font-weight: 600 !important;
+        border-radius: 0px !important;
+        text-transform: none !important;
+        height: 38px !important;
+    }
+
+    .native-time-input {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        border: none !important;
+        border-radius: 0px !important;
+        padding: 6px 10px !important;
+        font-size: 1.05rem !important;
+        height: 38px !important;
+        width: 130px !important;
+        font-family: inherit;
+        outline: none;
+        box-sizing: border-box;
+    }
+</style>
+
+<MudDialog>
+    <DialogContent>
+        <MudPaper Elevation="0" Square="true" Style="background-color: #005ea6; color: #ffffff;" Class="pa-6">
+            <MudStack Spacing="4">
+
+                <!-- Title Field -->
+                <div>
+                    <MudText Typo="Typo.h6" Style="color: white; font-weight: 400;" Class="mb-1">
+                        Title:
+                    </MudText>
+                    <MudTextField @bind-Value="_title"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense"
+                                  Class="white-field"
+                                  Placeholder="Ex: Tema 1 - Integrale definite" />
+                </div>
+
+                <!-- Description Field -->
+                <div>
+                    <MudText Typo="Typo.h6" Style="color: white; font-weight: 400;" Class="mb-1">
+                        Description:
+                    </MudText>
+                    <MudTextField @bind-Value="_description"
+                                  Variant="Variant.Outlined"
+                                  Lines="3"
+                                  Class="white-field"
+                                  Placeholder="Descrierea sau cerințele temei..." />
+                </div>
+
+                <!-- File Attachment: Select files -->
+                <div>
+                    <MudFileUpload T="IBrowserFile" FilesChanged="OnFileSelected" Accept=".pdf,.png,.jpg,.jpeg,.doc,.docx">
+                        <CustomContent>
+                            <MudButton Variant="Variant.Filled"
+                                       OnClick="context.OpenFilePickerAsync"
+                                       Style="background-color: #424242; color: #ffffff; text-transform: none; font-size: 1.1rem; padding: 6px 20px; border-radius: 0px;">
+                                Select files
+                            </MudButton>
+                        </CustomContent>
+                    </MudFileUpload>
+                </div>
+
+                <!-- File Preview Box -->
+                @if (_selectedFile != null)
+                {
+                    <MudPaper Elevation="1" Square="true" Class="d-flex align-center justify-space-between w-100 pa-3" Style="background-color: rgba(255,255,255,0.85); color: #000;">
+                        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+                            <MudIcon Icon="@Icons.Material.Filled.AttachFile" Style="color: #005ea6;" />
+                            <div>
+                                <MudText Typo="Typo.subtitle2" Style="font-weight: 600;">@_selectedFile.Name</MudText>
+                                <MudText Typo="Typo.caption" Style="color: #555;">@FormatFileSize(_selectedFile.Size)</MudText>
+                            </div>
+                        </MudStack>
+                        <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Error" Size="Size.Small" OnClick="RemoveFile" />
+                    </MudPaper>
+                }
+
+                <!-- From: Date | Time | Now -->
+                <div>
+                    <MudText Typo="Typo.h6" Style="color: white; font-weight: 400;" Class="mb-1">
+                        From:
+                    </MudText>
+                    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+                        <MudDatePicker @bind-Date="_fromDate"
+                                       DateFormat="dd-MM-yyyy"
+                                       Variant="Variant.Outlined"
+                                       Margin="Margin.Dense"
+                                       Class="picker-white flex-grow-1"
+                                       Placeholder="dd-mm-yyyy" />
+
+                        <input type="time"
+                               class="native-time-input"
+                               @bind="_fromTime" />
+
+                        <MudButton Variant="Variant.Filled"
+                                   Class="btn-now"
+                                   OnClick="SetFromNow">
+                            now
+                        </MudButton>
+                    </MudStack>
+                </div>
+
+                <!-- To: Date | Time | Checkbox Fara termen limita -->
+                <div>
+                    <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween">
+                        <MudText Typo="Typo.h6" Style="color: white; font-weight: 400;" Class="mb-1">
+                            To:
+                        </MudText>
+                        <MudCheckBox @bind-Value="_noDeadline"
+                                     Label="Fără termen limită"
+                                     Dense="true"
+                                     Color="Color.Warning"
+                                     Style="color: #ffffff;" />
+                    </MudStack>
+
+                    @if (!_noDeadline)
+                    {
+                        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2" Class="mt-1">
+                            <MudDatePicker @bind-Date="_toDate"
+                                           DateFormat="dd-MM-yyyy"
+                                           Variant="Variant.Outlined"
+                                           Margin="Margin.Dense"
+                                           Class="picker-white flex-grow-1"
+                                           Placeholder="dd-mm-yyyy" />
+
+                            <input type="time"
+                                   class="native-time-input"
+                                   @bind="_toTime" />
+                        </MudStack>
+                    }
+                    else
+                    {
+                        <MudText Style="color: rgba(255,255,255,0.7); font-style: italic; font-size: 0.95rem;" Class="mt-1">
+                            Această temă nu are dată limită. Studenții o pot trimite oricând.
+                        </MudText>
+                    }
+                </div>
+
+                <!-- Bottom Row: Add Button -->
+                <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.FlexEnd" Class="mt-4">
+                    <MudButton Variant="Variant.Filled"
+                               Style="background-color: #f5a623; color: #ffffff; font-size: 1.25rem; font-weight: 500; text-transform: none; padding: 8px 36px; border-radius: 0px;"
+                               OnClick="Submit">
+                        Add
+                    </MudButton>
+                </MudStack>
+
+            </MudStack>
+        </MudPaper>
+    </DialogContent>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    public IMudDialogInstance Dialog { get; set; } = default!;
+
+    private string _title = string.Empty;
+    private string _description = string.Empty;
+    private IBrowserFile? _selectedFile;
+
+    private DateTime? _fromDate = DateTime.Today;
+    private TimeOnly? _fromTime = TimeOnly.FromDateTime(DateTime.Now);
+
+    private DateTime? _toDate = DateTime.Today.AddDays(7);
+    private TimeOnly? _toTime = new TimeOnly(23, 59);
+
+    private bool _noDeadline = false;
+
+    public class HomeworkResultDto
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public IBrowserFile? File { get; set; }
+        public string? FileName { get; set; }
+        public long? FileSize { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime? DueTime { get; set; }
+        public bool NoDeadline { get; set; }
+    }
+
+    private void SetFromNow()
+    {
+        _fromDate = DateTime.Today;
+        _fromTime = TimeOnly.FromDateTime(DateTime.Now);
+        StateHasChanged();
+    }
+
+    private void OnFileSelected(IBrowserFile? file)
+    {
+        if (file != null)
+        {
+            _selectedFile = file;
+            if (string.IsNullOrWhiteSpace(_title))
+            {
+                _title = Path.GetFileNameWithoutExtension(_selectedFile.Name);
+            }
+            StateHasChanged();
+        }
+    }
+
+    private void RemoveFile()
+    {
+        _selectedFile = null;
+        StateHasChanged();
+    }
+
+    private string FormatFileSize(long bytes)
+    {
+        if (bytes < 1024) return $"{bytes} B";
+        if (bytes < 1024 * 1024) return $"{bytes / 1024.0:F1} KB";
+        return $"{bytes / (1024.0 * 1024.0):F2} MB";
+    }
+
+    private void Submit()
+    {
+        if (string.IsNullOrWhiteSpace(_title))
+        {
+            Snackbar.Add("Vă rugăm să introduceți un titlu pentru temă.", Severity.Warning);
+            return;
+        }
+
+        DateTime start = (_fromDate ?? DateTime.Today).Date;
+        if (_fromTime.HasValue)
+        {
+            start = start.Add(_fromTime.Value.ToTimeSpan());
+        }
+
+        DateTime? due = null;
+        if (!_noDeadline)
+        {
+            if (!_toDate.HasValue)
+            {
+                Snackbar.Add("Vă rugăm să specificați data limită sau bifați «Fără termen limită».", Severity.Warning);
+                return;
+            }
+
+            due = _toDate.Value.Date;
+            if (_toTime.HasValue)
+            {
+                due = due.Value.Add(_toTime.Value.ToTimeSpan());
+            }
+
+            if (due < start)
+            {
+                Snackbar.Add("Data limită nu poate fi înaintea datei de început.", Severity.Warning);
+                return;
+            }
+        }
+
+        var result = new HomeworkResultDto
+        {
+            Title = _title,
+            Description = _description,
+            File = _selectedFile,
+            FileName = _selectedFile?.Name,
+            FileSize = _selectedFile?.Size,
+            StartTime = start,
+            DueTime = due,
+            NoDeadline = _noDeadline
+        };
+
+        Dialog.Close(DialogResult.Ok(result));
+    }
+}

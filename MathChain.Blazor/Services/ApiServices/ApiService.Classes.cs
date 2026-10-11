@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.Json;
 using MathChain.Blazor.DTOs;
 
@@ -16,14 +16,20 @@ namespace MathChain.Blazor.Services
             return JsonSerializer.Deserialize<ClassRoomDto>(responseContent, _jsonOptions);
         }
 
-        public async Task<ClassRoomDto> JoinClassRoomAsync(string joinCode, string teacherWallet)
+        public async Task<ClassRoomDto> JoinClassRoomAsync(string joinCode, string studentWallet)
         {
-            var json = JsonSerializer.Serialize(new { JoinCode = joinCode, TeacherWallet = teacherWallet });
+            var json = JsonSerializer.Serialize(new { JoinCode = joinCode, StudentWallet = studentWallet });
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync($"{_baseUrl}/classroom/join", content);
             response.EnsureSuccessStatusCode();
             var responseContent = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<ClassRoomDto>(responseContent, _jsonOptions);
+        }
+
+        public async Task<bool> LeaveClassRoomAsync(string classRoomId, string studentWallet)
+        {
+            var response = await _httpClient.DeleteAsync($"{_baseUrl}/classroom/{classRoomId}/students/{studentWallet}");
+            return response.IsSuccessStatusCode;
         }
 
         public async Task<List<ClassRoomDto>> GetClassRoomsByTeacherAsync(string teacherWallet)
@@ -56,6 +62,12 @@ namespace MathChain.Blazor.Services
         public async Task<bool> DeleteClassRoomAsync(Guid id)
         {
             var response = await _httpClient.DeleteAsync($"{_baseUrl}/classroom/{id}");
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> LeaveClassRoomAsync(Guid classRoomId, string studentWallet)
+        {
+            var response = await _httpClient.DeleteAsync($"{_baseUrl}/classroom/{classRoomId}/students/{studentWallet}");
             return response.IsSuccessStatusCode;
         }
     }

@@ -34,11 +34,22 @@
         </MudItem>
 
         <MudItem xs="12" sm="3" Class="d-flex justify-sm-end justify-center">
-            <MudButton Variant="Variant.Filled"
-                       Style="background-color: #005ea6; color: #ffffff; font-size: 1.15rem; font-weight: 500; text-transform: none; padding: 10px 24px; border-radius: 0px;"
-                       OnClick="OpenCreateDialog">
-                + Create new class
-            </MudButton>
+            @if (Session.Role == UserRole.Teacher)
+            {
+                <MudButton Variant="Variant.Filled"
+                           Style="background-color: #005ea6; color: #ffffff; font-size: 1.15rem; font-weight: 500; text-transform: none; padding: 10px 24px; border-radius: 0px;"
+                           OnClick="OpenCreateDialog">
+                    + Create new class
+                </MudButton>
+            }
+            else
+            {
+                <MudButton Variant="Variant.Filled"
+                           Style="background-color: #005ea6; color: #ffffff; font-size: 1.15rem; font-weight: 500; text-transform: none; padding: 10px 24px; border-radius: 0px;"
+                           OnClick="OpenJoinDialog">
+                    + Join class
+                </MudButton>
+            }
         </MudItem>
     </MudGrid>
 
@@ -52,7 +63,9 @@
     {
         <MudStack AlignItems="AlignItems.Center" Class="mt-12">
             <MudText Typo="Typo.h6" Style="color: rgba(255, 255, 255, 0.6);">
-                You haven't created any classes yet.
+                @(Session.Role == UserRole.Teacher 
+                    ? "You haven't created any classes yet." 
+                    : "You haven't joined any classes yet.")
             </MudText>
         </MudStack>
     }
@@ -78,7 +91,7 @@
 </MudContainer>
 
 @code
-{
+    {
     private List<ClassRoomDto>? _classRooms;
 
     protected override async Task OnInitializedAsync()
@@ -99,7 +112,14 @@
 
     private async Task LoadClassRooms()
     {
-        _classRooms = await Api.GetClassRoomsByTeacherAsync(Session.WalletAddress);
+        if (Session.Role == UserRole.Teacher)
+        {
+            _classRooms = await Api.GetClassRoomsByTeacherAsync(Session.WalletAddress);
+        }
+        else
+        {
+            _classRooms = await Api.GetClassRoomsByStudentAsync(Session.WalletAddress);
+        }
     }
 
     private async Task OpenCreateDialog()
@@ -124,5 +144,36 @@
     private void OpenClass(ClassRoomDto classRoom)
     {
         Nav.NavigateTo($"/class/{classRoom.Id}");
+    }
+
+    private async Task OpenJoinDialog()
+    {
+        var options = new DialogOptions
+        {
+            NoHeader = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+            CloseButton = false
+        };
+
+        var dialog = await DialogService.ShowAsync<JoinClassDialog>("", options);
+        var result = await dialog.Result;
+
+        if (result != null && !result.Canceled && result.Data is string code)
+        {
+            try
+            {
+                var joinedClass = await Api.JoinClassRoomAsync(code, Session.WalletAddress);
+                if (joinedClass != null)
+                {
+                    Snackbar.Add($"Successfully joined '{joinedClass.Name}'!", Severity.Success);
+                    await LoadClassRooms();
+                }
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"Failed to join class: {ex.Message}", Severity.Error);
+            }
+        }
     }
 }

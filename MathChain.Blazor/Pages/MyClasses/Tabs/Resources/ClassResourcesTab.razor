@@ -70,14 +70,21 @@
     }
 </style>
 
-<!-- + Add new resource (align left) -->
-<MudStack Row="true" Justify="Justify.FlexStart" Class="my-6">
-    <MudButton Variant="Variant.Filled"
-               Class="btn-add-resource"
-               OnClick="OpenAddMaterialDialog">
-        + Add new resource
-    </MudButton>
-</MudStack>
+<!-- + Add new resource (align left - only for Teacher) -->
+@if (Session.Role == UserRole.Teacher)
+{
+    <MudStack Row="true" Justify="Justify.FlexStart" Class="my-6">
+        <MudButton Variant="Variant.Filled"
+                   Class="btn-add-resource"
+                   OnClick="OpenAddMaterialDialog">
+            + Add new resource
+        </MudButton>
+    </MudStack>
+}
+else
+{
+    <div class="pt-6"></div>
+}
 
 <!-- Săptămâni disponibile (generate dinamic de la StartDate până la EndDate) -->
 @foreach (var week in _weeks)
@@ -113,10 +120,13 @@
                                                    Size="Size.Medium" />
                                 }
 
-                                <MudIconButton Icon="@Icons.Material.Filled.Delete" 
-                                               Class="btn-delete-material" 
-                                               Size="Size.Medium" 
-                                               OnClick="async () => await DeleteMaterial(week, material)" />
+                                @if (Session.Role == UserRole.Teacher)
+                                {
+                                    <MudIconButton Icon="@Icons.Material.Filled.Delete" 
+                                                   Class="btn-delete-material" 
+                                                   Size="Size.Medium" 
+                                                   OnClick="async () => await DeleteMaterial(week, material)" />
+                                }
                             </MudStack>
                         </MudStack>
                     }

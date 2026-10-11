@@ -73,12 +73,23 @@
             @(_classRoom?.Name ?? "Numele clasei")
         </MudText>
 
-        <!-- Right: Sterge clasa -->
-        <MudButton Variant="Variant.Filled"
-                   Style="background-color: #e53935; color: #ffffff; font-size: 1.8rem; font-weight: 500; text-transform: none; padding: 8px 36px; border-radius: 0px; line-height: 1.2;"
-                   OnClick="ConfirmDeleteClass">
-            Delete Class
-        </MudButton>
+        <!-- Right: Delete Class (Teacher) / Leave Class (Student) -->
+        @if (Session.Role == UserRole.Teacher)
+        {
+            <MudButton Variant="Variant.Filled"
+                       Style="background-color: #e53935; color: #ffffff; font-size: 1.8rem; font-weight: 500; text-transform: none; padding: 8px 36px; border-radius: 0px; line-height: 1.2;"
+                       OnClick="ConfirmDeleteClass">
+                Delete Class
+            </MudButton>
+        }
+        else
+        {
+            <MudButton Variant="Variant.Filled"
+                       Style="background-color: #e53935; color: #ffffff; font-size: 1.8rem; font-weight: 500; text-transform: none; padding: 8px 36px; border-radius: 0px; line-height: 1.2;"
+                       OnClick="ConfirmLeaveClass">
+                Leave Class
+            </MudButton>
+        }
     </MudStack>
 
     <!-- Tabs Navigation Bar -->
@@ -193,6 +204,38 @@
             catch (Exception ex)
             {
                 Snackbar.Add($"Eroare la ștergerea clasei: {ex.Message}", Severity.Error);
+            }
+        }
+    }
+
+    private async Task ConfirmLeaveClass()
+    {
+        if (_classRoom == null) return;
+
+        bool? confirmed = await DialogService.ShowMessageBoxAsync(
+            "Leave Class",
+            $"Are you sure you want to leave '{_classRoom.Name}'?",
+            yesText: "Leave",
+            cancelText: "Cancel");
+
+        if (confirmed == true)
+        {
+            try
+            {
+                var success = await Api.LeaveClassRoomAsync(_classRoom.Id, Session.WalletAddress);
+                if (success)
+                {
+                    Snackbar.Add("You have left the class.", Severity.Info);
+                    Nav.NavigateTo("/my-classes");
+                }
+                else
+                {
+                    Snackbar.Add("Failed to leave class.", Severity.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"Error: {ex.Message}", Severity.Error);
             }
         }
     }

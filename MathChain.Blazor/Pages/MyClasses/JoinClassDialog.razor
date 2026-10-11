@@ -1,0 +1,101 @@
+<style>
+    ::deep .mud-dialog {
+        background-color: #005ea6 !important;
+        border-radius: 0px !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+        max-width: 480px !important;
+    }
+
+    .white-field {
+        background-color: #ffffff !important;
+        border-radius: 0px !important;
+    }
+
+    .white-field .mud-input {
+        background-color: #ffffff !important;
+        border-radius: 0px !important;
+    }
+
+    .white-field .mud-input-slot {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        padding: 10px 14px !important;
+        font-size: 1.15rem !important;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+    }
+
+    .white-field .mud-input-outlined-border {
+        border: none !important;
+    }
+</style>
+
+<MudDialog>
+    <DialogContent>
+        <MudPaper Elevation="0" Square="true" Style="background-color: #005ea6; color: #ffffff;" Class="pa-6">
+            
+            <!-- Titlu: Join class -->
+            <MudText Typo="Typo.h5" Align="Align.Center" Style="font-weight: 500; color: #ffffff;" Class="mb-6">
+                Join class
+            </MudText>
+
+            @if (!string.IsNullOrEmpty(_errorMessage))
+            {
+                <MudAlert Severity="Severity.Warning" Dense="true" Square="true" Class="mb-4">
+                    @_errorMessage
+                </MudAlert>
+            }
+
+            <MudStack Spacing="4">
+                <!-- Rând Code -->
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+                    <MudText Typo="Typo.h6" Style="width: 70px; color: #ffffff; font-weight: 400;">
+                        Code:
+                    </MudText>
+                    <MudTextField @bind-Value="_joinCode"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense"
+                                  Class="white-field flex-grow-1"
+                                  Placeholder="Enter class code" />
+                </MudStack>
+
+                <!-- Butoane: Cancel & Join -->
+                <MudStack Row="true" Justify="Justify.FlexEnd" AlignItems="AlignItems.Center" Spacing="3" Class="mt-4">
+                    <MudButton OnClick="Cancel" Style="color: rgba(255,255,255,0.85); text-transform: none; border-radius: 0px;">
+                        Cancel
+                    </MudButton>
+                    <MudButton Variant="Variant.Filled"
+                               Style="background-color: #f5a623; color: #ffffff; font-size: 1.25rem; font-weight: 500; text-transform: none; padding: 8px 36px; border-radius: 0px;"
+                               OnClick="Submit">
+                        Join
+                    </MudButton>
+                </MudStack>
+            </MudStack>
+
+        </MudPaper>
+    </DialogContent>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    public IMudDialogInstance Dialog { get; set; } = default!;
+
+    private string _joinCode = string.Empty;
+    private string _errorMessage = string.Empty;
+
+    private void Cancel()
+    {
+        Dialog.Cancel();
+    }
+
+    private void Submit()
+    {
+        if (string.IsNullOrWhiteSpace(_joinCode))
+        {
+            _errorMessage = "Please enter the class code.";
+            return;
+        }
+
+        Dialog.Close(DialogResult.Ok(_joinCode.Trim().ToUpper()));
+    }
+}

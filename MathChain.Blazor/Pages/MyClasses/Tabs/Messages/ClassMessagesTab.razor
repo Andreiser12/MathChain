@@ -127,14 +127,21 @@
     }
 </style>
 
-<!-- ACTION BAR -->
-<MudStack Row="true" Justify="Justify.FlexStart" Class="my-6">
-    <MudButton Variant="Variant.Filled"
-               Class="btn-add-msg"
-               OnClick="OpenNewMessageDialog">
-        + new message
-    </MudButton>
-</MudStack>
+<!-- ACTION BAR (Only Teacher can post announcements) -->
+@if (Session.Role == UserRole.Teacher)
+{
+    <MudStack Row="true" Justify="Justify.FlexStart" Class="my-6">
+        <MudButton Variant="Variant.Filled"
+                   Class="btn-add-msg"
+                   OnClick="OpenNewMessageDialog">
+            + new message
+        </MudButton>
+    </MudStack>
+}
+else
+{
+    <div class="pt-6"></div>
+}
 
 <!-- MESSAGES LIST -->
 @if (!_messages.Any())
@@ -170,12 +177,15 @@ else
                             @($"Sent: {msg.CreatedAt:dd.MM.yyyy HH:mm}")
                         </MudText>
 
-                        <div @onclick:stopPropagation="true">
-                            <MudIconButton Icon="@Icons.Material.Filled.Delete"
-                                           Class="btn-delete-msg"
-                                           Size="Size.Medium"
-                                           OnClick="() => ConfirmDeleteMessage(msg)" />
-                        </div>
+                        @if (Session.Role == UserRole.Teacher)
+                        {
+                            <div @onclick:stopPropagation="true">
+                                <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                               Class="btn-delete-msg"
+                                               Size="Size.Medium"
+                                               OnClick="() => ConfirmDeleteMessage(msg)" />
+                            </div>
+                        }
                     </MudStack>
                 </div>
 

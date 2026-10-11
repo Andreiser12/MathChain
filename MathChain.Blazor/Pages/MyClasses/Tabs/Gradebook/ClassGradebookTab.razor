@@ -105,139 +105,210 @@
     }
 </style>
 
-<!-- HEADER ACTIONS -->
-<MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Class="my-6">
-    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3">
-        <MudText Style="font-size: 1.4rem; font-weight: 500; color: #ffffff;">
-            Enrolled Students: @_students.Count
-        </MudText>
-
-        @if (_isFinalized)
-        {
-            <MudChip T="string" Color="Color.Success" Variant="Variant.Filled" Style="border-radius: 0px; font-weight: 500;">
-                ✓ Grades Finalized
-            </MudChip>
-        }
-        else
-        {
-            <MudText Style="color: rgba(255, 255, 255, 0.7); font-size: 1.1rem;">
-                (Final grades calculated: @_students.Count(s => s.Dto.FinalGrade.HasValue)/@_students.Count)
-            </MudText>
-        }
-    </MudStack>
-
-    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
-        @if (!_isFinalized)
-        {
-            <MudButton Variant="Variant.Filled"
-                       Class="btn-finalize-all"
-                       Disabled="@(!CanFinalizeGrades)"
-                       OnClick="ConfirmFinalizeGrades">
-                Finalize Grades
-            </MudButton>
-        }
-        else
-        {
-            <MudButton Variant="Variant.Outlined"
-                       Class="btn-reopen"
-                       OnClick="ReopenGrades">
-                Reopen for Retakes / Improvements
-            </MudButton>
-        }
-    </MudStack>
-</MudStack>
-
-<!-- STUDENT LIST -->
-@if (!_students.Any())
+@if (Session.Role == UserRole.Teacher)
 {
-    <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.15rem;" Class="mt-4">
-        No students enrolled in this class yet.
-    </MudText>
+    <!-- HEADER ACTIONS (Teacher only) -->
+    <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Class="my-6">
+        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3">
+            <MudText Style="font-size: 1.4rem; font-weight: 500; color: #ffffff;">
+                Enrolled Students: @_students.Count
+            </MudText>
+
+            @if (_isFinalized)
+            {
+                <MudChip T="string" Color="Color.Success" Variant="Variant.Filled" Style="border-radius: 0px; font-weight: 500;">
+                    ✓ Grades Finalized
+                </MudChip>
+            }
+            else
+            {
+                <MudText Style="color: rgba(255, 255, 255, 0.7); font-size: 1.1rem;">
+                    (Final grades calculated: @_students.Count(s => s.Dto.FinalGrade.HasValue)/@_students.Count)
+                </MudText>
+            }
+        </MudStack>
+
+        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+            @if (!_isFinalized)
+            {
+                <MudButton Variant="Variant.Filled"
+                           Class="btn-finalize-all"
+                           Disabled="@(!CanFinalizeGrades)"
+                           OnClick="ConfirmFinalizeGrades">
+                    Finalize Grades
+                </MudButton>
+            }
+            else
+            {
+                <MudButton Variant="Variant.Outlined"
+                           Class="btn-reopen"
+                           OnClick="ReopenGrades">
+                    Reopen for Retakes / Improvements
+                </MudButton>
+            }
+        </MudStack>
+    </MudStack>
+
+    <!-- STUDENT LIST (Teacher only) -->
+    @if (!_students.Any())
+    {
+        <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.15rem;" Class="mt-4">
+            No students enrolled in this class yet.
+        </MudText>
+    }
+    else
+    {
+        <MudStack Spacing="3" Class="w-100">
+            @foreach (var student in _students)
+            {
+                <MudPaper Elevation="0" Square="true" Class="student-grade-card w-100">
+
+                    <div class="student-header-row d-flex align-center justify-space-between"
+                         @onclick="() => student.IsExpanded = !student.IsExpanded">
+
+                        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3">
+                            <MudIcon Icon="@(student.IsExpanded ? Icons.Material.Filled.ArrowDownward : Icons.Material.Filled.ArrowForward)"
+                                     Style="color: #ffffff;" />
+
+                            <MudText Class="student-title">
+                                @student.Dto.StudentName
+                            </MudText>
+                        </MudStack>
+
+                        <div @onclick:stopPropagation="true">
+                            <MudIconButton Icon="@Icons.Material.Filled.PersonRemove"
+                                           Class="btn-kick-student"
+                                           Size="Size.Medium"
+                                           OnClick="() => ConfirmRemoveStudent(student)" />
+                        </div>
+                    </div>
+
+                    <MudCollapse Expanded="student.IsExpanded">
+                        <div class="grade-content-panel">
+                            <MudGrid Spacing="4" Justify="Justify.SpaceBetween" Class="align-center">
+
+                                <!-- Left: Grades list -->
+                                <MudItem xs="12" sm="8">
+                                    <MudText Class="grade-label mb-2">
+                                        Grades:
+                                    </MudText>
+
+                                    @if (!student.Dto.Grades.Any())
+                                    {
+                                        <MudText Style="color: rgba(255, 255, 255, 0.6); font-style: italic; font-size: 1.05rem;">
+                                            No grades recorded yet.
+                                        </MudText>
+                                    }
+                                    else
+                                    {
+                                        <MudStack Spacing="2" Class="mt-1">
+                                            @foreach (var g in student.Dto.Grades)
+                                            {
+                                                <MudText Class="grade-entry-row">
+                                                    @($"{g.GradedAt:dd.MM.yyyy}: {g.Score}")
+                                                </MudText>
+                                            }
+                                        </MudStack>
+                                    }
+                                </MudItem>
+
+                                <!-- Right: Final Grade Box -->
+                                <MudItem xs="12" sm="4" Class="d-flex flex-column align-end justify-center">
+                                    <MudStack Spacing="2" AlignItems="AlignItems.Center">
+                                        
+                                        <div class="final-grade-box">
+                                            @if (student.Dto.FinalGrade.HasValue)
+                                            {
+                                                <span>@student.Dto.FinalGrade.Value</span>
+                                            }
+                                        </div>
+
+                                        <MudButton Variant="Variant.Filled"
+                                                   Class="btn-final-grade"
+                                                   Disabled="_isFinalized"
+                                                   OnClick="() => CalculateFinalGrade(student)">
+                                            Final Grade
+                                        </MudButton>
+
+                                    </MudStack>
+                                </MudItem>
+
+                            </MudGrid>
+                        </div>
+                    </MudCollapse>
+                </MudPaper>
+            }
+        </MudStack>
+    }
 }
 else
 {
-    <MudStack Spacing="3" Class="w-100">
-        @foreach (var student in _students)
-        {
-            <MudPaper Elevation="0" Square="true" Class="student-grade-card w-100">
+    <!-- STUDENT PERSPECTIVE: MY GRADES -->
+    <div class="pt-6"></div>
 
-                <div class="student-header-row d-flex align-center justify-space-between"
-                     @onclick="() => student.IsExpanded = !student.IsExpanded">
+    @if (MyStudent == null)
+    {
+        <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.15rem;" Class="mt-4">
+            No grade records found for your account in this class yet.
+        </MudText>
+    }
+    else
+    {
+        <MudPaper Elevation="0" Square="true" Class="student-grade-card w-100">
+            <div class="grade-content-panel" style="border-top: none;">
+                <MudGrid Spacing="4" Justify="Justify.SpaceBetween" Class="align-center">
 
-                    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3">
-                        <MudIcon Icon="@(student.IsExpanded ? Icons.Material.Filled.ArrowDownward : Icons.Material.Filled.ArrowForward)"
-                                 Style="color: #ffffff;" />
-
-                        <MudText Class="student-title">
-                            @student.Dto.StudentName
+                    <!-- Left: Grades list -->
+                    <MudItem xs="12" sm="8">
+                        <MudText Class="grade-label mb-3" Style="font-size: 1.4rem !important;">
+                            Grades:
                         </MudText>
-                    </MudStack>
 
-                    <div @onclick:stopPropagation="true">
-                        <MudIconButton Icon="@Icons.Material.Filled.PersonRemove"
-                                       Class="btn-kick-student"
-                                       Size="Size.Medium"
-                                       OnClick="() => ConfirmRemoveStudent(student)" />
-                    </div>
-                </div>
-
-                <MudCollapse Expanded="student.IsExpanded">
-                    <div class="grade-content-panel">
-                        <MudGrid Spacing="4" Justify="Justify.SpaceBetween" Class="align-center">
-
-                            <!-- Left: Grades list -->
-                            <MudItem xs="12" sm="8">
-                                <MudText Class="grade-label mb-2">
-                                    Grades:
-                                </MudText>
-
-                                @if (!student.Dto.Grades.Any())
+                        @if (!MyStudent.Dto.Grades.Any())
+                        {
+                            <MudText Style="color: rgba(255, 255, 255, 0.6); font-style: italic; font-size: 1.1rem;">
+                                No grades recorded yet.
+                            </MudText>
+                        }
+                        else
+                        {
+                            <MudStack Spacing="2" Class="mt-2">
+                                @foreach (var g in MyStudent.Dto.Grades)
                                 {
-                                    <MudText Style="color: rgba(255, 255, 255, 0.6); font-style: italic; font-size: 1.05rem;">
-                                        No grades recorded yet.
+                                    <MudText Class="grade-entry-row">
+                                        @($"{g.GradedAt:dd.MM.yyyy}: {g.Score} / 10")
                                     </MudText>
+                                }
+                            </MudStack>
+                        }
+                    </MudItem>
+
+                    <!-- Right: Final Grade Box -->
+                    <MudItem xs="12" sm="4" Class="d-flex flex-column align-end justify-center">
+                        <MudStack Spacing="2" AlignItems="AlignItems.Center">
+                            
+                            <div class="final-grade-box">
+                                @if (MyStudent.Dto.FinalGrade.HasValue)
+                                {
+                                    <span>@MyStudent.Dto.FinalGrade.Value</span>
                                 }
                                 else
                                 {
-                                    <MudStack Spacing="2" Class="mt-1">
-                                        @foreach (var g in student.Dto.Grades)
-                                        {
-                                            <MudText Class="grade-entry-row">
-                                                @($"{g.GradedAt:dd.MM.yyyy}: {g.Score}")
-                                            </MudText>
-                                        }
-                                    </MudStack>
+                                    <span style="font-size: 1.8rem; color: rgba(255,255,255,0.4);">-</span>
                                 }
-                            </MudItem>
+                            </div>
 
-                            <!-- Right: Final Grade Box -->
-                            <MudItem xs="12" sm="4" Class="d-flex flex-column align-end justify-center">
-                                <MudStack Spacing="2" AlignItems="AlignItems.Center">
-                                    
-                                    <div class="final-grade-box">
-                                        @if (student.Dto.FinalGrade.HasValue)
-                                        {
-                                            <span>@student.Dto.FinalGrade.Value</span>
-                                        }
-                                    </div>
+                            <MudText Style="color: #ffffff; font-size: 1.15rem; font-weight: 500;">
+                                Final Grade
+                            </MudText>
 
-                                    <MudButton Variant="Variant.Filled"
-                                               Class="btn-final-grade"
-                                               Disabled="_isFinalized"
-                                               OnClick="() => CalculateFinalGrade(student)">
-                                        Final Grade
-                                    </MudButton>
+                        </MudStack>
+                    </MudItem>
 
-                                </MudStack>
-                            </MudItem>
-
-                        </MudGrid>
-                    </div>
-                </MudCollapse>
-
-            </MudPaper>
-        }
-    </MudStack>
+                </MudGrid>
+            </div>
+        </MudPaper>
+    }
 }
 
 @code {
@@ -256,6 +327,9 @@ else
     private List<StudentGradebookUiItem> _students = new();
     private bool _isFinalized = false;
 
+    private StudentGradebookUiItem? MyStudent => 
+        _students.FirstOrDefault(s => s.Dto.StudentWallet.Equals(Session.WalletAddress, StringComparison.OrdinalIgnoreCase));
+
     private bool CanFinalizeGrades => _students.Any() && _students.All(s => s.Dto.FinalGrade.HasValue);
 
     protected override async Task OnParametersSetAsync()
@@ -265,8 +339,15 @@ else
 
     private async Task LoadGradebook()
     {
-        if (ClassRoom == null) return;
-        var list = await ApiService.GetGradebookAsync(ClassRoom.Id);
+        Guid? targetId = ClassRoom?.Id;
+        if (!targetId.HasValue && !string.IsNullOrWhiteSpace(ClassId) && Guid.TryParse(ClassId, out var parsedId))
+        {
+            targetId = parsedId;
+        }
+
+        if (!targetId.HasValue) return;
+
+        var list = await ApiService.GetGradebookAsync(targetId.Value);
         _students = list.Select(d => new StudentGradebookUiItem
         {
             Dto = d,

@@ -1,4 +1,4 @@
-﻿using MathChain.API.Data;
+using MathChain.API.Data;
 using MathChain.API.DTOs;
 using MathChain.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -167,6 +167,48 @@ namespace MathChain.API.Controllers.MyClassesControllers
                 };
 
                 _context.Grades.Add(grade);
+            }
+
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPost("assignment/{assignmentId:guid}/submit")]
+        public async Task<IActionResult> SubmitAssignment(Guid assignmentId, [FromBody] SubmitAssignmentRequest request)
+        {
+            var assignment = await _context.Assignments
+                .OfType<Assignment>()
+                .FirstOrDefaultAsync(a => a.Id == assignmentId);
+
+            if(assignment == null)
+            {
+                return NotFound("Assignment not found!");
+            }
+
+            var existing = await _context.Submissions
+                .FirstOrDefaultAsync(s => s.AssignmentId == assignmentId && s.StudentWallet == request.StudentWallet);
+
+            if(existing != null)
+            {
+                existing.FileName = request.FileName;
+                existing.IpfsHash = request.IpfsHash;
+                existing.Content = request.Content ?? string.Empty;
+                existing.SubmittedAt = DateTime.UtcNow;
+            }
+            else
+            {
+                var submission = new Submission
+                {
+                    Id = Guid.NewGuid(),
+                    AssignmentId = assignmentId,
+                    StudentWallet = request.StudentWallet,
+                    FileName = request.FileName,
+                    IpfsHash = request.IpfsHash,
+                    Content = request.Content ?? string.Empty,
+                    SubmittedAt = DateTime.UtcNow
+                };
+
+                _context.Submissions.Add(submission);
             }
 
             await _context.SaveChangesAsync();

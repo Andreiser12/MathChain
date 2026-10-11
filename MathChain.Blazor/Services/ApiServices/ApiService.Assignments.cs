@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.Json;
 using MathChain.Blazor.DTOs;
 
@@ -100,6 +100,29 @@ namespace MathChain.Blazor.Services
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 var response = await _httpClient.PostAsync($"{_baseUrl}/classroom/submissions/{submissionId}/grade", content);
+
+                return response.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> SubmitAssignmentAsync(Guid assignmentId, string studentWallet, string? fileName, string? ipfsHash, string? content)
+        {
+            try
+            {
+                var json = JsonSerializer.Serialize(new
+                {
+                    StudentWallet = studentWallet,
+                    FileName = fileName,
+                    IpfsHash = ipfsHash,
+                    Content = content ?? string.Empty
+                });
+
+                var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync($"{_baseUrl}/classroom/assignment/{assignmentId}/submit", httpContent);
 
                 return response.IsSuccessStatusCode;
             }

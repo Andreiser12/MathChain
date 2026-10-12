@@ -17,7 +17,7 @@
 
 
 ##  Overview
-Mathchain is a Web3 Software as a Service educational platform, its purpose is to have a better understanding about mathematical problems in domains such as calculus, algebra, geometry, artificial intelligence, etc. The approach of learning formulas consists of transforming classic 2D formulas into interactive 3D formulas. Each learning chapter concludes with an evaluation system, using the Wolfram Alpha API to generate mathematical problems.
+Mathchain is a Web3 Software as a Service hybrid educational platform, its purpose is to have a better understanding about mathematical problems in domains such as calculus, algebra, geometry, artificial intelligence, etc. The approach of learning formulas consists of transforming classic 2D formulas into interactive 3D formulas. Each learning chapter concludes with an evaluation system, using the Wolfram Alpha API to generate mathematical problems.
 
 ##  Key Features
 - Interaction with 3D models.
@@ -80,6 +80,7 @@ and minimize gas fees:
 - A **Wolfram Alpha Developer AppID**.
 - An **Infura** or **Alchemy** RPC URL for the Sepolia Testnet.
 - A **WalletConnect Cloud Project ID**.
+- A **Pinata JavaScript Web Token**.
 - A `.env` file located in the root of the WPF project containing the following variables:
   ```env
   CONTRACT_ADDRESS=your_contract_address
@@ -99,6 +100,12 @@ and minimize gas fees:
 - Implement Dashboard, Account and Settings pages in Blazor project.
 - Bring more formulas from Blender.
 - Add a scientific calculator for exercise page.
+- Accounts for admins.
+- Account Abstraction and Smart Contracts.
+- Custom Subgraph.
+- Soulbound Tokens.
+- Unit tests.
+- Integration tests.
 - Mobile version.
   
 ## Licence

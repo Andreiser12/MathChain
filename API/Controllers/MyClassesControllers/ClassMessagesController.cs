@@ -1,4 +1,4 @@
-﻿using MathChain.API.Data;
+using MathChain.API.Data;
 using MathChain.API.DTOs;
 using MathChain.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -27,10 +27,18 @@ namespace MathChain.API.Controllers.MyClassesControllers
 
             var messageIds = announcements.Select(a => a.Id).ToList();
 
-            var comments = await _context.MessagesComments
-                .Where(c => messageIds.Contains(c.MessageId))
-                .OrderBy(c => c.CreatedAt)
-                .ToListAsync();
+            var comments = new List<MessageComment>();
+            try
+            {
+                comments = await _context.MessagesComments
+                    .Where(c => messageIds.Contains(c.MessageId))
+                    .OrderBy(c => c.CreatedAt)
+                    .ToListAsync();
+            }
+            catch
+            {
+                // Fallback dacă tabela MessagesComments nu a fost încă creată în baza de date
+            }
 
             var result = announcements.Select(a => new AnnouncementResponseDto
             {

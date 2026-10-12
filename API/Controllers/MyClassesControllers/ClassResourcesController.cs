@@ -1,4 +1,4 @@
-﻿using MathChain.API.Data;
+using MathChain.API.Data;
 using MathChain.API.DTOs;
 using MathChain.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +18,7 @@ namespace MathChain.API.Controllers.MyClassesControllers
         }
 
         [HttpGet("{classRoomId}/materials")]
+        [HttpGet("{classRoomId}/resources")]
         public async Task<IActionResult> GetResources(Guid classRoomId)
         {
             var materials = await _context.ClassMaterials

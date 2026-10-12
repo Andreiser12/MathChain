@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.Json;
 using MathChain.Blazor.DTOs;
 
@@ -10,7 +10,7 @@ namespace MathChain.Blazor.Services
         {
             try
             {
-                var response = await _httpClient.GetAsync($"{_baseUrl}/classroom/{classRoomId}/resources");
+                var response = await _httpClient.GetAsync($"{_baseUrl}/classroom/{classRoomId}/materials");
                 if (!response.IsSuccessStatusCode) return new List<ClassResourceDto>();
                 var content = await response.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<List<ClassResourceDto>>(content, _jsonOptions) ?? new List<ClassResourceDto>();

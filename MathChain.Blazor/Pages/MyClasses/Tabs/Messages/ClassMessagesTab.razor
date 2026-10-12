@@ -292,8 +292,15 @@ else
 
     private async Task LoadMessages()
     {
-        if (ClassRoom == null) return;
-        var list = await ApiService.GetClassMessagesAsync(ClassRoom.Id);
+        Guid? targetId = ClassRoom?.Id;
+        if (!targetId.HasValue && !string.IsNullOrWhiteSpace(ClassId) && Guid.TryParse(ClassId, out var parsedId))
+        {
+            targetId = parsedId;
+        }
+
+        if (!targetId.HasValue) return;
+
+        var list = await ApiService.GetClassMessagesAsync(targetId.Value);
         _messages = list.Select(m => new MessageUiItem
         {
             Id = m.Id,
@@ -319,7 +326,14 @@ else
 
     private async Task OpenNewMessageDialog()
     {
-        if (ClassRoom == null) return;
+        Guid? targetId = ClassRoom?.Id;
+        if (!targetId.HasValue && !string.IsNullOrWhiteSpace(ClassId) && Guid.TryParse(ClassId, out var parsedId))
+        {
+            targetId = parsedId;
+        }
+
+        if (!targetId.HasValue) return;
+
         var options = new DialogOptions
         {
             NoHeader = true,
@@ -332,7 +346,7 @@ else
         if (result != null && !result.Canceled && result.Data is NewMessageDialog.MessageResultDto dto)
         {
             string author = Session.WalletAddress ?? "Teacher";
-            bool success = await ApiService.CreateClassMessageAsync(ClassRoom.Id, dto.Title, dto.Message, author);
+            bool success = await ApiService.CreateClassMessageAsync(targetId.Value, dto.Title, dto.Message, author);
             if (success)
             {
                 Snackbar.Add("Announcement posted successfully!", Severity.Success);

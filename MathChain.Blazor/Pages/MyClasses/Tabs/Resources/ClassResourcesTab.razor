@@ -45,7 +45,8 @@
     }
 
     .btn-delete-week,
-    .btn-delete-resource {
+    .btn-delete-resource,
+    .btn-delete-material {
         color: #e53935 !important;
     }
 
@@ -53,17 +54,20 @@
         border-top: 1px solid rgba(255, 255, 255, 0.12);
     }
 
-    .resource-item-row {
+    .resource-item-row,
+    .material-item-row {
         padding-left: 54px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .resource-title {
+    .resource-title,
+    .material-title {
         font-size: 1.2rem !important;
         color: #ffffff !important;
     }
 
-    .empty-resources-text {
+    .empty-resources-text,
+    .empty-materials-text {
         font-size: 1.05rem !important;
         color: rgba(255, 255, 255, 0.6) !important;
         padding-left: 54px;
@@ -134,7 +138,7 @@ else
                 else
                 {
                     <MudText Class="empty-materials-text py-3">
-                        Niciun material încărcat pentru această săptămână.
+                        No resources uploaded for this week yet.
                     </MudText>
                 }
             </MudStack>
@@ -311,7 +315,7 @@ else
         {
             await ApiService.DeleteResourceAsync(material.Id);
         }
-        Snackbar.Add("Material șters.", Severity.Info);
+        Snackbar.Add("Resource deleted.", Severity.Info);
         StateHasChanged();
     }
 
@@ -356,7 +360,9 @@ else
             var targetWeek = _weeks.FirstOrDefault(w => w.Number == materialDto.WeekNumber.Value);
             if (targetWeek != null)
             {
-                Guid currentClassId = _lastLoadedClassId ?? ClassRoom?.Id ?? Guid.Empty;
+                Guid currentClassId = _lastLoadedClassId 
+                    ?? ClassRoom?.Id 
+                    ?? (Guid.TryParse(ClassId, out var cid) ? cid : Guid.Empty);
                 ClassResourceDto? savedDb = null;
 
                 if (currentClassId != Guid.Empty)

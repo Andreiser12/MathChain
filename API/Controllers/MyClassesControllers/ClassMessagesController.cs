@@ -37,7 +37,6 @@ namespace MathChain.API.Controllers.MyClassesControllers
             }
             catch
             {
-                // Fallback dacă tabela MessagesComments nu a fost încă creată în baza de date
             }
 
             var result = announcements.Select(a => new AnnouncementResponseDto

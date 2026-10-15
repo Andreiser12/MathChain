@@ -37,7 +37,6 @@ namespace MathChain.Blazor.Services
                 }
                 catch
                 {
-                    // Fallback la HTTP (port 5065) în caz că serverul rulează pe profilul HTTP
                     using var fallbackStream = file.OpenReadStream(maxAllowedSize: 20 * 1024 * 1024);
                     using var fallbackStreamContent = new StreamContent(fallbackStream);
                     fallbackStreamContent.Headers.ContentType = new MediaTypeHeaderValue(

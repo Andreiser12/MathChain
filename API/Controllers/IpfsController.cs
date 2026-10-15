@@ -22,7 +22,7 @@ namespace MathChain.API.Controllers
 
         [HttpPost("upload")]
         [Consumes("multipart/form-data")]
-        [RequestSizeLimit(50 * 1024 * 1024)] // până la 50 MB
+        [RequestSizeLimit(50 * 1024 * 1024)]
         public async Task<IActionResult> Upload([FromForm] FileUploadRequest request)
         {
             var file = request?.File;
@@ -96,9 +96,6 @@ namespace MathChain.API.Controllers
 
                 var stream = await response.Content.ReadAsStreamAsync();
                 var contentType = response.Content.Headers.ContentType?.MediaType ?? "application/octet-stream";
-
-                // File(...) setează automat Content-Disposition: attachment; filename="safeFileName"
-                // Acest lucru forțează descărcarea imediată pe PC în folderul Downloads, fără tab extern
                 return File(stream, contentType, safeFileName);
             }
             catch (Exception ex)

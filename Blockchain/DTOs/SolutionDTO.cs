@@ -1,4 +1,4 @@
-﻿using Nethereum.ABI.FunctionEncoding.Attributes;
+using Nethereum.ABI.FunctionEncoding.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace MathChain.Blockchain.DTOs
     public class SolutionDTO
     {
         [Parameter("address", "wallet", 1)]
-        public /*required*/ string Wallet { get; set; }
+        public string Wallet { get; set; }
 
         [Parameter("uint256", "problemId", 2)]
         public BigInteger ProblemId { get; set; }

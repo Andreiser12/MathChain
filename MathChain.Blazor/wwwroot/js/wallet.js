@@ -52,7 +52,6 @@ window.connectPhantom = async function() {
             return null;
         }
 
-        // 1. Încercăm întâi provider-ul nativ Phantom Solana (cel mai răspândit)
         const solanaProvider = window.phantom?.solana || (window.solana?.isPhantom ? window.solana : null);
         if (solanaProvider) {
             try {
@@ -68,7 +67,6 @@ window.connectPhantom = async function() {
             }
         }
 
-        // 2. Încercăm provider-ul EVM (Ethereum / Polygon) din Phantom
         const evmProvider = window.phantom?.ethereum || 
             (window.ethereum?.isPhantom ? window.ethereum : null) ||
             (window.ethereum?.providers ? window.ethereum.providers.find(p => p.isPhantom) : null);

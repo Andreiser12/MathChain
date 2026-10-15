@@ -148,7 +148,6 @@
 
             try
             {
-                // Creează URL de preview direct din fișierul selectat
                 var buffer = new byte[file.Size];
                 using var stream = file.OpenReadStream(maxAllowedSize: 15 * 1024 * 1024);
                 await stream.ReadExactlyAsync(buffer);

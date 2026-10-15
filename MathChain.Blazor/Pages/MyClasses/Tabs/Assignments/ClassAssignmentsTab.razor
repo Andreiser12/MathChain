@@ -166,7 +166,6 @@
 
 @if (_selectedHomework == null)
 {
-    <!-- VEDERE 1: LISTA DE TEME -->
     @if (Session.Role == UserRole.Teacher)
     {
         <MudStack Row="true" Justify="Justify.FlexStart" Class="my-6">
@@ -583,7 +582,6 @@ else
     private List<SubmissionUiItem> _submissions = new();
     private int _totalEnrolledStudents = 0;
 
-    // Câmpuri specifice pentru predarea elevului
     private SubmissionItemDto? _mySubmission;
     private IBrowserFile? _submissionFile;
     private string _submissionContent = string.Empty;
@@ -623,7 +621,6 @@ else
             FeedbackInput = s.Feedback ?? string.Empty
         }).ToList();
 
-        // Găsim predarea elevului logat (dacă există)
         if (!string.IsNullOrWhiteSpace(Session.WalletAddress))
         {
             _mySubmission = list.FirstOrDefault(s => s.StudentWallet.Equals(Session.WalletAddress, StringComparison.OrdinalIgnoreCase));

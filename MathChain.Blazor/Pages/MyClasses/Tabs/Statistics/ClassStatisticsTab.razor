@@ -1,8 +1,398 @@
-<MudPaper Elevation="0" Square="true" Style="background-color: transparent;" Class="pa-6">
-    <MudText Style="color: rgba(255, 255, 255, 0.6); font-size: 1.1rem;">
-        Statistici și progres pentru această clasă.
-    </MudText>
-</MudPaper>
+@using MathChain.Blazor.DTOs
+@using MathChain.Blazor.Services
+@inject ApiService ApiService
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+
+<style>
+    .stat-kpi-card {
+        background-color: #003766 !important;
+        border-radius: 0px !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        padding: 20px 24px;
+        min-height: 120px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+    }
+
+    .stat-kpi-card-blue {
+        border-left: 5px solid #005ea6 !important;
+    }
+
+    .stat-kpi-card-amber {
+        border-left: 5px solid #f5a623 !important;
+    }
+
+    .stat-kpi-card-green {
+        border-left: 5px solid #4caf50 !important;
+    }
+
+    .stat-kpi-card-red {
+        border-left: 5px solid #e53935 !important;
+    }
+
+    .stat-kpi-title {
+        font-size: 0.95rem !important;
+        font-weight: 500 !important;
+        color: rgba(255, 255, 255, 0.75) !important;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+    }
+
+    .stat-kpi-value {
+        font-size: 2.2rem !important;
+        font-weight: 700 !important;
+        color: #ffffff !important;
+        line-height: 1.1;
+    }
+
+    .stat-kpi-sub {
+        font-size: 0.85rem !important;
+        color: rgba(255, 255, 255, 0.6) !important;
+    }
+
+    .stat-chart-card {
+        background-color: #002b4d !important;
+        border-radius: 0px !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        padding: 24px;
+    }
+
+    .stat-chart-title {
+        font-size: 1.35rem !important;
+        font-weight: 600 !important;
+        color: #ffffff !important;
+        margin-bottom: 4px;
+    }
+
+    .stat-chart-subtitle {
+        font-size: 0.95rem !important;
+        color: rgba(255, 255, 255, 0.65) !important;
+        margin-bottom: 16px;
+    }
+
+    .stat-list-item {
+        background-color: rgba(0, 55, 102, 0.6) !important;
+        border-radius: 0px !important;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 12px 16px;
+        margin-bottom: 8px;
+    }
+
+    .stat-refresh-btn {
+        background-color: #005ea6 !important;
+        color: #ffffff !important;
+        border-radius: 0px !important;
+        text-transform: none !important;
+        font-weight: 500 !important;
+    }
+
+    .stat-refresh-btn:hover {
+        background-color: #004e8a !important;
+    }
+</style>
+
+<div class="pa-4">
+    <!-- Top Action Bar -->
+    <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Class="mb-6">
+        <div>
+            <MudText Style="font-size: 1.8rem; font-weight: 600; color: #ffffff;">
+                Teacher Analytics Dashboard
+            </MudText>
+            <MudText Style="font-size: 1rem; color: rgba(255, 255, 255, 0.7);">
+                Performance metrics, submission rates, and grade progression for @(ClassRoom?.Name ?? "this class").
+            </MudText>
+        </div>
+
+        <MudButton Variant="Variant.Filled"
+                   StartIcon="@Icons.Material.Filled.Refresh"
+                   Class="stat-refresh-btn"
+                   OnClick="LoadStatisticsAsync"
+                   Disabled="_isLoading">
+            Refresh Data
+        </MudButton>
+    </MudStack>
+
+    @if (_isLoading)
+    {
+        <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="min-height: 350px;">
+            <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+            <MudText Style="color: rgba(255, 255, 255, 0.7); margin-top: 16px; font-size: 1.1rem;">
+                Computing class analytics and aggregation metrics...
+            </MudText>
+        </MudStack>
+    }
+    else if (_stats == null)
+    {
+        <MudPaper Elevation="0" Class="pa-8 text-center" Style="background-color: #002b4d; border-radius: 0px; border: 1px solid rgba(255, 255, 255, 0.1);">
+            <MudIcon Icon="@Icons.Material.Filled.Info" Style="font-size: 3rem; color: #f5a623; margin-bottom: 12px;" />
+            <MudText Style="font-size: 1.4rem; font-weight: 600; color: #ffffff;">
+                No Statistics Available
+            </MudText>
+            <MudText Style="font-size: 1rem; color: rgba(255, 255, 255, 0.7); max-width: 600px; margin: 8px auto 20px auto;">
+                Could not retrieve statistics from the server. Ensure that the API statistics endpoint is active, or try again later.
+            </MudText>
+            <MudButton Variant="Variant.Filled" Class="stat-refresh-btn" OnClick="LoadStatisticsAsync">
+                Try Again
+            </MudButton>
+        </MudPaper>
+    }
+    else
+    {
+        <!-- 1. TOP KPI METRICS ROW -->
+        <MudGrid Spacing="3" Class="mb-6">
+            <!-- KPI 1: Class Average -->
+            <MudItem xs="12" sm="6" md="3">
+                <MudPaper Class="stat-kpi-card stat-kpi-card-blue" Elevation="0">
+                    <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+                        <MudText Class="stat-kpi-title">Class Average</MudText>
+                        <MudIcon Icon="@Icons.Material.Filled.School" Style="color: #005ea6; font-size: 1.8rem;" />
+                    </MudStack>
+                    <MudText Class="stat-kpi-value">
+                        @(_stats.ClassAverage > 0 ? _stats.ClassAverage.ToString("0.00") : "N/A")
+                    </MudText>
+                    <MudText Class="stat-kpi-sub">
+                        Computed from all graded assignments
+                    </MudText>
+                </MudPaper>
+            </MudItem>
+
+            <!-- KPI 2: Submission Rate -->
+            <MudItem xs="12" sm="6" md="3">
+                <MudPaper Class="stat-kpi-card stat-kpi-card-amber" Elevation="0">
+                    <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+                        <MudText Class="stat-kpi-title">Submission Rate</MudText>
+                        <MudIcon Icon="@Icons.Material.Filled.AssignmentTurnedIn" Style="color: #f5a623; font-size: 1.8rem;" />
+                    </MudStack>
+                    <MudText Class="stat-kpi-value">
+                        @($"{_stats.SubmissionRate:0.#}%")
+                    </MudText>
+                    <MudText Class="stat-kpi-sub">
+                        @($"{_stats.SubmissionsOnTime + _stats.SubmissionsLate} submissions turned in")
+                    </MudText>
+                </MudPaper>
+            </MudItem>
+
+            <!-- KPI 3: Highest Grade -->
+            <MudItem xs="12" sm="6" md="3">
+                <MudPaper Class="stat-kpi-card stat-kpi-card-green" Elevation="0">
+                    <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+                        <MudText Class="stat-kpi-title">Highest Grade</MudText>
+                        <MudIcon Icon="@Icons.Material.Filled.EmojiEvents" Style="color: #4caf50; font-size: 1.8rem;" />
+                    </MudStack>
+                    <MudText Class="stat-kpi-value">
+                        @(_stats.HighestGrade > 0 ? _stats.HighestGrade.ToString("0.00") : "N/A")
+                    </MudText>
+                    <MudText Class="stat-kpi-sub">
+                        Top score recorded across assignments
+                    </MudText>
+                </MudPaper>
+            </MudItem>
+
+            <!-- KPI 4: Students At Risk -->
+            <MudItem xs="12" sm="6" md="3">
+                <MudPaper Class="stat-kpi-card stat-kpi-card-red" Elevation="0">
+                    <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+                        <MudText Class="stat-kpi-title">Students at Risk</MudText>
+                        <MudIcon Icon="@Icons.Material.Filled.WarningAmber" Style="color: #e53935; font-size: 1.8rem;" />
+                    </MudStack>
+                    <MudText Class="stat-kpi-value" Style="@(_stats.StudentsAtRiskCount > 0 ? "color: #ff5252;" : "color: #ffffff;")">
+                        @_stats.StudentsAtRiskCount
+                    </MudText>
+                    <MudText Class="stat-kpi-sub">
+                        Average &lt; 5.00 or multiple missing tasks
+                    </MudText>
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+
+        <!-- 2. CORE INTERACTIVE CHARTS -->
+        <MudGrid Spacing="3" Class="mb-6">
+            <!-- Left Chart: Grade Distribution (Bar Chart) -->
+            <MudItem xs="12" md="7">
+                <MudPaper Class="stat-chart-card" Elevation="0">
+                    <MudText Class="stat-chart-title">Grade Distribution (Gauss Curve)</MudText>
+                    <MudText Class="stat-chart-subtitle">
+                        Student count grouped into standard academic performance brackets.
+                    </MudText>
+
+                    @if (_stats.GradeDistributionCounts.Any(c => c > 0))
+                    {
+                        <MudChart T="double"
+                                  ChartType="ChartType.Bar"
+                                  ChartSeries="@_gradeDistributionSeries"
+                                  ChartLabels="@_gradeDistributionLabels"
+                                  Width="100%"
+                                  Height="300px" />
+                    }
+                    else
+                    {
+                        <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="min-height: 250px;">
+                            <MudIcon Icon="@Icons.Material.Filled.BarChart" Style="font-size: 2.5rem; color: rgba(255,255,255,0.3);" />
+                            <MudText Style="color: rgba(255,255,255,0.5);">No grades assigned yet to build distribution.</MudText>
+                        </MudStack>
+                    }
+                </MudPaper>
+            </MudItem>
+
+            <!-- Right Chart: Submission Engagement (Donut Chart) -->
+            <MudItem xs="12" md="5">
+                <MudPaper Class="stat-chart-card" Elevation="0">
+                    <MudText Class="stat-chart-title">Submission Discipline</MudText>
+                    <MudText Class="stat-chart-subtitle">
+                        Turned in on-time vs late submissions vs missing work.
+                    </MudText>
+
+                    @if (_stats.SubmissionsOnTime > 0 || _stats.SubmissionsLate > 0 || _stats.SubmissionsMissing > 0)
+                    {
+                        <MudChart T="double"
+                                  ChartType="ChartType.Donut"
+                                  ChartSeries="@_donutSeries"
+                                  ChartLabels="@_donutLabels"
+                                  Width="100%"
+                                  Height="300px" />
+                    }
+                    else
+                    {
+                        <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="min-height: 250px;">
+                            <MudIcon Icon="@Icons.Material.Filled.PieChartOutline" Style="font-size: 2.5rem; color: rgba(255,255,255,0.3);" />
+                            <MudText Style="color: rgba(255,255,255,0.5);">No homework submissions recorded yet.</MudText>
+                        </MudStack>
+                    }
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+
+        <!-- 3. WEEKLY PROGRESSION LINE CHART -->
+        <MudGrid Spacing="3" Class="mb-6">
+            <MudItem xs="12">
+                <MudPaper Class="stat-chart-card" Elevation="0">
+                    <MudText Class="stat-chart-title">Class Average Progression Over Time</MudText>
+                    <MudText Class="stat-chart-subtitle">
+                        Monitors weekly average fluctuations to detect difficult topics or test results.
+                    </MudText>
+
+                    @if (_weeklySeries.Count > 0 && _weeklyLabels.Length > 0)
+                    {
+                        <MudChart T="double"
+                                  ChartType="ChartType.Line"
+                                  ChartSeries="@_weeklySeries"
+                                  ChartLabels="@_weeklyLabels"
+                                  Width="100%"
+                                  Height="300px" />
+                    }
+                    else
+                    {
+                        <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="min-height: 200px;">
+                            <MudIcon Icon="@Icons.Material.Filled.ShowChart" Style="font-size: 2.5rem; color: rgba(255,255,255,0.3);" />
+                            <MudText Style="color: rgba(255,255,255,0.5);">Insufficient historical timeline data to plot trend.</MudText>
+                        </MudStack>
+                    }
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+
+        <!-- 4. ACTIONABLE INSIGHTS (TOP PERFORMERS & AT-RISK STUDENTS) -->
+        <MudGrid Spacing="3">
+            <!-- Left: Top Performers -->
+            <MudItem xs="12" md="6">
+                <MudPaper Class="stat-chart-card" Elevation="0" Style="height: 100%;">
+                    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2" Class="mb-3">
+                        <MudIcon Icon="@Icons.Material.Filled.Star" Style="color: #f5a623; font-size: 1.8rem;" />
+                        <MudText Class="stat-chart-title" Style="margin-bottom: 0;">Top Performers (Grade &ge; 9.00)</MudText>
+                    </MudStack>
+
+                    @if (_stats.TopPerformers.Any())
+                    {
+                        @foreach (var student in _stats.TopPerformers)
+                        {
+                            <MudPaper Class="stat-list-item" Elevation="0">
+                                <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+                                    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3">
+                                        <MudAvatar Color="Color.Success" Square="true" Size="Size.Medium">
+                                            @student.StudentName.Substring(0, Math.Min(2, student.StudentName.Length)).ToUpper()
+                                        </MudAvatar>
+                                        <div>
+                                            <MudText Style="font-size: 1.1rem; font-weight: 600; color: #ffffff;">
+                                                @student.StudentName
+                                            </MudText>
+                                            <MudText Style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.6);">
+                                                @student.StudentWallet
+                                            </MudText>
+                                        </div>
+                                    </MudStack>
+
+                                    <MudChip T="string" Color="Color.Success" Variant="Variant.Filled" Style="border-radius: 0px; font-weight: 600; font-size: 1rem;">
+                                        Avg: @student.AverageGrade.ToString("0.00")
+                                    </MudChip>
+                                </MudStack>
+                            </MudPaper>
+                        }
+                    }
+                    else
+                    {
+                        <MudText Style="color: rgba(255, 255, 255, 0.6); font-style: italic; padding: 16px 0;">
+                            No students currently have an average &ge; 9.00.
+                        </MudText>
+                    }
+                </MudPaper>
+            </MudItem>
+
+            <!-- Right: Students At Risk -->
+            <MudItem xs="12" md="6">
+                <MudPaper Class="stat-chart-card" Elevation="0" Style="height: 100%;">
+                    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2" Class="mb-3">
+                        <MudIcon Icon="@Icons.Material.Filled.Warning" Style="color: #e53935; font-size: 1.8rem;" />
+                        <MudText Class="stat-chart-title" Style="margin-bottom: 0;">Students at Risk (Attention Required)</MudText>
+                    </MudStack>
+
+                    @if (_stats.AtRiskStudents.Any())
+                    {
+                        @foreach (var student in _stats.AtRiskStudents)
+                        {
+                            <MudPaper Class="stat-list-item" Elevation="0" Style="border-left: 3px solid #e53935;">
+                                <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+                                    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3">
+                                        <MudAvatar Color="Color.Error" Square="true" Size="Size.Medium">
+                                            @student.StudentName.Substring(0, Math.Min(2, student.StudentName.Length)).ToUpper()
+                                        </MudAvatar>
+                                        <div>
+                                            <MudText Style="font-size: 1.1rem; font-weight: 600; color: #ffffff;">
+                                                @student.StudentName
+                                            </MudText>
+                                            <MudText Style="font-size: 0.85rem; color: #ff5252;">
+                                                @(student.MissingAssignmentsCount > 0 ? $"{student.MissingAssignmentsCount} missing homework(s)" : $"Average: {student.AverageGrade:0.00}")
+                                            </MudText>
+                                        </div>
+                                    </MudStack>
+
+                                    <MudButton Variant="Variant.Outlined"
+                                               Color="Color.Error"
+                                               Size="Size.Small"
+                                               Style="border-radius: 0px; text-transform: none;"
+                                               OnClick="@(() => SendReminder(student))">
+                                        Send Reminder
+                                    </MudButton>
+                                </MudStack>
+                            </MudPaper>
+                        }
+                    }
+                    else
+                    {
+                        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2" Class="pa-4">
+                            <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Style="color: #4caf50;" />
+                            <MudText Style="color: rgba(255, 255, 255, 0.7); font-size: 1.05rem;">
+                                Great job! No students are currently in the critical risk bracket.
+                            </MudText>
+                        </MudStack>
+                    }
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+    }
+</div>
 
 @code {
     [Parameter]
@@ -10,4 +400,116 @@
 
     [Parameter]
     public string? ClassId { get; set; }
+
+    private bool _isLoading = true;
+    private ClassStatisticsDto? _stats;
+
+    private List<ChartSeries<double>> _gradeDistributionSeries = new();
+    private string[] _gradeDistributionLabels = new string[] { "9.00 - 10.00", "7.00 - 8.99", "5.00 - 6.99", "< 5.00" };
+    private List<ChartSeries<double>> _donutSeries = new();
+    private string[] _donutLabels = new string[] { "On Time", "Late", "Missing" };
+
+    private List<ChartSeries<double>> _weeklySeries = new();
+    private string[] _weeklyLabels = Array.Empty<string>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadStatisticsAsync();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (_stats == null && !_isLoading)
+        {
+            await LoadStatisticsAsync();
+        }
+    }
+
+    private async Task LoadStatisticsAsync()
+    {
+        _isLoading = true;
+        StateHasChanged();
+
+        Guid targetId = Guid.Empty;
+        if (ClassRoom != null && ClassRoom.Id != Guid.Empty)
+        {
+            targetId = ClassRoom.Id;
+        }
+        else if (!string.IsNullOrWhiteSpace(ClassId) && Guid.TryParse(ClassId, out var parsed))
+        {
+            targetId = parsed;
+        }
+
+        if (targetId == Guid.Empty)
+        {
+            _isLoading = false;
+            return;
+        }
+
+        _stats = await ApiService.GetClassStatisticsAsync(targetId);
+
+        if (_stats != null)
+        {
+            SetupCharts();
+        }
+
+        _isLoading = false;
+        StateHasChanged();
+    }
+
+    private void SetupCharts()
+    {
+        if (_stats == null) return;
+
+        // Bar Chart - Grade Distribution
+        if (_stats.GradeDistributionCounts != null && _stats.GradeDistributionCounts.Count > 0)
+        {
+            _gradeDistributionSeries = new List<ChartSeries<double>>
+            {
+                new ChartSeries<double>
+                {
+                    Name = "Students",
+                    Data = _stats.GradeDistributionCounts.Select(c => (double)c).ToArray()
+                }
+            };
+            if (_stats.GradeDistributionLabels != null && _stats.GradeDistributionLabels.Count == _stats.GradeDistributionCounts.Count)
+            {
+                _gradeDistributionLabels = _stats.GradeDistributionLabels.ToArray();
+            }
+        }
+
+        // Donut Chart - Submission Rates
+        _donutSeries = new List<ChartSeries<double>>
+        {
+            new ChartSeries<double>
+            {
+                Name = "Submissions",
+                Data = new double[]
+                {
+                    _stats.SubmissionsOnTime,
+                    _stats.SubmissionsLate,
+                    _stats.SubmissionsMissing
+                }
+            }
+        };
+
+        // Line Chart - Weekly Progression
+        if (_stats.WeeklyAverages != null && _stats.WeeklyAverages.Count > 0)
+        {
+            _weeklySeries = new List<ChartSeries<double>>
+            {
+                new ChartSeries<double>
+                {
+                    Name = "Class Average",
+                    Data = _stats.WeeklyAverages.ToArray()
+                }
+            };
+            _weeklyLabels = _stats.WeeklyLabels?.ToArray() ?? Array.Empty<string>();
+        }
+    }
+
+    private void SendReminder(StudentPerformanceSummaryDto student)
+    {
+        Snackbar.Add($"Reminder notification sent to {student.StudentName} ({student.StudentWallet.Substring(0, Math.Min(8, student.StudentWallet.Length))}...)!", Severity.Info);
+    }
 }

@@ -35,8 +35,11 @@
 				<MudNavLink Href="/dashboard" Icon="@Icons.Material.Filled.Dashboard">Dashboard</MudNavLink>
 				<MudDivider />
 				<MudNavLink Href="/chapters" Icon="@Icons.Material.Filled.MenuBook">Chapters</MudNavLink>
-				<MudDivider />
-				<MudNavLink Href="/my-classes" Icon="@Icons.Material.Filled.Class">My Classes</MudNavLink>
+				@if (Session.Role != UserRole.Admin)
+				{
+					<MudDivider />
+					<MudNavLink Href="/my-classes" Icon="@Icons.Material.Filled.Class">My Classes</MudNavLink>
+				}
 				<MudDivider />
 				<MudNavLink Href="/settings" Icon="@Icons.Material.Filled.Settings">Settings</MudNavLink>
 				<MudDivider />

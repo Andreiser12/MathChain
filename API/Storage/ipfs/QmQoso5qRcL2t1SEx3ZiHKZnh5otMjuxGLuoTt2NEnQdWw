@@ -1,0 +1,123 @@
+{
+  "chapterId": "algebra-calcul-prescurtat",
+  "title": "Calcul Prescurtat",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Formule fundamentale de calcul prescurtat pentru clasele gimnaziale și liceale.",
+  "formulas": [
+    {
+      "id": "f1-patrat-binom-suma",
+      "title": "Pătratul unui binom (Suma)",
+      "latex": "(a + b)^2 = a^2 + 2ab + b^2",
+      "model3D": "/Assets/3DModels/cube.glb",
+      "description": "Pătratul sumei a doi termeni este egal cu pătratul primului termen, plus de două ori produsul termenilor, plus pătratul celui de-al doilea termen.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [2, 5]
+          },
+          "latexTemplate": "(x + {a})^2",
+          "wolframQuery": "expand (x + {a})^2",
+          "hint": "Aplică direct formula: primul termen la pătrat + dublul produsului + al doilea la pătrat.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 2,
+          "variables": {
+            "a": [2, 4]
+          },
+          "latexTemplate": "({a}x + 1)^2",
+          "wolframQuery": "expand ({a}x + 1)^2",
+          "hint": "Ai grijă să ridici și coeficientul numeric la pătrat: ({a}x)^2 = {a*a}x^2.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 3,
+          "variables": {
+            "a": [6, 10]
+          },
+          "latexTemplate": "(x + {a})^2",
+          "wolframQuery": "expand (x + {a})^2",
+          "hint": "Dublul produsului este 2 * x * {a}.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 4,
+          "variables": {
+            "a": [2, 4],
+            "b": [2, 5]
+          },
+          "latexTemplate": "({a}x + {b}y)^2",
+          "wolframQuery": "expand ({a}x + {b}y)^2",
+          "hint": "Ai două variabile (x și y). Termenul din mijloc conține produsul xy.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 5,
+          "variables": {
+            "a": [1, 3],
+            "b": [2, 4]
+          },
+          "latexTemplate": "({a}x^2 + {b})^2",
+          "wolframQuery": "expand ({a}x^2 + {b})^2",
+          "hint": "La ridicarea la pătrat a unei puteri, exponenții se înmulțesc: (x^2)^2 = x^4.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 6,
+          "variables": {
+            "a": [2, 4],
+            "b": [1, 3]
+          },
+          "latexTemplate": "(\\frac{1}{{a}}x + {b})^2",
+          "wolframQuery": "expand ((1/{a})*x + {b})^2",
+          "hint": "Fracția se ridică la pătrat ridicând și numărătorul și numitorul: (1/{a})^2 = 1/{a*a}.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 7,
+          "variables": {
+            "a": [2, 5],
+            "b": [1, 4]
+          },
+          "latexTemplate": "(\\sqrt{{{a}}}x + {b})^2",
+          "wolframQuery": "expand (sqrt({a})*x + {b})^2",
+          "hint": "Ridicarea la pătrat anulează radicalul: (\\sqrt{a})^2 = a.",
+          "solutionIpfs": "QmHardStepByStepExplanation7Binom"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 8,
+          "variables": {
+            "a": [2, 4],
+            "b": [1, 3]
+          },
+          "latexTemplate": "({a}x + \\frac{{{b}}}{{x}})^2",
+          "wolframQuery": "expand ({a}x + {b}/x)^2",
+          "hint": "La termenul din mijloc, x de la numărător se simplifică cu x de la numitor!",
+          "solutionIpfs": "QmHardStepByStepExplanation8Binom"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 9,
+          "variables": {
+            "a": [2, 3],
+            "b": [1, 3]
+          },
+          "latexTemplate": "(\\sqrt{{{a}}}x + \\frac{{{b}}}{{\\sqrt{{{a}}}}}y)^2",
+          "wolframQuery": "expand (sqrt({a})*x + ({b}/sqrt({a}))*y)^2",
+          "hint": "Dublul produsului conține \\sqrt{a} * (b / \\sqrt{a}), deci radicalii se simplifică direct.",
+          "solutionIpfs": "QmHardStepByStepExplanation9Binom"
+        }
+      ]
+    }
+  ]
+}

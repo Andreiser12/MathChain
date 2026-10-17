@@ -1,0 +1,1336 @@
+{
+  "chapterId": "algebra-calcul-prescurtat",
+  "title": "Calcul Prescurtat",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Formule fundamentale de calcul prescurtat pentru clasele gimnaziale si liceale: patrate, cuburi si puteri n.",
+  "formulas": [
+    {
+      "id": "f1-patrat-binom-suma",
+      "title": "Patratul sumei de doi termeni",
+      "latex": "(a + b)^2 = a^2 + 2ab + b^2",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "Patratul sumei a doi termeni este egal cu patratul primului termen, plus de doua ori produsul termenilor, plus patratul celui de-al doilea termen.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "(x + {a})^2",
+          "wolframQuery": "expand (x + {a})^2",
+          "hint": "Aplica direct formula: primul la patrat + dublul produsului + al doilea la patrat.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              4
+            ]
+          },
+          "latexTemplate": "({a}x + 1)^2",
+          "wolframQuery": "expand ({a}x + 1)^2",
+          "hint": "Ai grija sa ridici si coeficientul numeric la patrat: ({a}x)^2 = {a*a}x^2.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 3,
+          "variables": {
+            "a": [
+              6,
+              10
+            ]
+          },
+          "latexTemplate": "(x + {a})^2",
+          "wolframQuery": "expand (x + {a})^2",
+          "hint": "Dublul produsului este 2 * x * {a}.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 4,
+          "variables": {
+            "a": [
+              2,
+              4
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "({a}x + {b}y)^2",
+          "wolframQuery": "expand ({a}x + {b}y)^2",
+          "hint": "Ai doua variabile (x si y). Termenul din mijloc contine produsul xy.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 5,
+          "variables": {
+            "a": [
+              1,
+              3
+            ],
+            "b": [
+              2,
+              4
+            ]
+          },
+          "latexTemplate": "({a}x^2 + {b})^2",
+          "wolframQuery": "expand ({a}x^2 + {b})^2",
+          "hint": "La ridicarea la patrat a unei puteri, exponentii se inmultesc: (x^2)^2 = x^4.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 6,
+          "variables": {
+            "a": [
+              2,
+              4
+            ],
+            "b": [
+              1,
+              3
+            ]
+          },
+          "latexTemplate": "(\\frac{1}{{a}}x + {b})^2",
+          "wolframQuery": "expand ((1/{a})*x + {b})^2",
+          "hint": "Fractia se ridica la patrat: (1/{a})^2 = 1/{a*a}.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 7,
+          "variables": {
+            "a": [
+              2,
+              5
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "(\\sqrt{{{a}}}x + {b})^2",
+          "wolframQuery": "expand (sqrt({a})*x + {b})^2",
+          "hint": "Ridicarea la patrat anuleaza radicalul: (\\sqrt{a})^2 = a.",
+          "solutionIpfs": "QmHardStepByStepExplanation1BinomSuma"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 8,
+          "variables": {
+            "a": [
+              2,
+              4
+            ],
+            "b": [
+              1,
+              3
+            ]
+          },
+          "latexTemplate": "({a}x + \\frac{{{b}}}{{x}})^2",
+          "wolframQuery": "expand ({a}x + {b}/x)^2",
+          "hint": "La termenul din mijloc, x de la numarator se simplifica cu x de la numitor!",
+          "solutionIpfs": "QmHardStepByStepExplanation2BinomSuma"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 9,
+          "variables": {
+            "a": [
+              2,
+              3
+            ],
+            "b": [
+              1,
+              3
+            ]
+          },
+          "latexTemplate": "(\\sqrt{{{a}}}x + \\frac{{{b}}}{{\\sqrt{{{a}}}}}y)^2",
+          "wolframQuery": "expand (sqrt({a})*x + ({b}/sqrt({a}))*y)^2",
+          "hint": "Dublul produsului contine radicali care se simplifica direct.",
+          "solutionIpfs": "QmHardStepByStepExplanation3BinomSuma"
+        }
+      ]
+    },
+    {
+      "id": "f2-patrat-binom-diferenta",
+      "title": "Patratul diferentei de doi termeni",
+      "latex": "(a - b)^2 = a^2 - 2ab + b^2",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "Patratul diferentei a doi termeni este egal cu patratul primului termen, minus de doua ori produsul termenilor, plus patratul celui de-al doilea termen.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              6
+            ]
+          },
+          "latexTemplate": "(x - {a})^2",
+          "wolframQuery": "expand (x - {a})^2",
+          "hint": "Primul la patrat minus dublul produsului plus al doilea la patrat.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "({a}x - 1)^2",
+          "wolframQuery": "expand ({a}x - 1)^2",
+          "hint": "({a}x)^2 = {a*a}x^2, iar termenul din mijloc are semnul minus: -2*{a}x.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 3,
+          "variables": {
+            "a": [
+              3,
+              7
+            ]
+          },
+          "latexTemplate": "(2x - {a})^2",
+          "wolframQuery": "expand (2x - {a})^2",
+          "hint": "Dublul produsului este -2 * (2x) * {a} = -{4*a}x.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 4,
+          "variables": {
+            "a": [
+              2,
+              4
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "({a}x - {b}y)^2",
+          "wolframQuery": "expand ({a}x - {b}y)^2",
+          "hint": "Termenul de gradul 2 in y este (-{b}y)^2 = +{b*b}y^2 (pozitiv!).",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 5,
+          "variables": {
+            "a": [
+              2,
+              4
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "({a}x^2 - {b})^2",
+          "wolframQuery": "expand ({a}x^2 - {b})^2",
+          "hint": "(x^2)^2 = x^4. Termenul liber este pozitiv (+{b*b}).",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 6,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "(x - \\frac{1}{{a}})^2",
+          "wolframQuery": "expand (x - 1/{a})^2",
+          "hint": "Dublul produsului este -2 * x * (1/{a}) = -2/{a} x.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 7,
+          "variables": {
+            "a": [
+              2,
+              7
+            ],
+            "b": [
+              2,
+              4
+            ]
+          },
+          "latexTemplate": "(\\sqrt{{{a}}}x - {b})^2",
+          "wolframQuery": "expand (sqrt({a})*x - {b})^2",
+          "hint": "(\\sqrt{{{a}}}x)^2 = {a}x^2. Dublul produsului este -2*{b}\\sqrt{{{a}}}x.",
+          "solutionIpfs": "QmHardStepByStepExplanation1BinomDif"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 8,
+          "variables": {
+            "a": [
+              2,
+              5
+            ],
+            "b": [
+              1,
+              3
+            ]
+          },
+          "latexTemplate": "({a}x - \\frac{{{b}}}{{x}})^2",
+          "wolframQuery": "expand ({a}x - {b}/x)^2",
+          "hint": "Termenul din mijloc este o constanta numerica: -2*{a}*{b}.",
+          "solutionIpfs": "QmHardStepByStepExplanation2BinomDif"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 9,
+          "variables": {
+            "a": [
+              2,
+              3
+            ],
+            "b": [
+              2,
+              4
+            ]
+          },
+          "latexTemplate": "({a}x^3 - {b}y^2)^2",
+          "wolframQuery": "expand ({a}x^3 - {b}y^2)^2",
+          "hint": "Puterea unei puteri: (x^3)^2 = x^6, (y^2)^2 = y^4.",
+          "solutionIpfs": "QmHardStepByStepExplanation3BinomDif"
+        }
+      ]
+    },
+    {
+      "id": "f3-patrat-trinom",
+      "title": "Patratul unui trinom",
+      "latex": "(a + b + c)^2 = a^2 + b^2 + c^2 + 2ab + 2ac + 2bc",
+      "model3D": "Assets/3DModels/int1pex.glb",
+      "description": "Patratul sumei a trei termeni este egal cu suma patratelor fiecarui termen, plus toate produsele duble luate doua cate doua.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "(x + y + {a})^2",
+          "wolframQuery": "expand (x + y + {a})^2",
+          "hint": "Suma patratelor: x^2 + y^2 + {a*a}, plus produsele duble 2xy + 2*{a}x + 2*{a}y.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "(x + {a} + 1)^2",
+          "wolframQuery": "expand (x + {a} + 1)^2",
+          "hint": "Poti restrange ({a} + 1) sau aplica direct formula trinomului.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 3,
+          "variables": {
+            "a": [
+              1,
+              3
+            ]
+          },
+          "latexTemplate": "(x - y + {a})^2",
+          "wolframQuery": "expand (x - y + {a})^2",
+          "hint": "Atentie la semne: produsele ce contin (-y) primesc semnul minus.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 4,
+          "variables": {
+            "a": [
+              2,
+              4
+            ]
+          },
+          "latexTemplate": "({a}x + y + z)^2",
+          "wolframQuery": "expand ({a}x + y + z)^2",
+          "hint": "Primul termen la patrat este {a*a}x^2.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 5,
+          "variables": {
+            "a": [
+              2,
+              3
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "(x - {a}y + {b})^2",
+          "wolframQuery": "expand (x - {a}y + {b})^2",
+          "hint": "(-{a}y)^2 = +{a*a}y^2. Produsele duble respecta regula semnelor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 6,
+          "variables": {
+            "a": [
+              2,
+              3
+            ],
+            "b": [
+              2,
+              4
+            ]
+          },
+          "latexTemplate": "({a}x + {b}y - 1)^2",
+          "wolframQuery": "expand ({a}x + {b}y - 1)^2",
+          "hint": "Suma celor trei patrate este strict pozitiva: {a*a}x^2 + {b*b}y^2 + 1.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 7,
+          "variables": {
+            "a": [
+              1,
+              3
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "(x^2 + {a}x + {b})^2",
+          "wolframQuery": "expand (x^2 + {a}x + {b})^2",
+          "hint": "Vei obtine termeni de gradul 4, 3, 2, 1 si termen liber.",
+          "solutionIpfs": "QmHardStepByStepExplanation1Trinom"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 8,
+          "variables": {
+            "a": [
+              2,
+              5
+            ],
+            "b": [
+              1,
+              3
+            ]
+          },
+          "latexTemplate": "(\\sqrt{{{a}}}x + y - {b})^2",
+          "wolframQuery": "expand (sqrt({a})*x + y - {b})^2",
+          "hint": "Primul termen la patrat este {a}x^2.",
+          "solutionIpfs": "QmHardStepByStepExplanation2Trinom"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 9,
+          "variables": {
+            "a": [
+              2,
+              3
+            ],
+            "b": [
+              2,
+              3
+            ],
+            "c": [
+              1,
+              2
+            ]
+          },
+          "latexTemplate": "({a}x - {b}y - {c}z)^2",
+          "wolframQuery": "expand ({a}x - {b}y - {c}z)^2",
+          "hint": "Produsul dublu dintre (-{b}y) si (-{c}z) devine pozitiv (+2*{b}*{c}yz).",
+          "solutionIpfs": "QmHardStepByStepExplanation3Trinom"
+        }
+      ]
+    },
+    {
+      "id": "f4-diferenta-patrate",
+      "title": "Diferenta de patrate",
+      "latex": "a^2 - b^2 = (a - b)(a + b)",
+      "model3D": "Assets/3DModels/intalax.glb",
+      "description": "Diferenta a doua patrate este egala cu produsul dintre diferenta termenilor si suma acestora (descompunere in factori).",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              9
+            ]
+          },
+          "latexTemplate": "x^2 - {a*a}",
+          "wolframQuery": "factor x^2 - {a*a}",
+          "hint": "Identifica b^2 = {a*a}, deci b = {a}. Raspuns: (x - {a})(x + {a}).",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ]
+          },
+          "latexTemplate": "{a*a}x^2 - 1",
+          "wolframQuery": "factor {a*a}x^2 - 1",
+          "hint": "({a}x)^2 - 1^2 = ({a}x - 1)({a}x + 1).",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 3,
+          "variables": {
+            "a": [
+              3,
+              8
+            ]
+          },
+          "latexTemplate": "(x - {a})(x + {a})",
+          "wolframQuery": "expand (x - {a})(x + {a})",
+          "hint": "Inmultirea sumei cu diferenta da diferenta patratelor: x^2 - {a*a}.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 4,
+          "variables": {
+            "a": [
+              2,
+              5
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "{a*a}x^2 - {b*b}y^2",
+          "wolframQuery": "factor {a*a}x^2 - {b*b}y^2",
+          "hint": "({a}x - {b}y)({a}x + {b}y).",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 5,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "x^4 - {a*a}",
+          "wolframQuery": "factor x^4 - {a*a}",
+          "hint": "x^4 = (x^2)^2, deci se descompune in (x^2 - {a})(x^2 + {a}).",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 6,
+          "variables": {
+            "a": [
+              1,
+              3
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "(\\frac{{{a}}}{{{b}}}x - 1)(\\frac{{{a}}}{{{b}}}x + 1)",
+          "wolframQuery": "expand (({a}/{b})*x - 1)*(({a}/{b})*x + 1)",
+          "hint": "Patratul primului termen minus patratul celui de-al doilea.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 7,
+          "variables": {
+            "a": [
+              2,
+              4
+            ]
+          },
+          "latexTemplate": "(x^2 - {a*a})(x^2 + {a*a})",
+          "wolframQuery": "expand (x^2 - {a*a})(x^2 + {a*a})",
+          "hint": "Rezultatul este x^4 - {a**4}.",
+          "solutionIpfs": "QmHardStepByStepExplanation1DifPatrate"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 8,
+          "variables": {
+            "a": [
+              2,
+              7
+            ]
+          },
+          "latexTemplate": "x^2 - {a}",
+          "wolframQuery": "factor x^2 - {a}",
+          "hint": "Daca {a} nu e patrat perfect, folosim radical: (x - \\sqrt{{{a}}})(x + \\sqrt{{{a}}}).",
+          "solutionIpfs": "QmHardStepByStepExplanation2DifPatrate"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 9,
+          "variables": {
+            "a": [
+              2,
+              4
+            ],
+            "b": [
+              1,
+              3
+            ],
+            "c": [
+              1,
+              2
+            ]
+          },
+          "latexTemplate": "({a}x + {b})^2 - ({c}x - 1)^2",
+          "wolframQuery": "simplify ({a}x + {b})^2 - ({c}x - 1)^2",
+          "hint": "A = {a}x + {b}, B = {c}x - 1. Aplica (A - B)(A + B).",
+          "solutionIpfs": "QmHardStepByStepExplanation3DifPatrate"
+        }
+      ]
+    },
+    {
+      "id": "f5-cub-binom-suma",
+      "title": "Cubul sumei de doi termeni",
+      "latex": "(a + b)^3 = a^3 + 3a^2b + 3ab^2 + b^3",
+      "model3D": "Assets/3DModels/intelax.glb",
+      "description": "Cubul sumei a doi termeni este egal cu cubul primului, plus de trei ori patratul primului ori al doilea, plus de trei ori primul ori patratul celui de-al doilea, plus cubul celui de-al doilea.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              1,
+              3
+            ]
+          },
+          "latexTemplate": "(x + {a})^3",
+          "wolframQuery": "expand (x + {a})^3",
+          "hint": "x^3 + 3*{a}x^2 + 3*{a*a}x + {a*a*a}.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "({a}x + 1)^3",
+          "wolframQuery": "expand ({a}x + 1)^3",
+          "hint": "Primul termen la cub este ({a}x)^3 = {a*a*a}x^3.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              2
+            ]
+          },
+          "latexTemplate": "(x + 2)^3",
+          "wolframQuery": "expand (x + 2)^3",
+          "hint": "2^3 = 8, coeficientii termenilor din mijloc sunt 3*2 = 6 si 3*4 = 12.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 4,
+          "variables": {
+            "a": [
+              1,
+              2
+            ],
+            "b": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "({a}x + {b}y)^3",
+          "wolframQuery": "expand ({a}x + {b}y)^3",
+          "hint": "Termenii micsti contin x^2 y si x y^2.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 5,
+          "variables": {
+            "a": [
+              1,
+              3
+            ]
+          },
+          "latexTemplate": "(x^2 + {a})^3",
+          "wolframQuery": "expand (x^2 + {a})^3",
+          "hint": "(x^2)^3 = x^6, iar (x^2)^2 = x^4.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 6,
+          "variables": {
+            "a": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "(2x + \\frac{1}{{a}})^3",
+          "wolframQuery": "expand (2x + 1/{a})^3",
+          "hint": "Atentie la coeficientii fractionari.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 7,
+          "variables": {
+            "a": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "(\\sqrt{{{a}}}x + 1)^3",
+          "wolframQuery": "expand (sqrt({a})*x + 1)^3",
+          "hint": "(\\sqrt{{{a}}})^3 = {a}\\sqrt{{{a}}}.",
+          "solutionIpfs": "QmHardStepByStepExplanation1CubSuma"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 8,
+          "variables": {
+            "a": [
+              1,
+              2
+            ]
+          },
+          "latexTemplate": "({a}x + \\frac{1}{{x}})^3",
+          "wolframQuery": "expand ({a}x + 1/x)^3",
+          "hint": "La termenul 3*({a}x)*(1/x^2), se simplifica x la numitor.",
+          "solutionIpfs": "QmHardStepByStepExplanation2CubSuma"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 9,
+          "variables": {
+            "a": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "(x^2 + {a}y^2)^3",
+          "wolframQuery": "expand (x^2 + {a}y^2)^3",
+          "hint": "Exponentii cresc si descresc cu pasul 2.",
+          "solutionIpfs": "QmHardStepByStepExplanation3CubSuma"
+        }
+      ]
+    },
+    {
+      "id": "f6-cub-binom-diferenta",
+      "title": "Cubul diferentei de doi termeni",
+      "latex": "(a - b)^3 = a^3 - 3a^2b + 3ab^2 - b^3",
+      "model3D": "Assets/3DModels/int1pexla2minusala2.glb",
+      "description": "Cubul diferentei are semne alternate: cubul primului, minus de 3 ori patratul primului ori al doilea, plus de 3 ori primul ori patratul celui de-al doilea, minus cubul celui de-al doilea.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              1,
+              3
+            ]
+          },
+          "latexTemplate": "(x - {a})^3",
+          "wolframQuery": "expand (x - {a})^3",
+          "hint": "Semne alternate: x^3 - 3*{a}x^2 + 3*{a*a}x - {a*a*a}.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "({a}x - 1)^3",
+          "wolframQuery": "expand ({a}x - 1)^3",
+          "hint": "Ultimul termen este (-1)^3 = -1.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              2
+            ]
+          },
+          "latexTemplate": "(x - 2)^3",
+          "wolframQuery": "expand (x - 2)^3",
+          "hint": "x^3 - 6x^2 + 12x - 8.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 4,
+          "variables": {
+            "a": [
+              1,
+              2
+            ],
+            "b": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "({a}x - {b}y)^3",
+          "wolframQuery": "expand ({a}x - {b}y)^3",
+          "hint": "Termenul in x y^2 este pozitiv (+3*{a}*{b*b}).",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 5,
+          "variables": {
+            "a": [
+              1,
+              3
+            ]
+          },
+          "latexTemplate": "(x^2 - {a})^3",
+          "wolframQuery": "expand (x^2 - {a})^3",
+          "hint": "Gradul maxim este 6: (x^2)^3 = x^6.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 6,
+          "variables": {
+            "a": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "(3x - \\frac{1}{{a}})^3",
+          "wolframQuery": "expand (3x - 1/{a})^3",
+          "hint": "Primul termen este 27x^3.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 7,
+          "variables": {
+            "a": [
+              2,
+              3
+            ],
+            "b": [
+              1,
+              2
+            ]
+          },
+          "latexTemplate": "(\\sqrt{{{a}}}x - {b})^3",
+          "wolframQuery": "expand (sqrt({a})*x - {b})^3",
+          "hint": "Atentie la ridicarea la putere a radicalului: (\\sqrt{a})^3 = a\\sqrt{a}.",
+          "solutionIpfs": "QmHardStepByStepExplanation1CubDif"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 8,
+          "variables": {
+            "a": [
+              1,
+              2
+            ]
+          },
+          "latexTemplate": "({a}x - \\frac{1}{{x}})^3",
+          "wolframQuery": "expand ({a}x - 1/x)^3",
+          "hint": "Termenul liber lipseste; apar puteri negative ale lui x.",
+          "solutionIpfs": "QmHardStepByStepExplanation2CubDif"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 9,
+          "variables": {
+            "a": [
+              2,
+              3
+            ],
+            "b": [
+              1,
+              2
+            ]
+          },
+          "latexTemplate": "({a}x^2 - {b}y)^3",
+          "wolframQuery": "expand ({a}x^2 - {b}y)^3",
+          "hint": "Verifica fiecare coeficient numeric separat.",
+          "solutionIpfs": "QmHardStepByStepExplanation3CubDif"
+        }
+      ]
+    },
+    {
+      "id": "f7-suma-cuburi",
+      "title": "Suma de cuburi",
+      "latex": "a^3 + b^3 = (a + b)(a^2 - ab + b^2)",
+      "model3D": "Assets/3DModels/int1pexla2plusala2(2).glb",
+      "description": "Suma a doua cuburi este egala cu suma termenilor inmultita cu patratul lor incomplet al diferentei.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              4
+            ]
+          },
+          "latexTemplate": "x^3 + {a*a*a}",
+          "wolframQuery": "factor x^3 + {a*a*a}",
+          "hint": "{a*a*a} = {a}^3. Descompunerea este (x + {a})(x^2 - {a}x + {a*a}).",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "{a*a*a}x^3 + 1",
+          "wolframQuery": "factor {a*a*a}x^3 + 1",
+          "hint": "({a}x + 1)({a*a}x^2 - {a}x + 1).",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "(x + {a})(x^2 - {a}x + {a*a})",
+          "wolframQuery": "expand (x + {a})(x^2 - {a}x + {a*a})",
+          "hint": "Paranteza este tocmai descompunerea sumei de cuburi: x^3 + {a*a*a}.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 4,
+          "variables": {
+            "a": [
+              2,
+              3
+            ],
+            "b": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "{a*a*a}x^3 + {b*b*b}y^3",
+          "wolframQuery": "factor {a*a*a}x^3 + {b*b*b}y^3",
+          "hint": "({a}x + {b}y)({a*a}x^2 - {a*b}xy + {b*b}y^2).",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 5,
+          "variables": {
+            "a": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "x^6 + {a*a*a}",
+          "wolframQuery": "factor x^6 + {a*a*a}",
+          "hint": "x^6 = (x^2)^3, deci a = x^2.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 6,
+          "variables": {
+            "a": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "8x^3 + \\frac{1}{{{a*a*a}}}",
+          "wolframQuery": "factor 8x^3 + 1/{a*a*a}",
+          "hint": "8 = 2^3, deci primul termen este 2x.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 7,
+          "variables": {
+            "a": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "(x + 1)^3 + {a*a*a}",
+          "wolframQuery": "factor (x + 1)^3 + {a*a*a}",
+          "hint": "A = x + 1, B = {a}. Aplica formula pe termenii A si B.",
+          "solutionIpfs": "QmHardStepByStepExplanation1SumaCuburi"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 8,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "x^3 + {a}",
+          "wolframQuery": "factor x^3 + {a}",
+          "hint": "Daca {a} nu este cub perfect, b = \\sqrt[3]{{{a}}}.",
+          "solutionIpfs": "QmHardStepByStepExplanation2SumaCuburi"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 9,
+          "variables": {
+            "a": [
+              1,
+              1
+            ]
+          },
+          "latexTemplate": "x^9 + y^9",
+          "wolframQuery": "factor x^9 + y^9",
+          "hint": "(x^3)^3 + (y^3)^3 se descompune succesiv.",
+          "solutionIpfs": "QmHardStepByStepExplanation3SumaCuburi"
+        }
+      ]
+    },
+    {
+      "id": "f8-diferenta-cuburi",
+      "title": "Diferenta de cuburi",
+      "latex": "a^3 - b^3 = (a - b)(a^2 + ab + b^2)",
+      "model3D": "Assets/3DModels/int1peradala2minusxla2.glb",
+      "description": "Diferenta a doua cuburi este egala cu diferenta termenilor inmultita cu patratul lor incomplet al sumei.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              4
+            ]
+          },
+          "latexTemplate": "x^3 - {a*a*a}",
+          "wolframQuery": "factor x^3 - {a*a*a}",
+          "hint": "(x - {a})(x^2 + {a}x + {a*a}). In a doua paranteza toti termenii au semnul plus.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "{a*a*a}x^3 - 1",
+          "wolframQuery": "factor {a*a*a}x^3 - 1",
+          "hint": "({a}x - 1)({a*a}x^2 + {a}x + 1).",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "(x - {a})(x^2 + {a}x + {a*a})",
+          "wolframQuery": "expand (x - {a})(x^2 + {a}x + {a*a})",
+          "hint": "Rezultatul direct este x^3 - {a*a*a}.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 4,
+          "variables": {
+            "a": [
+              2,
+              3
+            ],
+            "b": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "{a*a*a}x^3 - {b*b*b}y^3",
+          "wolframQuery": "factor {a*a*a}x^3 - {b*b*b}y^3",
+          "hint": "({a}x - {b}y)({a*a}x^2 + {a*b}xy + {b*b}y^2).",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 5,
+          "variables": {
+            "a": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "x^6 - {a*a*a}",
+          "wolframQuery": "factor x^6 - {a*a*a}",
+          "hint": "x^6 = (x^2)^3. Se aplica diferenta de cuburi pentru x^2 si {a}.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 6,
+          "variables": {
+            "a": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "27x^3 - \\frac{1}{{{a*a*a}}}",
+          "wolframQuery": "factor 27x^3 - 1/{a*a*a}",
+          "hint": "27 = 3^3, deci primul termen este 3x.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 7,
+          "variables": {
+            "a": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "(x - 2)^3 - {a*a*a}",
+          "wolframQuery": "factor (x - 2)^3 - {a*a*a}",
+          "hint": "A = x - 2, B = {a}. Descompune conform (A - B)(A^2 + AB + B^2).",
+          "solutionIpfs": "QmHardStepByStepExplanation1DifCuburi"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 8,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "x^3 - {a}",
+          "wolframQuery": "factor x^3 - {a}",
+          "hint": "b = \\sqrt[3]{{{a}}}.",
+          "solutionIpfs": "QmHardStepByStepExplanation2DifCuburi"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 9,
+          "variables": {
+            "a": [
+              2,
+              3
+            ],
+            "b": [
+              1,
+              2
+            ]
+          },
+          "latexTemplate": "{a*a*a}x^6 - {b*b*b}y^9",
+          "wolframQuery": "factor {a*a*a}x^6 - {b*b*b}y^9",
+          "hint": "A = {a}x^2, B = {b}y^3.",
+          "solutionIpfs": "QmHardStepByStepExplanation3DifCuburi"
+        }
+      ]
+    },
+    {
+      "id": "f9-diferenta-puteri-n",
+      "title": "Diferenta a doua puteri de ordin n",
+      "latex": "a^n - b^n = (a - b)(a^{n-1} + a^{n-2}b + \\dots + b^{n-1})",
+      "model3D": "Assets/3DModels/int1peradxla2plusala2.glb",
+      "description": "Formula generala de descompunere in factori a diferentei de puteri de ordin n cu exponent natural.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              3
+            ]
+          },
+          "latexTemplate": "x^4 - {a**4}",
+          "wolframQuery": "factor x^4 - {a**4}",
+          "hint": "Cazul n=4: (x - {a})(x^3 + {a}x^2 + {a*a}x + {a**3}).",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 2,
+          "variables": {
+            "a": [
+              1,
+              1
+            ]
+          },
+          "latexTemplate": "x^5 - 1",
+          "wolframQuery": "factor x^5 - 1",
+          "hint": "Cazul n=5: (x - 1)(x^4 + x^3 + x^2 + x + 1).",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Easy",
+          "order": 3,
+          "variables": {
+            "a": [
+              1,
+              1
+            ]
+          },
+          "latexTemplate": "(x - 1)(x^3 + x^2 + x + 1)",
+          "wolframQuery": "expand (x - 1)(x^3 + x^2 + x + 1)",
+          "hint": "Toti termenii intermediari se reduc in cascada; ramane x^4 - 1.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 4,
+          "variables": {
+            "a": [
+              2,
+              2
+            ]
+          },
+          "latexTemplate": "x^5 - 32",
+          "wolframQuery": "factor x^5 - 32",
+          "hint": "32 = 2^5. Descompunerea are 5 termeni in paranteza lunga.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 5,
+          "variables": {
+            "a": [
+              2,
+              2
+            ]
+          },
+          "latexTemplate": "16x^4 - 1",
+          "wolframQuery": "factor 16x^4 - 1",
+          "hint": "16x^4 = (2x)^4.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 6,
+          "variables": {
+            "a": [
+              2,
+              2
+            ]
+          },
+          "latexTemplate": "(x - 2)(x^4 + 2x^3 + 4x^2 + 8x + 16)",
+          "wolframQuery": "expand (x - 2)(x^4 + 2*x^3 + 4*x^2 + 8*x + 16)",
+          "hint": "Da direct x^5 - 32.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 7,
+          "variables": {
+            "a": [
+              1,
+              1
+            ]
+          },
+          "latexTemplate": "x^6 - y^6",
+          "wolframQuery": "factor x^6 - y^6",
+          "hint": "Se poate privi ca diferenta de patrate (x^3)^2 - (y^3)^2 sau diferenta de cuburi.",
+          "solutionIpfs": "QmHardStepByStepExplanation1PuteriN"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 8,
+          "variables": {
+            "a": [
+              1,
+              1
+            ]
+          },
+          "latexTemplate": "x^7 - 1",
+          "wolframQuery": "factor x^7 - 1",
+          "hint": "(x - 1)(x^6 + x^5 + x^4 + x^3 + x^2 + x + 1).",
+          "solutionIpfs": "QmHardStepByStepExplanation2PuteriN"
+        },
+        {
+          "difficulty": "Hard",
+          "order": 9,
+          "variables": {
+            "a": [
+              1,
+              1
+            ]
+          },
+          "latexTemplate": "x^n - 1",
+          "wolframQuery": "factor x^n - 1",
+          "hint": "Suma unei progresii geometrice: 1 + x + x^2 + ... + x^{n-1} = (x^n - 1)/(x - 1).",
+          "solutionIpfs": "QmHardStepByStepExplanation3PuteriN"
+        }
+      ]
+    }
+  ]
+}

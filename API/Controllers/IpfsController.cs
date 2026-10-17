@@ -1,6 +1,5 @@
+using MathChain.API.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Http.Headers;
-using System.Text.Json;
 
 namespace MathChain.API.Controllers
 {
@@ -13,11 +12,15 @@ namespace MathChain.API.Controllers
     [Route("api/[controller]")]
     public class IpfsController : ControllerBase
     {
-        private readonly HttpClient _httpClient;
+        private readonly string _storagePath;
 
-        public IpfsController(IHttpClientFactory httpClientFactory)
+        public IpfsController(IWebHostEnvironment env)
         {
-            _httpClient = httpClientFactory.CreateClient();
+            _storagePath = Path.Combine(env.ContentRootPath, "Storage", "ipfs");
+            if(!Directory.Exists(_storagePath))
+            {
+                Directory.CreateDirectory(_storagePath);
+            }
         }
 
         [HttpPost("upload")]
@@ -31,51 +34,30 @@ namespace MathChain.API.Controllers
                 return BadRequest("No file uploaded.");
             }
 
-            var pinataJwt = Environment.GetEnvironmentVariable("PINATA_JWT");
-            if (string.IsNullOrWhiteSpace(pinataJwt))
-            {
-                return StatusCode(500, "PINATA_JWT is not configured in backend .env");
-            }
-
             try
             {
-                using var stream = file.OpenReadStream();
-                using var streamContent = new StreamContent(stream);
-                streamContent.Headers.ContentType = new MediaTypeHeaderValue(
-                    string.IsNullOrWhiteSpace(file.ContentType) ? "application/octet-stream" : file.ContentType);
+                using var memoryStream = new MemoryStream();
+                await file.CopyToAsync(memoryStream);
+                byte[] fileBytes = memoryStream.ToArray();
 
-                using var formData = new MultipartFormDataContent();
-                formData.Add(streamContent, "file", file.FileName);
+                string ipfsHash = IpfsHashHelper.ComputeCid(fileBytes);
+                string destinationPath = Path.Combine(_storagePath, ipfsHash);
 
-                var httpRequest = new HttpRequestMessage(HttpMethod.Post, "https://api.pinata.cloud/pinning/pinFileToIPFS")
+                if(!System.IO.File.Exists(destinationPath))
                 {
-                    Content = formData
-                };
-                httpRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", pinataJwt);
-
-                var response = await _httpClient.SendAsync(httpRequest);
-                var responseContent = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    return StatusCode((int)response.StatusCode, $"Pinata error: {responseContent}");
+                    await System.IO.File.WriteAllBytesAsync(destinationPath, fileBytes);
                 }
 
-                using var document = JsonDocument.Parse(responseContent);
-                if (document.RootElement.TryGetProperty("IpfsHash", out var hashElement))
-                {
-                    return Ok(new { ipfsHash = hashElement.GetString() });
-                }
-
-                return StatusCode(500, "Failed to retrieve IpfsHash from Pinata response.");
+                return Ok(new { ipfsHash });
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                return StatusCode(500, $"Internal upload error: {ex.Message}");
+                return StatusCode(500, $"Internal storage error: {ex.Message}");
             }
         }
 
         [HttpGet("download/{hash}")]
+        [HttpGet("{hash}")]
         public async Task<IActionResult> Download(string hash, [FromQuery] string? fileName)
         {
             if (string.IsNullOrWhiteSpace(hash))
@@ -83,25 +65,17 @@ namespace MathChain.API.Controllers
                 return BadRequest("Hash is required.");
             }
 
+            string filePath = Path.Combine(_storagePath, hash);
+
+            if(!System.IO.File.Exists(filePath))
+            {
+                return NotFound($"Content with hash {hash} not found in local IPFS node.");
+            }
+
+            var fileStream = System.IO.File.OpenRead(filePath);
             var safeFileName = string.IsNullOrWhiteSpace(fileName) ? $"{hash}.bin" : fileName;
-            var pinataGatewayUrl = $"https://gateway.pinata.cloud/ipfs/{hash}";
 
-            try
-            {
-                var response = await _httpClient.GetAsync(pinataGatewayUrl, HttpCompletionOption.ResponseHeadersRead);
-                if (!response.IsSuccessStatusCode)
-                {
-                    return StatusCode((int)response.StatusCode, "Failed to fetch file from Pinata IPFS gateway.");
-                }
-
-                var stream = await response.Content.ReadAsStreamAsync();
-                var contentType = response.Content.Headers.ContentType?.MediaType ?? "application/octet-stream";
-                return File(stream, contentType, safeFileName);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Download error: {ex.Message}");
-            }
+            return File(fileStream, "application/octet-stream", safeFileName);
         }
     }
 }

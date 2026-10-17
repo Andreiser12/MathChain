@@ -80,14 +80,12 @@ and minimize gas fees:
 - A **Wolfram Alpha Developer AppID**.
 - An **Infura** or **Alchemy** RPC URL for the Sepolia Testnet.
 - A **WalletConnect Cloud Project ID**.
-- A **Pinata JavaScript Web Token**.
 - A `.env` file located in the root of the WPF project containing the following variables:
   ```env
   CONTRACT_ADDRESS=your_contract_address
   INFURA_RPC_URL=your_rpc_url
   WOLFRAM_API_KEY=your_wolfram_api_key
   PROJECT_ID=your_walletconnect_project_id
-  PINATA_JWT=your_pinata_jwt
   
 ## Setup
 1. Clone the repository.

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathChain.Tests", "Tests\Ma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathChain.Blazor", "MathChain.Blazor\MathChain.Blazor.csproj", "{06841C71-8713-4245-8AD9-512294EAA89F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathChain.Persistence", "MathChain.Persistence\MathChain.Persistence.csproj", "{AB8F264C-90A3-4EB6-AD54-4AE0432344D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{06841C71-8713-4245-8AD9-512294EAA89F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06841C71-8713-4245-8AD9-512294EAA89F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06841C71-8713-4245-8AD9-512294EAA89F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB8F264C-90A3-4EB6-AD54-4AE0432344D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB8F264C-90A3-4EB6-AD54-4AE0432344D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB8F264C-90A3-4EB6-AD54-4AE0432344D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB8F264C-90A3-4EB6-AD54-4AE0432344D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

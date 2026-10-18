@@ -1,0 +1,369 @@
+{
+  "chapterId": "trigonometry_multiangle",
+  "title": "Multi Angle",
+  "category": "Trigonometry",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Multi Angle.",
+  "formulas": [
+    {
+      "id": "trigonometry_multiangle-f1",
+      "title": "Multi Angle - Formula 1",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\sin{a}=\\pm \\sqrt{1-\\cos^2{a}}\\\\\n\t\t\t\t\t&\\sin{a}=\\frac{\\tan{a}}{\\pm \\sqrt{1+\\tan^2{a}}}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\sin{a}=\\pm \\sqrt{1-\\cos^2{a}}\\\\\n\t\t\t\t\t&\\sin{a}=\\frac{\\tan{a}}{\\pm \\sqrt{1+\\tan^2{a}}}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\sin{a}=\\pm \\sqrt{1-\\cos^2{a}}\\\\\n\t\t\t\t\t&\\sin{a}=\\frac{\\tan{a}}{\\pm \\sqrt{1+\\tan^2{a}}}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\sin{a}=\\pm \\sqrt{1-\\cos^2{a}}\\\\\n\t\t\t\t\t&\\sin{a}=\\frac{\\tan{a}}{\\pm \\sqrt{1+\\tan^2{a}}}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\sin{a}=\\pm \\sqrt{1-\\cos^2{a}}\\\\\n\t\t\t\t\t&\\sin{a}=\\frac{\\tan{a}}{\\pm \\sqrt{1+\\tan^2{a}}}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\sin{a}=\\pm \\sqrt{1-\\cos^2{a}}\\\\\n\t\t\t\t\t&\\sin{a}=\\frac{\\tan{a}}{\\pm \\sqrt{1+\\tan^2{a}}}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\sin{a}=\\pm \\sqrt{1-\\cos^2{a}}\\\\\n\t\t\t\t\t&\\sin{a}=\\frac{\\tan{a}}{\\pm \\sqrt{1+\\tan^2{a}}}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_multiangle_f1"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_multiangle-f2",
+      "title": "Multi Angle - Formula 2",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\sin{2a}=2\\sin{a}\\cdot \\cos{a}\\\\\n\t\t\t\t\t&\\sin{2a}=\\frac{2\\tan{a}}{1+\\tan^2{a}}\\\\\n\t\t\t\t\t&\\sin{3a}=3\\sin{a}-4\\sin^3{a}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\sin{2a}=2\\sin{a}\\cdot \\cos{a}\\\\\n\t\t\t\t\t&\\sin{2a}=\\frac{2\\tan{a}}{1+\\tan^2{a}}\\\\\n\t\t\t\t\t&\\sin{3a}=3\\sin{a}-4\\sin^3{a}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\sin{2a}=2\\sin{a}\\cdot \\cos{a}\\\\\n\t\t\t\t\t&\\sin{2a}=\\frac{2\\tan{a}}{1+\\tan^2{a}}\\\\\n\t\t\t\t\t&\\sin{3a}=3\\sin{a}-4\\sin^3{a}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\sin{2a}=2\\sin{a}\\cdot \\cos{a}\\\\\n\t\t\t\t\t&\\sin{2a}=\\frac{2\\tan{a}}{1+\\tan^2{a}}\\\\\n\t\t\t\t\t&\\sin{3a}=3\\sin{a}-4\\sin^3{a}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\sin{2a}=2\\sin{a}\\cdot \\cos{a}\\\\\n\t\t\t\t\t&\\sin{2a}=\\frac{2\\tan{a}}{1+\\tan^2{a}}\\\\\n\t\t\t\t\t&\\sin{3a}=3\\sin{a}-4\\sin^3{a}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\sin{2a}=2\\sin{a}\\cdot \\cos{a}\\\\\n\t\t\t\t\t&\\sin{2a}=\\frac{2\\tan{a}}{1+\\tan^2{a}}\\\\\n\t\t\t\t\t&\\sin{3a}=3\\sin{a}-4\\sin^3{a}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\sin{2a}=2\\sin{a}\\cdot \\cos{a}\\\\\n\t\t\t\t\t&\\sin{2a}=\\frac{2\\tan{a}}{1+\\tan^2{a}}\\\\\n\t\t\t\t\t&\\sin{3a}=3\\sin{a}-4\\sin^3{a}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_multiangle_f2"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_multiangle-f3",
+      "title": "Multi Angle - Formula 3",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\cos{a}=\\pm \\sqrt{1-\\sin^2{a}}\\\\\n\t\t\t\t\t&\\cos{a}=\\frac{}{\\pm \\sqrt{1+\\tan^2{a}}}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\cos{a}=\\pm \\sqrt{1-\\sin^2{a}}\\\\\n\t\t\t\t\t&\\cos{a}=\\frac{}{\\pm \\sqrt{1+\\tan^2{a}}}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\cos{a}=\\pm \\sqrt{1-\\sin^2{a}}\\\\\n\t\t\t\t\t&\\cos{a}=\\frac{}{\\pm \\sqrt{1+\\tan^2{a}}}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\cos{a}=\\pm \\sqrt{1-\\sin^2{a}}\\\\\n\t\t\t\t\t&\\cos{a}=\\frac{}{\\pm \\sqrt{1+\\tan^2{a}}}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\cos{a}=\\pm \\sqrt{1-\\sin^2{a}}\\\\\n\t\t\t\t\t&\\cos{a}=\\frac{}{\\pm \\sqrt{1+\\tan^2{a}}}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\cos{a}=\\pm \\sqrt{1-\\sin^2{a}}\\\\\n\t\t\t\t\t&\\cos{a}=\\frac{}{\\pm \\sqrt{1+\\tan^2{a}}}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\cos{a}=\\pm \\sqrt{1-\\sin^2{a}}\\\\\n\t\t\t\t\t&\\cos{a}=\\frac{}{\\pm \\sqrt{1+\\tan^2{a}}}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_multiangle_f3"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_multiangle-f4",
+      "title": "Multi Angle - Formula 4",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\cos{2a}=\\cos^2{a}-\\sin^2{a}\\\\\n\t\t\t\t\t&\\cos{2a}=\\frac{1-\\tan^2{a}}{1+\\tan^2{a}}\\\\\n\t\t\t\t\t&\\cos{3a}=4\\cos^3{a}-3\\cos{a}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\cos{2a}=\\cos^2{a}-\\sin^2{a}\\\\\n\t\t\t\t\t&\\cos{2a}=\\frac{1-\\tan^2{a}}{1+\\tan^2{a}}\\\\\n\t\t\t\t\t&\\cos{3a}=4\\cos^3{a}-3\\cos{a}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\cos{2a}=\\cos^2{a}-\\sin^2{a}\\\\\n\t\t\t\t\t&\\cos{2a}=\\frac{1-\\tan^2{a}}{1+\\tan^2{a}}\\\\\n\t\t\t\t\t&\\cos{3a}=4\\cos^3{a}-3\\cos{a}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\cos{2a}=\\cos^2{a}-\\sin^2{a}\\\\\n\t\t\t\t\t&\\cos{2a}=\\frac{1-\\tan^2{a}}{1+\\tan^2{a}}\\\\\n\t\t\t\t\t&\\cos{3a}=4\\cos^3{a}-3\\cos{a}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\cos{2a}=\\cos^2{a}-\\sin^2{a}\\\\\n\t\t\t\t\t&\\cos{2a}=\\frac{1-\\tan^2{a}}{1+\\tan^2{a}}\\\\\n\t\t\t\t\t&\\cos{3a}=4\\cos^3{a}-3\\cos{a}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\cos{2a}=\\cos^2{a}-\\sin^2{a}\\\\\n\t\t\t\t\t&\\cos{2a}=\\frac{1-\\tan^2{a}}{1+\\tan^2{a}}\\\\\n\t\t\t\t\t&\\cos{3a}=4\\cos^3{a}-3\\cos{a}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\cos{2a}=\\cos^2{a}-\\sin^2{a}\\\\\n\t\t\t\t\t&\\cos{2a}=\\frac{1-\\tan^2{a}}{1+\\tan^2{a}}\\\\\n\t\t\t\t\t&\\cos{3a}=4\\cos^3{a}-3\\cos{a}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_multiangle_f4"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_multiangle-f5",
+      "title": "Multi Angle - Formula 5",
+      "latex": "\\tan{2a}=\\frac{2\\tan{a}}{1-\\tan^2{a}}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\tan{2a}=\\frac{2\\tan{a}}{1-\\tan^2{a}}",
+          "wolframQuery": "simplify \\tan{2a}=\\frac{2\\tan{a}}{1-\\tan^2{a}}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\tan{2a}=\\frac{2\\tan{a}}{1-\\tan^2{a}}",
+          "wolframQuery": "simplify \\tan{2a}=\\frac{2\\tan{a}}{1-\\tan^2{a}}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\tan{2a}=\\frac{2\\tan{a}}{1-\\tan^2{a}}",
+          "wolframQuery": "simplify \\tan{2a}=\\frac{2\\tan{a}}{1-\\tan^2{a}}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_multiangle_f5"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_multiangle-f6",
+      "title": "Multi Angle - Formula 6",
+      "latex": "\\cot{2a}=\\frac{\\cot^2{a}-1}{2\\cot{a}}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\cot{2a}=\\frac{\\cot^2{a}-1}{2\\cot{a}}",
+          "wolframQuery": "simplify \\cot{2a}=\\frac{\\cot^2{a}-1}{2\\cot{a}}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\cot{2a}=\\frac{\\cot^2{a}-1}{2\\cot{a}}",
+          "wolframQuery": "simplify \\cot{2a}=\\frac{\\cot^2{a}-1}{2\\cot{a}}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\cot{2a}=\\frac{\\cot^2{a}-1}{2\\cot{a}}",
+          "wolframQuery": "simplify \\cot{2a}=\\frac{\\cot^2{a}-1}{2\\cot{a}}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_multiangle_f6"
+        }
+      ]
+    }
+  ]
+}

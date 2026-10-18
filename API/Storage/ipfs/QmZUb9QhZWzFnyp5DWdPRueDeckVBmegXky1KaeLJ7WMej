@@ -1,0 +1,249 @@
+{
+  "chapterId": "calculus_stepsri",
+  "title": "Steps",
+  "category": "Calculus",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Steps.",
+  "formulas": [
+    {
+      "id": "calculus_stepsri-f1",
+      "title": "Steps - Formula 1",
+      "latex": "\\text{If degree }P\\geq Q \\Rightarrow \\text{divide }P\\text{ by } Q",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{If degree }P\\geq Q \\Rightarrow \\text{divide }P\\text{ by } Q",
+          "wolframQuery": "simplify \\text{If degree }P\\geq Q \\Rightarrow \\text{divide }P\\text{ by } Q",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{If degree }P\\geq Q \\Rightarrow \\text{divide }P\\text{ by } Q",
+          "wolframQuery": "simplify \\text{If degree }P\\geq Q \\Rightarrow \\text{divide }P\\text{ by } Q",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{If degree }P\\geq Q \\Rightarrow \\text{divide }P\\text{ by } Q",
+          "wolframQuery": "simplify \\text{If degree }P\\geq Q \\Rightarrow \\text{divide }P\\text{ by } Q",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_stepsri_f1"
+        }
+      ]
+    },
+    {
+      "id": "calculus_stepsri-f2",
+      "title": "Steps - Formula 2",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t& \\text{Decompose the denominator into prime factors:}\\\\\n\t\t\t\t\t& \\begin{cases}\n\t\t\t\t\t\tax+b\\\\\n\t\t\t\t\t\tax^2+bx+c \\text{ ,with }\\Delta<0\n\t\t\t\t\t\\end{cases}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t& \\text{Decompose the denominator into prime factors:}\\\\\n\t\t\t\t\t& \\begin{cases}\n\t\t\t\t\t\tax+b\\\\\n\t\t\t\t\t\tax^2+bx+c \\text{ ,with }\\Delta<0\n\t\t\t\t\t\\end{cases}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t& \\text{Decompose the denominator into prime factors:}\\\\\n\t\t\t\t\t& \\begin{cases}\n\t\t\t\t\t\tax+b\\\\\n\t\t\t\t\t\tax^2+bx+c \\text{ ,with }\\Delta<0\n\t\t\t\t\t\\end{cases}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t& \\text{Decompose the denominator into prime factors:}\\\\\n\t\t\t\t\t& \\begin{cases}\n\t\t\t\t\t\tax+b\\\\\n\t\t\t\t\t\tax^2+bx+c \\text{ ,with }\\Delta<0\n\t\t\t\t\t\\end{cases}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t& \\text{Decompose the denominator into prime factors:}\\\\\n\t\t\t\t\t& \\begin{cases}\n\t\t\t\t\t\tax+b\\\\\n\t\t\t\t\t\tax^2+bx+c \\text{ ,with }\\Delta<0\n\t\t\t\t\t\\end{cases}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t& \\text{Decompose the denominator into prime factors:}\\\\\n\t\t\t\t\t& \\begin{cases}\n\t\t\t\t\t\tax+b\\\\\n\t\t\t\t\t\tax^2+bx+c \\text{ ,with }\\Delta<0\n\t\t\t\t\t\\end{cases}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t& \\text{Decompose the denominator into prime factors:}\\\\\n\t\t\t\t\t& \\begin{cases}\n\t\t\t\t\t\tax+b\\\\\n\t\t\t\t\t\tax^2+bx+c \\text{ ,with }\\Delta<0\n\t\t\t\t\t\\end{cases}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_stepsri_f2"
+        }
+      ]
+    },
+    {
+      "id": "calculus_stepsri-f3",
+      "title": "Steps - Formula 3",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t& \\text{Decompose the fraction into a sum of simple fractions:}\\\\\n\t\t\t\t\t& \\begin{cases}\n\t\t\t\t\t\t\\frac{P(x)}{(ax+b)\\cdot (cx+d)}=\\frac{A}{ax+b}+\\frac{B}{cx+d}\\\\\n\t\t\t\t\t\t\\frac{P(x)}{(ax^2+bx+c)\\cdot (dx^2+ex+f)}=\\frac{Ax+B}{ax^2+bx+c}+\\frac{Cx+D}{dx^2+ex+f}\\\\\n\t\t\t\t\t\t\\frac{P(x)}{(ax+b)\\cdot (dx^2+ex+f)}=\\frac{A}{ax+b}+\\frac{Bx+C}{dx^2+ex+f}\n\t\t\t\t\t\\end{cases}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t& \\text{Decompose the fraction into a sum of simple fractions:}\\\\\n\t\t\t\t\t& \\begin{cases}\n\t\t\t\t\t\t\\frac{P(x)}{(ax+b)\\cdot (cx+d)}=\\frac{A}{ax+b}+\\frac{B}{cx+d}\\\\\n\t\t\t\t\t\t\\frac{P(x)}{(ax^2+bx+c)\\cdot (dx^2+ex+f)}=\\frac{Ax+B}{ax^2+bx+c}+\\frac{Cx+D}{dx^2+ex+f}\\\\\n\t\t\t\t\t\t\\frac{P(x)}{(ax+b)\\cdot (dx^2+ex+f)}=\\frac{A}{ax+b}+\\frac{Bx+C}{dx^2+ex+f}\n\t\t\t\t\t\\end{cases}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t& \\text{Decompose the fraction into a sum of simple fractions:}\\\\\n\t\t\t\t\t& \\begin{cases}\n\t\t\t\t\t\t\\frac{P(x)}{(ax+b)\\cdot (cx+d)}=\\frac{A}{ax+b}+\\frac{B}{cx+d}\\\\\n\t\t\t\t\t\t\\frac{P(x)}{(ax^2+bx+c)\\cdot (dx^2+ex+f)}=\\frac{Ax+B}{ax^2+bx+c}+\\frac{Cx+D}{dx^2+ex+f}\\\\\n\t\t\t\t\t\t\\frac{P(x)}{(ax+b)\\cdot (dx^2+ex+f)}=\\frac{A}{ax+b}+\\frac{Bx+C}{dx^2+ex+f}\n\t\t\t\t\t\\end{cases}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t& \\text{Decompose the fraction into a sum of simple fractions:}\\\\\n\t\t\t\t\t& \\begin{cases}\n\t\t\t\t\t\t\\frac{P(x)}{(ax+b)\\cdot (cx+d)}=\\frac{A}{ax+b}+\\frac{B}{cx+d}\\\\\n\t\t\t\t\t\t\\frac{P(x)}{(ax^2+bx+c)\\cdot (dx^2+ex+f)}=\\frac{Ax+B}{ax^2+bx+c}+\\frac{Cx+D}{dx^2+ex+f}\\\\\n\t\t\t\t\t\t\\frac{P(x)}{(ax+b)\\cdot (dx^2+ex+f)}=\\frac{A}{ax+b}+\\frac{Bx+C}{dx^2+ex+f}\n\t\t\t\t\t\\end{cases}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t& \\text{Decompose the fraction into a sum of simple fractions:}\\\\\n\t\t\t\t\t& \\begin{cases}\n\t\t\t\t\t\t\\frac{P(x)}{(ax+b)\\cdot (cx+d)}=\\frac{A}{ax+b}+\\frac{B}{cx+d}\\\\\n\t\t\t\t\t\t\\frac{P(x)}{(ax^2+bx+c)\\cdot (dx^2+ex+f)}=\\frac{Ax+B}{ax^2+bx+c}+\\frac{Cx+D}{dx^2+ex+f}\\\\\n\t\t\t\t\t\t\\frac{P(x)}{(ax+b)\\cdot (dx^2+ex+f)}=\\frac{A}{ax+b}+\\frac{Bx+C}{dx^2+ex+f}\n\t\t\t\t\t\\end{cases}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t& \\text{Decompose the fraction into a sum of simple fractions:}\\\\\n\t\t\t\t\t& \\begin{cases}\n\t\t\t\t\t\t\\frac{P(x)}{(ax+b)\\cdot (cx+d)}=\\frac{A}{ax+b}+\\frac{B}{cx+d}\\\\\n\t\t\t\t\t\t\\frac{P(x)}{(ax^2+bx+c)\\cdot (dx^2+ex+f)}=\\frac{Ax+B}{ax^2+bx+c}+\\frac{Cx+D}{dx^2+ex+f}\\\\\n\t\t\t\t\t\t\\frac{P(x)}{(ax+b)\\cdot (dx^2+ex+f)}=\\frac{A}{ax+b}+\\frac{Bx+C}{dx^2+ex+f}\n\t\t\t\t\t\\end{cases}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t& \\text{Decompose the fraction into a sum of simple fractions:}\\\\\n\t\t\t\t\t& \\begin{cases}\n\t\t\t\t\t\t\\frac{P(x)}{(ax+b)\\cdot (cx+d)}=\\frac{A}{ax+b}+\\frac{B}{cx+d}\\\\\n\t\t\t\t\t\t\\frac{P(x)}{(ax^2+bx+c)\\cdot (dx^2+ex+f)}=\\frac{Ax+B}{ax^2+bx+c}+\\frac{Cx+D}{dx^2+ex+f}\\\\\n\t\t\t\t\t\t\\frac{P(x)}{(ax+b)\\cdot (dx^2+ex+f)}=\\frac{A}{ax+b}+\\frac{Bx+C}{dx^2+ex+f}\n\t\t\t\t\t\\end{cases}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_stepsri_f3"
+        }
+      ]
+    },
+    {
+      "id": "calculus_stepsri-f4",
+      "title": "Steps - Formula 4",
+      "latex": "\\text{Determine }A,\\, B,\\, C,\\, ...\\text{ and calculate the integral.}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{Determine }A,\\, B,\\, C,\\, ...\\text{ and calculate the integral.}",
+          "wolframQuery": "simplify \\text{Determine }A,\\, B,\\, C,\\, ...\\text{ and calculate the integral.}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{Determine }A,\\, B,\\, C,\\, ...\\text{ and calculate the integral.}",
+          "wolframQuery": "simplify \\text{Determine }A,\\, B,\\, C,\\, ...\\text{ and calculate the integral.}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{Determine }A,\\, B,\\, C,\\, ...\\text{ and calculate the integral.}",
+          "wolframQuery": "simplify \\text{Determine }A,\\, B,\\, C,\\, ...\\text{ and calculate the integral.}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_stepsri_f4"
+        }
+      ]
+    }
+  ]
+}

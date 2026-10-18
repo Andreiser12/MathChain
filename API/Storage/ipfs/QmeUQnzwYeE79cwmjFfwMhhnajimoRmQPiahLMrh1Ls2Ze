@@ -1,0 +1,249 @@
+{
+  "chapterId": "trigonometry_fundamentalequations",
+  "title": "Fundamental Equations",
+  "category": "Trigonometry",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Fundamental Equations.",
+  "formulas": [
+    {
+      "id": "trigonometry_fundamentalequations-f1",
+      "title": "Fundamental Equations - Formula 1",
+      "latex": "\\sin{x}=a,\\, a\\in[-1,1]\\Rightarrow x\\in\\{ (-1)^k\\cdot \\arcsin{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sin{x}=a,\\, a\\in[-1,1]\\Rightarrow x\\in\\{ (-1)^k\\cdot \\arcsin{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+          "wolframQuery": "simplify \\sin{x}=a,\\, a\\in[-1,1]\\Rightarrow x\\in\\{ (-1)^k\\cdot \\arcsin{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\sin{x}=a,\\, a\\in[-1,1]\\Rightarrow x\\in\\{ (-1)^k\\cdot \\arcsin{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+          "wolframQuery": "simplify \\sin{x}=a,\\, a\\in[-1,1]\\Rightarrow x\\in\\{ (-1)^k\\cdot \\arcsin{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sin{x}=a,\\, a\\in[-1,1]\\Rightarrow x\\in\\{ (-1)^k\\cdot \\arcsin{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+          "wolframQuery": "simplify \\sin{x}=a,\\, a\\in[-1,1]\\Rightarrow x\\in\\{ (-1)^k\\cdot \\arcsin{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_fundamentalequations_f1"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_fundamentalequations-f2",
+      "title": "Fundamental Equations - Formula 2",
+      "latex": "\\cos{x}=a,\\, a\\in[-1,1]\\Rightarrow x\\in\\{\\pm \\arccos{a}+2k\\pi|k\\in \\mathbb{Z} \\}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\cos{x}=a,\\, a\\in[-1,1]\\Rightarrow x\\in\\{\\pm \\arccos{a}+2k\\pi|k\\in \\mathbb{Z} \\}",
+          "wolframQuery": "simplify \\cos{x}=a,\\, a\\in[-1,1]\\Rightarrow x\\in\\{\\pm \\arccos{a}+2k\\pi|k\\in \\mathbb{Z} \\}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\cos{x}=a,\\, a\\in[-1,1]\\Rightarrow x\\in\\{\\pm \\arccos{a}+2k\\pi|k\\in \\mathbb{Z} \\}",
+          "wolframQuery": "simplify \\cos{x}=a,\\, a\\in[-1,1]\\Rightarrow x\\in\\{\\pm \\arccos{a}+2k\\pi|k\\in \\mathbb{Z} \\}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\cos{x}=a,\\, a\\in[-1,1]\\Rightarrow x\\in\\{\\pm \\arccos{a}+2k\\pi|k\\in \\mathbb{Z} \\}",
+          "wolframQuery": "simplify \\cos{x}=a,\\, a\\in[-1,1]\\Rightarrow x\\in\\{\\pm \\arccos{a}+2k\\pi|k\\in \\mathbb{Z} \\}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_fundamentalequations_f2"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_fundamentalequations-f3",
+      "title": "Fundamental Equations - Formula 3",
+      "latex": "\\tan{x}=a,\\, a\\in \\mathbb{R}\\Rightarrow x\\in\\{\\arctan{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\tan{x}=a,\\, a\\in \\mathbb{R}\\Rightarrow x\\in\\{\\arctan{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+          "wolframQuery": "simplify \\tan{x}=a,\\, a\\in \\mathbb{R}\\Rightarrow x\\in\\{\\arctan{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\tan{x}=a,\\, a\\in \\mathbb{R}\\Rightarrow x\\in\\{\\arctan{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+          "wolframQuery": "simplify \\tan{x}=a,\\, a\\in \\mathbb{R}\\Rightarrow x\\in\\{\\arctan{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\tan{x}=a,\\, a\\in \\mathbb{R}\\Rightarrow x\\in\\{\\arctan{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+          "wolframQuery": "simplify \\tan{x}=a,\\, a\\in \\mathbb{R}\\Rightarrow x\\in\\{\\arctan{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_fundamentalequations_f3"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_fundamentalequations-f4",
+      "title": "Fundamental Equations - Formula 4",
+      "latex": "\\cot{x}=a,\\, a\\in \\mathbb{R}\\Rightarrow x\\in\\{\\operatorname{arccot}{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\cot{x}=a,\\, a\\in \\mathbb{R}\\Rightarrow x\\in\\{\\operatorname{arccot}{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+          "wolframQuery": "simplify \\cot{x}=a,\\, a\\in \\mathbb{R}\\Rightarrow x\\in\\{\\operatorname{arccot}{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\cot{x}=a,\\, a\\in \\mathbb{R}\\Rightarrow x\\in\\{\\operatorname{arccot}{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+          "wolframQuery": "simplify \\cot{x}=a,\\, a\\in \\mathbb{R}\\Rightarrow x\\in\\{\\operatorname{arccot}{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\cot{x}=a,\\, a\\in \\mathbb{R}\\Rightarrow x\\in\\{\\operatorname{arccot}{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+          "wolframQuery": "simplify \\cot{x}=a,\\, a\\in \\mathbb{R}\\Rightarrow x\\in\\{\\operatorname{arccot}{a}+k\\pi|k\\in \\mathbb{Z} \\}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_fundamentalequations_f4"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "chapterId": "calculus_asymptotes",
+  "title": "Asymptotes",
+  "category": "Calculus",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Asymptotes.",
+  "formulas": [
+    {
+      "id": "calculus_asymptotes-f1",
+      "title": "Asymptotes - Formula 1",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line }x=a\\text{ is a vertical asymptote if }a \\text{ is a point }\\\\\n\t\t\t\t\t&\\text{outside the domain of definition.}\\\\\n\t\t\t\t\t&\\lim_{\\substack{x\\to a\\\\x<a}}f(x)=\\lim_{\\substack{x\\to a\\\\x>a}}f(x)=\\pm \\infty\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/LR1.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line }x=a\\text{ is a vertical asymptote if }a \\text{ is a point }\\\\\n\t\t\t\t\t&\\text{outside the domain of definition.}\\\\\n\t\t\t\t\t&\\lim_{\\substack{x\\to a\\\\x<a}}f(x)=\\lim_{\\substack{x\\to a\\\\x>a}}f(x)=\\pm \\infty\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The line }x=a\\text{ is a vertical asymptote if }a \\text{ is a point }\\\\\n\t\t\t\t\t&\\text{outside the domain of definition.}\\\\\n\t\t\t\t\t&\\lim_{\\substack{x\\to a\\\\x<a}}f(x)=\\lim_{\\substack{x\\to a\\\\x>a}}f(x)=\\pm \\infty\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line }x=a\\text{ is a vertical asymptote if }a \\text{ is a point }\\\\\n\t\t\t\t\t&\\text{outside the domain of definition.}\\\\\n\t\t\t\t\t&\\lim_{\\substack{x\\to a\\\\x<a}}f(x)=\\lim_{\\substack{x\\to a\\\\x>a}}f(x)=\\pm \\infty\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The line }x=a\\text{ is a vertical asymptote if }a \\text{ is a point }\\\\\n\t\t\t\t\t&\\text{outside the domain of definition.}\\\\\n\t\t\t\t\t&\\lim_{\\substack{x\\to a\\\\x<a}}f(x)=\\lim_{\\substack{x\\to a\\\\x>a}}f(x)=\\pm \\infty\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line }x=a\\text{ is a vertical asymptote if }a \\text{ is a point }\\\\\n\t\t\t\t\t&\\text{outside the domain of definition.}\\\\\n\t\t\t\t\t&\\lim_{\\substack{x\\to a\\\\x<a}}f(x)=\\lim_{\\substack{x\\to a\\\\x>a}}f(x)=\\pm \\infty\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The line }x=a\\text{ is a vertical asymptote if }a \\text{ is a point }\\\\\n\t\t\t\t\t&\\text{outside the domain of definition.}\\\\\n\t\t\t\t\t&\\lim_{\\substack{x\\to a\\\\x<a}}f(x)=\\lim_{\\substack{x\\to a\\\\x>a}}f(x)=\\pm \\infty\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_asymptotes_f1"
+        }
+      ]
+    },
+    {
+      "id": "calculus_asymptotes-f2",
+      "title": "Asymptotes - Formula 2",
+      "latex": "\\text{The line }x=b\\text{ is a horizontal asymptote if } \\lim_{x\\to \\pm \\infty}f(x)=b,\\text{ } b\\in \\mathbb{R}",
+      "model3D": "Assets/3DModels/LR1.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{The line }x=b\\text{ is a horizontal asymptote if } \\lim_{x\\to \\pm \\infty}f(x)=b,\\text{ } b\\in \\mathbb{R}",
+          "wolframQuery": "simplify \\text{The line }x=b\\text{ is a horizontal asymptote if } \\lim_{x\\to \\pm \\infty}f(x)=b,\\text{ } b\\in \\mathbb{R}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{The line }x=b\\text{ is a horizontal asymptote if } \\lim_{x\\to \\pm \\infty}f(x)=b,\\text{ } b\\in \\mathbb{R}",
+          "wolframQuery": "simplify \\text{The line }x=b\\text{ is a horizontal asymptote if } \\lim_{x\\to \\pm \\infty}f(x)=b,\\text{ } b\\in \\mathbb{R}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{The line }x=b\\text{ is a horizontal asymptote if } \\lim_{x\\to \\pm \\infty}f(x)=b,\\text{ } b\\in \\mathbb{R}",
+          "wolframQuery": "simplify \\text{The line }x=b\\text{ is a horizontal asymptote if } \\lim_{x\\to \\pm \\infty}f(x)=b,\\text{ } b\\in \\mathbb{R}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_asymptotes_f2"
+        }
+      ]
+    },
+    {
+      "id": "calculus_asymptotes-f3",
+      "title": "Asymptotes - Formula 3",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line }y=mx+n\\text{ is an oblique asymptote, it exists only if}\\\\\n\t\t\t\t\t&\\text{ there is no horizontal asymptote.}\\\\\n\t\t\t\t\t&m=\\lim_{x\\to \\pm \\infty}\\frac{f(x)}{x}\\text{ (the slope of the asymptote)}\\\\\n\t\t\t\t\t&n=\\lim_{x\\to \\pm \\infty}(f(x)-mx)\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/LR1.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line }y=mx+n\\text{ is an oblique asymptote, it exists only if}\\\\\n\t\t\t\t\t&\\text{ there is no horizontal asymptote.}\\\\\n\t\t\t\t\t&m=\\lim_{x\\to \\pm \\infty}\\frac{f(x)}{x}\\text{ (the slope of the asymptote)}\\\\\n\t\t\t\t\t&n=\\lim_{x\\to \\pm \\infty}(f(x)-mx)\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The line }y=mx+n\\text{ is an oblique asymptote, it exists only if}\\\\\n\t\t\t\t\t&\\text{ there is no horizontal asymptote.}\\\\\n\t\t\t\t\t&m=\\lim_{x\\to \\pm \\infty}\\frac{f(x)}{x}\\text{ (the slope of the asymptote)}\\\\\n\t\t\t\t\t&n=\\lim_{x\\to \\pm \\infty}(f(x)-mx)\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line }y=mx+n\\text{ is an oblique asymptote, it exists only if}\\\\\n\t\t\t\t\t&\\text{ there is no horizontal asymptote.}\\\\\n\t\t\t\t\t&m=\\lim_{x\\to \\pm \\infty}\\frac{f(x)}{x}\\text{ (the slope of the asymptote)}\\\\\n\t\t\t\t\t&n=\\lim_{x\\to \\pm \\infty}(f(x)-mx)\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The line }y=mx+n\\text{ is an oblique asymptote, it exists only if}\\\\\n\t\t\t\t\t&\\text{ there is no horizontal asymptote.}\\\\\n\t\t\t\t\t&m=\\lim_{x\\to \\pm \\infty}\\frac{f(x)}{x}\\text{ (the slope of the asymptote)}\\\\\n\t\t\t\t\t&n=\\lim_{x\\to \\pm \\infty}(f(x)-mx)\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line }y=mx+n\\text{ is an oblique asymptote, it exists only if}\\\\\n\t\t\t\t\t&\\text{ there is no horizontal asymptote.}\\\\\n\t\t\t\t\t&m=\\lim_{x\\to \\pm \\infty}\\frac{f(x)}{x}\\text{ (the slope of the asymptote)}\\\\\n\t\t\t\t\t&n=\\lim_{x\\to \\pm \\infty}(f(x)-mx)\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The line }y=mx+n\\text{ is an oblique asymptote, it exists only if}\\\\\n\t\t\t\t\t&\\text{ there is no horizontal asymptote.}\\\\\n\t\t\t\t\t&m=\\lim_{x\\to \\pm \\infty}\\frac{f(x)}{x}\\text{ (the slope of the asymptote)}\\\\\n\t\t\t\t\t&n=\\lim_{x\\to \\pm \\infty}(f(x)-mx)\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_asymptotes_f3"
+        }
+      ]
+    }
+  ]
+}

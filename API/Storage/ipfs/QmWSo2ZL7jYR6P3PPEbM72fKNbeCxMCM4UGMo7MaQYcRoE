@@ -1,0 +1,369 @@
+{
+  "chapterId": "calculus_indeterminateforms",
+  "title": "Indeterminate Forms",
+  "category": "Calculus",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Indeterminate Forms.",
+  "formulas": [
+    {
+      "id": "calculus_indeterminateforms-f1",
+      "title": "Indeterminate Forms - Formula 1",
+      "latex": "\\frac{\\infty}{\\infty}\\Rightarrow\\begin{cases}\n\t\t\t\t\t\\text{the rule of degrees}\\\\\n\t\t\t\t\t\\text{ OR}\\\\\n\t\t\t\t\t\\text{forced factor}\n\t\t\t\t\\end{cases}",
+      "model3D": "Assets/3DModels/LR1.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\frac{\\infty}{\\infty}\\Rightarrow\\begin{cases}\n\t\t\t\t\t\\text{the rule of degrees}\\\\\n\t\t\t\t\t\\text{ OR}\\\\\n\t\t\t\t\t\\text{forced factor}\n\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify \\frac{\\infty}{\\infty}\\Rightarrow\\begin{cases}\n\t\t\t\t\t\\text{the rule of degrees}\\\\\n\t\t\t\t\t\\text{ OR}\\\\\n\t\t\t\t\t\\text{forced factor}\n\t\t\t\t\\end{cases}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\frac{\\infty}{\\infty}\\Rightarrow\\begin{cases}\n\t\t\t\t\t\\text{the rule of degrees}\\\\\n\t\t\t\t\t\\text{ OR}\\\\\n\t\t\t\t\t\\text{forced factor}\n\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify \\frac{\\infty}{\\infty}\\Rightarrow\\begin{cases}\n\t\t\t\t\t\\text{the rule of degrees}\\\\\n\t\t\t\t\t\\text{ OR}\\\\\n\t\t\t\t\t\\text{forced factor}\n\t\t\t\t\\end{cases}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\frac{\\infty}{\\infty}\\Rightarrow\\begin{cases}\n\t\t\t\t\t\\text{the rule of degrees}\\\\\n\t\t\t\t\t\\text{ OR}\\\\\n\t\t\t\t\t\\text{forced factor}\n\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify \\frac{\\infty}{\\infty}\\Rightarrow\\begin{cases}\n\t\t\t\t\t\\text{the rule of degrees}\\\\\n\t\t\t\t\t\\text{ OR}\\\\\n\t\t\t\t\t\\text{forced factor}\n\t\t\t\t\\end{cases}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_indeterminateforms_f1"
+        }
+      ]
+    },
+    {
+      "id": "calculus_indeterminateforms-f2",
+      "title": "Indeterminate Forms - Formula 2",
+      "latex": "\\infty-\\infty\\Rightarrow\\begin{cases}\n\t\t\t\t\t\\text{amplify with the conjugate for radicals}\\\\\n\t\t\t\t\t\\text{ OR}\\\\\n\t\t\t\t\t\\text{forced factor}\n\t\t\t\t\\end{cases}",
+      "model3D": "Assets/3DModels/LR2.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\infty-\\infty\\Rightarrow\\begin{cases}\n\t\t\t\t\t\\text{amplify with the conjugate for radicals}\\\\\n\t\t\t\t\t\\text{ OR}\\\\\n\t\t\t\t\t\\text{forced factor}\n\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify \\infty-\\infty\\Rightarrow\\begin{cases}\n\t\t\t\t\t\\text{amplify with the conjugate for radicals}\\\\\n\t\t\t\t\t\\text{ OR}\\\\\n\t\t\t\t\t\\text{forced factor}\n\t\t\t\t\\end{cases}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\infty-\\infty\\Rightarrow\\begin{cases}\n\t\t\t\t\t\\text{amplify with the conjugate for radicals}\\\\\n\t\t\t\t\t\\text{ OR}\\\\\n\t\t\t\t\t\\text{forced factor}\n\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify \\infty-\\infty\\Rightarrow\\begin{cases}\n\t\t\t\t\t\\text{amplify with the conjugate for radicals}\\\\\n\t\t\t\t\t\\text{ OR}\\\\\n\t\t\t\t\t\\text{forced factor}\n\t\t\t\t\\end{cases}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\infty-\\infty\\Rightarrow\\begin{cases}\n\t\t\t\t\t\\text{amplify with the conjugate for radicals}\\\\\n\t\t\t\t\t\\text{ OR}\\\\\n\t\t\t\t\t\\text{forced factor}\n\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify \\infty-\\infty\\Rightarrow\\begin{cases}\n\t\t\t\t\t\\text{amplify with the conjugate for radicals}\\\\\n\t\t\t\t\t\\text{ OR}\\\\\n\t\t\t\t\t\\text{forced factor}\n\t\t\t\t\\end{cases}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_indeterminateforms_f2"
+        }
+      ]
+    },
+    {
+      "id": "calculus_indeterminateforms-f3",
+      "title": "Indeterminate Forms - Formula 3",
+      "latex": "\\frac{0}{0}\\Rightarrow \\text{remarcable limits}",
+      "model3D": "Assets/3DModels/LR3.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\frac{0}{0}\\Rightarrow \\text{remarcable limits}",
+          "wolframQuery": "simplify \\frac{0}{0}\\Rightarrow \\text{remarcable limits}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\frac{0}{0}\\Rightarrow \\text{remarcable limits}",
+          "wolframQuery": "simplify \\frac{0}{0}\\Rightarrow \\text{remarcable limits}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\frac{0}{0}\\Rightarrow \\text{remarcable limits}",
+          "wolframQuery": "simplify \\frac{0}{0}\\Rightarrow \\text{remarcable limits}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_indeterminateforms_f3"
+        }
+      ]
+    },
+    {
+      "id": "calculus_indeterminateforms-f4",
+      "title": "Indeterminate Forms - Formula 4",
+      "latex": "1^\\infty\\Rightarrow \\text{the number } e",
+      "model3D": "Assets/3DModels/LR4.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "1^\\infty\\Rightarrow \\text{the number } e",
+          "wolframQuery": "simplify 1^\\infty\\Rightarrow \\text{the number } e",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "1^\\infty\\Rightarrow \\text{the number } e",
+          "wolframQuery": "simplify 1^\\infty\\Rightarrow \\text{the number } e",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "1^\\infty\\Rightarrow \\text{the number } e",
+          "wolframQuery": "simplify 1^\\infty\\Rightarrow \\text{the number } e",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_indeterminateforms_f4"
+        }
+      ]
+    },
+    {
+      "id": "calculus_indeterminateforms-f5",
+      "title": "Indeterminate Forms - Formula 5",
+      "latex": "0^0\\text{ and }\\infty^\\infty\\Rightarrow \\lim_{n\\to \\infty}x^{y_n}_n=\\lim_{n\\to \\infty}e^{y_n\\ln{x_n}}=e^{\\lim\\limits_{n\\to \\infty}y_n\\ln{x_n}}",
+      "model3D": "Assets/3DModels/LR5.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "0^0\\text{ and }\\infty^\\infty\\Rightarrow \\lim_{n\\to \\infty}x^{y_n}_n=\\lim_{n\\to \\infty}e^{y_n\\ln{x_n}}=e^{\\lim\\limits_{n\\to \\infty}y_n\\ln{x_n}}",
+          "wolframQuery": "simplify 0^0\\text{ and }\\infty^\\infty\\Rightarrow \\lim_{n\\to \\infty}x^{y_n}_n=\\lim_{n\\to \\infty}e^{y_n\\ln{x_n}}=e^{\\lim\\limits_{n\\to \\infty}y_n\\ln{x_n}}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "0^0\\text{ and }\\infty^\\infty\\Rightarrow \\lim_{n\\to \\infty}x^{y_n}_n=\\lim_{n\\to \\infty}e^{y_n\\ln{x_n}}=e^{\\lim\\limits_{n\\to \\infty}y_n\\ln{x_n}}",
+          "wolframQuery": "simplify 0^0\\text{ and }\\infty^\\infty\\Rightarrow \\lim_{n\\to \\infty}x^{y_n}_n=\\lim_{n\\to \\infty}e^{y_n\\ln{x_n}}=e^{\\lim\\limits_{n\\to \\infty}y_n\\ln{x_n}}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "0^0\\text{ and }\\infty^\\infty\\Rightarrow \\lim_{n\\to \\infty}x^{y_n}_n=\\lim_{n\\to \\infty}e^{y_n\\ln{x_n}}=e^{\\lim\\limits_{n\\to \\infty}y_n\\ln{x_n}}",
+          "wolframQuery": "simplify 0^0\\text{ and }\\infty^\\infty\\Rightarrow \\lim_{n\\to \\infty}x^{y_n}_n=\\lim_{n\\to \\infty}e^{y_n\\ln{x_n}}=e^{\\lim\\limits_{n\\to \\infty}y_n\\ln{x_n}}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_indeterminateforms_f5"
+        }
+      ]
+    },
+    {
+      "id": "calculus_indeterminateforms-f6",
+      "title": "Indeterminate Forms - Formula 6",
+      "latex": "0\\cdot \\infty\\Rightarrow\\lim_{n\\to \\infty}x_ny_n=\\begin{cases}\n\t\t\t\t\t\\frac{x_n}{\\frac{1}{y_n}}\\Rightarrow \\frac{0}{0}\\\\\n\t\t\t\t\t\\text{ OR }\\\\\n\t\t\t\t\t\\frac{y_n}{\\frac{1}{x_n}}\\Rightarrow \\frac{\\infty}{\\infty}\n\t\t\t\t\t\\end{cases}",
+      "model3D": "Assets/3DModels/LR6.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "0\\cdot \\infty\\Rightarrow\\lim_{n\\to \\infty}x_ny_n=\\begin{cases}\n\t\t\t\t\t\\frac{x_n}{\\frac{1}{y_n}}\\Rightarrow \\frac{0}{0}\\\\\n\t\t\t\t\t\\text{ OR }\\\\\n\t\t\t\t\t\\frac{y_n}{\\frac{1}{x_n}}\\Rightarrow \\frac{\\infty}{\\infty}\n\t\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify 0\\cdot \\infty\\Rightarrow\\lim_{n\\to \\infty}x_ny_n=\\begin{cases}\n\t\t\t\t\t\\frac{x_n}{\\frac{1}{y_n}}\\Rightarrow \\frac{0}{0}\\\\\n\t\t\t\t\t\\text{ OR }\\\\\n\t\t\t\t\t\\frac{y_n}{\\frac{1}{x_n}}\\Rightarrow \\frac{\\infty}{\\infty}\n\t\t\t\t\t\\end{cases}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "0\\cdot \\infty\\Rightarrow\\lim_{n\\to \\infty}x_ny_n=\\begin{cases}\n\t\t\t\t\t\\frac{x_n}{\\frac{1}{y_n}}\\Rightarrow \\frac{0}{0}\\\\\n\t\t\t\t\t\\text{ OR }\\\\\n\t\t\t\t\t\\frac{y_n}{\\frac{1}{x_n}}\\Rightarrow \\frac{\\infty}{\\infty}\n\t\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify 0\\cdot \\infty\\Rightarrow\\lim_{n\\to \\infty}x_ny_n=\\begin{cases}\n\t\t\t\t\t\\frac{x_n}{\\frac{1}{y_n}}\\Rightarrow \\frac{0}{0}\\\\\n\t\t\t\t\t\\text{ OR }\\\\\n\t\t\t\t\t\\frac{y_n}{\\frac{1}{x_n}}\\Rightarrow \\frac{\\infty}{\\infty}\n\t\t\t\t\t\\end{cases}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "0\\cdot \\infty\\Rightarrow\\lim_{n\\to \\infty}x_ny_n=\\begin{cases}\n\t\t\t\t\t\\frac{x_n}{\\frac{1}{y_n}}\\Rightarrow \\frac{0}{0}\\\\\n\t\t\t\t\t\\text{ OR }\\\\\n\t\t\t\t\t\\frac{y_n}{\\frac{1}{x_n}}\\Rightarrow \\frac{\\infty}{\\infty}\n\t\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify 0\\cdot \\infty\\Rightarrow\\lim_{n\\to \\infty}x_ny_n=\\begin{cases}\n\t\t\t\t\t\\frac{x_n}{\\frac{1}{y_n}}\\Rightarrow \\frac{0}{0}\\\\\n\t\t\t\t\t\\text{ OR }\\\\\n\t\t\t\t\t\\frac{y_n}{\\frac{1}{x_n}}\\Rightarrow \\frac{\\infty}{\\infty}\n\t\t\t\t\t\\end{cases}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_indeterminateforms_f6"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "chapterId": "algebra_changebase",
+  "title": "Operations",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Operations.",
+  "formulas": [
+    {
+      "id": "algebra_changebase-f1",
+      "title": "Operations - Formula 1",
+      "latex": "\\log_{a}{x}=\\frac{\\log_{b}{x}}{\\log_{b}{a}}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\log_{a}{x}=\\frac{\\log_{b}{x}}{\\log_{b}{a}}",
+          "wolframQuery": "simplify \\log_{a}{x}=\\frac{\\log_{b}{x}}{\\log_{b}{a}}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\log_{a}{x}=\\frac{\\log_{b}{x}}{\\log_{b}{a}}",
+          "wolframQuery": "simplify \\log_{a}{x}=\\frac{\\log_{b}{x}}{\\log_{b}{a}}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\log_{a}{x}=\\frac{\\log_{b}{x}}{\\log_{b}{a}}",
+          "wolframQuery": "simplify \\log_{a}{x}=\\frac{\\log_{b}{x}}{\\log_{b}{a}}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_changebase_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_changebase-f2",
+      "title": "Operations - Formula 2",
+      "latex": "\\log_{a}{x}=\\frac{1}{\\log_{x}{a}}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\log_{a}{x}=\\frac{1}{\\log_{x}{a}}",
+          "wolframQuery": "simplify \\log_{a}{x}=\\frac{1}{\\log_{x}{a}}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\log_{a}{x}=\\frac{1}{\\log_{x}{a}}",
+          "wolframQuery": "simplify \\log_{a}{x}=\\frac{1}{\\log_{x}{a}}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\log_{a}{x}=\\frac{1}{\\log_{x}{a}}",
+          "wolframQuery": "simplify \\log_{a}{x}=\\frac{1}{\\log_{x}{a}}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_changebase_f2"
+        }
+      ]
+    }
+  ]
+}

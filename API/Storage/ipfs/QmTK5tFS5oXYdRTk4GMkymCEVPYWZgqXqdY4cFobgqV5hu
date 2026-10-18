@@ -1,0 +1,249 @@
+{
+  "chapterId": "algebra_aritmeticprogressions",
+  "title": "Aritmetic Progressions",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Aritmetic Progressions.",
+  "formulas": [
+    {
+      "id": "algebra_aritmeticprogressions-f1",
+      "title": "Aritmetic Progressions - Formula 1",
+      "latex": "a_n=a_{n-1}+r",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "a_n=a_{n-1}+r",
+          "wolframQuery": "simplify a_n=a_{n-1}+r",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "a_n=a_{n-1}+r",
+          "wolframQuery": "simplify a_n=a_{n-1}+r",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "a_n=a_{n-1}+r",
+          "wolframQuery": "simplify a_n=a_{n-1}+r",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_aritmeticprogressions_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_aritmeticprogressions-f2",
+      "title": "Aritmetic Progressions - Formula 2",
+      "latex": "a_n=a_1+(n-1)r",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "a_n=a_1+(n-1)r",
+          "wolframQuery": "simplify a_n=a_1+(n-1)r",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "a_n=a_1+(n-1)r",
+          "wolframQuery": "simplify a_n=a_1+(n-1)r",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "a_n=a_1+(n-1)r",
+          "wolframQuery": "simplify a_n=a_1+(n-1)r",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_aritmeticprogressions_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_aritmeticprogressions-f3",
+      "title": "Aritmetic Progressions - Formula 3",
+      "latex": "a_n=\\frac{a_{n-1}+a_{a+1}}{2}",
+      "model3D": "Assets/3DModels/int1pex.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "a_n=\\frac{a_{n-1}+a_{a+1}}{2}",
+          "wolframQuery": "simplify a_n=\\frac{a_{n-1}+a_{a+1}}{2}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "a_n=\\frac{a_{n-1}+a_{a+1}}{2}",
+          "wolframQuery": "simplify a_n=\\frac{a_{n-1}+a_{a+1}}{2}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "a_n=\\frac{a_{n-1}+a_{a+1}}{2}",
+          "wolframQuery": "simplify a_n=\\frac{a_{n-1}+a_{a+1}}{2}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_aritmeticprogressions_f3"
+        }
+      ]
+    },
+    {
+      "id": "algebra_aritmeticprogressions-f4",
+      "title": "Aritmetic Progressions - Formula 4",
+      "latex": "S_n=a_1+a_2+a_3+\\dots +a_n=\\frac{n(a_1+a_n)}{2}=na_1+r\\frac{n(n-1)}{2}",
+      "model3D": "Assets/3DModels/intalax.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "S_n=a_1+a_2+a_3+\\dots +a_n=\\frac{n(a_1+a_n)}{2}=na_1+r\\frac{n(n-1)}{2}",
+          "wolframQuery": "simplify S_n=a_1+a_2+a_3+\\dots +a_n=\\frac{n(a_1+a_n)}{2}=na_1+r\\frac{n(n-1)}{2}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "S_n=a_1+a_2+a_3+\\dots +a_n=\\frac{n(a_1+a_n)}{2}=na_1+r\\frac{n(n-1)}{2}",
+          "wolframQuery": "simplify S_n=a_1+a_2+a_3+\\dots +a_n=\\frac{n(a_1+a_n)}{2}=na_1+r\\frac{n(n-1)}{2}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "S_n=a_1+a_2+a_3+\\dots +a_n=\\frac{n(a_1+a_n)}{2}=na_1+r\\frac{n(n-1)}{2}",
+          "wolframQuery": "simplify S_n=a_1+a_2+a_3+\\dots +a_n=\\frac{n(a_1+a_n)}{2}=na_1+r\\frac{n(n-1)}{2}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_aritmeticprogressions_f4"
+        }
+      ]
+    }
+  ]
+}

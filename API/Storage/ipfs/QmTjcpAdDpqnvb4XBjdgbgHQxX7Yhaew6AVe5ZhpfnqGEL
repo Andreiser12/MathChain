@@ -1,0 +1,549 @@
+{
+  "chapterId": "calculus_remarcablelimits",
+  "title": "Basic Formulas",
+  "category": "Calculus",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Basic Formulas.",
+  "formulas": [
+    {
+      "id": "calculus_remarcablelimits-f1",
+      "title": "Basic Formulas - Formula 1",
+      "latex": "\\lim_{n\\to\\infty}\\left( 1 + \\frac{1}{n}\\right)^n=e",
+      "model3D": "Assets/3DModels/LR1.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{n\\to\\infty}\\left( 1 + \\frac{1}{n}\\right)^n=e",
+          "wolframQuery": "simplify \\lim_{n\\to\\infty}\\left( 1 + \\frac{1}{n}\\right)^n=e",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\lim_{n\\to\\infty}\\left( 1 + \\frac{1}{n}\\right)^n=e",
+          "wolframQuery": "simplify \\lim_{n\\to\\infty}\\left( 1 + \\frac{1}{n}\\right)^n=e",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{n\\to\\infty}\\left( 1 + \\frac{1}{n}\\right)^n=e",
+          "wolframQuery": "simplify \\lim_{n\\to\\infty}\\left( 1 + \\frac{1}{n}\\right)^n=e",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_remarcablelimits_f1"
+        }
+      ]
+    },
+    {
+      "id": "calculus_remarcablelimits-f2",
+      "title": "Basic Formulas - Formula 2",
+      "latex": "\\lim_{n\\to 0}\\left( 1 + n\\right)^\\frac{1}{n}=e",
+      "model3D": "Assets/3DModels/LR2.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{n\\to 0}\\left( 1 + n\\right)^\\frac{1}{n}=e",
+          "wolframQuery": "simplify \\lim_{n\\to 0}\\left( 1 + n\\right)^\\frac{1}{n}=e",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\lim_{n\\to 0}\\left( 1 + n\\right)^\\frac{1}{n}=e",
+          "wolframQuery": "simplify \\lim_{n\\to 0}\\left( 1 + n\\right)^\\frac{1}{n}=e",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{n\\to 0}\\left( 1 + n\\right)^\\frac{1}{n}=e",
+          "wolframQuery": "simplify \\lim_{n\\to 0}\\left( 1 + n\\right)^\\frac{1}{n}=e",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_remarcablelimits_f2"
+        }
+      ]
+    },
+    {
+      "id": "calculus_remarcablelimits-f3",
+      "title": "Basic Formulas - Formula 3",
+      "latex": "\\lim_{x\\to 0}\\frac{\\ln{\\left(1+x\\right)}}{x}=1",
+      "model3D": "Assets/3DModels/LR3.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\ln{\\left(1+x\\right)}}{x}=1",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\ln{\\left(1+x\\right)}}{x}=1",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\ln{\\left(1+x\\right)}}{x}=1",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\ln{\\left(1+x\\right)}}{x}=1",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\ln{\\left(1+x\\right)}}{x}=1",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\ln{\\left(1+x\\right)}}{x}=1",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_remarcablelimits_f3"
+        }
+      ]
+    },
+    {
+      "id": "calculus_remarcablelimits-f4",
+      "title": "Basic Formulas - Formula 4",
+      "latex": "\\lim_{x\\to 0}\\frac{a^x-1}{x}=\\ln{a}",
+      "model3D": "Assets/3DModels/LR4.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{a^x-1}{x}=\\ln{a}",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{a^x-1}{x}=\\ln{a}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{a^x-1}{x}=\\ln{a}",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{a^x-1}{x}=\\ln{a}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{a^x-1}{x}=\\ln{a}",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{a^x-1}{x}=\\ln{a}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_remarcablelimits_f4"
+        }
+      ]
+    },
+    {
+      "id": "calculus_remarcablelimits-f5",
+      "title": "Basic Formulas - Formula 5",
+      "latex": "\\lim_{x\\to 0}\\frac{\\left(1+x\\right)^r - 1}{x}=r",
+      "model3D": "Assets/3DModels/LR5.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\left(1+x\\right)^r - 1}{x}=r",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\left(1+x\\right)^r - 1}{x}=r",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\left(1+x\\right)^r - 1}{x}=r",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\left(1+x\\right)^r - 1}{x}=r",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\left(1+x\\right)^r - 1}{x}=r",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\left(1+x\\right)^r - 1}{x}=r",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_remarcablelimits_f5"
+        }
+      ]
+    },
+    {
+      "id": "calculus_remarcablelimits-f6",
+      "title": "Basic Formulas - Formula 6",
+      "latex": "\\lim_{x\\to 0}\\frac{\\sin{x}}{x}=1",
+      "model3D": "Assets/3DModels/LR6.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\sin{x}}{x}=1",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\sin{x}}{x}=1",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\sin{x}}{x}=1",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\sin{x}}{x}=1",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\sin{x}}{x}=1",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\sin{x}}{x}=1",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_remarcablelimits_f6"
+        }
+      ]
+    },
+    {
+      "id": "calculus_remarcablelimits-f7",
+      "title": "Basic Formulas - Formula 7",
+      "latex": "\\lim_{x\\to 0}\\frac{\\tan{x}}{x}=1",
+      "model3D": "Assets/3DModels/LR7.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\tan{x}}{x}=1",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\tan{x}}{x}=1",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\tan{x}}{x}=1",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\tan{x}}{x}=1",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\tan{x}}{x}=1",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\tan{x}}{x}=1",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_remarcablelimits_f7"
+        }
+      ]
+    },
+    {
+      "id": "calculus_remarcablelimits-f8",
+      "title": "Basic Formulas - Formula 8",
+      "latex": "\\lim_{x\\to 0}\\frac{\\arcsin{x}}{x}=1",
+      "model3D": "Assets/3DModels/LR8.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arcsin{x}}{x}=1",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\arcsin{x}}{x}=1",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arcsin{x}}{x}=1",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\arcsin{x}}{x}=1",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arcsin{x}}{x}=1",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\arcsin{x}}{x}=1",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_remarcablelimits_f8"
+        }
+      ]
+    },
+    {
+      "id": "calculus_remarcablelimits-f9",
+      "title": "Basic Formulas - Formula 9",
+      "latex": "\\lim_{x\\to 0}\\frac{\\arctan{x}}{x}=1",
+      "model3D": "Assets/3DModels/LR9.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arctan{x}}{x}=1",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\arctan{x}}{x}=1",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arctan{x}}{x}=1",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\arctan{x}}{x}=1",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arctan{x}}{x}=1",
+          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\arctan{x}}{x}=1",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_remarcablelimits_f9"
+        }
+      ]
+    }
+  ]
+}

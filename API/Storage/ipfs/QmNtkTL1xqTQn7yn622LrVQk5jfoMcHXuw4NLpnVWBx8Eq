@@ -1,0 +1,189 @@
+{
+  "chapterId": "algebra_permutations",
+  "title": "Permutations",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Permutations.",
+  "formulas": [
+    {
+      "id": "algebra_permutations-f1",
+      "title": "Permutations - Formula 1",
+      "latex": "0!=1",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "0!=1",
+          "wolframQuery": "simplify 0!=1",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "0!=1",
+          "wolframQuery": "simplify 0!=1",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "0!=1",
+          "wolframQuery": "simplify 0!=1",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_permutations_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_permutations-f2",
+      "title": "Permutations - Formula 2",
+      "latex": "n!=1\\cdot 2\\cdot ... \\cdot n",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "n!=1\\cdot 2\\cdot ... \\cdot n",
+          "wolframQuery": "simplify n!=1\\cdot 2\\cdot ... \\cdot n",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "n!=1\\cdot 2\\cdot ... \\cdot n",
+          "wolframQuery": "simplify n!=1\\cdot 2\\cdot ... \\cdot n",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "n!=1\\cdot 2\\cdot ... \\cdot n",
+          "wolframQuery": "simplify n!=1\\cdot 2\\cdot ... \\cdot n",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_permutations_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_permutations-f3",
+      "title": "Permutations - Formula 3",
+      "latex": "\\text{The number of bijective functions }f:A\\to A=n!",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{The number of bijective functions }f:A\\to A=n!",
+          "wolframQuery": "simplify \\text{The number of bijective functions }f:A\\to A=n!",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{The number of bijective functions }f:A\\to A=n!",
+          "wolframQuery": "simplify \\text{The number of bijective functions }f:A\\to A=n!",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{The number of bijective functions }f:A\\to A=n!",
+          "wolframQuery": "simplify \\text{The number of bijective functions }f:A\\to A=n!",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_permutations_f3"
+        }
+      ]
+    }
+  ]
+}

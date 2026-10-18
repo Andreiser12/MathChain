@@ -1,0 +1,249 @@
+{
+  "chapterId": "algebra_operationslogarithms",
+  "title": "Operations",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Operations.",
+  "formulas": [
+    {
+      "id": "algebra_operationslogarithms-f1",
+      "title": "Operations - Formula 1",
+      "latex": "\\log_{a}{x^n}=n\\log_{a}{x}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\log_{a}{x^n}=n\\log_{a}{x}",
+          "wolframQuery": "simplify \\log_{a}{x^n}=n\\log_{a}{x}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\log_{a}{x^n}=n\\log_{a}{x}",
+          "wolframQuery": "simplify \\log_{a}{x^n}=n\\log_{a}{x}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\log_{a}{x^n}=n\\log_{a}{x}",
+          "wolframQuery": "simplify \\log_{a}{x^n}=n\\log_{a}{x}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_operationslogarithms_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_operationslogarithms-f2",
+      "title": "Operations - Formula 2",
+      "latex": "\\log_{a^n}{x}=\\frac{1}{n}\\log_{a}{x}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\log_{a^n}{x}=\\frac{1}{n}\\log_{a}{x}",
+          "wolframQuery": "simplify \\log_{a^n}{x}=\\frac{1}{n}\\log_{a}{x}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\log_{a^n}{x}=\\frac{1}{n}\\log_{a}{x}",
+          "wolframQuery": "simplify \\log_{a^n}{x}=\\frac{1}{n}\\log_{a}{x}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\log_{a^n}{x}=\\frac{1}{n}\\log_{a}{x}",
+          "wolframQuery": "simplify \\log_{a^n}{x}=\\frac{1}{n}\\log_{a}{x}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_operationslogarithms_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_operationslogarithms-f3",
+      "title": "Operations - Formula 3",
+      "latex": "\\log_{a}{x}+\\log_{a}{y}=\\log_{a}{(x\\cdot y)}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\log_{a}{x}+\\log_{a}{y}=\\log_{a}{(x\\cdot y)}",
+          "wolframQuery": "simplify \\log_{a}{x}+\\log_{a}{y}=\\log_{a}{(x\\cdot y)}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\log_{a}{x}+\\log_{a}{y}=\\log_{a}{(x\\cdot y)}",
+          "wolframQuery": "simplify \\log_{a}{x}+\\log_{a}{y}=\\log_{a}{(x\\cdot y)}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\log_{a}{x}+\\log_{a}{y}=\\log_{a}{(x\\cdot y)}",
+          "wolframQuery": "simplify \\log_{a}{x}+\\log_{a}{y}=\\log_{a}{(x\\cdot y)}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_operationslogarithms_f3"
+        }
+      ]
+    },
+    {
+      "id": "algebra_operationslogarithms-f4",
+      "title": "Operations - Formula 4",
+      "latex": "\\log_{a}{x}-\\log_{a}{y}=\\log_{a}{\\left( \\frac{x}{y} \\right)}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\log_{a}{x}-\\log_{a}{y}=\\log_{a}{\\left( \\frac{x}{y} \\right)}",
+          "wolframQuery": "simplify \\log_{a}{x}-\\log_{a}{y}=\\log_{a}{\\left( \\frac{x}{y} \\right)}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\log_{a}{x}-\\log_{a}{y}=\\log_{a}{\\left( \\frac{x}{y} \\right)}",
+          "wolframQuery": "simplify \\log_{a}{x}-\\log_{a}{y}=\\log_{a}{\\left( \\frac{x}{y} \\right)}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\log_{a}{x}-\\log_{a}{y}=\\log_{a}{\\left( \\frac{x}{y} \\right)}",
+          "wolframQuery": "simplify \\log_{a}{x}-\\log_{a}{y}=\\log_{a}{\\left( \\frac{x}{y} \\right)}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_operationslogarithms_f4"
+        }
+      ]
+    }
+  ]
+}

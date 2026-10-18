@@ -1,7 +1,9 @@
-﻿@page "/trigonometric-interpretation"
+@page "/trigonometric-interpretation"
+@inject IpfsService IpfsService
 @inject IJSRuntime JS
 @inject IDialogService DialogService
 @using MathChain.Domain.Entities
+@using MathChain.Blazor.DTOs
 
 <Component />
 
@@ -9,7 +11,25 @@
 <MudContainer MaxWidth="MaxWidth.Large" Class="mt-6">
 	<MudText Typo="Typo.h4" Align="Align.Center" Class="mb-8">Trigonometric Interpretation</MudText>
 
-	<MudGrid>
+	@if (_isLoading)
+	{
+		<MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="min-height: 350px;">
+			<MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+			<MudText Typo="Typo.h6" Class="mt-4" Style="color: rgba(255, 255, 255, 0.7);">
+				Loading decentralized curriculum from IPFS...
+			</MudText>
+		</MudStack>
+	}
+	else if (_formulas == null || !_formulas.Any())
+	{
+		<MudPaper Class="pa-8 text-center" Style="background-color: #16213E;">
+			<MudIcon Icon="@Icons.Material.Filled.Warning" Color="Color.Warning" Size="Size.Large" />
+			<MudText Typo="Typo.h6" Class="mt-2" Style="color: #ffffff;">No formulas could be loaded from IPFS.</MudText>
+		</MudPaper>
+	}
+	else
+	{
+<MudGrid>
 		@foreach (var formula in _formulas)
 		{
 			<MudItem xs="12" sm="6" md="4">
@@ -34,115 +54,56 @@
 			</MudItem>
 		}
 	</MudGrid>
+	}
 </MudContainer>
 
 
 
 @code
 {
-	private static readonly string requirement = "";
+	private bool _isLoading = false;
+	private bool _mathFormatted = false;
+	private List<Formula> _formulas = new();
 
-	private List<Formula> _formulas = new List<Formula>
+	private const string ChapterSlug = "algebra_trigonometricinterpretationcomplex";
+	private const string ChapterIpfsCid = "QmeejJH8e5BsADXECzfMgye4mj4mz3CMktfyBVW1DgZnoN";
+
+	protected override async Task OnInitializedAsync()
 	{
-		new Formula
+		_isLoading = true;
+		try
 		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$\begin{gather*}
-					z=x+iy\\
-					r=|z|=\sqrt{x^2+y^2}
-					\end{gather*}$$",
-			ModelPath = "Assets/3DModels/inta.glb",
-			Category = "Integrals",
-			Description = "",
-			Requirement = $"{requirement}"
-		},
+			var curriculum = await IpfsService.GetCurriculumBySlugAsync(ChapterSlug, ChapterIpfsCid);
 
-		new Formula
+			if (curriculum?.Formulas != null)
+			{
+				_formulas = curriculum.Formulas.Select(f => new Formula
+					{
+						Id = Guid.NewGuid(),
+						Latex = f.Latex.StartsWith("$$") ? f.Latex : $"$${f.Latex}$$",
+						ModelPath = f.Model3D,
+						Category = curriculum.Category,
+						Description = f.Description,
+						Requirement = f.Requirement ?? f.Exercises.FirstOrDefault()?.LatexTemplate ?? ""
+					}).ToList();
+			}
+		}
+		catch (Exception ex)
 		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$z=r(\cos{a}+i\sin{a})$$",
-			ModelPath = "Assets/3DModels/inta.glb",
-			Category = "Integrals",
-			Description = "",
-			Requirement = $"{requirement}"
-		},
-
-		new Formula
+			Console.WriteLine($"Error loading IPFS curriculum: {ex.Message}");
+		}
+		finally
 		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$\frac{1}{z}=\frac{1}{r}(\cos{(-a)}+i\sin{(-a)})$$",
-			ModelPath = "Assets/3DModels/inta.glb",
-			Category = "Integrals",
-			Description = "",
-			Requirement = $"{requirement}"
-		},
-
-		new Formula
-		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$\overline{|z|}=r(\cos{(-a)}+i\sin{(-a)})$$",
-			ModelPath = "Assets/3DModels/inta.glb",
-			Category = "Integrals",
-			Description = "",
-			Requirement = $"{requirement}"
-		},
-
-		
-		new Formula
-		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$\sin{a}=\frac{y}{r}\text{ }\cos{a}=\frac{x}{r}\text{ }\tan{a}=\frac{y}{x}$$",
-			ModelPath = "Assets/3DModels/inta.glb",
-			Category = "Integrals",
-			Description = "",
-			Requirement = $"{requirement}"
-		},
-
-		new Formula
-		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$z_1+z_2=(r_1\cdot \cos{a_1}+r_2\cdot \cos{a_2})+i(r_1\cdot \sin{a_1}+r_2\cdot \sin{a_2})$$",
-			ModelPath = "Assets/3DModels/inta.glb",
-			Category = "Integrals",
-			Description = "",
-			Requirement = $"{requirement}"
-		},
-
-		new Formula
-		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$z_1\cdot z_2=r_1\cdot r_2(\cos{(a_1+a_2)}+i\sin{(a_1+a_2)})$$",
-			ModelPath = "Assets/3DModels/inta.glb",
-			Category = "Integrals",
-			Description = "",
-			Requirement = $"{requirement}"
-		},
-
-		new Formula
-		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$\frac{z_1}{z_2}=\frac{r_1}{r_2}(\cos{(a_1-a_2)}+i\sin{(a_1-a_2)})$$",
-			ModelPath = "Assets/3DModels/inta.glb",
-			Category = "Integrals",
-			Description = "",
-			Requirement = $"{requirement}"
-		},
-
-		new Formula
-		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$z^n=r^n(\cos{(na)}+i\sin{(na)})$$",
-			ModelPath = "Assets/3DModels/inta.glb",
-			Category = "Integrals",
-			Description = "",
-			Requirement = $"{requirement}"
-		},
-	};
+			_isLoading = false;
+		}
+	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		if (firstRender)
+		if (_formulas.Any() && !_mathFormatted)
 		{
+			_mathFormatted = true;
+			await Task.Delay(100);
 			await JS.InvokeVoidAsync("formatMath");
 			await Task.Delay(200);
 			await JS.InvokeVoidAsync("autoScaleFormulas");
@@ -163,8 +124,8 @@
 	{
 		var parameters = new DialogParameters<FormulaDialog>
 		{
-			{ x => x.Formula, formula},
-			{ x => x.TotalFormulas, _formulas.Count  }
+			{ x => x.Formula, formula },
+			{ x => x.TotalFormulas, _formulas.Count }
 		};
 
 		var options = new DialogOptions
@@ -177,4 +138,3 @@
 		await DialogService.ShowAsync<FormulaDialog>("Formula Details", parameters, options);
 	}
 }
-

@@ -1,0 +1,609 @@
+{
+  "chapterId": "algebra_combinations",
+  "title": "Combinations",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Combinations.",
+  "formulas": [
+    {
+      "id": "algebra_combinations-f1",
+      "title": "Combinations - Formula 1",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t\\text{The number of subsets with }k \\text{ elements from a set} \\\\\n\t\t\t\t\t\\text{ with }n \\text{ elements}=\\binom{n}{k}\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{The number of subsets with }k \\text{ elements from a set} \\\\\n\t\t\t\t\t\\text{ with }n \\text{ elements}=\\binom{n}{k}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{The number of subsets with }k \\text{ elements from a set} \\\\\n\t\t\t\t\t\\text{ with }n \\text{ elements}=\\binom{n}{k}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{The number of subsets with }k \\text{ elements from a set} \\\\\n\t\t\t\t\t\\text{ with }n \\text{ elements}=\\binom{n}{k}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{The number of subsets with }k \\text{ elements from a set} \\\\\n\t\t\t\t\t\\text{ with }n \\text{ elements}=\\binom{n}{k}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{The number of subsets with }k \\text{ elements from a set} \\\\\n\t\t\t\t\t\\text{ with }n \\text{ elements}=\\binom{n}{k}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{The number of subsets with }k \\text{ elements from a set} \\\\\n\t\t\t\t\t\\text{ with }n \\text{ elements}=\\binom{n}{k}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_combinations_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_combinations-f2",
+      "title": "Combinations - Formula 2",
+      "latex": "\\binom{n}{k}=\\frac{n!}{k!\\cdot (n-k)!}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\binom{n}{k}=\\frac{n!}{k!\\cdot (n-k)!}",
+          "wolframQuery": "simplify \\binom{n}{k}=\\frac{n!}{k!\\cdot (n-k)!}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\binom{n}{k}=\\frac{n!}{k!\\cdot (n-k)!}",
+          "wolframQuery": "simplify \\binom{n}{k}=\\frac{n!}{k!\\cdot (n-k)!}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\binom{n}{k}=\\frac{n!}{k!\\cdot (n-k)!}",
+          "wolframQuery": "simplify \\binom{n}{k}=\\frac{n!}{k!\\cdot (n-k)!}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_combinations_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_combinations-f3",
+      "title": "Combinations - Formula 3",
+      "latex": "\\binom{n}{k}=\\frac{P(n,k)}{k!}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\binom{n}{k}=\\frac{P(n,k)}{k!}",
+          "wolframQuery": "simplify \\binom{n}{k}=\\frac{P(n,k)}{k!}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\binom{n}{k}=\\frac{P(n,k)}{k!}",
+          "wolframQuery": "simplify \\binom{n}{k}=\\frac{P(n,k)}{k!}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\binom{n}{k}=\\frac{P(n,k)}{k!}",
+          "wolframQuery": "simplify \\binom{n}{k}=\\frac{P(n,k)}{k!}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_combinations_f3"
+        }
+      ]
+    },
+    {
+      "id": "algebra_combinations-f4",
+      "title": "Combinations - Formula 4",
+      "latex": "\\binom{n}{k}=\\binom{n}{n-k}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\binom{n}{k}=\\binom{n}{n-k}",
+          "wolframQuery": "simplify \\binom{n}{k}=\\binom{n}{n-k}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\binom{n}{k}=\\binom{n}{n-k}",
+          "wolframQuery": "simplify \\binom{n}{k}=\\binom{n}{n-k}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\binom{n}{k}=\\binom{n}{n-k}",
+          "wolframQuery": "simplify \\binom{n}{k}=\\binom{n}{n-k}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_combinations_f4"
+        }
+      ]
+    },
+    {
+      "id": "algebra_combinations-f5",
+      "title": "Combinations - Formula 5",
+      "latex": "\\binom{n}{k}=\\binom{n-k}{k}-\\binom{n-1}{k-1}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\binom{n}{k}=\\binom{n-k}{k}-\\binom{n-1}{k-1}",
+          "wolframQuery": "simplify \\binom{n}{k}=\\binom{n-k}{k}-\\binom{n-1}{k-1}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\binom{n}{k}=\\binom{n-k}{k}-\\binom{n-1}{k-1}",
+          "wolframQuery": "simplify \\binom{n}{k}=\\binom{n-k}{k}-\\binom{n-1}{k-1}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\binom{n}{k}=\\binom{n-k}{k}-\\binom{n-1}{k-1}",
+          "wolframQuery": "simplify \\binom{n}{k}=\\binom{n-k}{k}-\\binom{n-1}{k-1}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_combinations_f5"
+        }
+      ]
+    },
+    {
+      "id": "algebra_combinations-f6",
+      "title": "Combinations - Formula 6",
+      "latex": "\\binom{n}{0}+\\binom{n}{2}+\\binom{n}{4}+...+\\binom{n}{n}=2^{n-1}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\binom{n}{0}+\\binom{n}{2}+\\binom{n}{4}+...+\\binom{n}{n}=2^{n-1}",
+          "wolframQuery": "simplify \\binom{n}{0}+\\binom{n}{2}+\\binom{n}{4}+...+\\binom{n}{n}=2^{n-1}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\binom{n}{0}+\\binom{n}{2}+\\binom{n}{4}+...+\\binom{n}{n}=2^{n-1}",
+          "wolframQuery": "simplify \\binom{n}{0}+\\binom{n}{2}+\\binom{n}{4}+...+\\binom{n}{n}=2^{n-1}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\binom{n}{0}+\\binom{n}{2}+\\binom{n}{4}+...+\\binom{n}{n}=2^{n-1}",
+          "wolframQuery": "simplify \\binom{n}{0}+\\binom{n}{2}+\\binom{n}{4}+...+\\binom{n}{n}=2^{n-1}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_combinations_f6"
+        }
+      ]
+    },
+    {
+      "id": "algebra_combinations-f7",
+      "title": "Combinations - Formula 7",
+      "latex": "\\binom{n}{1}+\\binom{n}{3}+\\binom{n}{5}+...+\\binom{n}{n}=2^{n-1}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\binom{n}{1}+\\binom{n}{3}+\\binom{n}{5}+...+\\binom{n}{n}=2^{n-1}",
+          "wolframQuery": "simplify \\binom{n}{1}+\\binom{n}{3}+\\binom{n}{5}+...+\\binom{n}{n}=2^{n-1}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\binom{n}{1}+\\binom{n}{3}+\\binom{n}{5}+...+\\binom{n}{n}=2^{n-1}",
+          "wolframQuery": "simplify \\binom{n}{1}+\\binom{n}{3}+\\binom{n}{5}+...+\\binom{n}{n}=2^{n-1}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\binom{n}{1}+\\binom{n}{3}+\\binom{n}{5}+...+\\binom{n}{n}=2^{n-1}",
+          "wolframQuery": "simplify \\binom{n}{1}+\\binom{n}{3}+\\binom{n}{5}+...+\\binom{n}{n}=2^{n-1}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_combinations_f7"
+        }
+      ]
+    },
+    {
+      "id": "algebra_combinations-f8",
+      "title": "Combinations - Formula 8",
+      "latex": "\\binom{n}{0}+\\binom{n}{1}+\\binom{n}{2}+...+\\binom{n}{n}=2^n",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\binom{n}{0}+\\binom{n}{1}+\\binom{n}{2}+...+\\binom{n}{n}=2^n",
+          "wolframQuery": "simplify \\binom{n}{0}+\\binom{n}{1}+\\binom{n}{2}+...+\\binom{n}{n}=2^n",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\binom{n}{0}+\\binom{n}{1}+\\binom{n}{2}+...+\\binom{n}{n}=2^n",
+          "wolframQuery": "simplify \\binom{n}{0}+\\binom{n}{1}+\\binom{n}{2}+...+\\binom{n}{n}=2^n",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\binom{n}{0}+\\binom{n}{1}+\\binom{n}{2}+...+\\binom{n}{n}=2^n",
+          "wolframQuery": "simplify \\binom{n}{0}+\\binom{n}{1}+\\binom{n}{2}+...+\\binom{n}{n}=2^n",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_combinations_f8"
+        }
+      ]
+    },
+    {
+      "id": "algebra_combinations-f9",
+      "title": "Combinations - Formula 9",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t\\text{The number strictly monotone functions }f:A\\to B=2\\binom{n}{k}\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{The number strictly monotone functions }f:A\\to B=2\\binom{n}{k}\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{The number strictly monotone functions }f:A\\to B=2\\binom{n}{k}\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{The number strictly monotone functions }f:A\\to B=2\\binom{n}{k}\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{The number strictly monotone functions }f:A\\to B=2\\binom{n}{k}\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{The number strictly monotone functions }f:A\\to B=2\\binom{n}{k}\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{The number strictly monotone functions }f:A\\to B=2\\binom{n}{k}\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_combinations_f9"
+        }
+      ]
+    },
+    {
+      "id": "algebra_combinations-f10",
+      "title": "Combinations - Formula 10",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t\\text{The number strictly ascending/descending functions }f:A\\to B=\\binom{n}{k}\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{The number strictly ascending/descending functions }f:A\\to B=\\binom{n}{k}\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{The number strictly ascending/descending functions }f:A\\to B=\\binom{n}{k}\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{The number strictly ascending/descending functions }f:A\\to B=\\binom{n}{k}\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{The number strictly ascending/descending functions }f:A\\to B=\\binom{n}{k}\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{The number strictly ascending/descending functions }f:A\\to B=\\binom{n}{k}\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{The number strictly ascending/descending functions }f:A\\to B=\\binom{n}{k}\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_combinations_f10"
+        }
+      ]
+    }
+  ]
+}

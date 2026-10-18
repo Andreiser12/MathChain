@@ -1,7 +1,9 @@
-﻿@page "/powers"
+@page "/powers"
+@inject IpfsService IpfsService
 @inject IJSRuntime JS
 @inject IDialogService DialogService
 @using MathChain.Domain.Entities
+@using MathChain.Blazor.DTOs
 
 <Component />
 
@@ -9,7 +11,25 @@
 <MudContainer MaxWidth="MaxWidth.Large" Class="mt-6">
 	<MudText Typo="Typo.h4" Align="Align.Center" Class="mb-8">Powers</MudText>
 
-	<MudGrid>
+	@if (_isLoading)
+	{
+		<MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="min-height: 350px;">
+			<MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+			<MudText Typo="Typo.h6" Class="mt-4" Style="color: rgba(255, 255, 255, 0.7);">
+				Loading decentralized curriculum from IPFS...
+			</MudText>
+		</MudStack>
+	}
+	else if (_formulas == null || !_formulas.Any())
+	{
+		<MudPaper Class="pa-8 text-center" Style="background-color: #16213E;">
+			<MudIcon Icon="@Icons.Material.Filled.Warning" Color="Color.Warning" Size="Size.Large" />
+			<MudText Typo="Typo.h6" Class="mt-2" Style="color: #ffffff;">No formulas could be loaded from IPFS.</MudText>
+		</MudPaper>
+	}
+	else
+	{
+<MudGrid>
 		@foreach (var formula in _formulas)
 		{
 			<MudItem xs="12" sm="6" md="4">
@@ -34,107 +54,56 @@
 			</MudItem>
 		}
 	</MudGrid>
+	}
 </MudContainer>
 
 
 
 @code
 {
-	private static readonly string requirement = "";
+	private bool _isLoading = false;
+	private bool _mathFormatted = false;
+	private List<Formula> _formulas = new();
 
-	private List<Formula> _formulas = new List<Formula>
+	private const string ChapterSlug = "algebra_powers";
+	private const string ChapterIpfsCid = "QmPiz1NFuPzSaiLYNZtKEyCbS2WBqxfFr1y1jUyfBKYUZ8";
+
+	protected override async Task OnInitializedAsync()
 	{
-		new Formula
+		_isLoading = true;
+		try
 		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$a^0=1$$",
-			ModelPath = "Assets/3DModels/inta.glb",
-			Category = "Integrals",
-			Description = "",
-			Requirement = $"{requirement}"
-		},
+			var curriculum = await IpfsService.GetCurriculumBySlugAsync(ChapterSlug, ChapterIpfsCid);
 
-		new Formula
+			if (curriculum?.Formulas != null)
+			{
+				_formulas = curriculum.Formulas.Select(f => new Formula
+					{
+						Id = Guid.NewGuid(),
+						Latex = f.Latex.StartsWith("$$") ? f.Latex : $"$${f.Latex}$$",
+						ModelPath = f.Model3D,
+						Category = curriculum.Category,
+						Description = f.Description,
+						Requirement = f.Requirement ?? f.Exercises.FirstOrDefault()?.LatexTemplate ?? ""
+					}).ToList();
+			}
+		}
+		catch (Exception ex)
 		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$a^n=a\cdot a\cdot a\cdot ... \cdot a \text{ - } n\text{ times}$$",
-			ModelPath = "Assets/3DModels/inta.glb",
-			Category = "Integrals",
-			Requirement = $"{requirement}"
-		},
-
-		new Formula
+			Console.WriteLine($"Error loading IPFS curriculum: {ex.Message}");
+		}
+		finally
 		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$a^{-1}=\frac{1}{a}$$",
-			ModelPath = "Assets/3DModels/int1pex.glb",
-			Category = "Integrals"
-		},
-
-		new Formula
-		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$(a^n)^m=a^{n\cdot m}$$",
-			ModelPath = "Assets/3DModels/intalax.glb",
-			Category = "Integrals"
-		},
-
-		new Formula
-		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$a^n\cdot a^m= a^{n+m}$$",
-			ModelPath = "Assets/3DModels/intelax.glb",
-			Category = "Integrals"
-		},
-
-		new Formula
-		{
-			Id =Guid.NewGuid(),
-			Latex = @"$$a^n\cdot b^n= (a+b)^n$$",
-			ModelPath = "Assets/3DModels/int1pexla2minusala2.glb",
-			Category = "Integrals"
-		},
-
-		new Formula
-		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$\frac{a^n}{a^m}=a^{n-m}$$",
-			ModelPath = "Assets/3DModels/int1pexla2plusala2(2).glb",
-			Category = "Integrals"
-		},
-
-		new Formula
-		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$\frac{a^n}{b^n}=\left( \frac{a}{b} \right)^n$$",
-			ModelPath = "Assets/3DModels/int1peradala2minusxla2.glb",
-			Category = "Integrals"
-		},
-
-		new Formula
-		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$\left( \frac{a}{b} \right)^{-n} = \left( \frac{b}{a} \right)^n$$",
-			ModelPath = "Assets/3DModels/int1peradxla2plusala2.glb",
-			Category = "Integrals"
-		},
-
-		new Formula
-		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$\begin{cases}
-						a>1 \Rightarrow a^n < a^m \Leftrightarrow n<m \\
-						a\in(0, 1) \Rightarrow a^n < a^m \Leftrightarrow n > m
-						\end{cases}$$",
-			ModelPath = "Assets/3DModels/int1peradxla2plusala2.glb",
-			Category = "Integrals"
-		},
-	};
+			_isLoading = false;
+		}
+	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		if (firstRender)
+		if (_formulas.Any() && !_mathFormatted)
 		{
+			_mathFormatted = true;
+			await Task.Delay(100);
 			await JS.InvokeVoidAsync("formatMath");
 			await Task.Delay(200);
 			await JS.InvokeVoidAsync("autoScaleFormulas");
@@ -155,8 +124,8 @@
 	{
 		var parameters = new DialogParameters<FormulaDialog>
 		{
-			{ x => x.Formula, formula},
-			{ x => x.TotalFormulas, _formulas.Count  }
+			{ x => x.Formula, formula },
+			{ x => x.TotalFormulas, _formulas.Count }
 		};
 
 		var options = new DialogOptions
@@ -169,4 +138,3 @@
 		await DialogService.ShowAsync<FormulaDialog>("Formula Details", parameters, options);
 	}
 }
-

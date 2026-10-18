@@ -1,0 +1,549 @@
+{
+  "chapterId": "algebra_trigonometricinterpretationcomplex",
+  "title": "Trigonometric Interpretation",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Trigonometric Interpretation.",
+  "formulas": [
+    {
+      "id": "algebra_trigonometricinterpretationcomplex-f1",
+      "title": "Trigonometric Interpretation - Formula 1",
+      "latex": "\\begin{gather*}\n\t\t\t\t\tz=x+iy\\\\\n\t\t\t\t\tr=|z|=\\sqrt{x^2+y^2}\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tz=x+iy\\\\\n\t\t\t\t\tr=|z|=\\sqrt{x^2+y^2}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tz=x+iy\\\\\n\t\t\t\t\tr=|z|=\\sqrt{x^2+y^2}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tz=x+iy\\\\\n\t\t\t\t\tr=|z|=\\sqrt{x^2+y^2}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tz=x+iy\\\\\n\t\t\t\t\tr=|z|=\\sqrt{x^2+y^2}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tz=x+iy\\\\\n\t\t\t\t\tr=|z|=\\sqrt{x^2+y^2}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tz=x+iy\\\\\n\t\t\t\t\tr=|z|=\\sqrt{x^2+y^2}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_trigonometricinterpretationcomplex_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_trigonometricinterpretationcomplex-f2",
+      "title": "Trigonometric Interpretation - Formula 2",
+      "latex": "z=r(\\cos{a}+i\\sin{a})",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "z=r(\\cos{a}+i\\sin{a})",
+          "wolframQuery": "simplify z=r(\\cos{a}+i\\sin{a})",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "z=r(\\cos{a}+i\\sin{a})",
+          "wolframQuery": "simplify z=r(\\cos{a}+i\\sin{a})",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "z=r(\\cos{a}+i\\sin{a})",
+          "wolframQuery": "simplify z=r(\\cos{a}+i\\sin{a})",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_trigonometricinterpretationcomplex_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_trigonometricinterpretationcomplex-f3",
+      "title": "Trigonometric Interpretation - Formula 3",
+      "latex": "\\frac{1}{z}=\\frac{1}{r}(\\cos{(-a)}+i\\sin{(-a)})",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\frac{1}{z}=\\frac{1}{r}(\\cos{(-a)}+i\\sin{(-a)})",
+          "wolframQuery": "simplify \\frac{1}{z}=\\frac{1}{r}(\\cos{(-a)}+i\\sin{(-a)})",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\frac{1}{z}=\\frac{1}{r}(\\cos{(-a)}+i\\sin{(-a)})",
+          "wolframQuery": "simplify \\frac{1}{z}=\\frac{1}{r}(\\cos{(-a)}+i\\sin{(-a)})",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\frac{1}{z}=\\frac{1}{r}(\\cos{(-a)}+i\\sin{(-a)})",
+          "wolframQuery": "simplify \\frac{1}{z}=\\frac{1}{r}(\\cos{(-a)}+i\\sin{(-a)})",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_trigonometricinterpretationcomplex_f3"
+        }
+      ]
+    },
+    {
+      "id": "algebra_trigonometricinterpretationcomplex-f4",
+      "title": "Trigonometric Interpretation - Formula 4",
+      "latex": "\\overline{|z|}=r(\\cos{(-a)}+i\\sin{(-a)})",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\overline{|z|}=r(\\cos{(-a)}+i\\sin{(-a)})",
+          "wolframQuery": "simplify \\overline{|z|}=r(\\cos{(-a)}+i\\sin{(-a)})",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\overline{|z|}=r(\\cos{(-a)}+i\\sin{(-a)})",
+          "wolframQuery": "simplify \\overline{|z|}=r(\\cos{(-a)}+i\\sin{(-a)})",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\overline{|z|}=r(\\cos{(-a)}+i\\sin{(-a)})",
+          "wolframQuery": "simplify \\overline{|z|}=r(\\cos{(-a)}+i\\sin{(-a)})",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_trigonometricinterpretationcomplex_f4"
+        }
+      ]
+    },
+    {
+      "id": "algebra_trigonometricinterpretationcomplex-f5",
+      "title": "Trigonometric Interpretation - Formula 5",
+      "latex": "\\sin{a}=\\frac{y}{r}\\text{ }\\cos{a}=\\frac{x}{r}\\text{ }\\tan{a}=\\frac{y}{x}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sin{a}=\\frac{y}{r}\\text{ }\\cos{a}=\\frac{x}{r}\\text{ }\\tan{a}=\\frac{y}{x}",
+          "wolframQuery": "simplify \\sin{a}=\\frac{y}{r}\\text{ }\\cos{a}=\\frac{x}{r}\\text{ }\\tan{a}=\\frac{y}{x}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\sin{a}=\\frac{y}{r}\\text{ }\\cos{a}=\\frac{x}{r}\\text{ }\\tan{a}=\\frac{y}{x}",
+          "wolframQuery": "simplify \\sin{a}=\\frac{y}{r}\\text{ }\\cos{a}=\\frac{x}{r}\\text{ }\\tan{a}=\\frac{y}{x}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sin{a}=\\frac{y}{r}\\text{ }\\cos{a}=\\frac{x}{r}\\text{ }\\tan{a}=\\frac{y}{x}",
+          "wolframQuery": "simplify \\sin{a}=\\frac{y}{r}\\text{ }\\cos{a}=\\frac{x}{r}\\text{ }\\tan{a}=\\frac{y}{x}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_trigonometricinterpretationcomplex_f5"
+        }
+      ]
+    },
+    {
+      "id": "algebra_trigonometricinterpretationcomplex-f6",
+      "title": "Trigonometric Interpretation - Formula 6",
+      "latex": "z_1+z_2=(r_1\\cdot \\cos{a_1}+r_2\\cdot \\cos{a_2})+i(r_1\\cdot \\sin{a_1}+r_2\\cdot \\sin{a_2})",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "z_1+z_2=(r_1\\cdot \\cos{a_1}+r_2\\cdot \\cos{a_2})+i(r_1\\cdot \\sin{a_1}+r_2\\cdot \\sin{a_2})",
+          "wolframQuery": "simplify z_1+z_2=(r_1\\cdot \\cos{a_1}+r_2\\cdot \\cos{a_2})+i(r_1\\cdot \\sin{a_1}+r_2\\cdot \\sin{a_2})",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "z_1+z_2=(r_1\\cdot \\cos{a_1}+r_2\\cdot \\cos{a_2})+i(r_1\\cdot \\sin{a_1}+r_2\\cdot \\sin{a_2})",
+          "wolframQuery": "simplify z_1+z_2=(r_1\\cdot \\cos{a_1}+r_2\\cdot \\cos{a_2})+i(r_1\\cdot \\sin{a_1}+r_2\\cdot \\sin{a_2})",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "z_1+z_2=(r_1\\cdot \\cos{a_1}+r_2\\cdot \\cos{a_2})+i(r_1\\cdot \\sin{a_1}+r_2\\cdot \\sin{a_2})",
+          "wolframQuery": "simplify z_1+z_2=(r_1\\cdot \\cos{a_1}+r_2\\cdot \\cos{a_2})+i(r_1\\cdot \\sin{a_1}+r_2\\cdot \\sin{a_2})",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_trigonometricinterpretationcomplex_f6"
+        }
+      ]
+    },
+    {
+      "id": "algebra_trigonometricinterpretationcomplex-f7",
+      "title": "Trigonometric Interpretation - Formula 7",
+      "latex": "z_1\\cdot z_2=r_1\\cdot r_2(\\cos{(a_1+a_2)}+i\\sin{(a_1+a_2)})",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "z_1\\cdot z_2=r_1\\cdot r_2(\\cos{(a_1+a_2)}+i\\sin{(a_1+a_2)})",
+          "wolframQuery": "simplify z_1\\cdot z_2=r_1\\cdot r_2(\\cos{(a_1+a_2)}+i\\sin{(a_1+a_2)})",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "z_1\\cdot z_2=r_1\\cdot r_2(\\cos{(a_1+a_2)}+i\\sin{(a_1+a_2)})",
+          "wolframQuery": "simplify z_1\\cdot z_2=r_1\\cdot r_2(\\cos{(a_1+a_2)}+i\\sin{(a_1+a_2)})",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "z_1\\cdot z_2=r_1\\cdot r_2(\\cos{(a_1+a_2)}+i\\sin{(a_1+a_2)})",
+          "wolframQuery": "simplify z_1\\cdot z_2=r_1\\cdot r_2(\\cos{(a_1+a_2)}+i\\sin{(a_1+a_2)})",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_trigonometricinterpretationcomplex_f7"
+        }
+      ]
+    },
+    {
+      "id": "algebra_trigonometricinterpretationcomplex-f8",
+      "title": "Trigonometric Interpretation - Formula 8",
+      "latex": "\\frac{z_1}{z_2}=\\frac{r_1}{r_2}(\\cos{(a_1-a_2)}+i\\sin{(a_1-a_2)})",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\frac{z_1}{z_2}=\\frac{r_1}{r_2}(\\cos{(a_1-a_2)}+i\\sin{(a_1-a_2)})",
+          "wolframQuery": "simplify \\frac{z_1}{z_2}=\\frac{r_1}{r_2}(\\cos{(a_1-a_2)}+i\\sin{(a_1-a_2)})",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\frac{z_1}{z_2}=\\frac{r_1}{r_2}(\\cos{(a_1-a_2)}+i\\sin{(a_1-a_2)})",
+          "wolframQuery": "simplify \\frac{z_1}{z_2}=\\frac{r_1}{r_2}(\\cos{(a_1-a_2)}+i\\sin{(a_1-a_2)})",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\frac{z_1}{z_2}=\\frac{r_1}{r_2}(\\cos{(a_1-a_2)}+i\\sin{(a_1-a_2)})",
+          "wolframQuery": "simplify \\frac{z_1}{z_2}=\\frac{r_1}{r_2}(\\cos{(a_1-a_2)}+i\\sin{(a_1-a_2)})",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_trigonometricinterpretationcomplex_f8"
+        }
+      ]
+    },
+    {
+      "id": "algebra_trigonometricinterpretationcomplex-f9",
+      "title": "Trigonometric Interpretation - Formula 9",
+      "latex": "z^n=r^n(\\cos{(na)}+i\\sin{(na)})",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "z^n=r^n(\\cos{(na)}+i\\sin{(na)})",
+          "wolframQuery": "simplify z^n=r^n(\\cos{(na)}+i\\sin{(na)})",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "z^n=r^n(\\cos{(na)}+i\\sin{(na)})",
+          "wolframQuery": "simplify z^n=r^n(\\cos{(na)}+i\\sin{(na)})",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "z^n=r^n(\\cos{(na)}+i\\sin{(na)})",
+          "wolframQuery": "simplify z^n=r^n(\\cos{(na)}+i\\sin{(na)})",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_trigonometricinterpretationcomplex_f9"
+        }
+      ]
+    }
+  ]
+}

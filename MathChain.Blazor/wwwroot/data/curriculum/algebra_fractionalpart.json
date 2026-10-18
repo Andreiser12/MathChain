@@ -1,0 +1,309 @@
+{
+  "chapterId": "algebra_fractionalpart",
+  "title": "Composed Radicals",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Composed Radicals.",
+  "formulas": [
+    {
+      "id": "algebra_fractionalpart-f1",
+      "title": "Composed Radicals - Formula 1",
+      "latex": "\\{x\\}=x-[x]",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\{x\\}=x-[x]",
+          "wolframQuery": "simplify \\{x\\}=x-[x]",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\{x\\}=x-[x]",
+          "wolframQuery": "simplify \\{x\\}=x-[x]",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\{x\\}=x-[x]",
+          "wolframQuery": "simplify \\{x\\}=x-[x]",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_fractionalpart_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_fractionalpart-f2",
+      "title": "Composed Radicals - Formula 2",
+      "latex": "\\{x\\} \\in [0, 1)",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\{x\\} \\in [0, 1)",
+          "wolframQuery": "simplify \\{x\\} \\in [0, 1)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\{x\\} \\in [0, 1)",
+          "wolframQuery": "simplify \\{x\\} \\in [0, 1)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\{x\\} \\in [0, 1)",
+          "wolframQuery": "simplify \\{x\\} \\in [0, 1)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_fractionalpart_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_fractionalpart-f3",
+      "title": "Composed Radicals - Formula 3",
+      "latex": "\\{x\\}=0 \\Leftrightarrow x \\in \\mathbb{Z}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\{x\\}=0 \\Leftrightarrow x \\in \\mathbb{Z}",
+          "wolframQuery": "simplify \\{x\\}=0 \\Leftrightarrow x \\in \\mathbb{Z}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\{x\\}=0 \\Leftrightarrow x \\in \\mathbb{Z}",
+          "wolframQuery": "simplify \\{x\\}=0 \\Leftrightarrow x \\in \\mathbb{Z}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\{x\\}=0 \\Leftrightarrow x \\in \\mathbb{Z}",
+          "wolframQuery": "simplify \\{x\\}=0 \\Leftrightarrow x \\in \\mathbb{Z}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_fractionalpart_f3"
+        }
+      ]
+    },
+    {
+      "id": "algebra_fractionalpart-f4",
+      "title": "Composed Radicals - Formula 4",
+      "latex": "\\{x\\}=\\{y\\} \\Leftrightarrow x-y \\in \\mathbb{Z}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\{x\\}=\\{y\\} \\Leftrightarrow x-y \\in \\mathbb{Z}",
+          "wolframQuery": "simplify \\{x\\}=\\{y\\} \\Leftrightarrow x-y \\in \\mathbb{Z}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\{x\\}=\\{y\\} \\Leftrightarrow x-y \\in \\mathbb{Z}",
+          "wolframQuery": "simplify \\{x\\}=\\{y\\} \\Leftrightarrow x-y \\in \\mathbb{Z}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\{x\\}=\\{y\\} \\Leftrightarrow x-y \\in \\mathbb{Z}",
+          "wolframQuery": "simplify \\{x\\}=\\{y\\} \\Leftrightarrow x-y \\in \\mathbb{Z}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_fractionalpart_f4"
+        }
+      ]
+    },
+    {
+      "id": "algebra_fractionalpart-f5",
+      "title": "Composed Radicals - Formula 5",
+      "latex": "\\{x+n\\}=\\{x\\} \\Leftrightarrow n\\in\\mathbb{Z}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\{x+n\\}=\\{x\\} \\Leftrightarrow n\\in\\mathbb{Z}",
+          "wolframQuery": "simplify \\{x+n\\}=\\{x\\} \\Leftrightarrow n\\in\\mathbb{Z}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\{x+n\\}=\\{x\\} \\Leftrightarrow n\\in\\mathbb{Z}",
+          "wolframQuery": "simplify \\{x+n\\}=\\{x\\} \\Leftrightarrow n\\in\\mathbb{Z}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\{x+n\\}=\\{x\\} \\Leftrightarrow n\\in\\mathbb{Z}",
+          "wolframQuery": "simplify \\{x+n\\}=\\{x\\} \\Leftrightarrow n\\in\\mathbb{Z}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_fractionalpart_f5"
+        }
+      ]
+    }
+  ]
+}

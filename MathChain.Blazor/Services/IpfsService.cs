@@ -74,6 +74,32 @@ namespace MathChain.Blazor.Services
             }
         }
 
+        private Dictionary<string, string>? _manifestCache;
+
+        private async Task<string?> GetFallbackPathAsync(string ipfsHash)
+        {
+            try
+            {
+                if (_manifestCache == null)
+                {
+                    var manifestRes = await _httpClient.GetAsync("data/curriculum/manifest.json");
+                    if (manifestRes.IsSuccessStatusCode)
+                    {
+                        var manifestJson = await manifestRes.Content.ReadAsStringAsync();
+                        _manifestCache = JsonSerializer.Deserialize<Dictionary<string, string>>(manifestJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    }
+                }
+
+                if (_manifestCache != null && _manifestCache.TryGetValue(ipfsHash, out var fileName))
+                {
+                    return $"data/curriculum/{fileName}";
+                }
+            }
+            catch { }
+
+            return "data/curriculum/algebra_calcul_prescurtat.json";
+        }
+
         public async Task<ChapterCurriculumDto?> GetCurriculumFromIpfsAsync(string ipfsHashOrUrl)
         {
             try
@@ -104,11 +130,15 @@ namespace MathChain.Blazor.Services
                     Console.WriteLine($"[IPFS] Fetch failed ({response.StatusCode}) from: {url}");
                     try
                     {
-                        var staticResponse = await _httpClient.GetAsync("data/curriculum/algebra_calcul_prescurtat.json");
-                        if (staticResponse.IsSuccessStatusCode)
+                        var fallbackFile = await GetFallbackPathAsync(ipfsHashOrUrl);
+                        if (!string.IsNullOrEmpty(fallbackFile))
                         {
-                            var staticJson = await staticResponse.Content.ReadAsStringAsync();
-                            return JsonSerializer.Deserialize<ChapterCurriculumDto>(staticJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                            var staticResponse = await _httpClient.GetAsync(fallbackFile);
+                            if (staticResponse.IsSuccessStatusCode)
+                            {
+                                var staticJson = await staticResponse.Content.ReadAsStringAsync();
+                                return JsonSerializer.Deserialize<ChapterCurriculumDto>(staticJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                            }
                         }
                     }
                     catch { }
@@ -128,16 +158,74 @@ namespace MathChain.Blazor.Services
                 Console.WriteLine($"[IPFS] Error fetching curriculum from IPFS: {ex.Message}");
                 try
                 {
-                    var staticResponse = await _httpClient.GetAsync("data/curriculum/algebra_calcul_prescurtat.json");
-                    if (staticResponse.IsSuccessStatusCode)
+                    var fallbackFile = await GetFallbackPathAsync(ipfsHashOrUrl);
+                    if (!string.IsNullOrEmpty(fallbackFile))
                     {
-                        var staticJson = await staticResponse.Content.ReadAsStringAsync();
-                        return JsonSerializer.Deserialize<ChapterCurriculumDto>(staticJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                        var staticResponse = await _httpClient.GetAsync(fallbackFile);
+                        if (staticResponse.IsSuccessStatusCode)
+                        {
+                            var staticJson = await staticResponse.Content.ReadAsStringAsync();
+                            return JsonSerializer.Deserialize<ChapterCurriculumDto>(staticJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                        }
                     }
                 }
                 catch { }
                 return null;
             }
+        }
+
+        public async Task<ChapterCurriculumDto?> GetCurriculumBySlugAsync(string slug, string fallbackCid = "")
+        {
+            try
+            {
+                string url = $"{_baseApi}/curriculum/{slug}";
+                HttpResponseMessage response;
+
+                try
+                {
+                    response = await _httpClient.GetAsync(url);
+                }
+                catch
+                {
+                    response = await _httpClient.GetAsync($"http://localhost:5065/api/curriculum/{slug}");
+                }
+
+                if(response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var doc = JsonDocument.Parse(json);
+
+                    if(doc.RootElement.TryGetProperty("ipfsHash", out var hashEl))
+                    {
+                        var dynamicHash = hashEl.GetString();
+                        if(!string.IsNullOrEmpty(dynamicHash))
+                        {
+                            var curriculumfromDbHash = await GetCurriculumFromIpfsAsync(dynamicHash);
+
+                            if(curriculumfromDbHash != null)
+                            {
+                                return curriculumfromDbHash;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"[Curriculum] Capitolul '{slug}' nu a fost găsit" +
+                        $" în DB ({response.StatusCode}). Se folosește fallback.");
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"[Curriculum] Eroare la interogarea DB pentru '{slug}': {ex.Message}");
+            }
+
+            if(!string.IsNullOrEmpty(fallbackCid))
+            {
+                return await GetCurriculumFromIpfsAsync(fallbackCid);
+            }
+
+            return null;
         }
     }
 }

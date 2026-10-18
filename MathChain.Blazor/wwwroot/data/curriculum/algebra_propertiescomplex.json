@@ -1,0 +1,1089 @@
+{
+  "chapterId": "algebra_propertiescomplex",
+  "title": "Properties of Complex Numbers",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Properties of Complex Numbers.",
+  "formulas": [
+    {
+      "id": "algebra_propertiescomplex-f1",
+      "title": "Properties of Complex Numbers - Formula 1",
+      "latex": "\\begin{gather*}\n\t\t\t\t\tz=a+ib\\\\\n\t\t\t\t\ta,b\\in \\mathbb{R}\\\\\n\t\t\t\t\ta=\\text{the real part of } z\\\\\n\t\t\t\t\tb=\\text{the imaginary part of } z\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tz=a+ib\\\\\n\t\t\t\t\ta,b\\in \\mathbb{R}\\\\\n\t\t\t\t\ta=\\text{the real part of } z\\\\\n\t\t\t\t\tb=\\text{the imaginary part of } z\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tz=a+ib\\\\\n\t\t\t\t\ta,b\\in \\mathbb{R}\\\\\n\t\t\t\t\ta=\\text{the real part of } z\\\\\n\t\t\t\t\tb=\\text{the imaginary part of } z\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tz=a+ib\\\\\n\t\t\t\t\ta,b\\in \\mathbb{R}\\\\\n\t\t\t\t\ta=\\text{the real part of } z\\\\\n\t\t\t\t\tb=\\text{the imaginary part of } z\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tz=a+ib\\\\\n\t\t\t\t\ta,b\\in \\mathbb{R}\\\\\n\t\t\t\t\ta=\\text{the real part of } z\\\\\n\t\t\t\t\tb=\\text{the imaginary part of } z\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tz=a+ib\\\\\n\t\t\t\t\ta,b\\in \\mathbb{R}\\\\\n\t\t\t\t\ta=\\text{the real part of } z\\\\\n\t\t\t\t\tb=\\text{the imaginary part of } z\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tz=a+ib\\\\\n\t\t\t\t\ta,b\\in \\mathbb{R}\\\\\n\t\t\t\t\ta=\\text{the real part of } z\\\\\n\t\t\t\t\tb=\\text{the imaginary part of } z\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiescomplex_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiescomplex-f2",
+      "title": "Properties of Complex Numbers - Formula 2",
+      "latex": "i=\\sqrt{-1}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "i=\\sqrt{-1}",
+          "wolframQuery": "simplify i=\\sqrt{-1}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "i=\\sqrt{-1}",
+          "wolframQuery": "simplify i=\\sqrt{-1}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "i=\\sqrt{-1}",
+          "wolframQuery": "simplify i=\\sqrt{-1}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiescomplex_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiescomplex-f3",
+      "title": "Properties of Complex Numbers - Formula 3",
+      "latex": "i^2=-1",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "i^2=-1",
+          "wolframQuery": "simplify i^2=-1",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "i^2=-1",
+          "wolframQuery": "simplify i^2=-1",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "i^2=-1",
+          "wolframQuery": "simplify i^2=-1",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiescomplex_f3"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiescomplex-f4",
+      "title": "Properties of Complex Numbers - Formula 4",
+      "latex": "i^3=-i",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "i^3=-i",
+          "wolframQuery": "simplify i^3=-i",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "i^3=-i",
+          "wolframQuery": "simplify i^3=-i",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "i^3=-i",
+          "wolframQuery": "simplify i^3=-i",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiescomplex_f4"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiescomplex-f5",
+      "title": "Properties of Complex Numbers - Formula 5",
+      "latex": "i^4=1",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "i^4=1",
+          "wolframQuery": "simplify i^4=1",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "i^4=1",
+          "wolframQuery": "simplify i^4=1",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "i^4=1",
+          "wolframQuery": "simplify i^4=1",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiescomplex_f5"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiescomplex-f6",
+      "title": "Properties of Complex Numbers - Formula 6",
+      "latex": "|z|=\\sqrt{a^2+b^2}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|z|=\\sqrt{a^2+b^2}",
+          "wolframQuery": "simplify |z|=\\sqrt{a^2+b^2}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "|z|=\\sqrt{a^2+b^2}",
+          "wolframQuery": "simplify |z|=\\sqrt{a^2+b^2}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|z|=\\sqrt{a^2+b^2}",
+          "wolframQuery": "simplify |z|=\\sqrt{a^2+b^2}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiescomplex_f6"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiescomplex-f7",
+      "title": "Properties of Complex Numbers - Formula 7",
+      "latex": "\\overline{z}=a-ib",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\overline{z}=a-ib",
+          "wolframQuery": "simplify \\overline{z}=a-ib",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\overline{z}=a-ib",
+          "wolframQuery": "simplify \\overline{z}=a-ib",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\overline{z}=a-ib",
+          "wolframQuery": "simplify \\overline{z}=a-ib",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiescomplex_f7"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiescomplex-f8",
+      "title": "Properties of Complex Numbers - Formula 8",
+      "latex": "|z|=|\\overline{z}|",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|z|=|\\overline{z}|",
+          "wolframQuery": "simplify |z|=|\\overline{z}|",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "|z|=|\\overline{z}|",
+          "wolframQuery": "simplify |z|=|\\overline{z}|",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|z|=|\\overline{z}|",
+          "wolframQuery": "simplify |z|=|\\overline{z}|",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiescomplex_f8"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiescomplex-f9",
+      "title": "Properties of Complex Numbers - Formula 9",
+      "latex": "|z|\\cdot |\\overline{z}|=|z|^2",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|z|\\cdot |\\overline{z}|=|z|^2",
+          "wolframQuery": "simplify |z|\\cdot |\\overline{z}|=|z|^2",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "|z|\\cdot |\\overline{z}|=|z|^2",
+          "wolframQuery": "simplify |z|\\cdot |\\overline{z}|=|z|^2",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|z|\\cdot |\\overline{z}|=|z|^2",
+          "wolframQuery": "simplify |z|\\cdot |\\overline{z}|=|z|^2",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiescomplex_f9"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiescomplex-f10",
+      "title": "Properties of Complex Numbers - Formula 10",
+      "latex": "|z_1+z_2|\\leq |z_1|+|z_2|",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|z_1+z_2|\\leq |z_1|+|z_2|",
+          "wolframQuery": "simplify |z_1+z_2|\\leq |z_1|+|z_2|",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "|z_1+z_2|\\leq |z_1|+|z_2|",
+          "wolframQuery": "simplify |z_1+z_2|\\leq |z_1|+|z_2|",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|z_1+z_2|\\leq |z_1|+|z_2|",
+          "wolframQuery": "simplify |z_1+z_2|\\leq |z_1|+|z_2|",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiescomplex_f10"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiescomplex-f11",
+      "title": "Properties of Complex Numbers - Formula 11",
+      "latex": "|z_1\\cdot z_2| = |z_1|\\cdot |z_2|",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|z_1\\cdot z_2| = |z_1|\\cdot |z_2|",
+          "wolframQuery": "simplify |z_1\\cdot z_2| = |z_1|\\cdot |z_2|",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "|z_1\\cdot z_2| = |z_1|\\cdot |z_2|",
+          "wolframQuery": "simplify |z_1\\cdot z_2| = |z_1|\\cdot |z_2|",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|z_1\\cdot z_2| = |z_1|\\cdot |z_2|",
+          "wolframQuery": "simplify |z_1\\cdot z_2| = |z_1|\\cdot |z_2|",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiescomplex_f11"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiescomplex-f12",
+      "title": "Properties of Complex Numbers - Formula 12",
+      "latex": "\\left|\\frac{z_1}{z_2}\\right|= \\frac{|z_1|}{|z_2|}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left|\\frac{z_1}{z_2}\\right|= \\frac{|z_1|}{|z_2|}",
+          "wolframQuery": "simplify \\left|\\frac{z_1}{z_2}\\right|= \\frac{|z_1|}{|z_2|}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\left|\\frac{z_1}{z_2}\\right|= \\frac{|z_1|}{|z_2|}",
+          "wolframQuery": "simplify \\left|\\frac{z_1}{z_2}\\right|= \\frac{|z_1|}{|z_2|}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left|\\frac{z_1}{z_2}\\right|= \\frac{|z_1|}{|z_2|}",
+          "wolframQuery": "simplify \\left|\\frac{z_1}{z_2}\\right|= \\frac{|z_1|}{|z_2|}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiescomplex_f12"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiescomplex-f13",
+      "title": "Properties of Complex Numbers - Formula 13",
+      "latex": "|z^n|=|z|^n",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|z^n|=|z|^n",
+          "wolframQuery": "simplify |z^n|=|z|^n",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "|z^n|=|z|^n",
+          "wolframQuery": "simplify |z^n|=|z|^n",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|z^n|=|z|^n",
+          "wolframQuery": "simplify |z^n|=|z|^n",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiescomplex_f13"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiescomplex-f14",
+      "title": "Properties of Complex Numbers - Formula 14",
+      "latex": "\\overline{z_1+z_2}=\\overline{z_1}+\\overline{z_2}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\overline{z_1+z_2}=\\overline{z_1}+\\overline{z_2}",
+          "wolframQuery": "simplify \\overline{z_1+z_2}=\\overline{z_1}+\\overline{z_2}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\overline{z_1+z_2}=\\overline{z_1}+\\overline{z_2}",
+          "wolframQuery": "simplify \\overline{z_1+z_2}=\\overline{z_1}+\\overline{z_2}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\overline{z_1+z_2}=\\overline{z_1}+\\overline{z_2}",
+          "wolframQuery": "simplify \\overline{z_1+z_2}=\\overline{z_1}+\\overline{z_2}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiescomplex_f14"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiescomplex-f15",
+      "title": "Properties of Complex Numbers - Formula 15",
+      "latex": "\\overline{z_1\\cdot z_2}=\\overline{z_1}\\cdot \\overline{z_2}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\overline{z_1\\cdot z_2}=\\overline{z_1}\\cdot \\overline{z_2}",
+          "wolframQuery": "simplify \\overline{z_1\\cdot z_2}=\\overline{z_1}\\cdot \\overline{z_2}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\overline{z_1\\cdot z_2}=\\overline{z_1}\\cdot \\overline{z_2}",
+          "wolframQuery": "simplify \\overline{z_1\\cdot z_2}=\\overline{z_1}\\cdot \\overline{z_2}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\overline{z_1\\cdot z_2}=\\overline{z_1}\\cdot \\overline{z_2}",
+          "wolframQuery": "simplify \\overline{z_1\\cdot z_2}=\\overline{z_1}\\cdot \\overline{z_2}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiescomplex_f15"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiescomplex-f16",
+      "title": "Properties of Complex Numbers - Formula 16",
+      "latex": "\\overline{\\left(\\frac{z_1}{z_2}\\right)}= \\frac{\\overline{z_1}}{\\overline{z_2}}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\overline{\\left(\\frac{z_1}{z_2}\\right)}= \\frac{\\overline{z_1}}{\\overline{z_2}}",
+          "wolframQuery": "simplify \\overline{\\left(\\frac{z_1}{z_2}\\right)}= \\frac{\\overline{z_1}}{\\overline{z_2}}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\overline{\\left(\\frac{z_1}{z_2}\\right)}= \\frac{\\overline{z_1}}{\\overline{z_2}}",
+          "wolframQuery": "simplify \\overline{\\left(\\frac{z_1}{z_2}\\right)}= \\frac{\\overline{z_1}}{\\overline{z_2}}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\overline{\\left(\\frac{z_1}{z_2}\\right)}= \\frac{\\overline{z_1}}{\\overline{z_2}}",
+          "wolframQuery": "simplify \\overline{\\left(\\frac{z_1}{z_2}\\right)}= \\frac{\\overline{z_1}}{\\overline{z_2}}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiescomplex_f16"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiescomplex-f17",
+      "title": "Properties of Complex Numbers - Formula 17",
+      "latex": "\\overline{z^n}=(\\overline{z})^n",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\overline{z^n}=(\\overline{z})^n",
+          "wolframQuery": "simplify \\overline{z^n}=(\\overline{z})^n",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\overline{z^n}=(\\overline{z})^n",
+          "wolframQuery": "simplify \\overline{z^n}=(\\overline{z})^n",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\overline{z^n}=(\\overline{z})^n",
+          "wolframQuery": "simplify \\overline{z^n}=(\\overline{z})^n",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiescomplex_f17"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiescomplex-f18",
+      "title": "Properties of Complex Numbers - Formula 18",
+      "latex": "\\frac{z_1}{z_2}=\\frac{z_1\\cdot \\overline{z_2}}{|z_2|^2}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\frac{z_1}{z_2}=\\frac{z_1\\cdot \\overline{z_2}}{|z_2|^2}",
+          "wolframQuery": "simplify \\frac{z_1}{z_2}=\\frac{z_1\\cdot \\overline{z_2}}{|z_2|^2}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\frac{z_1}{z_2}=\\frac{z_1\\cdot \\overline{z_2}}{|z_2|^2}",
+          "wolframQuery": "simplify \\frac{z_1}{z_2}=\\frac{z_1\\cdot \\overline{z_2}}{|z_2|^2}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\frac{z_1}{z_2}=\\frac{z_1\\cdot \\overline{z_2}}{|z_2|^2}",
+          "wolframQuery": "simplify \\frac{z_1}{z_2}=\\frac{z_1\\cdot \\overline{z_2}}{|z_2|^2}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiescomplex_f18"
+        }
+      ]
+    }
+  ]
+}

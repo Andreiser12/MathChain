@@ -1,0 +1,309 @@
+{
+  "chapterId": "algebra_setssubsets",
+  "title": "Sets and Subsets",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Sets and Subsets.",
+  "formulas": [
+    {
+      "id": "algebra_setssubsets-f1",
+      "title": "Sets and Subsets - Formula 1",
+      "latex": "\\begin{gather*}\n\t\t\t\t\tA=\\text{set of numbers}\\\\\n\t\t\t\t\t|A|=n\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tA=\\text{set of numbers}\\\\\n\t\t\t\t\t|A|=n\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tA=\\text{set of numbers}\\\\\n\t\t\t\t\t|A|=n\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tA=\\text{set of numbers}\\\\\n\t\t\t\t\t|A|=n\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tA=\\text{set of numbers}\\\\\n\t\t\t\t\t|A|=n\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tA=\\text{set of numbers}\\\\\n\t\t\t\t\t|A|=n\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tA=\\text{set of numbers}\\\\\n\t\t\t\t\t|A|=n\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_setssubsets_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_setssubsets-f2",
+      "title": "Sets and Subsets - Formula 2",
+      "latex": "\\text{The number of subsets of }A=2^n",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{The number of subsets of }A=2^n",
+          "wolframQuery": "simplify \\text{The number of subsets of }A=2^n",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{The number of subsets of }A=2^n",
+          "wolframQuery": "simplify \\text{The number of subsets of }A=2^n",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{The number of subsets of }A=2^n",
+          "wolframQuery": "simplify \\text{The number of subsets of }A=2^n",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_setssubsets_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_setssubsets-f3",
+      "title": "Sets and Subsets - Formula 3",
+      "latex": "\\text{The number of functions }f:A\\to B=|A|^{|B|}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{The number of functions }f:A\\to B=|A|^{|B|}",
+          "wolframQuery": "simplify \\text{The number of functions }f:A\\to B=|A|^{|B|}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{The number of functions }f:A\\to B=|A|^{|B|}",
+          "wolframQuery": "simplify \\text{The number of functions }f:A\\to B=|A|^{|B|}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{The number of functions }f:A\\to B=|A|^{|B|}",
+          "wolframQuery": "simplify \\text{The number of functions }f:A\\to B=|A|^{|B|}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_setssubsets_f3"
+        }
+      ]
+    },
+    {
+      "id": "algebra_setssubsets-f4",
+      "title": "Sets and Subsets - Formula 4",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t\t\\text{If an object }A\\text{ can be chosen in }m\\text{ ways},\\\\\n\t\t\t\t\t\t\\text{and an object }B\\text{ can be chosen in }n\\text{ ways},\\\\\n\t\t\t\t\t\t\\text{such that no choice of }A\\text{ coincides with no choice of }B,\\\\\n\t\t\t\t\t\t\\text{then the choice of }A \\text{ or }B\\text{ can be made in } m+n \\text{ ways}\\\\\n\t\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\t\\text{If an object }A\\text{ can be chosen in }m\\text{ ways},\\\\\n\t\t\t\t\t\t\\text{and an object }B\\text{ can be chosen in }n\\text{ ways},\\\\\n\t\t\t\t\t\t\\text{such that no choice of }A\\text{ coincides with no choice of }B,\\\\\n\t\t\t\t\t\t\\text{then the choice of }A \\text{ or }B\\text{ can be made in } m+n \\text{ ways}\\\\\n\t\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\t\\text{If an object }A\\text{ can be chosen in }m\\text{ ways},\\\\\n\t\t\t\t\t\t\\text{and an object }B\\text{ can be chosen in }n\\text{ ways},\\\\\n\t\t\t\t\t\t\\text{such that no choice of }A\\text{ coincides with no choice of }B,\\\\\n\t\t\t\t\t\t\\text{then the choice of }A \\text{ or }B\\text{ can be made in } m+n \\text{ ways}\\\\\n\t\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\t\\text{If an object }A\\text{ can be chosen in }m\\text{ ways},\\\\\n\t\t\t\t\t\t\\text{and an object }B\\text{ can be chosen in }n\\text{ ways},\\\\\n\t\t\t\t\t\t\\text{such that no choice of }A\\text{ coincides with no choice of }B,\\\\\n\t\t\t\t\t\t\\text{then the choice of }A \\text{ or }B\\text{ can be made in } m+n \\text{ ways}\\\\\n\t\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\t\\text{If an object }A\\text{ can be chosen in }m\\text{ ways},\\\\\n\t\t\t\t\t\t\\text{and an object }B\\text{ can be chosen in }n\\text{ ways},\\\\\n\t\t\t\t\t\t\\text{such that no choice of }A\\text{ coincides with no choice of }B,\\\\\n\t\t\t\t\t\t\\text{then the choice of }A \\text{ or }B\\text{ can be made in } m+n \\text{ ways}\\\\\n\t\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\t\\text{If an object }A\\text{ can be chosen in }m\\text{ ways},\\\\\n\t\t\t\t\t\t\\text{and an object }B\\text{ can be chosen in }n\\text{ ways},\\\\\n\t\t\t\t\t\t\\text{such that no choice of }A\\text{ coincides with no choice of }B,\\\\\n\t\t\t\t\t\t\\text{then the choice of }A \\text{ or }B\\text{ can be made in } m+n \\text{ ways}\\\\\n\t\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\t\\text{If an object }A\\text{ can be chosen in }m\\text{ ways},\\\\\n\t\t\t\t\t\t\\text{and an object }B\\text{ can be chosen in }n\\text{ ways},\\\\\n\t\t\t\t\t\t\\text{such that no choice of }A\\text{ coincides with no choice of }B,\\\\\n\t\t\t\t\t\t\\text{then the choice of }A \\text{ or }B\\text{ can be made in } m+n \\text{ ways}\\\\\n\t\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_setssubsets_f4"
+        }
+      ]
+    },
+    {
+      "id": "algebra_setssubsets-f5",
+      "title": "Sets and Subsets - Formula 5",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t\\text{If an object }A\\text{ can be chosen in }m\\text{ ways},\\\\\n\t\t\t\t\t\\text{and after each such choice,}\\\\\n\t\t\t\t\t\\text{and an object }B\\text{ can be chosen in }n\\text{ ways},\\\\\n\t\t\t\t\t\\text{then the choice of the pair}(A,B)\\text{ can be made in } m\\cdot n \\text{ ways}\\\\\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{If an object }A\\text{ can be chosen in }m\\text{ ways},\\\\\n\t\t\t\t\t\\text{and after each such choice,}\\\\\n\t\t\t\t\t\\text{and an object }B\\text{ can be chosen in }n\\text{ ways},\\\\\n\t\t\t\t\t\\text{then the choice of the pair}(A,B)\\text{ can be made in } m\\cdot n \\text{ ways}\\\\\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{If an object }A\\text{ can be chosen in }m\\text{ ways},\\\\\n\t\t\t\t\t\\text{and after each such choice,}\\\\\n\t\t\t\t\t\\text{and an object }B\\text{ can be chosen in }n\\text{ ways},\\\\\n\t\t\t\t\t\\text{then the choice of the pair}(A,B)\\text{ can be made in } m\\cdot n \\text{ ways}\\\\\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{If an object }A\\text{ can be chosen in }m\\text{ ways},\\\\\n\t\t\t\t\t\\text{and after each such choice,}\\\\\n\t\t\t\t\t\\text{and an object }B\\text{ can be chosen in }n\\text{ ways},\\\\\n\t\t\t\t\t\\text{then the choice of the pair}(A,B)\\text{ can be made in } m\\cdot n \\text{ ways}\\\\\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{If an object }A\\text{ can be chosen in }m\\text{ ways},\\\\\n\t\t\t\t\t\\text{and after each such choice,}\\\\\n\t\t\t\t\t\\text{and an object }B\\text{ can be chosen in }n\\text{ ways},\\\\\n\t\t\t\t\t\\text{then the choice of the pair}(A,B)\\text{ can be made in } m\\cdot n \\text{ ways}\\\\\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{If an object }A\\text{ can be chosen in }m\\text{ ways},\\\\\n\t\t\t\t\t\\text{and after each such choice,}\\\\\n\t\t\t\t\t\\text{and an object }B\\text{ can be chosen in }n\\text{ ways},\\\\\n\t\t\t\t\t\\text{then the choice of the pair}(A,B)\\text{ can be made in } m\\cdot n \\text{ ways}\\\\\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{If an object }A\\text{ can be chosen in }m\\text{ ways},\\\\\n\t\t\t\t\t\\text{and after each such choice,}\\\\\n\t\t\t\t\t\\text{and an object }B\\text{ can be chosen in }n\\text{ ways},\\\\\n\t\t\t\t\t\\text{then the choice of the pair}(A,B)\\text{ can be made in } m\\cdot n \\text{ ways}\\\\\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_setssubsets_f5"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "chapterId": "calculus_basicformri",
+  "title": "Basic Form",
+  "category": "Calculus",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Basic Form.",
+  "formulas": [
+    {
+      "id": "calculus_basicformri-f1",
+      "title": "Basic Form - Formula 1",
+      "latex": "\\int \\frac{P(x)}{Q(x)}\\,dx,\\, P(x),\\, Q(x)\\in \\mathbb{R}[x]",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{P(x)}{Q(x)}\\,dx,\\, P(x),\\, Q(x)\\in \\mathbb{R}[x]",
+          "wolframQuery": "simplify \\int \\frac{P(x)}{Q(x)}\\,dx,\\, P(x),\\, Q(x)\\in \\mathbb{R}[x]",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\frac{P(x)}{Q(x)}\\,dx,\\, P(x),\\, Q(x)\\in \\mathbb{R}[x]",
+          "wolframQuery": "simplify \\int \\frac{P(x)}{Q(x)}\\,dx,\\, P(x),\\, Q(x)\\in \\mathbb{R}[x]",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{P(x)}{Q(x)}\\,dx,\\, P(x),\\, Q(x)\\in \\mathbb{R}[x]",
+          "wolframQuery": "simplify \\int \\frac{P(x)}{Q(x)}\\,dx,\\, P(x),\\, Q(x)\\in \\mathbb{R}[x]",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_basicformri_f1"
+        }
+      ]
+    }
+  ]
+}

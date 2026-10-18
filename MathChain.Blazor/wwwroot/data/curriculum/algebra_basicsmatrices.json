@@ -1,0 +1,609 @@
+{
+  "chapterId": "algebra_basicsmatrices",
+  "title": "Basics",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Basics.",
+  "formulas": [
+    {
+      "id": "algebra_basicsmatrices-f1",
+      "title": "Basics - Formula 1",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta_{11} & a_{12} & \\cdots & a_{1n} \\\\\n\t\t\t\t\t\ta_{21} & a_{22} & \\cdots & a_{2n} \\\\\n\t\t\t\t\t\t\\vdots & \\vdots & \\ddots & \\vdots \\\\\n\t\t\t\t\t\ta_{m1} & a_{m2} & \\cdots & a_{mn}\n\t\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta_{11} & a_{12} & \\cdots & a_{1n} \\\\\n\t\t\t\t\t\ta_{21} & a_{22} & \\cdots & a_{2n} \\\\\n\t\t\t\t\t\t\\vdots & \\vdots & \\ddots & \\vdots \\\\\n\t\t\t\t\t\ta_{m1} & a_{m2} & \\cdots & a_{mn}\n\t\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta_{11} & a_{12} & \\cdots & a_{1n} \\\\\n\t\t\t\t\t\ta_{21} & a_{22} & \\cdots & a_{2n} \\\\\n\t\t\t\t\t\t\\vdots & \\vdots & \\ddots & \\vdots \\\\\n\t\t\t\t\t\ta_{m1} & a_{m2} & \\cdots & a_{mn}\n\t\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta_{11} & a_{12} & \\cdots & a_{1n} \\\\\n\t\t\t\t\t\ta_{21} & a_{22} & \\cdots & a_{2n} \\\\\n\t\t\t\t\t\t\\vdots & \\vdots & \\ddots & \\vdots \\\\\n\t\t\t\t\t\ta_{m1} & a_{m2} & \\cdots & a_{mn}\n\t\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta_{11} & a_{12} & \\cdots & a_{1n} \\\\\n\t\t\t\t\t\ta_{21} & a_{22} & \\cdots & a_{2n} \\\\\n\t\t\t\t\t\t\\vdots & \\vdots & \\ddots & \\vdots \\\\\n\t\t\t\t\t\ta_{m1} & a_{m2} & \\cdots & a_{mn}\n\t\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta_{11} & a_{12} & \\cdots & a_{1n} \\\\\n\t\t\t\t\t\ta_{21} & a_{22} & \\cdots & a_{2n} \\\\\n\t\t\t\t\t\t\\vdots & \\vdots & \\ddots & \\vdots \\\\\n\t\t\t\t\t\ta_{m1} & a_{m2} & \\cdots & a_{mn}\n\t\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta_{11} & a_{12} & \\cdots & a_{1n} \\\\\n\t\t\t\t\t\ta_{21} & a_{22} & \\cdots & a_{2n} \\\\\n\t\t\t\t\t\t\\vdots & \\vdots & \\ddots & \\vdots \\\\\n\t\t\t\t\t\ta_{m1} & a_{m2} & \\cdots & a_{mn}\n\t\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_basicsmatrices_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_basicsmatrices-f2",
+      "title": "Basics - Formula 2",
+      "latex": "I_3=\\begin{pmatrix}\n\t\t\t\t\t1 & 0 & 0\\\\\n\t\t\t\t\t0 & 1 & 0\\\\\n\t\t\t\t\t0 & 0 & 1\n\t\t\t\t\\end{pmatrix}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "I_3=\\begin{pmatrix}\n\t\t\t\t\t1 & 0 & 0\\\\\n\t\t\t\t\t0 & 1 & 0\\\\\n\t\t\t\t\t0 & 0 & 1\n\t\t\t\t\\end{pmatrix}",
+          "wolframQuery": "simplify I_3=\\begin{pmatrix}\n\t\t\t\t\t1 & 0 & 0\\\\\n\t\t\t\t\t0 & 1 & 0\\\\\n\t\t\t\t\t0 & 0 & 1\n\t\t\t\t\\end{pmatrix}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "I_3=\\begin{pmatrix}\n\t\t\t\t\t1 & 0 & 0\\\\\n\t\t\t\t\t0 & 1 & 0\\\\\n\t\t\t\t\t0 & 0 & 1\n\t\t\t\t\\end{pmatrix}",
+          "wolframQuery": "simplify I_3=\\begin{pmatrix}\n\t\t\t\t\t1 & 0 & 0\\\\\n\t\t\t\t\t0 & 1 & 0\\\\\n\t\t\t\t\t0 & 0 & 1\n\t\t\t\t\\end{pmatrix}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "I_3=\\begin{pmatrix}\n\t\t\t\t\t1 & 0 & 0\\\\\n\t\t\t\t\t0 & 1 & 0\\\\\n\t\t\t\t\t0 & 0 & 1\n\t\t\t\t\\end{pmatrix}",
+          "wolframQuery": "simplify I_3=\\begin{pmatrix}\n\t\t\t\t\t1 & 0 & 0\\\\\n\t\t\t\t\t0 & 1 & 0\\\\\n\t\t\t\t\t0 & 0 & 1\n\t\t\t\t\\end{pmatrix}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_basicsmatrices_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_basicsmatrices-f3",
+      "title": "Basics - Formula 3",
+      "latex": "O_3=\\begin{pmatrix}\n\t\t\t\t\t0 & 0 & 0\\\\\n\t\t\t\t\t0 & 0 & 0\\\\\n\t\t\t\t\t0 & 0 & 0\n\t\t\t\t\\end{pmatrix}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "O_3=\\begin{pmatrix}\n\t\t\t\t\t0 & 0 & 0\\\\\n\t\t\t\t\t0 & 0 & 0\\\\\n\t\t\t\t\t0 & 0 & 0\n\t\t\t\t\\end{pmatrix}",
+          "wolframQuery": "simplify O_3=\\begin{pmatrix}\n\t\t\t\t\t0 & 0 & 0\\\\\n\t\t\t\t\t0 & 0 & 0\\\\\n\t\t\t\t\t0 & 0 & 0\n\t\t\t\t\\end{pmatrix}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "O_3=\\begin{pmatrix}\n\t\t\t\t\t0 & 0 & 0\\\\\n\t\t\t\t\t0 & 0 & 0\\\\\n\t\t\t\t\t0 & 0 & 0\n\t\t\t\t\\end{pmatrix}",
+          "wolframQuery": "simplify O_3=\\begin{pmatrix}\n\t\t\t\t\t0 & 0 & 0\\\\\n\t\t\t\t\t0 & 0 & 0\\\\\n\t\t\t\t\t0 & 0 & 0\n\t\t\t\t\\end{pmatrix}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "O_3=\\begin{pmatrix}\n\t\t\t\t\t0 & 0 & 0\\\\\n\t\t\t\t\t0 & 0 & 0\\\\\n\t\t\t\t\t0 & 0 & 0\n\t\t\t\t\\end{pmatrix}",
+          "wolframQuery": "simplify O_3=\\begin{pmatrix}\n\t\t\t\t\t0 & 0 & 0\\\\\n\t\t\t\t\t0 & 0 & 0\\\\\n\t\t\t\t\t0 & 0 & 0\n\t\t\t\t\\end{pmatrix}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_basicsmatrices_f3"
+        }
+      ]
+    },
+    {
+      "id": "algebra_basicsmatrices-f4",
+      "title": "Basics - Formula 4",
+      "latex": "\\begin{gather*}\n\t\t\t\t\tA+B=C \\\\\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2 & 3\\\\\n\t\t\t\t\t\t4 & 5 & 6\\\\\n\t\t\t\t\t\t7 & 8 & 9\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t+\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta & b & c\\\\\n\t\t\t\t\t\td & e & f\\\\\n\t\t\t\t\t\tg & h & i\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t=\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1+a & 2+b & 3+c\\\\\n\t\t\t\t\t\t4+d & 5+e & 6+f\\\\\n\t\t\t\t\t\t7+g & 8+h & 9+i\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\tA+B=B+A\\\\\n\t\t\t\t\tA+O_3=A\\\\\n\t\t\t\t\tA-A=O_3\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tA+B=C \\\\\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2 & 3\\\\\n\t\t\t\t\t\t4 & 5 & 6\\\\\n\t\t\t\t\t\t7 & 8 & 9\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t+\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta & b & c\\\\\n\t\t\t\t\t\td & e & f\\\\\n\t\t\t\t\t\tg & h & i\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t=\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1+a & 2+b & 3+c\\\\\n\t\t\t\t\t\t4+d & 5+e & 6+f\\\\\n\t\t\t\t\t\t7+g & 8+h & 9+i\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\tA+B=B+A\\\\\n\t\t\t\t\tA+O_3=A\\\\\n\t\t\t\t\tA-A=O_3\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tA+B=C \\\\\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2 & 3\\\\\n\t\t\t\t\t\t4 & 5 & 6\\\\\n\t\t\t\t\t\t7 & 8 & 9\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t+\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta & b & c\\\\\n\t\t\t\t\t\td & e & f\\\\\n\t\t\t\t\t\tg & h & i\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t=\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1+a & 2+b & 3+c\\\\\n\t\t\t\t\t\t4+d & 5+e & 6+f\\\\\n\t\t\t\t\t\t7+g & 8+h & 9+i\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\tA+B=B+A\\\\\n\t\t\t\t\tA+O_3=A\\\\\n\t\t\t\t\tA-A=O_3\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tA+B=C \\\\\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2 & 3\\\\\n\t\t\t\t\t\t4 & 5 & 6\\\\\n\t\t\t\t\t\t7 & 8 & 9\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t+\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta & b & c\\\\\n\t\t\t\t\t\td & e & f\\\\\n\t\t\t\t\t\tg & h & i\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t=\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1+a & 2+b & 3+c\\\\\n\t\t\t\t\t\t4+d & 5+e & 6+f\\\\\n\t\t\t\t\t\t7+g & 8+h & 9+i\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\tA+B=B+A\\\\\n\t\t\t\t\tA+O_3=A\\\\\n\t\t\t\t\tA-A=O_3\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tA+B=C \\\\\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2 & 3\\\\\n\t\t\t\t\t\t4 & 5 & 6\\\\\n\t\t\t\t\t\t7 & 8 & 9\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t+\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta & b & c\\\\\n\t\t\t\t\t\td & e & f\\\\\n\t\t\t\t\t\tg & h & i\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t=\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1+a & 2+b & 3+c\\\\\n\t\t\t\t\t\t4+d & 5+e & 6+f\\\\\n\t\t\t\t\t\t7+g & 8+h & 9+i\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\tA+B=B+A\\\\\n\t\t\t\t\tA+O_3=A\\\\\n\t\t\t\t\tA-A=O_3\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tA+B=C \\\\\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2 & 3\\\\\n\t\t\t\t\t\t4 & 5 & 6\\\\\n\t\t\t\t\t\t7 & 8 & 9\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t+\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta & b & c\\\\\n\t\t\t\t\t\td & e & f\\\\\n\t\t\t\t\t\tg & h & i\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t=\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1+a & 2+b & 3+c\\\\\n\t\t\t\t\t\t4+d & 5+e & 6+f\\\\\n\t\t\t\t\t\t7+g & 8+h & 9+i\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\tA+B=B+A\\\\\n\t\t\t\t\tA+O_3=A\\\\\n\t\t\t\t\tA-A=O_3\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tA+B=C \\\\\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2 & 3\\\\\n\t\t\t\t\t\t4 & 5 & 6\\\\\n\t\t\t\t\t\t7 & 8 & 9\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t+\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta & b & c\\\\\n\t\t\t\t\t\td & e & f\\\\\n\t\t\t\t\t\tg & h & i\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t=\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1+a & 2+b & 3+c\\\\\n\t\t\t\t\t\t4+d & 5+e & 6+f\\\\\n\t\t\t\t\t\t7+g & 8+h & 9+i\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\tA+B=B+A\\\\\n\t\t\t\t\tA+O_3=A\\\\\n\t\t\t\t\tA-A=O_3\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_basicsmatrices_f4"
+        }
+      ]
+    },
+    {
+      "id": "algebra_basicsmatrices-f5",
+      "title": "Basics - Formula 5",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t(x+B)\\cdot A=x\\cdot A + B\\cdot A\\\\\n\t\t\t\t\tx\\cdot (A+B)=x\\cdot A+x\\cdot B\\\\\n\t\t\t\t\tx\\cdot A=A\\cdot x\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t(x+B)\\cdot A=x\\cdot A + B\\cdot A\\\\\n\t\t\t\t\tx\\cdot (A+B)=x\\cdot A+x\\cdot B\\\\\n\t\t\t\t\tx\\cdot A=A\\cdot x\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t(x+B)\\cdot A=x\\cdot A + B\\cdot A\\\\\n\t\t\t\t\tx\\cdot (A+B)=x\\cdot A+x\\cdot B\\\\\n\t\t\t\t\tx\\cdot A=A\\cdot x\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t(x+B)\\cdot A=x\\cdot A + B\\cdot A\\\\\n\t\t\t\t\tx\\cdot (A+B)=x\\cdot A+x\\cdot B\\\\\n\t\t\t\t\tx\\cdot A=A\\cdot x\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t(x+B)\\cdot A=x\\cdot A + B\\cdot A\\\\\n\t\t\t\t\tx\\cdot (A+B)=x\\cdot A+x\\cdot B\\\\\n\t\t\t\t\tx\\cdot A=A\\cdot x\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t(x+B)\\cdot A=x\\cdot A + B\\cdot A\\\\\n\t\t\t\t\tx\\cdot (A+B)=x\\cdot A+x\\cdot B\\\\\n\t\t\t\t\tx\\cdot A=A\\cdot x\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t(x+B)\\cdot A=x\\cdot A + B\\cdot A\\\\\n\t\t\t\t\tx\\cdot (A+B)=x\\cdot A+x\\cdot B\\\\\n\t\t\t\t\tx\\cdot A=A\\cdot x\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_basicsmatrices_f5"
+        }
+      ]
+    },
+    {
+      "id": "algebra_basicsmatrices-f6",
+      "title": "Basics - Formula 6",
+      "latex": "\\begin{gather*}\n\t\t\t\t\tA\\cdot B=C \\\\\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2\\\\\n\t\t\t\t\t\t3 & 4\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t\\cdot \n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta & b\\\\\n\t\t\t\t\t\tc & d\\\\\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t=\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta+2c & b+2d\\\\\n\t\t\t\t\t\t3a+4c & 3b+4d\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t(A\\cdot B)\\cdot C=A\\cdot (B\\cdot C)\\\\\n\t\t\t\t\tA\\cdot B \\neq B\\cdot A\\\\\n\t\t\t\t\tA\\cdot I_2=A\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tA\\cdot B=C \\\\\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2\\\\\n\t\t\t\t\t\t3 & 4\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t\\cdot \n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta & b\\\\\n\t\t\t\t\t\tc & d\\\\\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t=\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta+2c & b+2d\\\\\n\t\t\t\t\t\t3a+4c & 3b+4d\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t(A\\cdot B)\\cdot C=A\\cdot (B\\cdot C)\\\\\n\t\t\t\t\tA\\cdot B \\neq B\\cdot A\\\\\n\t\t\t\t\tA\\cdot I_2=A\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tA\\cdot B=C \\\\\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2\\\\\n\t\t\t\t\t\t3 & 4\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t\\cdot \n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta & b\\\\\n\t\t\t\t\t\tc & d\\\\\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t=\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta+2c & b+2d\\\\\n\t\t\t\t\t\t3a+4c & 3b+4d\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t(A\\cdot B)\\cdot C=A\\cdot (B\\cdot C)\\\\\n\t\t\t\t\tA\\cdot B \\neq B\\cdot A\\\\\n\t\t\t\t\tA\\cdot I_2=A\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tA\\cdot B=C \\\\\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2\\\\\n\t\t\t\t\t\t3 & 4\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t\\cdot \n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta & b\\\\\n\t\t\t\t\t\tc & d\\\\\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t=\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta+2c & b+2d\\\\\n\t\t\t\t\t\t3a+4c & 3b+4d\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t(A\\cdot B)\\cdot C=A\\cdot (B\\cdot C)\\\\\n\t\t\t\t\tA\\cdot B \\neq B\\cdot A\\\\\n\t\t\t\t\tA\\cdot I_2=A\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tA\\cdot B=C \\\\\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2\\\\\n\t\t\t\t\t\t3 & 4\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t\\cdot \n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta & b\\\\\n\t\t\t\t\t\tc & d\\\\\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t=\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta+2c & b+2d\\\\\n\t\t\t\t\t\t3a+4c & 3b+4d\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t(A\\cdot B)\\cdot C=A\\cdot (B\\cdot C)\\\\\n\t\t\t\t\tA\\cdot B \\neq B\\cdot A\\\\\n\t\t\t\t\tA\\cdot I_2=A\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tA\\cdot B=C \\\\\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2\\\\\n\t\t\t\t\t\t3 & 4\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t\\cdot \n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta & b\\\\\n\t\t\t\t\t\tc & d\\\\\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t=\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta+2c & b+2d\\\\\n\t\t\t\t\t\t3a+4c & 3b+4d\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t(A\\cdot B)\\cdot C=A\\cdot (B\\cdot C)\\\\\n\t\t\t\t\tA\\cdot B \\neq B\\cdot A\\\\\n\t\t\t\t\tA\\cdot I_2=A\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tA\\cdot B=C \\\\\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2\\\\\n\t\t\t\t\t\t3 & 4\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t\\cdot \n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta & b\\\\\n\t\t\t\t\t\tc & d\\\\\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\t=\n\t\t\t\t\t\\begin{pmatrix}\n\t\t\t\t\t\ta+2c & b+2d\\\\\n\t\t\t\t\t\t3a+4c & 3b+4d\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t(A\\cdot B)\\cdot C=A\\cdot (B\\cdot C)\\\\\n\t\t\t\t\tA\\cdot B \\neq B\\cdot A\\\\\n\t\t\t\t\tA\\cdot I_2=A\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_basicsmatrices_f6"
+        }
+      ]
+    },
+    {
+      "id": "algebra_basicsmatrices-f7",
+      "title": "Basics - Formula 7",
+      "latex": "A^n=A\\cdot A\\cdot A\\cdot ...\\cdot A \\text{ }(n\\text{ times})",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "A^n=A\\cdot A\\cdot A\\cdot ...\\cdot A \\text{ }(n\\text{ times})",
+          "wolframQuery": "simplify A^n=A\\cdot A\\cdot A\\cdot ...\\cdot A \\text{ }(n\\text{ times})",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "A^n=A\\cdot A\\cdot A\\cdot ...\\cdot A \\text{ }(n\\text{ times})",
+          "wolframQuery": "simplify A^n=A\\cdot A\\cdot A\\cdot ...\\cdot A \\text{ }(n\\text{ times})",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "A^n=A\\cdot A\\cdot A\\cdot ...\\cdot A \\text{ }(n\\text{ times})",
+          "wolframQuery": "simplify A^n=A\\cdot A\\cdot A\\cdot ...\\cdot A \\text{ }(n\\text{ times})",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_basicsmatrices_f7"
+        }
+      ]
+    },
+    {
+      "id": "algebra_basicsmatrices-f8",
+      "title": "Basics - Formula 8",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t\\text{Induction:}\\\\\n\t\t\t\t\t1.\\text{ Calculate } A^2,\\text{ } A^3,\\text{ } A^4\\\\\n\t\t\t\t\t2. \\text{ Assume that } A^n \\text{ has a formula}\\\\\n\t\t\t\t\t3. \\text{ } A^{n+1}=A^n\\cdot A \\Rightarrow \\text{ has the same formula}\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{Induction:}\\\\\n\t\t\t\t\t1.\\text{ Calculate } A^2,\\text{ } A^3,\\text{ } A^4\\\\\n\t\t\t\t\t2. \\text{ Assume that } A^n \\text{ has a formula}\\\\\n\t\t\t\t\t3. \\text{ } A^{n+1}=A^n\\cdot A \\Rightarrow \\text{ has the same formula}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{Induction:}\\\\\n\t\t\t\t\t1.\\text{ Calculate } A^2,\\text{ } A^3,\\text{ } A^4\\\\\n\t\t\t\t\t2. \\text{ Assume that } A^n \\text{ has a formula}\\\\\n\t\t\t\t\t3. \\text{ } A^{n+1}=A^n\\cdot A \\Rightarrow \\text{ has the same formula}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{Induction:}\\\\\n\t\t\t\t\t1.\\text{ Calculate } A^2,\\text{ } A^3,\\text{ } A^4\\\\\n\t\t\t\t\t2. \\text{ Assume that } A^n \\text{ has a formula}\\\\\n\t\t\t\t\t3. \\text{ } A^{n+1}=A^n\\cdot A \\Rightarrow \\text{ has the same formula}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{Induction:}\\\\\n\t\t\t\t\t1.\\text{ Calculate } A^2,\\text{ } A^3,\\text{ } A^4\\\\\n\t\t\t\t\t2. \\text{ Assume that } A^n \\text{ has a formula}\\\\\n\t\t\t\t\t3. \\text{ } A^{n+1}=A^n\\cdot A \\Rightarrow \\text{ has the same formula}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{Induction:}\\\\\n\t\t\t\t\t1.\\text{ Calculate } A^2,\\text{ } A^3,\\text{ } A^4\\\\\n\t\t\t\t\t2. \\text{ Assume that } A^n \\text{ has a formula}\\\\\n\t\t\t\t\t3. \\text{ } A^{n+1}=A^n\\cdot A \\Rightarrow \\text{ has the same formula}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{Induction:}\\\\\n\t\t\t\t\t1.\\text{ Calculate } A^2,\\text{ } A^3,\\text{ } A^4\\\\\n\t\t\t\t\t2. \\text{ Assume that } A^n \\text{ has a formula}\\\\\n\t\t\t\t\t3. \\text{ } A^{n+1}=A^n\\cdot A \\Rightarrow \\text{ has the same formula}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_basicsmatrices_f8"
+        }
+      ]
+    },
+    {
+      "id": "algebra_basicsmatrices-f9",
+      "title": "Basics - Formula 9",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t\\text{Newton's Binomial:}\\\\\n\t\t\t\t\t1.\\text{ } A=I+B\\\\\n\t\t\t\t\t2. \\text{ } A^n=(I+B)^n\\\\\n\t\t\t\t\t3. \\text{ } A^n=\\binom{n}{0}I^n+\\binom{n}{1}I^{n-1}B+\\binom{n}{2}I^{n-2}B^2+...+\\binom{n}{n}B^n\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{Newton's Binomial:}\\\\\n\t\t\t\t\t1.\\text{ } A=I+B\\\\\n\t\t\t\t\t2. \\text{ } A^n=(I+B)^n\\\\\n\t\t\t\t\t3. \\text{ } A^n=\\binom{n}{0}I^n+\\binom{n}{1}I^{n-1}B+\\binom{n}{2}I^{n-2}B^2+...+\\binom{n}{n}B^n\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{Newton's Binomial:}\\\\\n\t\t\t\t\t1.\\text{ } A=I+B\\\\\n\t\t\t\t\t2. \\text{ } A^n=(I+B)^n\\\\\n\t\t\t\t\t3. \\text{ } A^n=\\binom{n}{0}I^n+\\binom{n}{1}I^{n-1}B+\\binom{n}{2}I^{n-2}B^2+...+\\binom{n}{n}B^n\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{Newton's Binomial:}\\\\\n\t\t\t\t\t1.\\text{ } A=I+B\\\\\n\t\t\t\t\t2. \\text{ } A^n=(I+B)^n\\\\\n\t\t\t\t\t3. \\text{ } A^n=\\binom{n}{0}I^n+\\binom{n}{1}I^{n-1}B+\\binom{n}{2}I^{n-2}B^2+...+\\binom{n}{n}B^n\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{Newton's Binomial:}\\\\\n\t\t\t\t\t1.\\text{ } A=I+B\\\\\n\t\t\t\t\t2. \\text{ } A^n=(I+B)^n\\\\\n\t\t\t\t\t3. \\text{ } A^n=\\binom{n}{0}I^n+\\binom{n}{1}I^{n-1}B+\\binom{n}{2}I^{n-2}B^2+...+\\binom{n}{n}B^n\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{Newton's Binomial:}\\\\\n\t\t\t\t\t1.\\text{ } A=I+B\\\\\n\t\t\t\t\t2. \\text{ } A^n=(I+B)^n\\\\\n\t\t\t\t\t3. \\text{ } A^n=\\binom{n}{0}I^n+\\binom{n}{1}I^{n-1}B+\\binom{n}{2}I^{n-2}B^2+...+\\binom{n}{n}B^n\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{Newton's Binomial:}\\\\\n\t\t\t\t\t1.\\text{ } A=I+B\\\\\n\t\t\t\t\t2. \\text{ } A^n=(I+B)^n\\\\\n\t\t\t\t\t3. \\text{ } A^n=\\binom{n}{0}I^n+\\binom{n}{1}I^{n-1}B+\\binom{n}{2}I^{n-2}B^2+...+\\binom{n}{n}B^n\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_basicsmatrices_f9"
+        }
+      ]
+    },
+    {
+      "id": "algebra_basicsmatrices-f10",
+      "title": "Basics - Formula 10",
+      "latex": "\\begin{gather*}\n\t\t\t\t\tA=\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2\\\\\n\t\t\t\t\t\t3 & 4\\\\\n\t\t\t\t\t\t5 & 6\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\tA^t=\\begin{pmatrix}\n\t\t\t\t\t\t1 & 3 & 5\\\\\n\t\t\t\t\t\t2 & 4 & 6\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t(A+B)^t=A^t+B^t\\\\\n\t\t\t\t\t(A\\cdot B)^t=A^t\\cdot B^t\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tA=\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2\\\\\n\t\t\t\t\t\t3 & 4\\\\\n\t\t\t\t\t\t5 & 6\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\tA^t=\\begin{pmatrix}\n\t\t\t\t\t\t1 & 3 & 5\\\\\n\t\t\t\t\t\t2 & 4 & 6\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t(A+B)^t=A^t+B^t\\\\\n\t\t\t\t\t(A\\cdot B)^t=A^t\\cdot B^t\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tA=\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2\\\\\n\t\t\t\t\t\t3 & 4\\\\\n\t\t\t\t\t\t5 & 6\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\tA^t=\\begin{pmatrix}\n\t\t\t\t\t\t1 & 3 & 5\\\\\n\t\t\t\t\t\t2 & 4 & 6\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t(A+B)^t=A^t+B^t\\\\\n\t\t\t\t\t(A\\cdot B)^t=A^t\\cdot B^t\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tA=\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2\\\\\n\t\t\t\t\t\t3 & 4\\\\\n\t\t\t\t\t\t5 & 6\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\tA^t=\\begin{pmatrix}\n\t\t\t\t\t\t1 & 3 & 5\\\\\n\t\t\t\t\t\t2 & 4 & 6\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t(A+B)^t=A^t+B^t\\\\\n\t\t\t\t\t(A\\cdot B)^t=A^t\\cdot B^t\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tA=\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2\\\\\n\t\t\t\t\t\t3 & 4\\\\\n\t\t\t\t\t\t5 & 6\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\tA^t=\\begin{pmatrix}\n\t\t\t\t\t\t1 & 3 & 5\\\\\n\t\t\t\t\t\t2 & 4 & 6\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t(A+B)^t=A^t+B^t\\\\\n\t\t\t\t\t(A\\cdot B)^t=A^t\\cdot B^t\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tA=\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2\\\\\n\t\t\t\t\t\t3 & 4\\\\\n\t\t\t\t\t\t5 & 6\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\tA^t=\\begin{pmatrix}\n\t\t\t\t\t\t1 & 3 & 5\\\\\n\t\t\t\t\t\t2 & 4 & 6\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t(A+B)^t=A^t+B^t\\\\\n\t\t\t\t\t(A\\cdot B)^t=A^t\\cdot B^t\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tA=\\begin{pmatrix}\n\t\t\t\t\t\t1 & 2\\\\\n\t\t\t\t\t\t3 & 4\\\\\n\t\t\t\t\t\t5 & 6\n\t\t\t\t\t\\end{pmatrix}\n\t\t\t\t\tA^t=\\begin{pmatrix}\n\t\t\t\t\t\t1 & 3 & 5\\\\\n\t\t\t\t\t\t2 & 4 & 6\n\t\t\t\t\t\\end{pmatrix}\\\\\n\t\t\t\t\t(A+B)^t=A^t+B^t\\\\\n\t\t\t\t\t(A\\cdot B)^t=A^t\\cdot B^t\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_basicsmatrices_f10"
+        }
+      ]
+    }
+  ]
+}

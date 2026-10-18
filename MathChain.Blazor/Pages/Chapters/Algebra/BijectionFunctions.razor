@@ -1,7 +1,9 @@
-﻿@page "/bijection-functions"
+@page "/bijection-functions"
+@inject IpfsService IpfsService
 @inject IJSRuntime JS
 @inject IDialogService DialogService
 @using MathChain.Domain.Entities
+@using MathChain.Blazor.DTOs
 
 <Component />
 
@@ -9,7 +11,25 @@
 <MudContainer MaxWidth="MaxWidth.Large" Class="mt-6">
 	<MudText Typo="Typo.h4" Align="Align.Center" Class="mb-8">Bijection</MudText>
 
-	<MudGrid>
+	@if (_isLoading)
+	{
+		<MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="min-height: 350px;">
+			<MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+			<MudText Typo="Typo.h6" Class="mt-4" Style="color: rgba(255, 255, 255, 0.7);">
+				Loading decentralized curriculum from IPFS...
+			</MudText>
+		</MudStack>
+	}
+	else if (_formulas == null || !_formulas.Any())
+	{
+		<MudPaper Class="pa-8 text-center" Style="background-color: #16213E;">
+			<MudIcon Icon="@Icons.Material.Filled.Warning" Color="Color.Warning" Size="Size.Large" />
+			<MudText Typo="Typo.h6" Class="mt-2" Style="color: #ffffff;">No formulas could be loaded from IPFS.</MudText>
+		</MudPaper>
+	}
+	else
+	{
+<MudGrid>
 		@foreach (var formula in _formulas)
 		{
 			<MudItem xs="12" sm="6" md="4">
@@ -34,103 +54,56 @@
 			</MudItem>
 		}
 	</MudGrid>
+	}
 </MudContainer>
 
 
 
 @code
 {
-	private static readonly string requirement = "";
+	private bool _isLoading = false;
+	private bool _mathFormatted = false;
+	private List<Formula> _formulas = new();
 
-	private List<Formula> _formulas = new List<Formula>
+	private const string ChapterSlug = "algebra_bijectionfunctions";
+	private const string ChapterIpfsCid = "QmXsEE839rU9UjABj55RNJbUq9sHXs1B1kXFbWaE6rZ8qG";
+
+	protected override async Task OnInitializedAsync()
 	{
-		new Formula
+		_isLoading = true;
+		try
 		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$\begin{gather*}
-					f:A\to B, \text{ } f(x)=y\\
-					A = \text{domain of definition, }x\in A \\
-					B = \text{codomain, }y\in B
-					\end{gather*}$$",
-			ModelPath = "Assets/3DModels/inta.glb",
-			Category = "Integrals",
-			Description = "",
-			Requirement = $"{requirement}"
-		},
+			var curriculum = await IpfsService.GetCurriculumBySlugAsync(ChapterSlug, ChapterIpfsCid);
 
-		new Formula
+			if (curriculum?.Formulas != null)
+			{
+				_formulas = curriculum.Formulas.Select(f => new Formula
+					{
+						Id = Guid.NewGuid(),
+						Latex = f.Latex.StartsWith("$$") ? f.Latex : $"$${f.Latex}$$",
+						ModelPath = f.Model3D,
+						Category = curriculum.Category,
+						Description = f.Description,
+						Requirement = f.Requirement ?? f.Exercises.FirstOrDefault()?.LatexTemplate ?? ""
+					}).ToList();
+			}
+		}
+		catch (Exception ex)
 		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$\begin{gather*}
-					f:A\to B\\
-					f \text{ is injective if from } f(x_1)=f(x_2) \Rightarrow x_1=x_2 \\
-					f \text{ is not injective if } x_1\neq x_2 \text{ such that } f(x_1)=f(x_2) 
-					\end{gather*}$$",
-			ModelPath = "Assets/3DModels/inta.glb",
-			Category = "Integrals",
-			Description = "",
-			Requirement = $"{requirement}"
-		},
-
-		new Formula
+			Console.WriteLine($"Error loading IPFS curriculum: {ex.Message}");
+		}
+		finally
 		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$\begin{gather*}
-					f:A\to B\\
-					f \text{ is surjective if the ecuation } f(x)=y \text{ has at least one solution} \\
-					f \text{ is not surjective if the ecuation } f(x)=y \text{ does not have solutions}
-					\end{gather*}$$",
-			ModelPath = "Assets/3DModels/inta.glb",
-			Category = "Integrals",
-			Description = "",
-			Requirement = $"{requirement}"
-		},
-
-		new Formula
-		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$\begin{gather*}
-					f:A\to B\\
-					f \text{ is surjective if the ecuation } f(x)=y \text{ has at least one solution} \\
-					f \text{ is not surjective if the ecuation } f(x)=y \text{ does not have solutions}
-					\end{gather*}$$",
-			ModelPath = "Assets/3DModels/inta.glb",
-			Category = "Integrals",
-			Description = "",
-			Requirement = $"{requirement}"
-		},
-
-		new Formula
-		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$\begin{gather*}
-					f:A\to B\\
-					f \text{ is bijective if } f\text{ is injective and surjective} \\
-					f \text{ is bijective if the ecuation } f(x)=y \text{ has a unique solution}
-					\end{gather*}$$",
-			ModelPath = "Assets/3DModels/inta.glb",
-			Category = "Integrals",
-			Description = "",
-			Requirement = $"{requirement}"
-		},
-
-		new Formula
-		{
-			Id = Guid.NewGuid(),
-			Latex = @"$$\begin{gather*}
-					f \text{ is invertible if it is bijective and satisfies}  \\ \text{ the property } f(x)=y \Leftrightarrow x=f^{-1}(y)
-					\end{gather*}$$",
-			ModelPath = "Assets/3DModels/inta.glb",
-			Category = "Integrals",
-			Description = "",
-			Requirement = $"{requirement}"
-		},
-	};
+			_isLoading = false;
+		}
+	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		if (firstRender)
+		if (_formulas.Any() && !_mathFormatted)
 		{
+			_mathFormatted = true;
+			await Task.Delay(100);
 			await JS.InvokeVoidAsync("formatMath");
 			await Task.Delay(200);
 			await JS.InvokeVoidAsync("autoScaleFormulas");
@@ -151,8 +124,8 @@
 	{
 		var parameters = new DialogParameters<FormulaDialog>
 		{
-			{ x => x.Formula, formula},
-			{ x => x.TotalFormulas, _formulas.Count  }
+			{ x => x.Formula, formula },
+			{ x => x.TotalFormulas, _formulas.Count }
 		};
 
 		var options = new DialogOptions
@@ -165,4 +138,3 @@
 		await DialogService.ShowAsync<FormulaDialog>("Formula Details", parameters, options);
 	}
 }
-

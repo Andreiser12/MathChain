@@ -1,0 +1,69 @@
+{
+  "chapterId": "calculus_integrationsubstitution",
+  "title": "Integration by Substitution",
+  "category": "Calculus",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Integration by Substitution.",
+  "formulas": [
+    {
+      "id": "calculus_integrationsubstitution-f1",
+      "title": "Integration by Substitution - Formula 1",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t& \\text{An expression is substituted with }t \\text{ in order to transform the entire}\\\\\n\t\t\t\t\t&\\text{function to be integrated depending on }t.\\\\\n\t\t\t\t\t&\\text{example:}\\\\\n\t\t\t\t\t&I=\\int \\frac{2x-1}{x^2-x+11}\\,dx=\\int \\frac{1}{x^2-x+11}\\cdot (2x-1)\\,dx\\Rightarrow \\\\\n\t\t\t\t\t&x^2-x+11=t \\\\\n\t\t\t\t\t&\\downarrow\\text{(differentiation)}\\\\\n\t\t\t\t\t&(2x-1)\\,dx=dt \\Rightarrow \\\\\n\t\t\t\t\t&I=\\int \\frac{1}{t}\\,dt=\\ln{|t|}=\\ln{|x^2-x+11|}+C\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The derivative of a constant a is zero.",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t& \\text{An expression is substituted with }t \\text{ in order to transform the entire}\\\\\n\t\t\t\t\t&\\text{function to be integrated depending on }t.\\\\\n\t\t\t\t\t&\\text{example:}\\\\\n\t\t\t\t\t&I=\\int \\frac{2x-1}{x^2-x+11}\\,dx=\\int \\frac{1}{x^2-x+11}\\cdot (2x-1)\\,dx\\Rightarrow \\\\\n\t\t\t\t\t&x^2-x+11=t \\\\\n\t\t\t\t\t&\\downarrow\\text{(differentiation)}\\\\\n\t\t\t\t\t&(2x-1)\\,dx=dt \\Rightarrow \\\\\n\t\t\t\t\t&I=\\int \\frac{1}{t}\\,dt=\\ln{|t|}=\\ln{|x^2-x+11|}+C\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t& \\text{An expression is substituted with }t \\text{ in order to transform the entire}\\\\\n\t\t\t\t\t&\\text{function to be integrated depending on }t.\\\\\n\t\t\t\t\t&\\text{example:}\\\\\n\t\t\t\t\t&I=\\int \\frac{2x-1}{x^2-x+11}\\,dx=\\int \\frac{1}{x^2-x+11}\\cdot (2x-1)\\,dx\\Rightarrow \\\\\n\t\t\t\t\t&x^2-x+11=t \\\\\n\t\t\t\t\t&\\downarrow\\text{(differentiation)}\\\\\n\t\t\t\t\t&(2x-1)\\,dx=dt \\Rightarrow \\\\\n\t\t\t\t\t&I=\\int \\frac{1}{t}\\,dt=\\ln{|t|}=\\ln{|x^2-x+11|}+C\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t& \\text{An expression is substituted with }t \\text{ in order to transform the entire}\\\\\n\t\t\t\t\t&\\text{function to be integrated depending on }t.\\\\\n\t\t\t\t\t&\\text{example:}\\\\\n\t\t\t\t\t&I=\\int \\frac{2x-1}{x^2-x+11}\\,dx=\\int \\frac{1}{x^2-x+11}\\cdot (2x-1)\\,dx\\Rightarrow \\\\\n\t\t\t\t\t&x^2-x+11=t \\\\\n\t\t\t\t\t&\\downarrow\\text{(differentiation)}\\\\\n\t\t\t\t\t&(2x-1)\\,dx=dt \\Rightarrow \\\\\n\t\t\t\t\t&I=\\int \\frac{1}{t}\\,dt=\\ln{|t|}=\\ln{|x^2-x+11|}+C\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t& \\text{An expression is substituted with }t \\text{ in order to transform the entire}\\\\\n\t\t\t\t\t&\\text{function to be integrated depending on }t.\\\\\n\t\t\t\t\t&\\text{example:}\\\\\n\t\t\t\t\t&I=\\int \\frac{2x-1}{x^2-x+11}\\,dx=\\int \\frac{1}{x^2-x+11}\\cdot (2x-1)\\,dx\\Rightarrow \\\\\n\t\t\t\t\t&x^2-x+11=t \\\\\n\t\t\t\t\t&\\downarrow\\text{(differentiation)}\\\\\n\t\t\t\t\t&(2x-1)\\,dx=dt \\Rightarrow \\\\\n\t\t\t\t\t&I=\\int \\frac{1}{t}\\,dt=\\ln{|t|}=\\ln{|x^2-x+11|}+C\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t& \\text{An expression is substituted with }t \\text{ in order to transform the entire}\\\\\n\t\t\t\t\t&\\text{function to be integrated depending on }t.\\\\\n\t\t\t\t\t&\\text{example:}\\\\\n\t\t\t\t\t&I=\\int \\frac{2x-1}{x^2-x+11}\\,dx=\\int \\frac{1}{x^2-x+11}\\cdot (2x-1)\\,dx\\Rightarrow \\\\\n\t\t\t\t\t&x^2-x+11=t \\\\\n\t\t\t\t\t&\\downarrow\\text{(differentiation)}\\\\\n\t\t\t\t\t&(2x-1)\\,dx=dt \\Rightarrow \\\\\n\t\t\t\t\t&I=\\int \\frac{1}{t}\\,dt=\\ln{|t|}=\\ln{|x^2-x+11|}+C\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t& \\text{An expression is substituted with }t \\text{ in order to transform the entire}\\\\\n\t\t\t\t\t&\\text{function to be integrated depending on }t.\\\\\n\t\t\t\t\t&\\text{example:}\\\\\n\t\t\t\t\t&I=\\int \\frac{2x-1}{x^2-x+11}\\,dx=\\int \\frac{1}{x^2-x+11}\\cdot (2x-1)\\,dx\\Rightarrow \\\\\n\t\t\t\t\t&x^2-x+11=t \\\\\n\t\t\t\t\t&\\downarrow\\text{(differentiation)}\\\\\n\t\t\t\t\t&(2x-1)\\,dx=dt \\Rightarrow \\\\\n\t\t\t\t\t&I=\\int \\frac{1}{t}\\,dt=\\ln{|t|}=\\ln{|x^2-x+11|}+C\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_integrationsubstitution_f1"
+        }
+      ]
+    }
+  ]
+}

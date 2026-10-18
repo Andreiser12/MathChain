@@ -1,0 +1,489 @@
+{
+  "chapterId": "trigonometry_applicationstrigonometry",
+  "title": "Applications of Trigonometry in Plane Geometry",
+  "category": "Trigonometry",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Applications of Trigonometry in Plane Geometry.",
+  "formulas": [
+    {
+      "id": "trigonometry_applicationstrigonometry-f1",
+      "title": "Applications of Trigonometry in Plane Geometry - Formula 1",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&c=AB\\\\\n\t\t\t\t\t&b=AC\\\\\n\t\t\t\t\t&a=BC\\\\\n\t\t\t\t\t&R=\\text{the radius of circumscribed circle}\\\\\n\t\t\t\t\t&r=\\text{the radius of the inscribed cicle}\\\\\n\t\t\t\t\t&p=\\text{the semi-perimeter}\\\\\n\t\t\t\t\t&h=\\text{the height}\\\\\n\t\t\t\t\t&m=\\text{the median}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&c=AB\\\\\n\t\t\t\t\t&b=AC\\\\\n\t\t\t\t\t&a=BC\\\\\n\t\t\t\t\t&R=\\text{the radius of circumscribed circle}\\\\\n\t\t\t\t\t&r=\\text{the radius of the inscribed cicle}\\\\\n\t\t\t\t\t&p=\\text{the semi-perimeter}\\\\\n\t\t\t\t\t&h=\\text{the height}\\\\\n\t\t\t\t\t&m=\\text{the median}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&c=AB\\\\\n\t\t\t\t\t&b=AC\\\\\n\t\t\t\t\t&a=BC\\\\\n\t\t\t\t\t&R=\\text{the radius of circumscribed circle}\\\\\n\t\t\t\t\t&r=\\text{the radius of the inscribed cicle}\\\\\n\t\t\t\t\t&p=\\text{the semi-perimeter}\\\\\n\t\t\t\t\t&h=\\text{the height}\\\\\n\t\t\t\t\t&m=\\text{the median}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&c=AB\\\\\n\t\t\t\t\t&b=AC\\\\\n\t\t\t\t\t&a=BC\\\\\n\t\t\t\t\t&R=\\text{the radius of circumscribed circle}\\\\\n\t\t\t\t\t&r=\\text{the radius of the inscribed cicle}\\\\\n\t\t\t\t\t&p=\\text{the semi-perimeter}\\\\\n\t\t\t\t\t&h=\\text{the height}\\\\\n\t\t\t\t\t&m=\\text{the median}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&c=AB\\\\\n\t\t\t\t\t&b=AC\\\\\n\t\t\t\t\t&a=BC\\\\\n\t\t\t\t\t&R=\\text{the radius of circumscribed circle}\\\\\n\t\t\t\t\t&r=\\text{the radius of the inscribed cicle}\\\\\n\t\t\t\t\t&p=\\text{the semi-perimeter}\\\\\n\t\t\t\t\t&h=\\text{the height}\\\\\n\t\t\t\t\t&m=\\text{the median}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&c=AB\\\\\n\t\t\t\t\t&b=AC\\\\\n\t\t\t\t\t&a=BC\\\\\n\t\t\t\t\t&R=\\text{the radius of circumscribed circle}\\\\\n\t\t\t\t\t&r=\\text{the radius of the inscribed cicle}\\\\\n\t\t\t\t\t&p=\\text{the semi-perimeter}\\\\\n\t\t\t\t\t&h=\\text{the height}\\\\\n\t\t\t\t\t&m=\\text{the median}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&c=AB\\\\\n\t\t\t\t\t&b=AC\\\\\n\t\t\t\t\t&a=BC\\\\\n\t\t\t\t\t&R=\\text{the radius of circumscribed circle}\\\\\n\t\t\t\t\t&r=\\text{the radius of the inscribed cicle}\\\\\n\t\t\t\t\t&p=\\text{the semi-perimeter}\\\\\n\t\t\t\t\t&h=\\text{the height}\\\\\n\t\t\t\t\t&m=\\text{the median}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_applicationstrigonometry_f1"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_applicationstrigonometry-f2",
+      "title": "Applications of Trigonometry in Plane Geometry - Formula 2",
+      "latex": "\\cos{A}=\\frac{b^2+c^2-a^2}{2bc}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\cos{A}=\\frac{b^2+c^2-a^2}{2bc}",
+          "wolframQuery": "simplify \\cos{A}=\\frac{b^2+c^2-a^2}{2bc}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\cos{A}=\\frac{b^2+c^2-a^2}{2bc}",
+          "wolframQuery": "simplify \\cos{A}=\\frac{b^2+c^2-a^2}{2bc}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\cos{A}=\\frac{b^2+c^2-a^2}{2bc}",
+          "wolframQuery": "simplify \\cos{A}=\\frac{b^2+c^2-a^2}{2bc}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_applicationstrigonometry_f2"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_applicationstrigonometry-f3",
+      "title": "Applications of Trigonometry in Plane Geometry - Formula 3",
+      "latex": "\\frac{a}{\\sin{A}}=\\frac{b}{\\sin{B}}=\\frac{c}{\\sin{C}}=2R",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\frac{a}{\\sin{A}}=\\frac{b}{\\sin{B}}=\\frac{c}{\\sin{C}}=2R",
+          "wolframQuery": "simplify \\frac{a}{\\sin{A}}=\\frac{b}{\\sin{B}}=\\frac{c}{\\sin{C}}=2R",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\frac{a}{\\sin{A}}=\\frac{b}{\\sin{B}}=\\frac{c}{\\sin{C}}=2R",
+          "wolframQuery": "simplify \\frac{a}{\\sin{A}}=\\frac{b}{\\sin{B}}=\\frac{c}{\\sin{C}}=2R",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\frac{a}{\\sin{A}}=\\frac{b}{\\sin{B}}=\\frac{c}{\\sin{C}}=2R",
+          "wolframQuery": "simplify \\frac{a}{\\sin{A}}=\\frac{b}{\\sin{B}}=\\frac{c}{\\sin{C}}=2R",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_applicationstrigonometry_f3"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_applicationstrigonometry-f4",
+      "title": "Applications of Trigonometry in Plane Geometry - Formula 4",
+      "latex": "m^2_a=\\frac{b^2+c^2}{2}-\\frac{a^2}{4}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "m^2_a=\\frac{b^2+c^2}{2}-\\frac{a^2}{4}",
+          "wolframQuery": "simplify m^2_a=\\frac{b^2+c^2}{2}-\\frac{a^2}{4}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "m^2_a=\\frac{b^2+c^2}{2}-\\frac{a^2}{4}",
+          "wolframQuery": "simplify m^2_a=\\frac{b^2+c^2}{2}-\\frac{a^2}{4}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "m^2_a=\\frac{b^2+c^2}{2}-\\frac{a^2}{4}",
+          "wolframQuery": "simplify m^2_a=\\frac{b^2+c^2}{2}-\\frac{a^2}{4}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_applicationstrigonometry_f4"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_applicationstrigonometry-f5",
+      "title": "Applications of Trigonometry in Plane Geometry - Formula 5",
+      "latex": "A_{ABC}=\\frac{ah_a}{2}=\\frac{ab\\sin{C}}{2}=\\frac{abc}{4R}=pr",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "A_{ABC}=\\frac{ah_a}{2}=\\frac{ab\\sin{C}}{2}=\\frac{abc}{4R}=pr",
+          "wolframQuery": "simplify A_{ABC}=\\frac{ah_a}{2}=\\frac{ab\\sin{C}}{2}=\\frac{abc}{4R}=pr",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "A_{ABC}=\\frac{ah_a}{2}=\\frac{ab\\sin{C}}{2}=\\frac{abc}{4R}=pr",
+          "wolframQuery": "simplify A_{ABC}=\\frac{ah_a}{2}=\\frac{ab\\sin{C}}{2}=\\frac{abc}{4R}=pr",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "A_{ABC}=\\frac{ah_a}{2}=\\frac{ab\\sin{C}}{2}=\\frac{abc}{4R}=pr",
+          "wolframQuery": "simplify A_{ABC}=\\frac{ah_a}{2}=\\frac{ab\\sin{C}}{2}=\\frac{abc}{4R}=pr",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_applicationstrigonometry_f5"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_applicationstrigonometry-f6",
+      "title": "Applications of Trigonometry in Plane Geometry - Formula 6",
+      "latex": "A_{ABC}=\\sqrt{p(p-a)(p-b)(p-c)}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "A_{ABC}=\\sqrt{p(p-a)(p-b)(p-c)}",
+          "wolframQuery": "simplify A_{ABC}=\\sqrt{p(p-a)(p-b)(p-c)}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "A_{ABC}=\\sqrt{p(p-a)(p-b)(p-c)}",
+          "wolframQuery": "simplify A_{ABC}=\\sqrt{p(p-a)(p-b)(p-c)}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "A_{ABC}=\\sqrt{p(p-a)(p-b)(p-c)}",
+          "wolframQuery": "simplify A_{ABC}=\\sqrt{p(p-a)(p-b)(p-c)}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_applicationstrigonometry_f6"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_applicationstrigonometry-f7",
+      "title": "Applications of Trigonometry in Plane Geometry - Formula 7",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{bc}{2}=\\frac{ah_a}{2}\\\\\n\t\t\t\t\t&h_a=\\frac{bc}{a}\\\\\n\t\t\t\t\t&m_a=\\frac{BC}{2}\\\\\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{bc}{2}=\\frac{ah_a}{2}\\\\\n\t\t\t\t\t&h_a=\\frac{bc}{a}\\\\\n\t\t\t\t\t&m_a=\\frac{BC}{2}\\\\\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{bc}{2}=\\frac{ah_a}{2}\\\\\n\t\t\t\t\t&h_a=\\frac{bc}{a}\\\\\n\t\t\t\t\t&m_a=\\frac{BC}{2}\\\\\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{bc}{2}=\\frac{ah_a}{2}\\\\\n\t\t\t\t\t&h_a=\\frac{bc}{a}\\\\\n\t\t\t\t\t&m_a=\\frac{BC}{2}\\\\\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{bc}{2}=\\frac{ah_a}{2}\\\\\n\t\t\t\t\t&h_a=\\frac{bc}{a}\\\\\n\t\t\t\t\t&m_a=\\frac{BC}{2}\\\\\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{bc}{2}=\\frac{ah_a}{2}\\\\\n\t\t\t\t\t&h_a=\\frac{bc}{a}\\\\\n\t\t\t\t\t&m_a=\\frac{BC}{2}\\\\\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{bc}{2}=\\frac{ah_a}{2}\\\\\n\t\t\t\t\t&h_a=\\frac{bc}{a}\\\\\n\t\t\t\t\t&m_a=\\frac{BC}{2}\\\\\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_applicationstrigonometry_f7"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_applicationstrigonometry-f8",
+      "title": "Applications of Trigonometry in Plane Geometry - Formula 8",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{a^2\\sqrt{3}}{4}\\\\\n\t\t\t\t\t&m_a=h_a=\\frac{a\\sqrt{3}}{2}\\\\\n\t\t\t\t\t&R=\\frac{a\\sqrt{3}}{2}\\\\\n\t\t\t\t\t&r=\\frac{a\\sqrt{3}}{6}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{a^2\\sqrt{3}}{4}\\\\\n\t\t\t\t\t&m_a=h_a=\\frac{a\\sqrt{3}}{2}\\\\\n\t\t\t\t\t&R=\\frac{a\\sqrt{3}}{2}\\\\\n\t\t\t\t\t&r=\\frac{a\\sqrt{3}}{6}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{a^2\\sqrt{3}}{4}\\\\\n\t\t\t\t\t&m_a=h_a=\\frac{a\\sqrt{3}}{2}\\\\\n\t\t\t\t\t&R=\\frac{a\\sqrt{3}}{2}\\\\\n\t\t\t\t\t&r=\\frac{a\\sqrt{3}}{6}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{a^2\\sqrt{3}}{4}\\\\\n\t\t\t\t\t&m_a=h_a=\\frac{a\\sqrt{3}}{2}\\\\\n\t\t\t\t\t&R=\\frac{a\\sqrt{3}}{2}\\\\\n\t\t\t\t\t&r=\\frac{a\\sqrt{3}}{6}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{a^2\\sqrt{3}}{4}\\\\\n\t\t\t\t\t&m_a=h_a=\\frac{a\\sqrt{3}}{2}\\\\\n\t\t\t\t\t&R=\\frac{a\\sqrt{3}}{2}\\\\\n\t\t\t\t\t&r=\\frac{a\\sqrt{3}}{6}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{a^2\\sqrt{3}}{4}\\\\\n\t\t\t\t\t&m_a=h_a=\\frac{a\\sqrt{3}}{2}\\\\\n\t\t\t\t\t&R=\\frac{a\\sqrt{3}}{2}\\\\\n\t\t\t\t\t&r=\\frac{a\\sqrt{3}}{6}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{a^2\\sqrt{3}}{4}\\\\\n\t\t\t\t\t&m_a=h_a=\\frac{a\\sqrt{3}}{2}\\\\\n\t\t\t\t\t&R=\\frac{a\\sqrt{3}}{2}\\\\\n\t\t\t\t\t&r=\\frac{a\\sqrt{3}}{6}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_applicationstrigonometry_f8"
+        }
+      ]
+    }
+  ]
+}

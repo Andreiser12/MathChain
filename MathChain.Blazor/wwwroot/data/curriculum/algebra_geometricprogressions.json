@@ -1,0 +1,309 @@
+{
+  "chapterId": "algebra_geometricprogressions",
+  "title": "Geometric Progressions",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Geometric Progressions.",
+  "formulas": [
+    {
+      "id": "algebra_geometricprogressions-f1",
+      "title": "Geometric Progressions - Formula 1",
+      "latex": "b_{n+1}=b_nq",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "b_{n+1}=b_nq",
+          "wolframQuery": "simplify b_{n+1}=b_nq",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "b_{n+1}=b_nq",
+          "wolframQuery": "simplify b_{n+1}=b_nq",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "b_{n+1}=b_nq",
+          "wolframQuery": "simplify b_{n+1}=b_nq",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_geometricprogressions_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_geometricprogressions-f2",
+      "title": "Geometric Progressions - Formula 2",
+      "latex": "b_n=b_1q^{n-1}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "b_n=b_1q^{n-1}",
+          "wolframQuery": "simplify b_n=b_1q^{n-1}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "b_n=b_1q^{n-1}",
+          "wolframQuery": "simplify b_n=b_1q^{n-1}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "b_n=b_1q^{n-1}",
+          "wolframQuery": "simplify b_n=b_1q^{n-1}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_geometricprogressions_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_geometricprogressions-f3",
+      "title": "Geometric Progressions - Formula 3",
+      "latex": "b^2_n=b_{n-1}b_{n+1}",
+      "model3D": "Assets/3DModels/int1pex.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "b^2_n=b_{n-1}b_{n+1}",
+          "wolframQuery": "simplify b^2_n=b_{n-1}b_{n+1}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "b^2_n=b_{n-1}b_{n+1}",
+          "wolframQuery": "simplify b^2_n=b_{n-1}b_{n+1}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "b^2_n=b_{n-1}b_{n+1}",
+          "wolframQuery": "simplify b^2_n=b_{n-1}b_{n+1}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_geometricprogressions_f3"
+        }
+      ]
+    },
+    {
+      "id": "algebra_geometricprogressions-f4",
+      "title": "Geometric Progressions - Formula 4",
+      "latex": "1+x+x^2+\\dots+x^n=\\frac{x^{n+1}-1}{x-1}",
+      "model3D": "Assets/3DModels/intalax.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "1+x+x^2+\\dots+x^n=\\frac{x^{n+1}-1}{x-1}",
+          "wolframQuery": "simplify 1+x+x^2+\\dots+x^n=\\frac{x^{n+1}-1}{x-1}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "1+x+x^2+\\dots+x^n=\\frac{x^{n+1}-1}{x-1}",
+          "wolframQuery": "simplify 1+x+x^2+\\dots+x^n=\\frac{x^{n+1}-1}{x-1}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "1+x+x^2+\\dots+x^n=\\frac{x^{n+1}-1}{x-1}",
+          "wolframQuery": "simplify 1+x+x^2+\\dots+x^n=\\frac{x^{n+1}-1}{x-1}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_geometricprogressions_f4"
+        }
+      ]
+    },
+    {
+      "id": "algebra_geometricprogressions-f5",
+      "title": "Geometric Progressions - Formula 5",
+      "latex": "S_n=b_1+b_2+\\dots+b_n= \\begin{cases}\n\t\t\t\t\t\tb_1\\frac{q^n-1}{n-1}, \\text{ if } q\\neq1 \\\\\n\t\t\t\t\t\tnb_1, \\text{ if } q=1\n\t\t\t\t\t\t\\end{cases}",
+      "model3D": "Assets/3DModels/intalax.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "S_n=b_1+b_2+\\dots+b_n= \\begin{cases}\n\t\t\t\t\t\tb_1\\frac{q^n-1}{n-1}, \\text{ if } q\\neq1 \\\\\n\t\t\t\t\t\tnb_1, \\text{ if } q=1\n\t\t\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify S_n=b_1+b_2+\\dots+b_n= \\begin{cases}\n\t\t\t\t\t\tb_1\\frac{q^n-1}{n-1}, \\text{ if } q\\neq1 \\\\\n\t\t\t\t\t\tnb_1, \\text{ if } q=1\n\t\t\t\t\t\t\\end{cases}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "S_n=b_1+b_2+\\dots+b_n= \\begin{cases}\n\t\t\t\t\t\tb_1\\frac{q^n-1}{n-1}, \\text{ if } q\\neq1 \\\\\n\t\t\t\t\t\tnb_1, \\text{ if } q=1\n\t\t\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify S_n=b_1+b_2+\\dots+b_n= \\begin{cases}\n\t\t\t\t\t\tb_1\\frac{q^n-1}{n-1}, \\text{ if } q\\neq1 \\\\\n\t\t\t\t\t\tnb_1, \\text{ if } q=1\n\t\t\t\t\t\t\\end{cases}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "S_n=b_1+b_2+\\dots+b_n= \\begin{cases}\n\t\t\t\t\t\tb_1\\frac{q^n-1}{n-1}, \\text{ if } q\\neq1 \\\\\n\t\t\t\t\t\tnb_1, \\text{ if } q=1\n\t\t\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify S_n=b_1+b_2+\\dots+b_n= \\begin{cases}\n\t\t\t\t\t\tb_1\\frac{q^n-1}{n-1}, \\text{ if } q\\neq1 \\\\\n\t\t\t\t\t\tnb_1, \\text{ if } q=1\n\t\t\t\t\t\t\\end{cases}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_geometricprogressions_f5"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "chapterId": "algebra_conditionslogarithms",
+  "title": "Conditions of Existence",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Conditions of Existence.",
+  "formulas": [
+    {
+      "id": "algebra_conditionslogarithms-f1",
+      "title": "Conditions of Existence - Formula 1",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t\\log_{a}{x}=y \\Rightarrow x=a^y \\\\\n\t\t\t\t\ta=\\text{base, } a\\in \\mathbb{R}^*_+ \\setminus \\{1\\} \\\\\n\t\t\t\t\tx=\\text{argument, } x>0\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\log_{a}{x}=y \\Rightarrow x=a^y \\\\\n\t\t\t\t\ta=\\text{base, } a\\in \\mathbb{R}^*_+ \\setminus \\{1\\} \\\\\n\t\t\t\t\tx=\\text{argument, } x>0\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\log_{a}{x}=y \\Rightarrow x=a^y \\\\\n\t\t\t\t\ta=\\text{base, } a\\in \\mathbb{R}^*_+ \\setminus \\{1\\} \\\\\n\t\t\t\t\tx=\\text{argument, } x>0\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\log_{a}{x}=y \\Rightarrow x=a^y \\\\\n\t\t\t\t\ta=\\text{base, } a\\in \\mathbb{R}^*_+ \\setminus \\{1\\} \\\\\n\t\t\t\t\tx=\\text{argument, } x>0\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\log_{a}{x}=y \\Rightarrow x=a^y \\\\\n\t\t\t\t\ta=\\text{base, } a\\in \\mathbb{R}^*_+ \\setminus \\{1\\} \\\\\n\t\t\t\t\tx=\\text{argument, } x>0\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\log_{a}{x}=y \\Rightarrow x=a^y \\\\\n\t\t\t\t\ta=\\text{base, } a\\in \\mathbb{R}^*_+ \\setminus \\{1\\} \\\\\n\t\t\t\t\tx=\\text{argument, } x>0\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\log_{a}{x}=y \\Rightarrow x=a^y \\\\\n\t\t\t\t\ta=\\text{base, } a\\in \\mathbb{R}^*_+ \\setminus \\{1\\} \\\\\n\t\t\t\t\tx=\\text{argument, } x>0\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_conditionslogarithms_f1"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "chapterId": "geometry_determinantsgeometry",
+  "title": "Determinants in Geometry",
+  "category": "Geometry",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Determinants in Geometry.",
+  "formulas": [
+    {
+      "id": "geometry_determinantsgeometry-f1",
+      "title": "Determinants in Geometry - Formula 1",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\text{The equation of line }AB\\text{ written using}\\\\\n\t\t\t\t\t&\\text{the determinant is }AB:\\begin{vmatrix}\n\t\t\t\t\t\tx & y & 1\\\\\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\n\t\t\t\t\t\\end{vmatrix}=0\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The equation of line }AB\\text{ written using}\\\\\n\t\t\t\t\t&\\text{the determinant is }AB:\\begin{vmatrix}\n\t\t\t\t\t\tx & y & 1\\\\\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\n\t\t\t\t\t\\end{vmatrix}=0\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The equation of line }AB\\text{ written using}\\\\\n\t\t\t\t\t&\\text{the determinant is }AB:\\begin{vmatrix}\n\t\t\t\t\t\tx & y & 1\\\\\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\n\t\t\t\t\t\\end{vmatrix}=0\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The equation of line }AB\\text{ written using}\\\\\n\t\t\t\t\t&\\text{the determinant is }AB:\\begin{vmatrix}\n\t\t\t\t\t\tx & y & 1\\\\\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\n\t\t\t\t\t\\end{vmatrix}=0\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The equation of line }AB\\text{ written using}\\\\\n\t\t\t\t\t&\\text{the determinant is }AB:\\begin{vmatrix}\n\t\t\t\t\t\tx & y & 1\\\\\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\n\t\t\t\t\t\\end{vmatrix}=0\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The equation of line }AB\\text{ written using}\\\\\n\t\t\t\t\t&\\text{the determinant is }AB:\\begin{vmatrix}\n\t\t\t\t\t\tx & y & 1\\\\\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\n\t\t\t\t\t\\end{vmatrix}=0\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The equation of line }AB\\text{ written using}\\\\\n\t\t\t\t\t&\\text{the determinant is }AB:\\begin{vmatrix}\n\t\t\t\t\t\tx & y & 1\\\\\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\n\t\t\t\t\t\\end{vmatrix}=0\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_determinantsgeometry_f1"
+        }
+      ]
+    },
+    {
+      "id": "geometry_determinantsgeometry-f2",
+      "title": "Determinants in Geometry - Formula 2",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{1}{2}|\\Delta|,\\,\\Delta=\\begin{vmatrix}\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\\\\\n\t\t\t\t\t\tx_C & y_C & 1\n\t\t\t\t\t\\end{vmatrix}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{1}{2}|\\Delta|,\\,\\Delta=\\begin{vmatrix}\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\\\\\n\t\t\t\t\t\tx_C & y_C & 1\n\t\t\t\t\t\\end{vmatrix}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{1}{2}|\\Delta|,\\,\\Delta=\\begin{vmatrix}\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\\\\\n\t\t\t\t\t\tx_C & y_C & 1\n\t\t\t\t\t\\end{vmatrix}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{1}{2}|\\Delta|,\\,\\Delta=\\begin{vmatrix}\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\\\\\n\t\t\t\t\t\tx_C & y_C & 1\n\t\t\t\t\t\\end{vmatrix}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{1}{2}|\\Delta|,\\,\\Delta=\\begin{vmatrix}\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\\\\\n\t\t\t\t\t\tx_C & y_C & 1\n\t\t\t\t\t\\end{vmatrix}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{1}{2}|\\Delta|,\\,\\Delta=\\begin{vmatrix}\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\\\\\n\t\t\t\t\t\tx_C & y_C & 1\n\t\t\t\t\t\\end{vmatrix}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&A_{ABC}=\\frac{1}{2}|\\Delta|,\\,\\Delta=\\begin{vmatrix}\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\\\\\n\t\t\t\t\t\tx_C & y_C & 1\n\t\t\t\t\t\\end{vmatrix}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_determinantsgeometry_f2"
+        }
+      ]
+    },
+    {
+      "id": "geometry_determinantsgeometry-f3",
+      "title": "Determinants in Geometry - Formula 3",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t\\text{The points A,\\,B,\\,C are collinear}\\Leftrightarrow\\Delta=\\begin{vmatrix}\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\\\\\n\t\t\t\t\t\tx_C & y_C & 1\n\t\t\t\t\t\\end{vmatrix}=0\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t\\text{The points A,\\,B,\\,C are collinear}\\Leftrightarrow\\Delta=\\begin{vmatrix}\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\\\\\n\t\t\t\t\t\tx_C & y_C & 1\n\t\t\t\t\t\\end{vmatrix}=0\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t\\text{The points A,\\,B,\\,C are collinear}\\Leftrightarrow\\Delta=\\begin{vmatrix}\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\\\\\n\t\t\t\t\t\tx_C & y_C & 1\n\t\t\t\t\t\\end{vmatrix}=0\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t\\text{The points A,\\,B,\\,C are collinear}\\Leftrightarrow\\Delta=\\begin{vmatrix}\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\\\\\n\t\t\t\t\t\tx_C & y_C & 1\n\t\t\t\t\t\\end{vmatrix}=0\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t\\text{The points A,\\,B,\\,C are collinear}\\Leftrightarrow\\Delta=\\begin{vmatrix}\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\\\\\n\t\t\t\t\t\tx_C & y_C & 1\n\t\t\t\t\t\\end{vmatrix}=0\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t\\text{The points A,\\,B,\\,C are collinear}\\Leftrightarrow\\Delta=\\begin{vmatrix}\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\\\\\n\t\t\t\t\t\tx_C & y_C & 1\n\t\t\t\t\t\\end{vmatrix}=0\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t\\text{The points A,\\,B,\\,C are collinear}\\Leftrightarrow\\Delta=\\begin{vmatrix}\n\t\t\t\t\t\tx_A & y_A & 1\\\\\n\t\t\t\t\t\tx_B & y_B & 1\\\\\n\t\t\t\t\t\tx_C & y_C & 1\n\t\t\t\t\t\\end{vmatrix}=0\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_determinantsgeometry_f3"
+        }
+      ]
+    }
+  ]
+}

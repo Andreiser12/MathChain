@@ -1,0 +1,249 @@
+{
+  "chapterId": "calculus_operations",
+  "title": "Operations with derivatives",
+  "category": "Calculus",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Operations with derivatives.",
+  "formulas": [
+    {
+      "id": "calculus_operations-f1",
+      "title": "Operations with derivatives - Formula 1",
+      "latex": "(a f(x))'=af'(x)",
+      "model3D": "Assets/3DModels/int1pex.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "(a f(x))'=af'(x)",
+          "wolframQuery": "simplify (a f(x))'=af'(x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "(a f(x))'=af'(x)",
+          "wolframQuery": "simplify (a f(x))'=af'(x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "(a f(x))'=af'(x)",
+          "wolframQuery": "simplify (a f(x))'=af'(x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_operations_f1"
+        }
+      ]
+    },
+    {
+      "id": "calculus_operations-f2",
+      "title": "Operations with derivatives - Formula 2",
+      "latex": "(f(x)\\pm g(x))'= f'(x) \\pm g'(x)",
+      "model3D": "Assets/3DModels/intalax.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "(f(x)\\pm g(x))'= f'(x) \\pm g'(x)",
+          "wolframQuery": "simplify (f(x)\\pm g(x))'= f'(x) \\pm g'(x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "(f(x)\\pm g(x))'= f'(x) \\pm g'(x)",
+          "wolframQuery": "simplify (f(x)\\pm g(x))'= f'(x) \\pm g'(x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "(f(x)\\pm g(x))'= f'(x) \\pm g'(x)",
+          "wolframQuery": "simplify (f(x)\\pm g(x))'= f'(x) \\pm g'(x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_operations_f2"
+        }
+      ]
+    },
+    {
+      "id": "calculus_operations-f3",
+      "title": "Operations with derivatives - Formula 3",
+      "latex": "(f(x)g(x))'= f'(x)g(x)+f(x)g'(x)",
+      "model3D": "Assets/3DModels/intelax.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "(f(x)g(x))'= f'(x)g(x)+f(x)g'(x)",
+          "wolframQuery": "simplify (f(x)g(x))'= f'(x)g(x)+f(x)g'(x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "(f(x)g(x))'= f'(x)g(x)+f(x)g'(x)",
+          "wolframQuery": "simplify (f(x)g(x))'= f'(x)g(x)+f(x)g'(x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "(f(x)g(x))'= f'(x)g(x)+f(x)g'(x)",
+          "wolframQuery": "simplify (f(x)g(x))'= f'(x)g(x)+f(x)g'(x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_operations_f3"
+        }
+      ]
+    },
+    {
+      "id": "calculus_operations-f4",
+      "title": "Operations with derivatives - Formula 4",
+      "latex": "\\left(\\frac{f(x)}{g(x)}\\right)'=\\frac{f'(x)g(x)-f(x)g'(x)}{g(x)^2}",
+      "model3D": "Assets/3DModels/intelax.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\frac{f(x)}{g(x)}\\right)'=\\frac{f'(x)g(x)-f(x)g'(x)}{g(x)^2}",
+          "wolframQuery": "simplify \\left(\\frac{f(x)}{g(x)}\\right)'=\\frac{f'(x)g(x)-f(x)g'(x)}{g(x)^2}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\left(\\frac{f(x)}{g(x)}\\right)'=\\frac{f'(x)g(x)-f(x)g'(x)}{g(x)^2}",
+          "wolframQuery": "simplify \\left(\\frac{f(x)}{g(x)}\\right)'=\\frac{f'(x)g(x)-f(x)g'(x)}{g(x)^2}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\frac{f(x)}{g(x)}\\right)'=\\frac{f'(x)g(x)-f(x)g'(x)}{g(x)^2}",
+          "wolframQuery": "simplify \\left(\\frac{f(x)}{g(x)}\\right)'=\\frac{f'(x)g(x)-f(x)g'(x)}{g(x)^2}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_operations_f4"
+        }
+      ]
+    }
+  ]
+}

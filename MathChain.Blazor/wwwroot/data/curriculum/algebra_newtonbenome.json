@@ -1,0 +1,129 @@
+{
+  "chapterId": "algebra_newtonbenome",
+  "title": "Newton's Binomial",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Newton's Binomial.",
+  "formulas": [
+    {
+      "id": "algebra_newtonbenome-f1",
+      "title": "Newton's Binomial - Formula 1",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t(a+b)^n=\\binom{n}{0}a^n+\\binom{n}{1}a^{n-1}b+\\binom{n}{2}a^{n-2}b^2+...+\\binom{n}{n}b^n\\\\\n\t\t\t\t\t(a+b)^n \\Rightarrow n+1 \\text{ terms}\\\\\n\t\t\t\t\t\\binom{n}{k}=\\text{the binomial coefficients of the development}\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t(a+b)^n=\\binom{n}{0}a^n+\\binom{n}{1}a^{n-1}b+\\binom{n}{2}a^{n-2}b^2+...+\\binom{n}{n}b^n\\\\\n\t\t\t\t\t(a+b)^n \\Rightarrow n+1 \\text{ terms}\\\\\n\t\t\t\t\t\\binom{n}{k}=\\text{the binomial coefficients of the development}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t(a+b)^n=\\binom{n}{0}a^n+\\binom{n}{1}a^{n-1}b+\\binom{n}{2}a^{n-2}b^2+...+\\binom{n}{n}b^n\\\\\n\t\t\t\t\t(a+b)^n \\Rightarrow n+1 \\text{ terms}\\\\\n\t\t\t\t\t\\binom{n}{k}=\\text{the binomial coefficients of the development}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t(a+b)^n=\\binom{n}{0}a^n+\\binom{n}{1}a^{n-1}b+\\binom{n}{2}a^{n-2}b^2+...+\\binom{n}{n}b^n\\\\\n\t\t\t\t\t(a+b)^n \\Rightarrow n+1 \\text{ terms}\\\\\n\t\t\t\t\t\\binom{n}{k}=\\text{the binomial coefficients of the development}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t(a+b)^n=\\binom{n}{0}a^n+\\binom{n}{1}a^{n-1}b+\\binom{n}{2}a^{n-2}b^2+...+\\binom{n}{n}b^n\\\\\n\t\t\t\t\t(a+b)^n \\Rightarrow n+1 \\text{ terms}\\\\\n\t\t\t\t\t\\binom{n}{k}=\\text{the binomial coefficients of the development}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t(a+b)^n=\\binom{n}{0}a^n+\\binom{n}{1}a^{n-1}b+\\binom{n}{2}a^{n-2}b^2+...+\\binom{n}{n}b^n\\\\\n\t\t\t\t\t(a+b)^n \\Rightarrow n+1 \\text{ terms}\\\\\n\t\t\t\t\t\\binom{n}{k}=\\text{the binomial coefficients of the development}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t(a+b)^n=\\binom{n}{0}a^n+\\binom{n}{1}a^{n-1}b+\\binom{n}{2}a^{n-2}b^2+...+\\binom{n}{n}b^n\\\\\n\t\t\t\t\t(a+b)^n \\Rightarrow n+1 \\text{ terms}\\\\\n\t\t\t\t\t\\binom{n}{k}=\\text{the binomial coefficients of the development}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_newtonbenome_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_newtonbenome-f2",
+      "title": "Newton's Binomial - Formula 2",
+      "latex": "\\begin{gather*}\n\t\t\t\t\tT_{k+1}=\\binom{n}{k}a^{n-k}b^k\\\\\n\t\t\t\t\tk=\\text{the term rank}\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tT_{k+1}=\\binom{n}{k}a^{n-k}b^k\\\\\n\t\t\t\t\tk=\\text{the term rank}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tT_{k+1}=\\binom{n}{k}a^{n-k}b^k\\\\\n\t\t\t\t\tk=\\text{the term rank}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tT_{k+1}=\\binom{n}{k}a^{n-k}b^k\\\\\n\t\t\t\t\tk=\\text{the term rank}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tT_{k+1}=\\binom{n}{k}a^{n-k}b^k\\\\\n\t\t\t\t\tk=\\text{the term rank}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tT_{k+1}=\\binom{n}{k}a^{n-k}b^k\\\\\n\t\t\t\t\tk=\\text{the term rank}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tT_{k+1}=\\binom{n}{k}a^{n-k}b^k\\\\\n\t\t\t\t\tk=\\text{the term rank}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_newtonbenome_f2"
+        }
+      ]
+    }
+  ]
+}

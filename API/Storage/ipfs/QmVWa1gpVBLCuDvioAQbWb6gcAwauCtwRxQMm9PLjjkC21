@@ -1,0 +1,729 @@
+{
+  "chapterId": "algebra_determinants",
+  "title": "Determinants",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Determinants.",
+  "formulas": [
+    {
+      "id": "algebra_determinants-f1",
+      "title": "Determinants - Formula 1",
+      "latex": "\\text{Sarrus's Rule}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{Sarrus's Rule}",
+          "wolframQuery": "simplify \\text{Sarrus's Rule}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{Sarrus's Rule}",
+          "wolframQuery": "simplify \\text{Sarrus's Rule}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{Sarrus's Rule}",
+          "wolframQuery": "simplify \\text{Sarrus's Rule}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_determinants_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_determinants-f2",
+      "title": "Determinants - Formula 2",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t\\det{A}=\\begin{vmatrix}\n\t\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\t\td & e & f \\\\\n\t\t\t\t\t\tg & h & i\n\t\t\t\t\t\\end{vmatrix}=a\\cdot (-1)^{1+1}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\te&f\\\\\n\t\t\t\t\t\th&i\n\t\t\t\t\t\\end{vmatrix}+b\\cdot (-1)^{1+2}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\td&f\\\\\n\t\t\t\t\t\tg&i\n\t\t\t\t\t\\end{vmatrix}+c\\cdot (-1)^{1+3}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\td&e\\\\\n\t\t\t\t\t\tg&h\n\t\t\t\t\t\\end{vmatrix}\\\\\n\t\t\t\t\ta,\\text{ }b,\\text{ }c \\text{ must be on the same line or column}\\\\\n\t\t\t\t\tb\\cdot(-1)^{1+2}\\implies\\\\\n\t\t\t\t\t1=\\text{current line of }b\\\\\n\t\t\t\t\t2=\\text{current column of }b\n\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\det{A}=\\begin{vmatrix}\n\t\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\t\td & e & f \\\\\n\t\t\t\t\t\tg & h & i\n\t\t\t\t\t\\end{vmatrix}=a\\cdot (-1)^{1+1}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\te&f\\\\\n\t\t\t\t\t\th&i\n\t\t\t\t\t\\end{vmatrix}+b\\cdot (-1)^{1+2}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\td&f\\\\\n\t\t\t\t\t\tg&i\n\t\t\t\t\t\\end{vmatrix}+c\\cdot (-1)^{1+3}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\td&e\\\\\n\t\t\t\t\t\tg&h\n\t\t\t\t\t\\end{vmatrix}\\\\\n\t\t\t\t\ta,\\text{ }b,\\text{ }c \\text{ must be on the same line or column}\\\\\n\t\t\t\t\tb\\cdot(-1)^{1+2}\\implies\\\\\n\t\t\t\t\t1=\\text{current line of }b\\\\\n\t\t\t\t\t2=\\text{current column of }b\n\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\det{A}=\\begin{vmatrix}\n\t\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\t\td & e & f \\\\\n\t\t\t\t\t\tg & h & i\n\t\t\t\t\t\\end{vmatrix}=a\\cdot (-1)^{1+1}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\te&f\\\\\n\t\t\t\t\t\th&i\n\t\t\t\t\t\\end{vmatrix}+b\\cdot (-1)^{1+2}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\td&f\\\\\n\t\t\t\t\t\tg&i\n\t\t\t\t\t\\end{vmatrix}+c\\cdot (-1)^{1+3}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\td&e\\\\\n\t\t\t\t\t\tg&h\n\t\t\t\t\t\\end{vmatrix}\\\\\n\t\t\t\t\ta,\\text{ }b,\\text{ }c \\text{ must be on the same line or column}\\\\\n\t\t\t\t\tb\\cdot(-1)^{1+2}\\implies\\\\\n\t\t\t\t\t1=\\text{current line of }b\\\\\n\t\t\t\t\t2=\\text{current column of }b\n\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\det{A}=\\begin{vmatrix}\n\t\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\t\td & e & f \\\\\n\t\t\t\t\t\tg & h & i\n\t\t\t\t\t\\end{vmatrix}=a\\cdot (-1)^{1+1}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\te&f\\\\\n\t\t\t\t\t\th&i\n\t\t\t\t\t\\end{vmatrix}+b\\cdot (-1)^{1+2}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\td&f\\\\\n\t\t\t\t\t\tg&i\n\t\t\t\t\t\\end{vmatrix}+c\\cdot (-1)^{1+3}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\td&e\\\\\n\t\t\t\t\t\tg&h\n\t\t\t\t\t\\end{vmatrix}\\\\\n\t\t\t\t\ta,\\text{ }b,\\text{ }c \\text{ must be on the same line or column}\\\\\n\t\t\t\t\tb\\cdot(-1)^{1+2}\\implies\\\\\n\t\t\t\t\t1=\\text{current line of }b\\\\\n\t\t\t\t\t2=\\text{current column of }b\n\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\det{A}=\\begin{vmatrix}\n\t\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\t\td & e & f \\\\\n\t\t\t\t\t\tg & h & i\n\t\t\t\t\t\\end{vmatrix}=a\\cdot (-1)^{1+1}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\te&f\\\\\n\t\t\t\t\t\th&i\n\t\t\t\t\t\\end{vmatrix}+b\\cdot (-1)^{1+2}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\td&f\\\\\n\t\t\t\t\t\tg&i\n\t\t\t\t\t\\end{vmatrix}+c\\cdot (-1)^{1+3}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\td&e\\\\\n\t\t\t\t\t\tg&h\n\t\t\t\t\t\\end{vmatrix}\\\\\n\t\t\t\t\ta,\\text{ }b,\\text{ }c \\text{ must be on the same line or column}\\\\\n\t\t\t\t\tb\\cdot(-1)^{1+2}\\implies\\\\\n\t\t\t\t\t1=\\text{current line of }b\\\\\n\t\t\t\t\t2=\\text{current column of }b\n\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\det{A}=\\begin{vmatrix}\n\t\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\t\td & e & f \\\\\n\t\t\t\t\t\tg & h & i\n\t\t\t\t\t\\end{vmatrix}=a\\cdot (-1)^{1+1}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\te&f\\\\\n\t\t\t\t\t\th&i\n\t\t\t\t\t\\end{vmatrix}+b\\cdot (-1)^{1+2}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\td&f\\\\\n\t\t\t\t\t\tg&i\n\t\t\t\t\t\\end{vmatrix}+c\\cdot (-1)^{1+3}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\td&e\\\\\n\t\t\t\t\t\tg&h\n\t\t\t\t\t\\end{vmatrix}\\\\\n\t\t\t\t\ta,\\text{ }b,\\text{ }c \\text{ must be on the same line or column}\\\\\n\t\t\t\t\tb\\cdot(-1)^{1+2}\\implies\\\\\n\t\t\t\t\t1=\\text{current line of }b\\\\\n\t\t\t\t\t2=\\text{current column of }b\n\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\det{A}=\\begin{vmatrix}\n\t\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\t\td & e & f \\\\\n\t\t\t\t\t\tg & h & i\n\t\t\t\t\t\\end{vmatrix}=a\\cdot (-1)^{1+1}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\te&f\\\\\n\t\t\t\t\t\th&i\n\t\t\t\t\t\\end{vmatrix}+b\\cdot (-1)^{1+2}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\td&f\\\\\n\t\t\t\t\t\tg&i\n\t\t\t\t\t\\end{vmatrix}+c\\cdot (-1)^{1+3}\\cdot \\begin{vmatrix}\n\t\t\t\t\t\td&e\\\\\n\t\t\t\t\t\tg&h\n\t\t\t\t\t\\end{vmatrix}\\\\\n\t\t\t\t\ta,\\text{ }b,\\text{ }c \\text{ must be on the same line or column}\\\\\n\t\t\t\t\tb\\cdot(-1)^{1+2}\\implies\\\\\n\t\t\t\t\t1=\\text{current line of }b\\\\\n\t\t\t\t\t2=\\text{current column of }b\n\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_determinants_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_determinants-f3",
+      "title": "Determinants - Formula 3",
+      "latex": "\\begin{vmatrix}\n\t\t\t\t\ta & a & a \\\\\n\t\t\t\t\td & e & f \\\\\n\t\t\t\t\ta & a & a\n\t\t\t\t\\end{vmatrix}=0",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{vmatrix}\n\t\t\t\t\ta & a & a \\\\\n\t\t\t\t\td & e & f \\\\\n\t\t\t\t\ta & a & a\n\t\t\t\t\\end{vmatrix}=0",
+          "wolframQuery": "simplify \\begin{vmatrix}\n\t\t\t\t\ta & a & a \\\\\n\t\t\t\t\td & e & f \\\\\n\t\t\t\t\ta & a & a\n\t\t\t\t\\end{vmatrix}=0",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{vmatrix}\n\t\t\t\t\ta & a & a \\\\\n\t\t\t\t\td & e & f \\\\\n\t\t\t\t\ta & a & a\n\t\t\t\t\\end{vmatrix}=0",
+          "wolframQuery": "simplify \\begin{vmatrix}\n\t\t\t\t\ta & a & a \\\\\n\t\t\t\t\td & e & f \\\\\n\t\t\t\t\ta & a & a\n\t\t\t\t\\end{vmatrix}=0",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{vmatrix}\n\t\t\t\t\ta & a & a \\\\\n\t\t\t\t\td & e & f \\\\\n\t\t\t\t\ta & a & a\n\t\t\t\t\\end{vmatrix}=0",
+          "wolframQuery": "simplify \\begin{vmatrix}\n\t\t\t\t\ta & a & a \\\\\n\t\t\t\t\td & e & f \\\\\n\t\t\t\t\ta & a & a\n\t\t\t\t\\end{vmatrix}=0",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_determinants_f3"
+        }
+      ]
+    },
+    {
+      "id": "algebra_determinants-f4",
+      "title": "Determinants - Formula 4",
+      "latex": "\\begin{vmatrix}\n\t\t\t\t\t0 & 0 & 0 \\\\\t\n\t\t\t\t\td & e & f \\\\\n\t\t\t\t\tg & h & i\n\t\t\t\t\\end{vmatrix}=0",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{vmatrix}\n\t\t\t\t\t0 & 0 & 0 \\\\\t\n\t\t\t\t\td & e & f \\\\\n\t\t\t\t\tg & h & i\n\t\t\t\t\\end{vmatrix}=0",
+          "wolframQuery": "simplify \\begin{vmatrix}\n\t\t\t\t\t0 & 0 & 0 \\\\\t\n\t\t\t\t\td & e & f \\\\\n\t\t\t\t\tg & h & i\n\t\t\t\t\\end{vmatrix}=0",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{vmatrix}\n\t\t\t\t\t0 & 0 & 0 \\\\\t\n\t\t\t\t\td & e & f \\\\\n\t\t\t\t\tg & h & i\n\t\t\t\t\\end{vmatrix}=0",
+          "wolframQuery": "simplify \\begin{vmatrix}\n\t\t\t\t\t0 & 0 & 0 \\\\\t\n\t\t\t\t\td & e & f \\\\\n\t\t\t\t\tg & h & i\n\t\t\t\t\\end{vmatrix}=0",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{vmatrix}\n\t\t\t\t\t0 & 0 & 0 \\\\\t\n\t\t\t\t\td & e & f \\\\\n\t\t\t\t\tg & h & i\n\t\t\t\t\\end{vmatrix}=0",
+          "wolframQuery": "simplify \\begin{vmatrix}\n\t\t\t\t\t0 & 0 & 0 \\\\\t\n\t\t\t\t\td & e & f \\\\\n\t\t\t\t\tg & h & i\n\t\t\t\t\\end{vmatrix}=0",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_determinants_f4"
+        }
+      ]
+    },
+    {
+      "id": "algebra_determinants-f5",
+      "title": "Determinants - Formula 5",
+      "latex": "\\begin{vmatrix}\n\t\t\t\t\tx\\cdot a & x\\cdot b \\\\\n\t\t\t\t\tx\\cdot c & x\\cdot d \\\\\n\t\t\t\t\\end{vmatrix}=x\\cdot \\begin{vmatrix}\n\t\t\t\t\t a & b \\\\\n\t\t\t\t\t c & d \\\\\n\t\t\t\t\\end{vmatrix}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{vmatrix}\n\t\t\t\t\tx\\cdot a & x\\cdot b \\\\\n\t\t\t\t\tx\\cdot c & x\\cdot d \\\\\n\t\t\t\t\\end{vmatrix}=x\\cdot \\begin{vmatrix}\n\t\t\t\t\t a & b \\\\\n\t\t\t\t\t c & d \\\\\n\t\t\t\t\\end{vmatrix}",
+          "wolframQuery": "simplify \\begin{vmatrix}\n\t\t\t\t\tx\\cdot a & x\\cdot b \\\\\n\t\t\t\t\tx\\cdot c & x\\cdot d \\\\\n\t\t\t\t\\end{vmatrix}=x\\cdot \\begin{vmatrix}\n\t\t\t\t\t a & b \\\\\n\t\t\t\t\t c & d \\\\\n\t\t\t\t\\end{vmatrix}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{vmatrix}\n\t\t\t\t\tx\\cdot a & x\\cdot b \\\\\n\t\t\t\t\tx\\cdot c & x\\cdot d \\\\\n\t\t\t\t\\end{vmatrix}=x\\cdot \\begin{vmatrix}\n\t\t\t\t\t a & b \\\\\n\t\t\t\t\t c & d \\\\\n\t\t\t\t\\end{vmatrix}",
+          "wolframQuery": "simplify \\begin{vmatrix}\n\t\t\t\t\tx\\cdot a & x\\cdot b \\\\\n\t\t\t\t\tx\\cdot c & x\\cdot d \\\\\n\t\t\t\t\\end{vmatrix}=x\\cdot \\begin{vmatrix}\n\t\t\t\t\t a & b \\\\\n\t\t\t\t\t c & d \\\\\n\t\t\t\t\\end{vmatrix}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{vmatrix}\n\t\t\t\t\tx\\cdot a & x\\cdot b \\\\\n\t\t\t\t\tx\\cdot c & x\\cdot d \\\\\n\t\t\t\t\\end{vmatrix}=x\\cdot \\begin{vmatrix}\n\t\t\t\t\t a & b \\\\\n\t\t\t\t\t c & d \\\\\n\t\t\t\t\\end{vmatrix}",
+          "wolframQuery": "simplify \\begin{vmatrix}\n\t\t\t\t\tx\\cdot a & x\\cdot b \\\\\n\t\t\t\t\tx\\cdot c & x\\cdot d \\\\\n\t\t\t\t\\end{vmatrix}=x\\cdot \\begin{vmatrix}\n\t\t\t\t\t a & b \\\\\n\t\t\t\t\t c & d \\\\\n\t\t\t\t\\end{vmatrix}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_determinants_f5"
+        }
+      ]
+    },
+    {
+      "id": "algebra_determinants-f6",
+      "title": "Determinants - Formula 6",
+      "latex": "\\begin{vmatrix}\n\t\t\t\t\ta+e & b+f\\\\\n\t\t\t\t\tc+g & d+h\n\t\t\t\t\\end{vmatrix}=\\begin{vmatrix}\n\t\t\t\t\t a & b \\\\\n\t\t\t\t\t c & d \\\\\n\t\t\t\t\\end{vmatrix}+\\begin{vmatrix}\n\t\t\t\t\t e & f \\\\\n\t\t\t\t\t g & h \\\\\n\t\t\t\t\\end{vmatrix}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{vmatrix}\n\t\t\t\t\ta+e & b+f\\\\\n\t\t\t\t\tc+g & d+h\n\t\t\t\t\\end{vmatrix}=\\begin{vmatrix}\n\t\t\t\t\t a & b \\\\\n\t\t\t\t\t c & d \\\\\n\t\t\t\t\\end{vmatrix}+\\begin{vmatrix}\n\t\t\t\t\t e & f \\\\\n\t\t\t\t\t g & h \\\\\n\t\t\t\t\\end{vmatrix}",
+          "wolframQuery": "simplify \\begin{vmatrix}\n\t\t\t\t\ta+e & b+f\\\\\n\t\t\t\t\tc+g & d+h\n\t\t\t\t\\end{vmatrix}=\\begin{vmatrix}\n\t\t\t\t\t a & b \\\\\n\t\t\t\t\t c & d \\\\\n\t\t\t\t\\end{vmatrix}+\\begin{vmatrix}\n\t\t\t\t\t e & f \\\\\n\t\t\t\t\t g & h \\\\\n\t\t\t\t\\end{vmatrix}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{vmatrix}\n\t\t\t\t\ta+e & b+f\\\\\n\t\t\t\t\tc+g & d+h\n\t\t\t\t\\end{vmatrix}=\\begin{vmatrix}\n\t\t\t\t\t a & b \\\\\n\t\t\t\t\t c & d \\\\\n\t\t\t\t\\end{vmatrix}+\\begin{vmatrix}\n\t\t\t\t\t e & f \\\\\n\t\t\t\t\t g & h \\\\\n\t\t\t\t\\end{vmatrix}",
+          "wolframQuery": "simplify \\begin{vmatrix}\n\t\t\t\t\ta+e & b+f\\\\\n\t\t\t\t\tc+g & d+h\n\t\t\t\t\\end{vmatrix}=\\begin{vmatrix}\n\t\t\t\t\t a & b \\\\\n\t\t\t\t\t c & d \\\\\n\t\t\t\t\\end{vmatrix}+\\begin{vmatrix}\n\t\t\t\t\t e & f \\\\\n\t\t\t\t\t g & h \\\\\n\t\t\t\t\\end{vmatrix}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{vmatrix}\n\t\t\t\t\ta+e & b+f\\\\\n\t\t\t\t\tc+g & d+h\n\t\t\t\t\\end{vmatrix}=\\begin{vmatrix}\n\t\t\t\t\t a & b \\\\\n\t\t\t\t\t c & d \\\\\n\t\t\t\t\\end{vmatrix}+\\begin{vmatrix}\n\t\t\t\t\t e & f \\\\\n\t\t\t\t\t g & h \\\\\n\t\t\t\t\\end{vmatrix}",
+          "wolframQuery": "simplify \\begin{vmatrix}\n\t\t\t\t\ta+e & b+f\\\\\n\t\t\t\t\tc+g & d+h\n\t\t\t\t\\end{vmatrix}=\\begin{vmatrix}\n\t\t\t\t\t a & b \\\\\n\t\t\t\t\t c & d \\\\\n\t\t\t\t\\end{vmatrix}+\\begin{vmatrix}\n\t\t\t\t\t e & f \\\\\n\t\t\t\t\t g & h \\\\\n\t\t\t\t\\end{vmatrix}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_determinants_f6"
+        }
+      ]
+    },
+    {
+      "id": "algebra_determinants-f7",
+      "title": "Determinants - Formula 7",
+      "latex": "\\det{A}=\\det{(A^t)}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\det{A}=\\det{(A^t)}",
+          "wolframQuery": "simplify \\det{A}=\\det{(A^t)}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\det{A}=\\det{(A^t)}",
+          "wolframQuery": "simplify \\det{A}=\\det{(A^t)}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\det{A}=\\det{(A^t)}",
+          "wolframQuery": "simplify \\det{A}=\\det{(A^t)}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_determinants_f7"
+        }
+      ]
+    },
+    {
+      "id": "algebra_determinants-f8",
+      "title": "Determinants - Formula 8",
+      "latex": "\\det{(A\\cdot B)}=det{A}\\cdot \\det{B}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\det{(A\\cdot B)}=det{A}\\cdot \\det{B}",
+          "wolframQuery": "simplify \\det{(A\\cdot B)}=det{A}\\cdot \\det{B}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\det{(A\\cdot B)}=det{A}\\cdot \\det{B}",
+          "wolframQuery": "simplify \\det{(A\\cdot B)}=det{A}\\cdot \\det{B}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\det{(A\\cdot B)}=det{A}\\cdot \\det{B}",
+          "wolframQuery": "simplify \\det{(A\\cdot B)}=det{A}\\cdot \\det{B}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_determinants_f8"
+        }
+      ]
+    },
+    {
+      "id": "algebra_determinants-f9",
+      "title": "Determinants - Formula 9",
+      "latex": "\\det{(A^n)}=(\\det{A})^n",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\det{(A^n)}=(\\det{A})^n",
+          "wolframQuery": "simplify \\det{(A^n)}=(\\det{A})^n",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\det{(A^n)}=(\\det{A})^n",
+          "wolframQuery": "simplify \\det{(A^n)}=(\\det{A})^n",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\det{(A^n)}=(\\det{A})^n",
+          "wolframQuery": "simplify \\det{(A^n)}=(\\det{A})^n",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_determinants_f9"
+        }
+      ]
+    },
+    {
+      "id": "algebra_determinants-f10",
+      "title": "Determinants - Formula 10",
+      "latex": "A=\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2\n\t\t\t\t\\end{vmatrix}=(c-b)(c-a)(b-a)",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "A=\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2\n\t\t\t\t\\end{vmatrix}=(c-b)(c-a)(b-a)",
+          "wolframQuery": "simplify A=\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2\n\t\t\t\t\\end{vmatrix}=(c-b)(c-a)(b-a)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "A=\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2\n\t\t\t\t\\end{vmatrix}=(c-b)(c-a)(b-a)",
+          "wolframQuery": "simplify A=\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2\n\t\t\t\t\\end{vmatrix}=(c-b)(c-a)(b-a)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "A=\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2\n\t\t\t\t\\end{vmatrix}=(c-b)(c-a)(b-a)",
+          "wolframQuery": "simplify A=\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2\n\t\t\t\t\\end{vmatrix}=(c-b)(c-a)(b-a)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_determinants_f10"
+        }
+      ]
+    },
+    {
+      "id": "algebra_determinants-f11",
+      "title": "Determinants - Formula 11",
+      "latex": "A=\\begin{vmatrix}\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2 \\\\\n\t\t\t\t\ta^3 & b^3 & c^3\n\t\t\t\t\\end{vmatrix}=a\\cdot b\\cdot c(c-b)(c-a)(b-a)",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "A=\\begin{vmatrix}\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2 \\\\\n\t\t\t\t\ta^3 & b^3 & c^3\n\t\t\t\t\\end{vmatrix}=a\\cdot b\\cdot c(c-b)(c-a)(b-a)",
+          "wolframQuery": "simplify A=\\begin{vmatrix}\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2 \\\\\n\t\t\t\t\ta^3 & b^3 & c^3\n\t\t\t\t\\end{vmatrix}=a\\cdot b\\cdot c(c-b)(c-a)(b-a)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "A=\\begin{vmatrix}\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2 \\\\\n\t\t\t\t\ta^3 & b^3 & c^3\n\t\t\t\t\\end{vmatrix}=a\\cdot b\\cdot c(c-b)(c-a)(b-a)",
+          "wolframQuery": "simplify A=\\begin{vmatrix}\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2 \\\\\n\t\t\t\t\ta^3 & b^3 & c^3\n\t\t\t\t\\end{vmatrix}=a\\cdot b\\cdot c(c-b)(c-a)(b-a)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "A=\\begin{vmatrix}\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2 \\\\\n\t\t\t\t\ta^3 & b^3 & c^3\n\t\t\t\t\\end{vmatrix}=a\\cdot b\\cdot c(c-b)(c-a)(b-a)",
+          "wolframQuery": "simplify A=\\begin{vmatrix}\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2 \\\\\n\t\t\t\t\ta^3 & b^3 & c^3\n\t\t\t\t\\end{vmatrix}=a\\cdot b\\cdot c(c-b)(c-a)(b-a)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_determinants_f11"
+        }
+      ]
+    },
+    {
+      "id": "algebra_determinants-f12",
+      "title": "Determinants - Formula 12",
+      "latex": "A=\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta^2 & b^2 & c^2 \\\\\n\t\t\t\t\ta & b & c\n\t\t\t\t\\end{vmatrix}=-\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2\n\t\t\t\t\\end{vmatrix}=-(c-b)(c-a)(b-a)",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "A=\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta^2 & b^2 & c^2 \\\\\n\t\t\t\t\ta & b & c\n\t\t\t\t\\end{vmatrix}=-\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2\n\t\t\t\t\\end{vmatrix}=-(c-b)(c-a)(b-a)",
+          "wolframQuery": "simplify A=\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta^2 & b^2 & c^2 \\\\\n\t\t\t\t\ta & b & c\n\t\t\t\t\\end{vmatrix}=-\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2\n\t\t\t\t\\end{vmatrix}=-(c-b)(c-a)(b-a)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "A=\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta^2 & b^2 & c^2 \\\\\n\t\t\t\t\ta & b & c\n\t\t\t\t\\end{vmatrix}=-\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2\n\t\t\t\t\\end{vmatrix}=-(c-b)(c-a)(b-a)",
+          "wolframQuery": "simplify A=\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta^2 & b^2 & c^2 \\\\\n\t\t\t\t\ta & b & c\n\t\t\t\t\\end{vmatrix}=-\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2\n\t\t\t\t\\end{vmatrix}=-(c-b)(c-a)(b-a)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "A=\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta^2 & b^2 & c^2 \\\\\n\t\t\t\t\ta & b & c\n\t\t\t\t\\end{vmatrix}=-\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2\n\t\t\t\t\\end{vmatrix}=-(c-b)(c-a)(b-a)",
+          "wolframQuery": "simplify A=\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta^2 & b^2 & c^2 \\\\\n\t\t\t\t\ta & b & c\n\t\t\t\t\\end{vmatrix}=-\\begin{vmatrix}\n\t\t\t\t\t1 & 1 & 1 \\\\\n\t\t\t\t\ta & b & c \\\\\n\t\t\t\t\ta^2 & b^2 & c^2\n\t\t\t\t\\end{vmatrix}=-(c-b)(c-a)(b-a)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_determinants_f12"
+        }
+      ]
+    }
+  ]
+}

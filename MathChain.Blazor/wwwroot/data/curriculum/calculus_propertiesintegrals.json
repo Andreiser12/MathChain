@@ -1,0 +1,369 @@
+{
+  "chapterId": "calculus_propertiesintegrals",
+  "title": "Properties",
+  "category": "Calculus",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Properties.",
+  "formulas": [
+    {
+      "id": "calculus_propertiesintegrals-f1",
+      "title": "Properties - Formula 1",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t& f(x):I\\to \\mathbb{R}\\\\\n\t\t\t\t\t&f(x)\\text{ admites primitives it it exists }\\\\\n\t\t\t\t\t&F(x):I\\to \\mathbb{R} \\text{ differentiable and }F'(x)=f(x).\\\\\n\t\t\t\t\t&\\int f(x)\\,dx=F(x)+C\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t& f(x):I\\to \\mathbb{R}\\\\\n\t\t\t\t\t&f(x)\\text{ admites primitives it it exists }\\\\\n\t\t\t\t\t&F(x):I\\to \\mathbb{R} \\text{ differentiable and }F'(x)=f(x).\\\\\n\t\t\t\t\t&\\int f(x)\\,dx=F(x)+C\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t& f(x):I\\to \\mathbb{R}\\\\\n\t\t\t\t\t&f(x)\\text{ admites primitives it it exists }\\\\\n\t\t\t\t\t&F(x):I\\to \\mathbb{R} \\text{ differentiable and }F'(x)=f(x).\\\\\n\t\t\t\t\t&\\int f(x)\\,dx=F(x)+C\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t& f(x):I\\to \\mathbb{R}\\\\\n\t\t\t\t\t&f(x)\\text{ admites primitives it it exists }\\\\\n\t\t\t\t\t&F(x):I\\to \\mathbb{R} \\text{ differentiable and }F'(x)=f(x).\\\\\n\t\t\t\t\t&\\int f(x)\\,dx=F(x)+C\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t& f(x):I\\to \\mathbb{R}\\\\\n\t\t\t\t\t&f(x)\\text{ admites primitives it it exists }\\\\\n\t\t\t\t\t&F(x):I\\to \\mathbb{R} \\text{ differentiable and }F'(x)=f(x).\\\\\n\t\t\t\t\t&\\int f(x)\\,dx=F(x)+C\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t& f(x):I\\to \\mathbb{R}\\\\\n\t\t\t\t\t&f(x)\\text{ admites primitives it it exists }\\\\\n\t\t\t\t\t&F(x):I\\to \\mathbb{R} \\text{ differentiable and }F'(x)=f(x).\\\\\n\t\t\t\t\t&\\int f(x)\\,dx=F(x)+C\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t& f(x):I\\to \\mathbb{R}\\\\\n\t\t\t\t\t&f(x)\\text{ admites primitives it it exists }\\\\\n\t\t\t\t\t&F(x):I\\to \\mathbb{R} \\text{ differentiable and }F'(x)=f(x).\\\\\n\t\t\t\t\t&\\int f(x)\\,dx=F(x)+C\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_propertiesintegrals_f1"
+        }
+      ]
+    },
+    {
+      "id": "calculus_propertiesintegrals-f2",
+      "title": "Properties - Formula 2",
+      "latex": "F_1,\\,F_2\\text{ primitives for }f\\Rightarrow F_1(x)-F_2(x)=C",
+      "model3D": "Assets/3DModels/intxlan.glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "F_1,\\,F_2\\text{ primitives for }f\\Rightarrow F_1(x)-F_2(x)=C",
+          "wolframQuery": "simplify F_1,\\,F_2\\text{ primitives for }f\\Rightarrow F_1(x)-F_2(x)=C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "F_1,\\,F_2\\text{ primitives for }f\\Rightarrow F_1(x)-F_2(x)=C",
+          "wolframQuery": "simplify F_1,\\,F_2\\text{ primitives for }f\\Rightarrow F_1(x)-F_2(x)=C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "F_1,\\,F_2\\text{ primitives for }f\\Rightarrow F_1(x)-F_2(x)=C",
+          "wolframQuery": "simplify F_1,\\,F_2\\text{ primitives for }f\\Rightarrow F_1(x)-F_2(x)=C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_propertiesintegrals_f2"
+        }
+      ]
+    },
+    {
+      "id": "calculus_propertiesintegrals-f3",
+      "title": "Properties - Formula 3",
+      "latex": "\\int af(x)\\,dx=a\\int f(x)\\,dx,\\,a\\in \\mathbb{R}",
+      "model3D": "Assets/3DModels/int1pex.glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int af(x)\\,dx=a\\int f(x)\\,dx,\\,a\\in \\mathbb{R}",
+          "wolframQuery": "simplify \\int af(x)\\,dx=a\\int f(x)\\,dx,\\,a\\in \\mathbb{R}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int af(x)\\,dx=a\\int f(x)\\,dx,\\,a\\in \\mathbb{R}",
+          "wolframQuery": "simplify \\int af(x)\\,dx=a\\int f(x)\\,dx,\\,a\\in \\mathbb{R}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int af(x)\\,dx=a\\int f(x)\\,dx,\\,a\\in \\mathbb{R}",
+          "wolframQuery": "simplify \\int af(x)\\,dx=a\\int f(x)\\,dx,\\,a\\in \\mathbb{R}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_propertiesintegrals_f3"
+        }
+      ]
+    },
+    {
+      "id": "calculus_propertiesintegrals-f4",
+      "title": "Properties - Formula 4",
+      "latex": "\\int f_1(x)\\pm f_2(x)\\, dx=\\int f_1(x)\\,dx \\pm \\int f_2(x)\\, dx",
+      "model3D": "Assets/3DModels/intalax.glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int f_1(x)\\pm f_2(x)\\, dx=\\int f_1(x)\\,dx \\pm \\int f_2(x)\\, dx",
+          "wolframQuery": "simplify \\int f_1(x)\\pm f_2(x)\\, dx=\\int f_1(x)\\,dx \\pm \\int f_2(x)\\, dx",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int f_1(x)\\pm f_2(x)\\, dx=\\int f_1(x)\\,dx \\pm \\int f_2(x)\\, dx",
+          "wolframQuery": "simplify \\int f_1(x)\\pm f_2(x)\\, dx=\\int f_1(x)\\,dx \\pm \\int f_2(x)\\, dx",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int f_1(x)\\pm f_2(x)\\, dx=\\int f_1(x)\\,dx \\pm \\int f_2(x)\\, dx",
+          "wolframQuery": "simplify \\int f_1(x)\\pm f_2(x)\\, dx=\\int f_1(x)\\,dx \\pm \\int f_2(x)\\, dx",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_propertiesintegrals_f4"
+        }
+      ]
+    },
+    {
+      "id": "calculus_propertiesintegrals-f5",
+      "title": "Properties - Formula 5",
+      "latex": "\\text{Any continous }f \\text{ admits primitives.}",
+      "model3D": "Assets/3DModels/intelax.glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{Any continous }f \\text{ admits primitives.}",
+          "wolframQuery": "simplify \\text{Any continous }f \\text{ admits primitives.}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{Any continous }f \\text{ admits primitives.}",
+          "wolframQuery": "simplify \\text{Any continous }f \\text{ admits primitives.}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{Any continous }f \\text{ admits primitives.}",
+          "wolframQuery": "simplify \\text{Any continous }f \\text{ admits primitives.}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_propertiesintegrals_f5"
+        }
+      ]
+    },
+    {
+      "id": "calculus_propertiesintegrals-f6",
+      "title": "Properties - Formula 6",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&f \\text{ does not have the Darboux property}\\Rightarrow\\\\\n\t\t\t\t\t& f \\text{ does not have primitives}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/int1pexla2minusala2.glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&f \\text{ does not have the Darboux property}\\Rightarrow\\\\\n\t\t\t\t\t& f \\text{ does not have primitives}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&f \\text{ does not have the Darboux property}\\Rightarrow\\\\\n\t\t\t\t\t& f \\text{ does not have primitives}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&f \\text{ does not have the Darboux property}\\Rightarrow\\\\\n\t\t\t\t\t& f \\text{ does not have primitives}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&f \\text{ does not have the Darboux property}\\Rightarrow\\\\\n\t\t\t\t\t& f \\text{ does not have primitives}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&f \\text{ does not have the Darboux property}\\Rightarrow\\\\\n\t\t\t\t\t& f \\text{ does not have primitives}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&f \\text{ does not have the Darboux property}\\Rightarrow\\\\\n\t\t\t\t\t& f \\text{ does not have primitives}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_propertiesintegrals_f6"
+        }
+      ]
+    }
+  ]
+}

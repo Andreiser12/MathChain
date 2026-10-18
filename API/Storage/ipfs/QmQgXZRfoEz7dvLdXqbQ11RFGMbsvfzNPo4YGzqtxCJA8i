@@ -1,0 +1,69 @@
+{
+  "chapterId": "calculus_definition",
+  "title": "Definition of Derivability",
+  "category": "Calculus",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Definition of Derivability.",
+  "formulas": [
+    {
+      "id": "calculus_definition-f1",
+      "title": "Definition of Derivability - Formula 1",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t& f:\\mathbb{R}\\to \\mathbb{R}\\text{ has a derivative in } a\\in \\mathbb{R}\\text{ if there exists }\\lim_{x\\to a}\\frac{f(x)-f(a)}{x-a}=f'(a)\\\\\n\t\t\t\t\t& \\text{If }f'(a)\\in \\mathbb{R}\\text{, then } f\\text{ is differentiable at the point }a.\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t& f:\\mathbb{R}\\to \\mathbb{R}\\text{ has a derivative in } a\\in \\mathbb{R}\\text{ if there exists }\\lim_{x\\to a}\\frac{f(x)-f(a)}{x-a}=f'(a)\\\\\n\t\t\t\t\t& \\text{If }f'(a)\\in \\mathbb{R}\\text{, then } f\\text{ is differentiable at the point }a.\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t& f:\\mathbb{R}\\to \\mathbb{R}\\text{ has a derivative in } a\\in \\mathbb{R}\\text{ if there exists }\\lim_{x\\to a}\\frac{f(x)-f(a)}{x-a}=f'(a)\\\\\n\t\t\t\t\t& \\text{If }f'(a)\\in \\mathbb{R}\\text{, then } f\\text{ is differentiable at the point }a.\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t& f:\\mathbb{R}\\to \\mathbb{R}\\text{ has a derivative in } a\\in \\mathbb{R}\\text{ if there exists }\\lim_{x\\to a}\\frac{f(x)-f(a)}{x-a}=f'(a)\\\\\n\t\t\t\t\t& \\text{If }f'(a)\\in \\mathbb{R}\\text{, then } f\\text{ is differentiable at the point }a.\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t& f:\\mathbb{R}\\to \\mathbb{R}\\text{ has a derivative in } a\\in \\mathbb{R}\\text{ if there exists }\\lim_{x\\to a}\\frac{f(x)-f(a)}{x-a}=f'(a)\\\\\n\t\t\t\t\t& \\text{If }f'(a)\\in \\mathbb{R}\\text{, then } f\\text{ is differentiable at the point }a.\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t& f:\\mathbb{R}\\to \\mathbb{R}\\text{ has a derivative in } a\\in \\mathbb{R}\\text{ if there exists }\\lim_{x\\to a}\\frac{f(x)-f(a)}{x-a}=f'(a)\\\\\n\t\t\t\t\t& \\text{If }f'(a)\\in \\mathbb{R}\\text{, then } f\\text{ is differentiable at the point }a.\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t& f:\\mathbb{R}\\to \\mathbb{R}\\text{ has a derivative in } a\\in \\mathbb{R}\\text{ if there exists }\\lim_{x\\to a}\\frac{f(x)-f(a)}{x-a}=f'(a)\\\\\n\t\t\t\t\t& \\text{If }f'(a)\\in \\mathbb{R}\\text{, then } f\\text{ is differentiable at the point }a.\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_definition_f1"
+        }
+      ]
+    }
+  ]
+}

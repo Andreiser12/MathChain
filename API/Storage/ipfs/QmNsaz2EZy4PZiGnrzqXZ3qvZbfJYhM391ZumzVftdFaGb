@@ -1,0 +1,369 @@
+{
+  "chapterId": "calculus_integrationparts",
+  "title": "Integration by Parts",
+  "category": "Calculus",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Integration by Parts.",
+  "formulas": [
+    {
+      "id": "calculus_integrationparts-f1",
+      "title": "Integration by Parts - Formula 1",
+      "latex": "\\int f(x)g'(x)\\,dx=f(x)g(x)- \\int f'(x)g(x)\\, dx +C",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The derivative of a constant a is zero.",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int f(x)g'(x)\\,dx=f(x)g(x)- \\int f'(x)g(x)\\, dx +C",
+          "wolframQuery": "simplify \\int f(x)g'(x)\\,dx=f(x)g(x)- \\int f'(x)g(x)\\, dx +C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int f(x)g'(x)\\,dx=f(x)g(x)- \\int f'(x)g(x)\\, dx +C",
+          "wolframQuery": "simplify \\int f(x)g'(x)\\,dx=f(x)g(x)- \\int f'(x)g(x)\\, dx +C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int f(x)g'(x)\\,dx=f(x)g(x)- \\int f'(x)g(x)\\, dx +C",
+          "wolframQuery": "simplify \\int f(x)g'(x)\\,dx=f(x)g(x)- \\int f'(x)g(x)\\, dx +C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_integrationparts_f1"
+        }
+      ]
+    },
+    {
+      "id": "calculus_integrationparts-f2",
+      "title": "Integration by Parts - Formula 2",
+      "latex": "\\int \\ln{x}\\, dx= x\\,(\\ln{x}-1) + C",
+      "model3D": "Assets/3DModels/intxlan.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\ln{x}\\, dx= x\\,(\\ln{x}-1) + C",
+          "wolframQuery": "simplify \\int \\ln{x}\\, dx= x\\,(\\ln{x}-1) + C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\ln{x}\\, dx= x\\,(\\ln{x}-1) + C",
+          "wolframQuery": "simplify \\int \\ln{x}\\, dx= x\\,(\\ln{x}-1) + C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\ln{x}\\, dx= x\\,(\\ln{x}-1) + C",
+          "wolframQuery": "simplify \\int \\ln{x}\\, dx= x\\,(\\ln{x}-1) + C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_integrationparts_f2"
+        }
+      ]
+    },
+    {
+      "id": "calculus_integrationparts-f3",
+      "title": "Integration by Parts - Formula 3",
+      "latex": "\\int \\arcsin{x}\\,dx= x\\arcsin{x}+\\sqrt{1-x^2}+C",
+      "model3D": "Assets/3DModels/int1pex.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\arcsin{x}\\,dx= x\\arcsin{x}+\\sqrt{1-x^2}+C",
+          "wolframQuery": "simplify \\int \\arcsin{x}\\,dx= x\\arcsin{x}+\\sqrt{1-x^2}+C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\arcsin{x}\\,dx= x\\arcsin{x}+\\sqrt{1-x^2}+C",
+          "wolframQuery": "simplify \\int \\arcsin{x}\\,dx= x\\arcsin{x}+\\sqrt{1-x^2}+C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\arcsin{x}\\,dx= x\\arcsin{x}+\\sqrt{1-x^2}+C",
+          "wolframQuery": "simplify \\int \\arcsin{x}\\,dx= x\\arcsin{x}+\\sqrt{1-x^2}+C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_integrationparts_f3"
+        }
+      ]
+    },
+    {
+      "id": "calculus_integrationparts-f4",
+      "title": "Integration by Parts - Formula 4",
+      "latex": "\\int \\arccos{x}\\,dx= x\\arccos{x}-\\sqrt{1-x^2}+C",
+      "model3D": "Assets/3DModels/intalax.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\arccos{x}\\,dx= x\\arccos{x}-\\sqrt{1-x^2}+C",
+          "wolframQuery": "simplify \\int \\arccos{x}\\,dx= x\\arccos{x}-\\sqrt{1-x^2}+C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\arccos{x}\\,dx= x\\arccos{x}-\\sqrt{1-x^2}+C",
+          "wolframQuery": "simplify \\int \\arccos{x}\\,dx= x\\arccos{x}-\\sqrt{1-x^2}+C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\arccos{x}\\,dx= x\\arccos{x}-\\sqrt{1-x^2}+C",
+          "wolframQuery": "simplify \\int \\arccos{x}\\,dx= x\\arccos{x}-\\sqrt{1-x^2}+C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_integrationparts_f4"
+        }
+      ]
+    },
+    {
+      "id": "calculus_integrationparts-f5",
+      "title": "Integration by Parts - Formula 5",
+      "latex": "\\int \\arctan{x}\\,dx= x\\arctan{x}-\\frac{\\ln{(x^2+1)}}{2}+C",
+      "model3D": "Assets/3DModels/intelax.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\arctan{x}\\,dx= x\\arctan{x}-\\frac{\\ln{(x^2+1)}}{2}+C",
+          "wolframQuery": "simplify \\int \\arctan{x}\\,dx= x\\arctan{x}-\\frac{\\ln{(x^2+1)}}{2}+C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\arctan{x}\\,dx= x\\arctan{x}-\\frac{\\ln{(x^2+1)}}{2}+C",
+          "wolframQuery": "simplify \\int \\arctan{x}\\,dx= x\\arctan{x}-\\frac{\\ln{(x^2+1)}}{2}+C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\arctan{x}\\,dx= x\\arctan{x}-\\frac{\\ln{(x^2+1)}}{2}+C",
+          "wolframQuery": "simplify \\int \\arctan{x}\\,dx= x\\arctan{x}-\\frac{\\ln{(x^2+1)}}{2}+C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_integrationparts_f5"
+        }
+      ]
+    },
+    {
+      "id": "calculus_integrationparts-f6",
+      "title": "Integration by Parts - Formula 6",
+      "latex": "\\int \\operatorname{arccot}{x}\\,dx= x\\operatorname{arccot}{x}+\\frac{\\ln{(x^2+1)}}{2}+C",
+      "model3D": "Assets/3DModels/int1pexla2minusala2.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\operatorname{arccot}{x}\\,dx= x\\operatorname{arccot}{x}+\\frac{\\ln{(x^2+1)}}{2}+C",
+          "wolframQuery": "simplify \\int \\operatorname{arccot}{x}\\,dx= x\\operatorname{arccot}{x}+\\frac{\\ln{(x^2+1)}}{2}+C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\operatorname{arccot}{x}\\,dx= x\\operatorname{arccot}{x}+\\frac{\\ln{(x^2+1)}}{2}+C",
+          "wolframQuery": "simplify \\int \\operatorname{arccot}{x}\\,dx= x\\operatorname{arccot}{x}+\\frac{\\ln{(x^2+1)}}{2}+C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\operatorname{arccot}{x}\\,dx= x\\operatorname{arccot}{x}+\\frac{\\ln{(x^2+1)}}{2}+C",
+          "wolframQuery": "simplify \\int \\operatorname{arccot}{x}\\,dx= x\\operatorname{arccot}{x}+\\frac{\\ln{(x^2+1)}}{2}+C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_integrationparts_f6"
+        }
+      ]
+    }
+  ]
+}

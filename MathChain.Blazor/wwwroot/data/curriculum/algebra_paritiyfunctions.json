@@ -1,0 +1,189 @@
+{
+  "chapterId": "algebra_paritiyfunctions",
+  "title": "Parity",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Parity.",
+  "formulas": [
+    {
+      "id": "algebra_paritiyfunctions-f1",
+      "title": "Parity - Formula 1",
+      "latex": "f \\text{ is even if } f(-x)=f(x)",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "f \\text{ is even if } f(-x)=f(x)",
+          "wolframQuery": "simplify f \\text{ is even if } f(-x)=f(x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "f \\text{ is even if } f(-x)=f(x)",
+          "wolframQuery": "simplify f \\text{ is even if } f(-x)=f(x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "f \\text{ is even if } f(-x)=f(x)",
+          "wolframQuery": "simplify f \\text{ is even if } f(-x)=f(x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_paritiyfunctions_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_paritiyfunctions-f2",
+      "title": "Parity - Formula 2",
+      "latex": "f \\text{ is odd if } f(-x)=-f(x)",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "f \\text{ is odd if } f(-x)=-f(x)",
+          "wolframQuery": "simplify f \\text{ is odd if } f(-x)=-f(x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "f \\text{ is odd if } f(-x)=-f(x)",
+          "wolframQuery": "simplify f \\text{ is odd if } f(-x)=-f(x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "f \\text{ is odd if } f(-x)=-f(x)",
+          "wolframQuery": "simplify f \\text{ is odd if } f(-x)=-f(x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_paritiyfunctions_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_paritiyfunctions-f3",
+      "title": "Parity - Formula 3",
+      "latex": "f \\text{ is periodic with period } T \\text{ if } f(x+T)=f(x)",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "f \\text{ is periodic with period } T \\text{ if } f(x+T)=f(x)",
+          "wolframQuery": "simplify f \\text{ is periodic with period } T \\text{ if } f(x+T)=f(x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "f \\text{ is periodic with period } T \\text{ if } f(x+T)=f(x)",
+          "wolframQuery": "simplify f \\text{ is periodic with period } T \\text{ if } f(x+T)=f(x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "f \\text{ is periodic with period } T \\text{ if } f(x+T)=f(x)",
+          "wolframQuery": "simplify f \\text{ is periodic with period } T \\text{ if } f(x+T)=f(x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_paritiyfunctions_f3"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,429 @@
+{
+  "chapterId": "algebra_propertieslogarithms",
+  "title": "Properties",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Properties.",
+  "formulas": [
+    {
+      "id": "algebra_propertieslogarithms-f1",
+      "title": "Properties - Formula 1",
+      "latex": "\\log_{a}{x}=\\log_{a}{y} \\Rightarrow x=y",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\log_{a}{x}=\\log_{a}{y} \\Rightarrow x=y",
+          "wolframQuery": "simplify \\log_{a}{x}=\\log_{a}{y} \\Rightarrow x=y",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\log_{a}{x}=\\log_{a}{y} \\Rightarrow x=y",
+          "wolframQuery": "simplify \\log_{a}{x}=\\log_{a}{y} \\Rightarrow x=y",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\log_{a}{x}=\\log_{a}{y} \\Rightarrow x=y",
+          "wolframQuery": "simplify \\log_{a}{x}=\\log_{a}{y} \\Rightarrow x=y",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertieslogarithms_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertieslogarithms-f2",
+      "title": "Properties - Formula 2",
+      "latex": "\\log_{a}{1}=0",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\log_{a}{1}=0",
+          "wolframQuery": "simplify \\log_{a}{1}=0",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\log_{a}{1}=0",
+          "wolframQuery": "simplify \\log_{a}{1}=0",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\log_{a}{1}=0",
+          "wolframQuery": "simplify \\log_{a}{1}=0",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertieslogarithms_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertieslogarithms-f3",
+      "title": "Properties - Formula 3",
+      "latex": "\\log_{a}{a}=1",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\log_{a}{a}=1",
+          "wolframQuery": "simplify \\log_{a}{a}=1",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\log_{a}{a}=1",
+          "wolframQuery": "simplify \\log_{a}{a}=1",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\log_{a}{a}=1",
+          "wolframQuery": "simplify \\log_{a}{a}=1",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertieslogarithms_f3"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertieslogarithms-f4",
+      "title": "Properties - Formula 4",
+      "latex": "a^{\\log_{a}{x}}=x",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "a^{\\log_{a}{x}}=x",
+          "wolframQuery": "simplify a^{\\log_{a}{x}}=x",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "a^{\\log_{a}{x}}=x",
+          "wolframQuery": "simplify a^{\\log_{a}{x}}=x",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "a^{\\log_{a}{x}}=x",
+          "wolframQuery": "simplify a^{\\log_{a}{x}}=x",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertieslogarithms_f4"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertieslogarithms-f5",
+      "title": "Properties - Formula 5",
+      "latex": "\\lg{x}=\\log_{10}{x}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lg{x}=\\log_{10}{x}",
+          "wolframQuery": "simplify \\lg{x}=\\log_{10}{x}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\lg{x}=\\log_{10}{x}",
+          "wolframQuery": "simplify \\lg{x}=\\log_{10}{x}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lg{x}=\\log_{10}{x}",
+          "wolframQuery": "simplify \\lg{x}=\\log_{10}{x}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertieslogarithms_f5"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertieslogarithms-f6",
+      "title": "Properties - Formula 6",
+      "latex": "\\ln{x}=\\log_{e}{x}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\ln{x}=\\log_{e}{x}",
+          "wolframQuery": "simplify \\ln{x}=\\log_{e}{x}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\ln{x}=\\log_{e}{x}",
+          "wolframQuery": "simplify \\ln{x}=\\log_{e}{x}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\ln{x}=\\log_{e}{x}",
+          "wolframQuery": "simplify \\ln{x}=\\log_{e}{x}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertieslogarithms_f6"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertieslogarithms-f7",
+      "title": "Properties - Formula 7",
+      "latex": "x^{\\log_{a}{y}}=y^{\\log_{a}{x}}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "x^{\\log_{a}{y}}=y^{\\log_{a}{x}}",
+          "wolframQuery": "simplify x^{\\log_{a}{y}}=y^{\\log_{a}{x}}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "x^{\\log_{a}{y}}=y^{\\log_{a}{x}}",
+          "wolframQuery": "simplify x^{\\log_{a}{y}}=y^{\\log_{a}{x}}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "x^{\\log_{a}{y}}=y^{\\log_{a}{x}}",
+          "wolframQuery": "simplify x^{\\log_{a}{y}}=y^{\\log_{a}{x}}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertieslogarithms_f7"
+        }
+      ]
+    }
+  ]
+}

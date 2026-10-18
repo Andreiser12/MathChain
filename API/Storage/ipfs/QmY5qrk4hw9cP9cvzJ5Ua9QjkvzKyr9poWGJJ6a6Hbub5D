@@ -1,0 +1,189 @@
+{
+  "chapterId": "calculus_rules",
+  "title": "Rules",
+  "category": "Calculus",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Rules.",
+  "formulas": [
+    {
+      "id": "calculus_rules-f1",
+      "title": "Rules - Formula 1",
+      "latex": "\\lim_{n\\to\\infty}(a\\cdot n^p+b\\cdot n^{p-1}+...)=\\begin{cases}\n\t\t\t\t\t\t\\infty,\\text{ if }a>0\\\\\n\t\t\t\t\t\t-\\infty,\\text{ if }a<0\n\t\t\t\t\t\\end{cases}",
+      "model3D": "Assets/3DModels/LR1.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{n\\to\\infty}(a\\cdot n^p+b\\cdot n^{p-1}+...)=\\begin{cases}\n\t\t\t\t\t\t\\infty,\\text{ if }a>0\\\\\n\t\t\t\t\t\t-\\infty,\\text{ if }a<0\n\t\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify \\lim_{n\\to\\infty}(a\\cdot n^p+b\\cdot n^{p-1}+...)=\\begin{cases}\n\t\t\t\t\t\t\\infty,\\text{ if }a>0\\\\\n\t\t\t\t\t\t-\\infty,\\text{ if }a<0\n\t\t\t\t\t\\end{cases}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\lim_{n\\to\\infty}(a\\cdot n^p+b\\cdot n^{p-1}+...)=\\begin{cases}\n\t\t\t\t\t\t\\infty,\\text{ if }a>0\\\\\n\t\t\t\t\t\t-\\infty,\\text{ if }a<0\n\t\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify \\lim_{n\\to\\infty}(a\\cdot n^p+b\\cdot n^{p-1}+...)=\\begin{cases}\n\t\t\t\t\t\t\\infty,\\text{ if }a>0\\\\\n\t\t\t\t\t\t-\\infty,\\text{ if }a<0\n\t\t\t\t\t\\end{cases}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{n\\to\\infty}(a\\cdot n^p+b\\cdot n^{p-1}+...)=\\begin{cases}\n\t\t\t\t\t\t\\infty,\\text{ if }a>0\\\\\n\t\t\t\t\t\t-\\infty,\\text{ if }a<0\n\t\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify \\lim_{n\\to\\infty}(a\\cdot n^p+b\\cdot n^{p-1}+...)=\\begin{cases}\n\t\t\t\t\t\t\\infty,\\text{ if }a>0\\\\\n\t\t\t\t\t\t-\\infty,\\text{ if }a<0\n\t\t\t\t\t\\end{cases}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_rules_f1"
+        }
+      ]
+    },
+    {
+      "id": "calculus_rules-f2",
+      "title": "Rules - Formula 2",
+      "latex": "\\lim_{n\\to\\infty}\\frac{a\\cdot n^p+c\\cdot n^{p-1}+...}{b\\cdot n^q+d\\cdot n^{q-1}+...}=\\begin{cases}\n\t\t\t\t\t\\frac{a}{b},\\text{ if }p=q\\\\\n\t\t\t\t\t0,\\text{ if }p<q\\\\\n\t\t\t\t\t\\infty,\\text{ if }p>q\n\t\t\t\t\\end{cases}",
+      "model3D": "Assets/3DModels/LR2.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{n\\to\\infty}\\frac{a\\cdot n^p+c\\cdot n^{p-1}+...}{b\\cdot n^q+d\\cdot n^{q-1}+...}=\\begin{cases}\n\t\t\t\t\t\\frac{a}{b},\\text{ if }p=q\\\\\n\t\t\t\t\t0,\\text{ if }p<q\\\\\n\t\t\t\t\t\\infty,\\text{ if }p>q\n\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify \\lim_{n\\to\\infty}\\frac{a\\cdot n^p+c\\cdot n^{p-1}+...}{b\\cdot n^q+d\\cdot n^{q-1}+...}=\\begin{cases}\n\t\t\t\t\t\\frac{a}{b},\\text{ if }p=q\\\\\n\t\t\t\t\t0,\\text{ if }p<q\\\\\n\t\t\t\t\t\\infty,\\text{ if }p>q\n\t\t\t\t\\end{cases}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\lim_{n\\to\\infty}\\frac{a\\cdot n^p+c\\cdot n^{p-1}+...}{b\\cdot n^q+d\\cdot n^{q-1}+...}=\\begin{cases}\n\t\t\t\t\t\\frac{a}{b},\\text{ if }p=q\\\\\n\t\t\t\t\t0,\\text{ if }p<q\\\\\n\t\t\t\t\t\\infty,\\text{ if }p>q\n\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify \\lim_{n\\to\\infty}\\frac{a\\cdot n^p+c\\cdot n^{p-1}+...}{b\\cdot n^q+d\\cdot n^{q-1}+...}=\\begin{cases}\n\t\t\t\t\t\\frac{a}{b},\\text{ if }p=q\\\\\n\t\t\t\t\t0,\\text{ if }p<q\\\\\n\t\t\t\t\t\\infty,\\text{ if }p>q\n\t\t\t\t\\end{cases}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{n\\to\\infty}\\frac{a\\cdot n^p+c\\cdot n^{p-1}+...}{b\\cdot n^q+d\\cdot n^{q-1}+...}=\\begin{cases}\n\t\t\t\t\t\\frac{a}{b},\\text{ if }p=q\\\\\n\t\t\t\t\t0,\\text{ if }p<q\\\\\n\t\t\t\t\t\\infty,\\text{ if }p>q\n\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify \\lim_{n\\to\\infty}\\frac{a\\cdot n^p+c\\cdot n^{p-1}+...}{b\\cdot n^q+d\\cdot n^{q-1}+...}=\\begin{cases}\n\t\t\t\t\t\\frac{a}{b},\\text{ if }p=q\\\\\n\t\t\t\t\t0,\\text{ if }p<q\\\\\n\t\t\t\t\t\\infty,\\text{ if }p>q\n\t\t\t\t\\end{cases}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_rules_f2"
+        }
+      ]
+    },
+    {
+      "id": "calculus_rules-f3",
+      "title": "Rules - Formula 3",
+      "latex": "\\lim_{n\\to\\infty}q^n=\\begin{cases}\n\t\t\t\t\t\\infty,\\text{ if }q>1\\\\\n\t\t\t\t\t1,\\text{ if }q=1\\\\\n\t\t\t\t\t0,\\text{ if }q\\in (-1,1)\\\\\n\t\t\t\t\t\\text{does not exist},\\text{ if }q\\leq1\n\t\t\t\t\\end{cases}",
+      "model3D": "Assets/3DModels/LR3.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{n\\to\\infty}q^n=\\begin{cases}\n\t\t\t\t\t\\infty,\\text{ if }q>1\\\\\n\t\t\t\t\t1,\\text{ if }q=1\\\\\n\t\t\t\t\t0,\\text{ if }q\\in (-1,1)\\\\\n\t\t\t\t\t\\text{does not exist},\\text{ if }q\\leq1\n\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify \\lim_{n\\to\\infty}q^n=\\begin{cases}\n\t\t\t\t\t\\infty,\\text{ if }q>1\\\\\n\t\t\t\t\t1,\\text{ if }q=1\\\\\n\t\t\t\t\t0,\\text{ if }q\\in (-1,1)\\\\\n\t\t\t\t\t\\text{does not exist},\\text{ if }q\\leq1\n\t\t\t\t\\end{cases}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\lim_{n\\to\\infty}q^n=\\begin{cases}\n\t\t\t\t\t\\infty,\\text{ if }q>1\\\\\n\t\t\t\t\t1,\\text{ if }q=1\\\\\n\t\t\t\t\t0,\\text{ if }q\\in (-1,1)\\\\\n\t\t\t\t\t\\text{does not exist},\\text{ if }q\\leq1\n\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify \\lim_{n\\to\\infty}q^n=\\begin{cases}\n\t\t\t\t\t\\infty,\\text{ if }q>1\\\\\n\t\t\t\t\t1,\\text{ if }q=1\\\\\n\t\t\t\t\t0,\\text{ if }q\\in (-1,1)\\\\\n\t\t\t\t\t\\text{does not exist},\\text{ if }q\\leq1\n\t\t\t\t\\end{cases}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\lim_{n\\to\\infty}q^n=\\begin{cases}\n\t\t\t\t\t\\infty,\\text{ if }q>1\\\\\n\t\t\t\t\t1,\\text{ if }q=1\\\\\n\t\t\t\t\t0,\\text{ if }q\\in (-1,1)\\\\\n\t\t\t\t\t\\text{does not exist},\\text{ if }q\\leq1\n\t\t\t\t\\end{cases}",
+          "wolframQuery": "simplify \\lim_{n\\to\\infty}q^n=\\begin{cases}\n\t\t\t\t\t\\infty,\\text{ if }q>1\\\\\n\t\t\t\t\t1,\\text{ if }q=1\\\\\n\t\t\t\t\t0,\\text{ if }q\\in (-1,1)\\\\\n\t\t\t\t\t\\text{does not exist},\\text{ if }q\\leq1\n\t\t\t\t\\end{cases}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_rules_f3"
+        }
+      ]
+    }
+  ]
+}

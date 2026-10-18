@@ -1,0 +1,489 @@
+{
+  "chapterId": "algebra_geometricinterpretationcomplex",
+  "title": "Geometric Interpretation",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Geometric Interpretation.",
+  "formulas": [
+    {
+      "id": "algebra_geometricinterpretationcomplex-f1",
+      "title": "Geometric Interpretation - Formula 1",
+      "latex": "z=x+iy \\Rightarrow M(x,y)",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "z=x+iy \\Rightarrow M(x,y)",
+          "wolframQuery": "simplify z=x+iy \\Rightarrow M(x,y)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "z=x+iy \\Rightarrow M(x,y)",
+          "wolframQuery": "simplify z=x+iy \\Rightarrow M(x,y)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "z=x+iy \\Rightarrow M(x,y)",
+          "wolframQuery": "simplify z=x+iy \\Rightarrow M(x,y)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_geometricinterpretationcomplex_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_geometricinterpretationcomplex-f2",
+      "title": "Geometric Interpretation - Formula 2",
+      "latex": "MN=|z_M-z_N|",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "MN=|z_M-z_N|",
+          "wolframQuery": "simplify MN=|z_M-z_N|",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "MN=|z_M-z_N|",
+          "wolframQuery": "simplify MN=|z_M-z_N|",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "MN=|z_M-z_N|",
+          "wolframQuery": "simplify MN=|z_M-z_N|",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_geometricinterpretationcomplex_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_geometricinterpretationcomplex-f3",
+      "title": "Geometric Interpretation - Formula 3",
+      "latex": "AB \\text{ parallel to } CD \\Leftrightarrow \\frac{z_B-z_A}{z_D-z_C}\\in \\mathbb{R}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "AB \\text{ parallel to } CD \\Leftrightarrow \\frac{z_B-z_A}{z_D-z_C}\\in \\mathbb{R}",
+          "wolframQuery": "simplify AB \\text{ parallel to } CD \\Leftrightarrow \\frac{z_B-z_A}{z_D-z_C}\\in \\mathbb{R}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "AB \\text{ parallel to } CD \\Leftrightarrow \\frac{z_B-z_A}{z_D-z_C}\\in \\mathbb{R}",
+          "wolframQuery": "simplify AB \\text{ parallel to } CD \\Leftrightarrow \\frac{z_B-z_A}{z_D-z_C}\\in \\mathbb{R}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "AB \\text{ parallel to } CD \\Leftrightarrow \\frac{z_B-z_A}{z_D-z_C}\\in \\mathbb{R}",
+          "wolframQuery": "simplify AB \\text{ parallel to } CD \\Leftrightarrow \\frac{z_B-z_A}{z_D-z_C}\\in \\mathbb{R}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_geometricinterpretationcomplex_f3"
+        }
+      ]
+    },
+    {
+      "id": "algebra_geometricinterpretationcomplex-f4",
+      "title": "Geometric Interpretation - Formula 4",
+      "latex": "AB \\text{ perpendicular to } BC \\Leftrightarrow \\frac{z_B-z_A}{z_C-z_B}\\in \\mathbb{R^*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "AB \\text{ perpendicular to } BC \\Leftrightarrow \\frac{z_B-z_A}{z_C-z_B}\\in \\mathbb{R^*}",
+          "wolframQuery": "simplify AB \\text{ perpendicular to } BC \\Leftrightarrow \\frac{z_B-z_A}{z_C-z_B}\\in \\mathbb{R^*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "AB \\text{ perpendicular to } BC \\Leftrightarrow \\frac{z_B-z_A}{z_C-z_B}\\in \\mathbb{R^*}",
+          "wolframQuery": "simplify AB \\text{ perpendicular to } BC \\Leftrightarrow \\frac{z_B-z_A}{z_C-z_B}\\in \\mathbb{R^*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "AB \\text{ perpendicular to } BC \\Leftrightarrow \\frac{z_B-z_A}{z_C-z_B}\\in \\mathbb{R^*}",
+          "wolframQuery": "simplify AB \\text{ perpendicular to } BC \\Leftrightarrow \\frac{z_B-z_A}{z_C-z_B}\\in \\mathbb{R^*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_geometricinterpretationcomplex_f4"
+        }
+      ]
+    },
+    {
+      "id": "algebra_geometricinterpretationcomplex-f5",
+      "title": "Geometric Interpretation - Formula 5",
+      "latex": "\\text{if } \\frac{z_B-z_A}{z_C-z_A}\\in \\mathbb{R}\\Rightarrow A,B,C\\text{ are collinear}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{if } \\frac{z_B-z_A}{z_C-z_A}\\in \\mathbb{R}\\Rightarrow A,B,C\\text{ are collinear}",
+          "wolframQuery": "simplify \\text{if } \\frac{z_B-z_A}{z_C-z_A}\\in \\mathbb{R}\\Rightarrow A,B,C\\text{ are collinear}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{if } \\frac{z_B-z_A}{z_C-z_A}\\in \\mathbb{R}\\Rightarrow A,B,C\\text{ are collinear}",
+          "wolframQuery": "simplify \\text{if } \\frac{z_B-z_A}{z_C-z_A}\\in \\mathbb{R}\\Rightarrow A,B,C\\text{ are collinear}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{if } \\frac{z_B-z_A}{z_C-z_A}\\in \\mathbb{R}\\Rightarrow A,B,C\\text{ are collinear}",
+          "wolframQuery": "simplify \\text{if } \\frac{z_B-z_A}{z_C-z_A}\\in \\mathbb{R}\\Rightarrow A,B,C\\text{ are collinear}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_geometricinterpretationcomplex_f5"
+        }
+      ]
+    },
+    {
+      "id": "algebra_geometricinterpretationcomplex-f6",
+      "title": "Geometric Interpretation - Formula 6",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t\\text{The quadrilateral } ABCD \\text{ is}\\\\\n\t\t\t\t\t\\text{a parallelogram}\\Leftrightarrow z_A+z_C=z_B+z_D\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{The quadrilateral } ABCD \\text{ is}\\\\\n\t\t\t\t\t\\text{a parallelogram}\\Leftrightarrow z_A+z_C=z_B+z_D\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{The quadrilateral } ABCD \\text{ is}\\\\\n\t\t\t\t\t\\text{a parallelogram}\\Leftrightarrow z_A+z_C=z_B+z_D\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{The quadrilateral } ABCD \\text{ is}\\\\\n\t\t\t\t\t\\text{a parallelogram}\\Leftrightarrow z_A+z_C=z_B+z_D\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{The quadrilateral } ABCD \\text{ is}\\\\\n\t\t\t\t\t\\text{a parallelogram}\\Leftrightarrow z_A+z_C=z_B+z_D\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{The quadrilateral } ABCD \\text{ is}\\\\\n\t\t\t\t\t\\text{a parallelogram}\\Leftrightarrow z_A+z_C=z_B+z_D\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{The quadrilateral } ABCD \\text{ is}\\\\\n\t\t\t\t\t\\text{a parallelogram}\\Leftrightarrow z_A+z_C=z_B+z_D\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_geometricinterpretationcomplex_f6"
+        }
+      ]
+    },
+    {
+      "id": "algebra_geometricinterpretationcomplex-f7",
+      "title": "Geometric Interpretation - Formula 7",
+      "latex": "P=\\text{the middle of the side }MN \\Rightarrow P\\left( \\frac{z_M+z_N}{2} \\right)",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "P=\\text{the middle of the side }MN \\Rightarrow P\\left( \\frac{z_M+z_N}{2} \\right)",
+          "wolframQuery": "simplify P=\\text{the middle of the side }MN \\Rightarrow P\\left( \\frac{z_M+z_N}{2} \\right)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "P=\\text{the middle of the side }MN \\Rightarrow P\\left( \\frac{z_M+z_N}{2} \\right)",
+          "wolframQuery": "simplify P=\\text{the middle of the side }MN \\Rightarrow P\\left( \\frac{z_M+z_N}{2} \\right)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "P=\\text{the middle of the side }MN \\Rightarrow P\\left( \\frac{z_M+z_N}{2} \\right)",
+          "wolframQuery": "simplify P=\\text{the middle of the side }MN \\Rightarrow P\\left( \\frac{z_M+z_N}{2} \\right)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_geometricinterpretationcomplex_f7"
+        }
+      ]
+    },
+    {
+      "id": "algebra_geometricinterpretationcomplex-f8",
+      "title": "Geometric Interpretation - Formula 8",
+      "latex": "G=\\text{the centroid of the triangle }ABC \\Rightarrow G\\left( \\frac{z_A+z_B+z_C}{3} \\right)",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "G=\\text{the centroid of the triangle }ABC \\Rightarrow G\\left( \\frac{z_A+z_B+z_C}{3} \\right)",
+          "wolframQuery": "simplify G=\\text{the centroid of the triangle }ABC \\Rightarrow G\\left( \\frac{z_A+z_B+z_C}{3} \\right)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "G=\\text{the centroid of the triangle }ABC \\Rightarrow G\\left( \\frac{z_A+z_B+z_C}{3} \\right)",
+          "wolframQuery": "simplify G=\\text{the centroid of the triangle }ABC \\Rightarrow G\\left( \\frac{z_A+z_B+z_C}{3} \\right)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "G=\\text{the centroid of the triangle }ABC \\Rightarrow G\\left( \\frac{z_A+z_B+z_C}{3} \\right)",
+          "wolframQuery": "simplify G=\\text{the centroid of the triangle }ABC \\Rightarrow G\\left( \\frac{z_A+z_B+z_C}{3} \\right)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_geometricinterpretationcomplex_f8"
+        }
+      ]
+    }
+  ]
+}

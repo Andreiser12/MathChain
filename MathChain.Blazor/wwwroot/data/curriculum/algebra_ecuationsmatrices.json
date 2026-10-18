@@ -1,0 +1,189 @@
+{
+  "chapterId": "algebra_ecuationsmatrices",
+  "title": "Ecuations",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Ecuations.",
+  "formulas": [
+    {
+      "id": "algebra_ecuationsmatrices-f1",
+      "title": "Ecuations - Formula 1",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t\\begin{cases}\n\t\t\t\t\t\ta_1 x+b_1 y+c_1 z=d_1\\\\\n\t\t\t\t\t\ta_2 x+b_2 y+c_2 z=d_2\\\\\n\t\t\t\t\t\ta_3 x+b_3 y+c_3 z=d_3\\\\\n\t\t\t\t\t\\end{cases}\\\\\n\t\t\t\tA=\\begin{pmatrix}\n\t\t\t\t\ta_1& b_1& c_1\\\\\n\t\t\t\t\ta_2& b_2& c_2\\\\\n\t\t\t\t\ta_3& b_3& c_3\n\t\t\t\t\\end{pmatrix}\n\t\t\t\t\\overline{A}=\\begin{pmatrix}\n\t\t\t\t\ta_1& b_1& c_1 & d_1\\\\\n\t\t\t\t\ta_2& b_2& c_2 & d_2\\\\\n\t\t\t\t\ta_3& b_3& c_3 & d_3\n\t\t\t\t\\end{pmatrix}\n\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\begin{cases}\n\t\t\t\t\t\ta_1 x+b_1 y+c_1 z=d_1\\\\\n\t\t\t\t\t\ta_2 x+b_2 y+c_2 z=d_2\\\\\n\t\t\t\t\t\ta_3 x+b_3 y+c_3 z=d_3\\\\\n\t\t\t\t\t\\end{cases}\\\\\n\t\t\t\tA=\\begin{pmatrix}\n\t\t\t\t\ta_1& b_1& c_1\\\\\n\t\t\t\t\ta_2& b_2& c_2\\\\\n\t\t\t\t\ta_3& b_3& c_3\n\t\t\t\t\\end{pmatrix}\n\t\t\t\t\\overline{A}=\\begin{pmatrix}\n\t\t\t\t\ta_1& b_1& c_1 & d_1\\\\\n\t\t\t\t\ta_2& b_2& c_2 & d_2\\\\\n\t\t\t\t\ta_3& b_3& c_3 & d_3\n\t\t\t\t\\end{pmatrix}\n\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\begin{cases}\n\t\t\t\t\t\ta_1 x+b_1 y+c_1 z=d_1\\\\\n\t\t\t\t\t\ta_2 x+b_2 y+c_2 z=d_2\\\\\n\t\t\t\t\t\ta_3 x+b_3 y+c_3 z=d_3\\\\\n\t\t\t\t\t\\end{cases}\\\\\n\t\t\t\tA=\\begin{pmatrix}\n\t\t\t\t\ta_1& b_1& c_1\\\\\n\t\t\t\t\ta_2& b_2& c_2\\\\\n\t\t\t\t\ta_3& b_3& c_3\n\t\t\t\t\\end{pmatrix}\n\t\t\t\t\\overline{A}=\\begin{pmatrix}\n\t\t\t\t\ta_1& b_1& c_1 & d_1\\\\\n\t\t\t\t\ta_2& b_2& c_2 & d_2\\\\\n\t\t\t\t\ta_3& b_3& c_3 & d_3\n\t\t\t\t\\end{pmatrix}\n\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\begin{cases}\n\t\t\t\t\t\ta_1 x+b_1 y+c_1 z=d_1\\\\\n\t\t\t\t\t\ta_2 x+b_2 y+c_2 z=d_2\\\\\n\t\t\t\t\t\ta_3 x+b_3 y+c_3 z=d_3\\\\\n\t\t\t\t\t\\end{cases}\\\\\n\t\t\t\tA=\\begin{pmatrix}\n\t\t\t\t\ta_1& b_1& c_1\\\\\n\t\t\t\t\ta_2& b_2& c_2\\\\\n\t\t\t\t\ta_3& b_3& c_3\n\t\t\t\t\\end{pmatrix}\n\t\t\t\t\\overline{A}=\\begin{pmatrix}\n\t\t\t\t\ta_1& b_1& c_1 & d_1\\\\\n\t\t\t\t\ta_2& b_2& c_2 & d_2\\\\\n\t\t\t\t\ta_3& b_3& c_3 & d_3\n\t\t\t\t\\end{pmatrix}\n\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\begin{cases}\n\t\t\t\t\t\ta_1 x+b_1 y+c_1 z=d_1\\\\\n\t\t\t\t\t\ta_2 x+b_2 y+c_2 z=d_2\\\\\n\t\t\t\t\t\ta_3 x+b_3 y+c_3 z=d_3\\\\\n\t\t\t\t\t\\end{cases}\\\\\n\t\t\t\tA=\\begin{pmatrix}\n\t\t\t\t\ta_1& b_1& c_1\\\\\n\t\t\t\t\ta_2& b_2& c_2\\\\\n\t\t\t\t\ta_3& b_3& c_3\n\t\t\t\t\\end{pmatrix}\n\t\t\t\t\\overline{A}=\\begin{pmatrix}\n\t\t\t\t\ta_1& b_1& c_1 & d_1\\\\\n\t\t\t\t\ta_2& b_2& c_2 & d_2\\\\\n\t\t\t\t\ta_3& b_3& c_3 & d_3\n\t\t\t\t\\end{pmatrix}\n\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\begin{cases}\n\t\t\t\t\t\ta_1 x+b_1 y+c_1 z=d_1\\\\\n\t\t\t\t\t\ta_2 x+b_2 y+c_2 z=d_2\\\\\n\t\t\t\t\t\ta_3 x+b_3 y+c_3 z=d_3\\\\\n\t\t\t\t\t\\end{cases}\\\\\n\t\t\t\tA=\\begin{pmatrix}\n\t\t\t\t\ta_1& b_1& c_1\\\\\n\t\t\t\t\ta_2& b_2& c_2\\\\\n\t\t\t\t\ta_3& b_3& c_3\n\t\t\t\t\\end{pmatrix}\n\t\t\t\t\\overline{A}=\\begin{pmatrix}\n\t\t\t\t\ta_1& b_1& c_1 & d_1\\\\\n\t\t\t\t\ta_2& b_2& c_2 & d_2\\\\\n\t\t\t\t\ta_3& b_3& c_3 & d_3\n\t\t\t\t\\end{pmatrix}\n\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\begin{cases}\n\t\t\t\t\t\ta_1 x+b_1 y+c_1 z=d_1\\\\\n\t\t\t\t\t\ta_2 x+b_2 y+c_2 z=d_2\\\\\n\t\t\t\t\t\ta_3 x+b_3 y+c_3 z=d_3\\\\\n\t\t\t\t\t\\end{cases}\\\\\n\t\t\t\tA=\\begin{pmatrix}\n\t\t\t\t\ta_1& b_1& c_1\\\\\n\t\t\t\t\ta_2& b_2& c_2\\\\\n\t\t\t\t\ta_3& b_3& c_3\n\t\t\t\t\\end{pmatrix}\n\t\t\t\t\\overline{A}=\\begin{pmatrix}\n\t\t\t\t\ta_1& b_1& c_1 & d_1\\\\\n\t\t\t\t\ta_2& b_2& c_2 & d_2\\\\\n\t\t\t\t\ta_3& b_3& c_3 & d_3\n\t\t\t\t\\end{pmatrix}\n\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_ecuationsmatrices_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_ecuationsmatrices-f2",
+      "title": "Ecuations - Formula 2",
+      "latex": "\\text{If }\\det{A}\\neq0",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{If }\\det{A}\\neq0",
+          "wolframQuery": "simplify \\text{If }\\det{A}\\neq0",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{If }\\det{A}\\neq0",
+          "wolframQuery": "simplify \\text{If }\\det{A}\\neq0",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{If }\\det{A}\\neq0",
+          "wolframQuery": "simplify \\text{If }\\det{A}\\neq0",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_ecuationsmatrices_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_ecuationsmatrices-f3",
+      "title": "Ecuations - Formula 3",
+      "latex": "\\text{If }\\det{A}=0",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{If }\\det{A}=0",
+          "wolframQuery": "simplify \\text{If }\\det{A}=0",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{If }\\det{A}=0",
+          "wolframQuery": "simplify \\text{If }\\det{A}=0",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{If }\\det{A}=0",
+          "wolframQuery": "simplify \\text{If }\\det{A}=0",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_ecuationsmatrices_f3"
+        }
+      ]
+    }
+  ]
+}

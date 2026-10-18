@@ -1,0 +1,249 @@
+{
+  "chapterId": "calculus_rationalfunctions",
+  "title": "Rational Functions",
+  "category": "Calculus",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Rational Functions.",
+  "formulas": [
+    {
+      "id": "calculus_rationalfunctions-f1",
+      "title": "Rational Functions - Formula 1",
+      "latex": "\\int \\frac{1}{x+a}\\, dx= \\ln{|x+a|} +C",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The derivative of a constant a is zero.",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{x+a}\\, dx= \\ln{|x+a|} +C",
+          "wolframQuery": "simplify \\int \\frac{1}{x+a}\\, dx= \\ln{|x+a|} +C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{x+a}\\, dx= \\ln{|x+a|} +C",
+          "wolframQuery": "simplify \\int \\frac{1}{x+a}\\, dx= \\ln{|x+a|} +C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{x+a}\\, dx= \\ln{|x+a|} +C",
+          "wolframQuery": "simplify \\int \\frac{1}{x+a}\\, dx= \\ln{|x+a|} +C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_rationalfunctions_f1"
+        }
+      ]
+    },
+    {
+      "id": "calculus_rationalfunctions-f2",
+      "title": "Rational Functions - Formula 2",
+      "latex": "\\int \\frac{1}{ax+b}\\, dx= \\frac{1}{a} \\ln{\\left|x+\\frac{b}{a}\\right|} +C",
+      "model3D": "Assets/3DModels/intxlan.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{ax+b}\\, dx= \\frac{1}{a} \\ln{\\left|x+\\frac{b}{a}\\right|} +C",
+          "wolframQuery": "simplify \\int \\frac{1}{ax+b}\\, dx= \\frac{1}{a} \\ln{\\left|x+\\frac{b}{a}\\right|} +C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{ax+b}\\, dx= \\frac{1}{a} \\ln{\\left|x+\\frac{b}{a}\\right|} +C",
+          "wolframQuery": "simplify \\int \\frac{1}{ax+b}\\, dx= \\frac{1}{a} \\ln{\\left|x+\\frac{b}{a}\\right|} +C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{ax+b}\\, dx= \\frac{1}{a} \\ln{\\left|x+\\frac{b}{a}\\right|} +C",
+          "wolframQuery": "simplify \\int \\frac{1}{ax+b}\\, dx= \\frac{1}{a} \\ln{\\left|x+\\frac{b}{a}\\right|} +C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_rationalfunctions_f2"
+        }
+      ]
+    },
+    {
+      "id": "calculus_rationalfunctions-f3",
+      "title": "Rational Functions - Formula 3",
+      "latex": "\\int \\frac{1}{(x+a)^n}\\, dx = \\frac{1}{-n+1} \\frac{1}{(x+a)^{n-1}} +C",
+      "model3D": "Assets/3DModels/int1pex.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{(x+a)^n}\\, dx = \\frac{1}{-n+1} \\frac{1}{(x+a)^{n-1}} +C",
+          "wolframQuery": "simplify \\int \\frac{1}{(x+a)^n}\\, dx = \\frac{1}{-n+1} \\frac{1}{(x+a)^{n-1}} +C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{(x+a)^n}\\, dx = \\frac{1}{-n+1} \\frac{1}{(x+a)^{n-1}} +C",
+          "wolframQuery": "simplify \\int \\frac{1}{(x+a)^n}\\, dx = \\frac{1}{-n+1} \\frac{1}{(x+a)^{n-1}} +C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{(x+a)^n}\\, dx = \\frac{1}{-n+1} \\frac{1}{(x+a)^{n-1}} +C",
+          "wolframQuery": "simplify \\int \\frac{1}{(x+a)^n}\\, dx = \\frac{1}{-n+1} \\frac{1}{(x+a)^{n-1}} +C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_rationalfunctions_f3"
+        }
+      ]
+    },
+    {
+      "id": "calculus_rationalfunctions-f4",
+      "title": "Rational Functions - Formula 4",
+      "latex": "\\int \\frac{1}{ax^2+bx+c}\\, dx= \\begin{cases}\n    \\frac{2}{-\\delta}\\arctan{\\frac{2ax+b}{\\sqrt{-\\delta}}}+C, \\text{ if }\\delta<0 \\\\\n     -\\frac{1}{a(x-x_1)} +C, \\text{ if }\\delta=0 \\\\\n     \\frac{1}{a(x_1-x_2)}\\ln{\\left| \\frac{x-x_1}{x-x_2} \\right|} +C, \\text{ if }\\delta>0\n\\end{cases}",
+      "model3D": "Assets/3DModels/int1pex.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{ax^2+bx+c}\\, dx= \\begin{cases}\n    \\frac{2}{-\\delta}\\arctan{\\frac{2ax+b}{\\sqrt{-\\delta}}}+C, \\text{ if }\\delta<0 \\\\\n     -\\frac{1}{a(x-x_1)} +C, \\text{ if }\\delta=0 \\\\\n     \\frac{1}{a(x_1-x_2)}\\ln{\\left| \\frac{x-x_1}{x-x_2} \\right|} +C, \\text{ if }\\delta>0\n\\end{cases}",
+          "wolframQuery": "simplify \\int \\frac{1}{ax^2+bx+c}\\, dx= \\begin{cases}\n    \\frac{2}{-\\delta}\\arctan{\\frac{2ax+b}{\\sqrt{-\\delta}}}+C, \\text{ if }\\delta<0 \\\\\n     -\\frac{1}{a(x-x_1)} +C, \\text{ if }\\delta=0 \\\\\n     \\frac{1}{a(x_1-x_2)}\\ln{\\left| \\frac{x-x_1}{x-x_2} \\right|} +C, \\text{ if }\\delta>0\n\\end{cases}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{ax^2+bx+c}\\, dx= \\begin{cases}\n    \\frac{2}{-\\delta}\\arctan{\\frac{2ax+b}{\\sqrt{-\\delta}}}+C, \\text{ if }\\delta<0 \\\\\n     -\\frac{1}{a(x-x_1)} +C, \\text{ if }\\delta=0 \\\\\n     \\frac{1}{a(x_1-x_2)}\\ln{\\left| \\frac{x-x_1}{x-x_2} \\right|} +C, \\text{ if }\\delta>0\n\\end{cases}",
+          "wolframQuery": "simplify \\int \\frac{1}{ax^2+bx+c}\\, dx= \\begin{cases}\n    \\frac{2}{-\\delta}\\arctan{\\frac{2ax+b}{\\sqrt{-\\delta}}}+C, \\text{ if }\\delta<0 \\\\\n     -\\frac{1}{a(x-x_1)} +C, \\text{ if }\\delta=0 \\\\\n     \\frac{1}{a(x_1-x_2)}\\ln{\\left| \\frac{x-x_1}{x-x_2} \\right|} +C, \\text{ if }\\delta>0\n\\end{cases}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{ax^2+bx+c}\\, dx= \\begin{cases}\n    \\frac{2}{-\\delta}\\arctan{\\frac{2ax+b}{\\sqrt{-\\delta}}}+C, \\text{ if }\\delta<0 \\\\\n     -\\frac{1}{a(x-x_1)} +C, \\text{ if }\\delta=0 \\\\\n     \\frac{1}{a(x_1-x_2)}\\ln{\\left| \\frac{x-x_1}{x-x_2} \\right|} +C, \\text{ if }\\delta>0\n\\end{cases}",
+          "wolframQuery": "simplify \\int \\frac{1}{ax^2+bx+c}\\, dx= \\begin{cases}\n    \\frac{2}{-\\delta}\\arctan{\\frac{2ax+b}{\\sqrt{-\\delta}}}+C, \\text{ if }\\delta<0 \\\\\n     -\\frac{1}{a(x-x_1)} +C, \\text{ if }\\delta=0 \\\\\n     \\frac{1}{a(x_1-x_2)}\\ln{\\left| \\frac{x-x_1}{x-x_2} \\right|} +C, \\text{ if }\\delta>0\n\\end{cases}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_rationalfunctions_f4"
+        }
+      ]
+    }
+  ]
+}

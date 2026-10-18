@@ -40,6 +40,9 @@ namespace MathChain.Blazor.DTOs
         [JsonPropertyName("description")]
         public string Description { get; set; } = string.Empty;
 
+        [JsonPropertyName("requirement")]
+        public string? Requirement { get; set; }
+
         [JsonPropertyName("exercises")]
         public List<ExerciseTemplateDto> Exercises { get; set; } = new();
     }

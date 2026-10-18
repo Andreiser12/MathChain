@@ -1,0 +1,189 @@
+{
+  "chapterId": "calculus_theorems",
+  "title": "Theorems",
+  "category": "Calculus",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Theorems.",
+  "formulas": [
+    {
+      "id": "calculus_theorems-f1",
+      "title": "Theorems - Formula 1",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\text{Lagrange's Theorem:}\\\\\n\t\t\t\t\t& f:[a,b]\\to \\mathbb{R}\\\\\n\t\t\t\t\t& \\left.\\begin{matrix}\n\t\t\t\t\t\tf \\text{ is continuous on } [a, b] \\\\\n\t\t\t\t\t\tf \\text{ is derivative on } (a, b)\n\t\t\t\t\t\\end{matrix}\n\t\t\t\t\t\\right\\} c\\in(a,b) \\text{ such that } f'(c)=\\frac{f(b)-f(a)}{b-a}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/LR1.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{Lagrange's Theorem:}\\\\\n\t\t\t\t\t& f:[a,b]\\to \\mathbb{R}\\\\\n\t\t\t\t\t& \\left.\\begin{matrix}\n\t\t\t\t\t\tf \\text{ is continuous on } [a, b] \\\\\n\t\t\t\t\t\tf \\text{ is derivative on } (a, b)\n\t\t\t\t\t\\end{matrix}\n\t\t\t\t\t\\right\\} c\\in(a,b) \\text{ such that } f'(c)=\\frac{f(b)-f(a)}{b-a}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{Lagrange's Theorem:}\\\\\n\t\t\t\t\t& f:[a,b]\\to \\mathbb{R}\\\\\n\t\t\t\t\t& \\left.\\begin{matrix}\n\t\t\t\t\t\tf \\text{ is continuous on } [a, b] \\\\\n\t\t\t\t\t\tf \\text{ is derivative on } (a, b)\n\t\t\t\t\t\\end{matrix}\n\t\t\t\t\t\\right\\} c\\in(a,b) \\text{ such that } f'(c)=\\frac{f(b)-f(a)}{b-a}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{Lagrange's Theorem:}\\\\\n\t\t\t\t\t& f:[a,b]\\to \\mathbb{R}\\\\\n\t\t\t\t\t& \\left.\\begin{matrix}\n\t\t\t\t\t\tf \\text{ is continuous on } [a, b] \\\\\n\t\t\t\t\t\tf \\text{ is derivative on } (a, b)\n\t\t\t\t\t\\end{matrix}\n\t\t\t\t\t\\right\\} c\\in(a,b) \\text{ such that } f'(c)=\\frac{f(b)-f(a)}{b-a}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{Lagrange's Theorem:}\\\\\n\t\t\t\t\t& f:[a,b]\\to \\mathbb{R}\\\\\n\t\t\t\t\t& \\left.\\begin{matrix}\n\t\t\t\t\t\tf \\text{ is continuous on } [a, b] \\\\\n\t\t\t\t\t\tf \\text{ is derivative on } (a, b)\n\t\t\t\t\t\\end{matrix}\n\t\t\t\t\t\\right\\} c\\in(a,b) \\text{ such that } f'(c)=\\frac{f(b)-f(a)}{b-a}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{Lagrange's Theorem:}\\\\\n\t\t\t\t\t& f:[a,b]\\to \\mathbb{R}\\\\\n\t\t\t\t\t& \\left.\\begin{matrix}\n\t\t\t\t\t\tf \\text{ is continuous on } [a, b] \\\\\n\t\t\t\t\t\tf \\text{ is derivative on } (a, b)\n\t\t\t\t\t\\end{matrix}\n\t\t\t\t\t\\right\\} c\\in(a,b) \\text{ such that } f'(c)=\\frac{f(b)-f(a)}{b-a}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{Lagrange's Theorem:}\\\\\n\t\t\t\t\t& f:[a,b]\\to \\mathbb{R}\\\\\n\t\t\t\t\t& \\left.\\begin{matrix}\n\t\t\t\t\t\tf \\text{ is continuous on } [a, b] \\\\\n\t\t\t\t\t\tf \\text{ is derivative on } (a, b)\n\t\t\t\t\t\\end{matrix}\n\t\t\t\t\t\\right\\} c\\in(a,b) \\text{ such that } f'(c)=\\frac{f(b)-f(a)}{b-a}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_theorems_f1"
+        }
+      ]
+    },
+    {
+      "id": "calculus_theorems-f2",
+      "title": "Theorems - Formula 2",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t& \\text{L'Hopital:}\\\\\n\t\t\t\t\t& \\lim_{x\\to a}\\frac{f(x)}{g(x)}=\\lim_{x\\to a}\\frac{f'(x)}{g'(x)}\\text{ for }\\frac{0}{0}\\text{ and }\\frac{\\infty}{\\infty}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/LR1.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t& \\text{L'Hopital:}\\\\\n\t\t\t\t\t& \\lim_{x\\to a}\\frac{f(x)}{g(x)}=\\lim_{x\\to a}\\frac{f'(x)}{g'(x)}\\text{ for }\\frac{0}{0}\\text{ and }\\frac{\\infty}{\\infty}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t& \\text{L'Hopital:}\\\\\n\t\t\t\t\t& \\lim_{x\\to a}\\frac{f(x)}{g(x)}=\\lim_{x\\to a}\\frac{f'(x)}{g'(x)}\\text{ for }\\frac{0}{0}\\text{ and }\\frac{\\infty}{\\infty}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t& \\text{L'Hopital:}\\\\\n\t\t\t\t\t& \\lim_{x\\to a}\\frac{f(x)}{g(x)}=\\lim_{x\\to a}\\frac{f'(x)}{g'(x)}\\text{ for }\\frac{0}{0}\\text{ and }\\frac{\\infty}{\\infty}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t& \\text{L'Hopital:}\\\\\n\t\t\t\t\t& \\lim_{x\\to a}\\frac{f(x)}{g(x)}=\\lim_{x\\to a}\\frac{f'(x)}{g'(x)}\\text{ for }\\frac{0}{0}\\text{ and }\\frac{\\infty}{\\infty}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t& \\text{L'Hopital:}\\\\\n\t\t\t\t\t& \\lim_{x\\to a}\\frac{f(x)}{g(x)}=\\lim_{x\\to a}\\frac{f'(x)}{g'(x)}\\text{ for }\\frac{0}{0}\\text{ and }\\frac{\\infty}{\\infty}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t& \\text{L'Hopital:}\\\\\n\t\t\t\t\t& \\lim_{x\\to a}\\frac{f(x)}{g(x)}=\\lim_{x\\to a}\\frac{f'(x)}{g'(x)}\\text{ for }\\frac{0}{0}\\text{ and }\\frac{\\infty}{\\infty}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_theorems_f2"
+        }
+      ]
+    },
+    {
+      "id": "calculus_theorems-f3",
+      "title": "Theorems - Formula 3",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\text{Root separation using Rolle's Theorem (for } f(x)=0\\text{):}\\\\\n\t\t\t\t\t&\\text{Steps:}\\\\\n\t\t\t\t\t&\\text{I. Identify the function } f(x) \\text{ and find its domain.}\\\\\n\t\t\t\t\t&\\text{II. Solve } f'(x)=0 \\text{ to determine the roots of the derivative.}\\\\\n\t\t\t\t\t&\\text{III. Evaluate } f(x) \\text{ at the critical points, at the boundaries of the domain,}\\\\\n\t\t\t\t\t&\\quad\\text{ and at points outside the domain to construct the sign table.}\\\\\n\t\t\t\t\t&\\text{number of real roots} = \\text{the number of sign changes.}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/LR1.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{Root separation using Rolle's Theorem (for } f(x)=0\\text{):}\\\\\n\t\t\t\t\t&\\text{Steps:}\\\\\n\t\t\t\t\t&\\text{I. Identify the function } f(x) \\text{ and find its domain.}\\\\\n\t\t\t\t\t&\\text{II. Solve } f'(x)=0 \\text{ to determine the roots of the derivative.}\\\\\n\t\t\t\t\t&\\text{III. Evaluate } f(x) \\text{ at the critical points, at the boundaries of the domain,}\\\\\n\t\t\t\t\t&\\quad\\text{ and at points outside the domain to construct the sign table.}\\\\\n\t\t\t\t\t&\\text{number of real roots} = \\text{the number of sign changes.}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{Root separation using Rolle's Theorem (for } f(x)=0\\text{):}\\\\\n\t\t\t\t\t&\\text{Steps:}\\\\\n\t\t\t\t\t&\\text{I. Identify the function } f(x) \\text{ and find its domain.}\\\\\n\t\t\t\t\t&\\text{II. Solve } f'(x)=0 \\text{ to determine the roots of the derivative.}\\\\\n\t\t\t\t\t&\\text{III. Evaluate } f(x) \\text{ at the critical points, at the boundaries of the domain,}\\\\\n\t\t\t\t\t&\\quad\\text{ and at points outside the domain to construct the sign table.}\\\\\n\t\t\t\t\t&\\text{number of real roots} = \\text{the number of sign changes.}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{Root separation using Rolle's Theorem (for } f(x)=0\\text{):}\\\\\n\t\t\t\t\t&\\text{Steps:}\\\\\n\t\t\t\t\t&\\text{I. Identify the function } f(x) \\text{ and find its domain.}\\\\\n\t\t\t\t\t&\\text{II. Solve } f'(x)=0 \\text{ to determine the roots of the derivative.}\\\\\n\t\t\t\t\t&\\text{III. Evaluate } f(x) \\text{ at the critical points, at the boundaries of the domain,}\\\\\n\t\t\t\t\t&\\quad\\text{ and at points outside the domain to construct the sign table.}\\\\\n\t\t\t\t\t&\\text{number of real roots} = \\text{the number of sign changes.}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{Root separation using Rolle's Theorem (for } f(x)=0\\text{):}\\\\\n\t\t\t\t\t&\\text{Steps:}\\\\\n\t\t\t\t\t&\\text{I. Identify the function } f(x) \\text{ and find its domain.}\\\\\n\t\t\t\t\t&\\text{II. Solve } f'(x)=0 \\text{ to determine the roots of the derivative.}\\\\\n\t\t\t\t\t&\\text{III. Evaluate } f(x) \\text{ at the critical points, at the boundaries of the domain,}\\\\\n\t\t\t\t\t&\\quad\\text{ and at points outside the domain to construct the sign table.}\\\\\n\t\t\t\t\t&\\text{number of real roots} = \\text{the number of sign changes.}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{Root separation using Rolle's Theorem (for } f(x)=0\\text{):}\\\\\n\t\t\t\t\t&\\text{Steps:}\\\\\n\t\t\t\t\t&\\text{I. Identify the function } f(x) \\text{ and find its domain.}\\\\\n\t\t\t\t\t&\\text{II. Solve } f'(x)=0 \\text{ to determine the roots of the derivative.}\\\\\n\t\t\t\t\t&\\text{III. Evaluate } f(x) \\text{ at the critical points, at the boundaries of the domain,}\\\\\n\t\t\t\t\t&\\quad\\text{ and at points outside the domain to construct the sign table.}\\\\\n\t\t\t\t\t&\\text{number of real roots} = \\text{the number of sign changes.}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{Root separation using Rolle's Theorem (for } f(x)=0\\text{):}\\\\\n\t\t\t\t\t&\\text{Steps:}\\\\\n\t\t\t\t\t&\\text{I. Identify the function } f(x) \\text{ and find its domain.}\\\\\n\t\t\t\t\t&\\text{II. Solve } f'(x)=0 \\text{ to determine the roots of the derivative.}\\\\\n\t\t\t\t\t&\\text{III. Evaluate } f(x) \\text{ at the critical points, at the boundaries of the domain,}\\\\\n\t\t\t\t\t&\\quad\\text{ and at points outside the domain to construct the sign table.}\\\\\n\t\t\t\t\t&\\text{number of real roots} = \\text{the number of sign changes.}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_theorems_f3"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,429 @@
+{
+  "chapterId": "algebra_absval",
+  "title": "Absolute Value",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Absolute Value.",
+  "formulas": [
+    {
+      "id": "algebra_absval-f1",
+      "title": "Absolute Value - Formula 1",
+      "latex": "|\\pm x|=x",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|\\pm x|=x",
+          "wolframQuery": "simplify |\\pm x|=x",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "|\\pm x|=x",
+          "wolframQuery": "simplify |\\pm x|=x",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|\\pm x|=x",
+          "wolframQuery": "simplify |\\pm x|=x",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_absval_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_absval-f2",
+      "title": "Absolute Value - Formula 2",
+      "latex": "|x|\\geq 0",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|x|\\geq 0",
+          "wolframQuery": "simplify |x|\\geq 0",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "|x|\\geq 0",
+          "wolframQuery": "simplify |x|\\geq 0",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|x|\\geq 0",
+          "wolframQuery": "simplify |x|\\geq 0",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_absval_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_absval-f3",
+      "title": "Absolute Value - Formula 3",
+      "latex": "|x|=a \\Rightarrow x=\\pm a",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|x|=a \\Rightarrow x=\\pm a",
+          "wolframQuery": "simplify |x|=a \\Rightarrow x=\\pm a",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "|x|=a \\Rightarrow x=\\pm a",
+          "wolframQuery": "simplify |x|=a \\Rightarrow x=\\pm a",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|x|=a \\Rightarrow x=\\pm a",
+          "wolframQuery": "simplify |x|=a \\Rightarrow x=\\pm a",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_absval_f3"
+        }
+      ]
+    },
+    {
+      "id": "algebra_absval-f4",
+      "title": "Absolute Value - Formula 4",
+      "latex": "|x|\\leq a \\Rightarrow -a\\leq x \\leq a",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|x|\\leq a \\Rightarrow -a\\leq x \\leq a",
+          "wolframQuery": "simplify |x|\\leq a \\Rightarrow -a\\leq x \\leq a",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "|x|\\leq a \\Rightarrow -a\\leq x \\leq a",
+          "wolframQuery": "simplify |x|\\leq a \\Rightarrow -a\\leq x \\leq a",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|x|\\leq a \\Rightarrow -a\\leq x \\leq a",
+          "wolframQuery": "simplify |x|\\leq a \\Rightarrow -a\\leq x \\leq a",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_absval_f4"
+        }
+      ]
+    },
+    {
+      "id": "algebra_absval-f5",
+      "title": "Absolute Value - Formula 5",
+      "latex": "|x+y| \\leq|x|+|y|",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|x+y| \\leq|x|+|y|",
+          "wolframQuery": "simplify |x+y| \\leq|x|+|y|",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "|x+y| \\leq|x|+|y|",
+          "wolframQuery": "simplify |x+y| \\leq|x|+|y|",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|x+y| \\leq|x|+|y|",
+          "wolframQuery": "simplify |x+y| \\leq|x|+|y|",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_absval_f5"
+        }
+      ]
+    },
+    {
+      "id": "algebra_absval-f6",
+      "title": "Absolute Value - Formula 6",
+      "latex": "|x\\cdot y|=|x| \\cdot |y|",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|x\\cdot y|=|x| \\cdot |y|",
+          "wolframQuery": "simplify |x\\cdot y|=|x| \\cdot |y|",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "|x\\cdot y|=|x| \\cdot |y|",
+          "wolframQuery": "simplify |x\\cdot y|=|x| \\cdot |y|",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|x\\cdot y|=|x| \\cdot |y|",
+          "wolframQuery": "simplify |x\\cdot y|=|x| \\cdot |y|",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_absval_f6"
+        }
+      ]
+    },
+    {
+      "id": "algebra_absval-f7",
+      "title": "Absolute Value - Formula 7",
+      "latex": "\\left| \\frac{x}{y} \\right| = \\frac{|x|}{|y|}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left| \\frac{x}{y} \\right| = \\frac{|x|}{|y|}",
+          "wolframQuery": "simplify \\left| \\frac{x}{y} \\right| = \\frac{|x|}{|y|}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\left| \\frac{x}{y} \\right| = \\frac{|x|}{|y|}",
+          "wolframQuery": "simplify \\left| \\frac{x}{y} \\right| = \\frac{|x|}{|y|}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left| \\frac{x}{y} \\right| = \\frac{|x|}{|y|}",
+          "wolframQuery": "simplify \\left| \\frac{x}{y} \\right| = \\frac{|x|}{|y|}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_absval_f7"
+        }
+      ]
+    }
+  ]
+}

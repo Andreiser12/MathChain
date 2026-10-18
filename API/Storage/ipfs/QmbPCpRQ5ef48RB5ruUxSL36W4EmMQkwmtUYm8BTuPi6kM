@@ -1,0 +1,369 @@
+{
+  "chapterId": "trigonometry_inversetrigonometricfunctions",
+  "title": "Inverse Trigonometric Functions",
+  "category": "Trigonometry",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Inverse Trigonometric Functions.",
+  "formulas": [
+    {
+      "id": "trigonometry_inversetrigonometricfunctions-f1",
+      "title": "Inverse Trigonometric Functions - Formula 1",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t\t&\\arcsin:[-1,1]\\to \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right]\\\\\n\t\t\t\t\t\t&\\sin{a}=b\\Leftrightarrow a=\\arcsin{b},\\,a\\in \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right],\\, b\\in[-1,1]\\\\\n\t\t\t\t\t\t&\\arcsin{(\\sin{a})}=a,\\, \\forall a\\in \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right]\\\\\n\t\t\t\t\t\t&\\arcsin{(\\sin{b})}=b,\\, \\forall b\\in [-1,1]\\\\\n\t\t\t\t\t\t&\\arcsin{(-a)}=-\\arcsin{a},\\, \\forall a\\in[-1,1]\n\t\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t\t&\\arcsin:[-1,1]\\to \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right]\\\\\n\t\t\t\t\t\t&\\sin{a}=b\\Leftrightarrow a=\\arcsin{b},\\,a\\in \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right],\\, b\\in[-1,1]\\\\\n\t\t\t\t\t\t&\\arcsin{(\\sin{a})}=a,\\, \\forall a\\in \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right]\\\\\n\t\t\t\t\t\t&\\arcsin{(\\sin{b})}=b,\\, \\forall b\\in [-1,1]\\\\\n\t\t\t\t\t\t&\\arcsin{(-a)}=-\\arcsin{a},\\, \\forall a\\in[-1,1]\n\t\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t\t&\\arcsin:[-1,1]\\to \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right]\\\\\n\t\t\t\t\t\t&\\sin{a}=b\\Leftrightarrow a=\\arcsin{b},\\,a\\in \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right],\\, b\\in[-1,1]\\\\\n\t\t\t\t\t\t&\\arcsin{(\\sin{a})}=a,\\, \\forall a\\in \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right]\\\\\n\t\t\t\t\t\t&\\arcsin{(\\sin{b})}=b,\\, \\forall b\\in [-1,1]\\\\\n\t\t\t\t\t\t&\\arcsin{(-a)}=-\\arcsin{a},\\, \\forall a\\in[-1,1]\n\t\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t\t&\\arcsin:[-1,1]\\to \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right]\\\\\n\t\t\t\t\t\t&\\sin{a}=b\\Leftrightarrow a=\\arcsin{b},\\,a\\in \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right],\\, b\\in[-1,1]\\\\\n\t\t\t\t\t\t&\\arcsin{(\\sin{a})}=a,\\, \\forall a\\in \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right]\\\\\n\t\t\t\t\t\t&\\arcsin{(\\sin{b})}=b,\\, \\forall b\\in [-1,1]\\\\\n\t\t\t\t\t\t&\\arcsin{(-a)}=-\\arcsin{a},\\, \\forall a\\in[-1,1]\n\t\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t\t&\\arcsin:[-1,1]\\to \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right]\\\\\n\t\t\t\t\t\t&\\sin{a}=b\\Leftrightarrow a=\\arcsin{b},\\,a\\in \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right],\\, b\\in[-1,1]\\\\\n\t\t\t\t\t\t&\\arcsin{(\\sin{a})}=a,\\, \\forall a\\in \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right]\\\\\n\t\t\t\t\t\t&\\arcsin{(\\sin{b})}=b,\\, \\forall b\\in [-1,1]\\\\\n\t\t\t\t\t\t&\\arcsin{(-a)}=-\\arcsin{a},\\, \\forall a\\in[-1,1]\n\t\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t\t&\\arcsin:[-1,1]\\to \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right]\\\\\n\t\t\t\t\t\t&\\sin{a}=b\\Leftrightarrow a=\\arcsin{b},\\,a\\in \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right],\\, b\\in[-1,1]\\\\\n\t\t\t\t\t\t&\\arcsin{(\\sin{a})}=a,\\, \\forall a\\in \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right]\\\\\n\t\t\t\t\t\t&\\arcsin{(\\sin{b})}=b,\\, \\forall b\\in [-1,1]\\\\\n\t\t\t\t\t\t&\\arcsin{(-a)}=-\\arcsin{a},\\, \\forall a\\in[-1,1]\n\t\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t\t&\\arcsin:[-1,1]\\to \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right]\\\\\n\t\t\t\t\t\t&\\sin{a}=b\\Leftrightarrow a=\\arcsin{b},\\,a\\in \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right],\\, b\\in[-1,1]\\\\\n\t\t\t\t\t\t&\\arcsin{(\\sin{a})}=a,\\, \\forall a\\in \\left[ -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right]\\\\\n\t\t\t\t\t\t&\\arcsin{(\\sin{b})}=b,\\, \\forall b\\in [-1,1]\\\\\n\t\t\t\t\t\t&\\arcsin{(-a)}=-\\arcsin{a},\\, \\forall a\\in[-1,1]\n\t\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_inversetrigonometricfunctions_f1"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_inversetrigonometricfunctions-f2",
+      "title": "Inverse Trigonometric Functions - Formula 2",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\arccos:[-1,1]\\to [0,\\pi]\\\\\n\t\t\t\t\t&\\cos{a}=b\\Leftrightarrow a=\\arccos{b},\\,a\\in [0,\\pi],\\, b\\in[-1,1]\\\\\n\t\t\t\t\t&\\arccos{(\\cos{a})}=a,\\, \\forall a\\in [0,\\pi]\\\\\n\t\t\t\t\t&\\arccos{(\\cos{b})}=b,\\, \\forall b\\in [-1,1]\\\\\n\t\t\t\t\t&\\arccos{(-a)}=\\pi-\\arccos{a},\\, \\forall a\\in[-1,1]\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\arccos:[-1,1]\\to [0,\\pi]\\\\\n\t\t\t\t\t&\\cos{a}=b\\Leftrightarrow a=\\arccos{b},\\,a\\in [0,\\pi],\\, b\\in[-1,1]\\\\\n\t\t\t\t\t&\\arccos{(\\cos{a})}=a,\\, \\forall a\\in [0,\\pi]\\\\\n\t\t\t\t\t&\\arccos{(\\cos{b})}=b,\\, \\forall b\\in [-1,1]\\\\\n\t\t\t\t\t&\\arccos{(-a)}=\\pi-\\arccos{a},\\, \\forall a\\in[-1,1]\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\arccos:[-1,1]\\to [0,\\pi]\\\\\n\t\t\t\t\t&\\cos{a}=b\\Leftrightarrow a=\\arccos{b},\\,a\\in [0,\\pi],\\, b\\in[-1,1]\\\\\n\t\t\t\t\t&\\arccos{(\\cos{a})}=a,\\, \\forall a\\in [0,\\pi]\\\\\n\t\t\t\t\t&\\arccos{(\\cos{b})}=b,\\, \\forall b\\in [-1,1]\\\\\n\t\t\t\t\t&\\arccos{(-a)}=\\pi-\\arccos{a},\\, \\forall a\\in[-1,1]\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\arccos:[-1,1]\\to [0,\\pi]\\\\\n\t\t\t\t\t&\\cos{a}=b\\Leftrightarrow a=\\arccos{b},\\,a\\in [0,\\pi],\\, b\\in[-1,1]\\\\\n\t\t\t\t\t&\\arccos{(\\cos{a})}=a,\\, \\forall a\\in [0,\\pi]\\\\\n\t\t\t\t\t&\\arccos{(\\cos{b})}=b,\\, \\forall b\\in [-1,1]\\\\\n\t\t\t\t\t&\\arccos{(-a)}=\\pi-\\arccos{a},\\, \\forall a\\in[-1,1]\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\arccos:[-1,1]\\to [0,\\pi]\\\\\n\t\t\t\t\t&\\cos{a}=b\\Leftrightarrow a=\\arccos{b},\\,a\\in [0,\\pi],\\, b\\in[-1,1]\\\\\n\t\t\t\t\t&\\arccos{(\\cos{a})}=a,\\, \\forall a\\in [0,\\pi]\\\\\n\t\t\t\t\t&\\arccos{(\\cos{b})}=b,\\, \\forall b\\in [-1,1]\\\\\n\t\t\t\t\t&\\arccos{(-a)}=\\pi-\\arccos{a},\\, \\forall a\\in[-1,1]\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\arccos:[-1,1]\\to [0,\\pi]\\\\\n\t\t\t\t\t&\\cos{a}=b\\Leftrightarrow a=\\arccos{b},\\,a\\in [0,\\pi],\\, b\\in[-1,1]\\\\\n\t\t\t\t\t&\\arccos{(\\cos{a})}=a,\\, \\forall a\\in [0,\\pi]\\\\\n\t\t\t\t\t&\\arccos{(\\cos{b})}=b,\\, \\forall b\\in [-1,1]\\\\\n\t\t\t\t\t&\\arccos{(-a)}=\\pi-\\arccos{a},\\, \\forall a\\in[-1,1]\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\arccos:[-1,1]\\to [0,\\pi]\\\\\n\t\t\t\t\t&\\cos{a}=b\\Leftrightarrow a=\\arccos{b},\\,a\\in [0,\\pi],\\, b\\in[-1,1]\\\\\n\t\t\t\t\t&\\arccos{(\\cos{a})}=a,\\, \\forall a\\in [0,\\pi]\\\\\n\t\t\t\t\t&\\arccos{(\\cos{b})}=b,\\, \\forall b\\in [-1,1]\\\\\n\t\t\t\t\t&\\arccos{(-a)}=\\pi-\\arccos{a},\\, \\forall a\\in[-1,1]\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_inversetrigonometricfunctions_f2"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_inversetrigonometricfunctions-f3",
+      "title": "Inverse Trigonometric Functions - Formula 3",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\arctan:\\mathbb{R}\\to \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right)\\\\\n\t\t\t\t\t&\\tan{a}=b\\Leftrightarrow a=\\arctan{b},\\,a\\in \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right),\\, b\\in\\mathbb{R}\\\\\n\t\t\t\t\t&\\arctan{(\\tan{a})}=a,\\, \\forall a\\in \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right)\\\\\n\t\t\t\t\t&\\arctan{(\\tan{b})}=b,\\, \\forall b\\in \\mathbb{R}\\\\\n\t\t\t\t\t&\\arctan{(-a)}=-\\arctan{a},\\, \\forall a\\in\\mathbb{R}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\arctan:\\mathbb{R}\\to \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right)\\\\\n\t\t\t\t\t&\\tan{a}=b\\Leftrightarrow a=\\arctan{b},\\,a\\in \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right),\\, b\\in\\mathbb{R}\\\\\n\t\t\t\t\t&\\arctan{(\\tan{a})}=a,\\, \\forall a\\in \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right)\\\\\n\t\t\t\t\t&\\arctan{(\\tan{b})}=b,\\, \\forall b\\in \\mathbb{R}\\\\\n\t\t\t\t\t&\\arctan{(-a)}=-\\arctan{a},\\, \\forall a\\in\\mathbb{R}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\arctan:\\mathbb{R}\\to \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right)\\\\\n\t\t\t\t\t&\\tan{a}=b\\Leftrightarrow a=\\arctan{b},\\,a\\in \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right),\\, b\\in\\mathbb{R}\\\\\n\t\t\t\t\t&\\arctan{(\\tan{a})}=a,\\, \\forall a\\in \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right)\\\\\n\t\t\t\t\t&\\arctan{(\\tan{b})}=b,\\, \\forall b\\in \\mathbb{R}\\\\\n\t\t\t\t\t&\\arctan{(-a)}=-\\arctan{a},\\, \\forall a\\in\\mathbb{R}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\arctan:\\mathbb{R}\\to \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right)\\\\\n\t\t\t\t\t&\\tan{a}=b\\Leftrightarrow a=\\arctan{b},\\,a\\in \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right),\\, b\\in\\mathbb{R}\\\\\n\t\t\t\t\t&\\arctan{(\\tan{a})}=a,\\, \\forall a\\in \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right)\\\\\n\t\t\t\t\t&\\arctan{(\\tan{b})}=b,\\, \\forall b\\in \\mathbb{R}\\\\\n\t\t\t\t\t&\\arctan{(-a)}=-\\arctan{a},\\, \\forall a\\in\\mathbb{R}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\arctan:\\mathbb{R}\\to \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right)\\\\\n\t\t\t\t\t&\\tan{a}=b\\Leftrightarrow a=\\arctan{b},\\,a\\in \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right),\\, b\\in\\mathbb{R}\\\\\n\t\t\t\t\t&\\arctan{(\\tan{a})}=a,\\, \\forall a\\in \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right)\\\\\n\t\t\t\t\t&\\arctan{(\\tan{b})}=b,\\, \\forall b\\in \\mathbb{R}\\\\\n\t\t\t\t\t&\\arctan{(-a)}=-\\arctan{a},\\, \\forall a\\in\\mathbb{R}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\arctan:\\mathbb{R}\\to \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right)\\\\\n\t\t\t\t\t&\\tan{a}=b\\Leftrightarrow a=\\arctan{b},\\,a\\in \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right),\\, b\\in\\mathbb{R}\\\\\n\t\t\t\t\t&\\arctan{(\\tan{a})}=a,\\, \\forall a\\in \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right)\\\\\n\t\t\t\t\t&\\arctan{(\\tan{b})}=b,\\, \\forall b\\in \\mathbb{R}\\\\\n\t\t\t\t\t&\\arctan{(-a)}=-\\arctan{a},\\, \\forall a\\in\\mathbb{R}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\arctan:\\mathbb{R}\\to \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right)\\\\\n\t\t\t\t\t&\\tan{a}=b\\Leftrightarrow a=\\arctan{b},\\,a\\in \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right),\\, b\\in\\mathbb{R}\\\\\n\t\t\t\t\t&\\arctan{(\\tan{a})}=a,\\, \\forall a\\in \\left( -\\frac{\\pi}{2},\\frac{\\pi}{2} \\right)\\\\\n\t\t\t\t\t&\\arctan{(\\tan{b})}=b,\\, \\forall b\\in \\mathbb{R}\\\\\n\t\t\t\t\t&\\arctan{(-a)}=-\\arctan{a},\\, \\forall a\\in\\mathbb{R}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_inversetrigonometricfunctions_f3"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_inversetrigonometricfunctions-f4",
+      "title": "Inverse Trigonometric Functions - Formula 4",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\operatorname{arccot}:\\mathbb{R}\\to (0,\\pi)\\\\\n\t\t\t\t\t&\\cot{a}=b\\Leftrightarrow a=\\operatorname{arccot}{b},\\,a\\in (0,\\pi),\\, b\\in\\mathbb{R}\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(\\cot{a})}=a,\\, \\forall a\\in (0,\\pi)\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(\\cot{b})}=b,\\, \\forall b\\in \\mathbb{R}\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(-a)}=\\pi-\\operatorname{arccot}{a},\\, \\forall a\\in\\mathbb{R}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\operatorname{arccot}:\\mathbb{R}\\to (0,\\pi)\\\\\n\t\t\t\t\t&\\cot{a}=b\\Leftrightarrow a=\\operatorname{arccot}{b},\\,a\\in (0,\\pi),\\, b\\in\\mathbb{R}\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(\\cot{a})}=a,\\, \\forall a\\in (0,\\pi)\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(\\cot{b})}=b,\\, \\forall b\\in \\mathbb{R}\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(-a)}=\\pi-\\operatorname{arccot}{a},\\, \\forall a\\in\\mathbb{R}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\operatorname{arccot}:\\mathbb{R}\\to (0,\\pi)\\\\\n\t\t\t\t\t&\\cot{a}=b\\Leftrightarrow a=\\operatorname{arccot}{b},\\,a\\in (0,\\pi),\\, b\\in\\mathbb{R}\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(\\cot{a})}=a,\\, \\forall a\\in (0,\\pi)\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(\\cot{b})}=b,\\, \\forall b\\in \\mathbb{R}\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(-a)}=\\pi-\\operatorname{arccot}{a},\\, \\forall a\\in\\mathbb{R}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\operatorname{arccot}:\\mathbb{R}\\to (0,\\pi)\\\\\n\t\t\t\t\t&\\cot{a}=b\\Leftrightarrow a=\\operatorname{arccot}{b},\\,a\\in (0,\\pi),\\, b\\in\\mathbb{R}\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(\\cot{a})}=a,\\, \\forall a\\in (0,\\pi)\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(\\cot{b})}=b,\\, \\forall b\\in \\mathbb{R}\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(-a)}=\\pi-\\operatorname{arccot}{a},\\, \\forall a\\in\\mathbb{R}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\operatorname{arccot}:\\mathbb{R}\\to (0,\\pi)\\\\\n\t\t\t\t\t&\\cot{a}=b\\Leftrightarrow a=\\operatorname{arccot}{b},\\,a\\in (0,\\pi),\\, b\\in\\mathbb{R}\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(\\cot{a})}=a,\\, \\forall a\\in (0,\\pi)\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(\\cot{b})}=b,\\, \\forall b\\in \\mathbb{R}\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(-a)}=\\pi-\\operatorname{arccot}{a},\\, \\forall a\\in\\mathbb{R}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\operatorname{arccot}:\\mathbb{R}\\to (0,\\pi)\\\\\n\t\t\t\t\t&\\cot{a}=b\\Leftrightarrow a=\\operatorname{arccot}{b},\\,a\\in (0,\\pi),\\, b\\in\\mathbb{R}\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(\\cot{a})}=a,\\, \\forall a\\in (0,\\pi)\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(\\cot{b})}=b,\\, \\forall b\\in \\mathbb{R}\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(-a)}=\\pi-\\operatorname{arccot}{a},\\, \\forall a\\in\\mathbb{R}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\operatorname{arccot}:\\mathbb{R}\\to (0,\\pi)\\\\\n\t\t\t\t\t&\\cot{a}=b\\Leftrightarrow a=\\operatorname{arccot}{b},\\,a\\in (0,\\pi),\\, b\\in\\mathbb{R}\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(\\cot{a})}=a,\\, \\forall a\\in (0,\\pi)\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(\\cot{b})}=b,\\, \\forall b\\in \\mathbb{R}\\\\\n\t\t\t\t\t&\\operatorname{arccot}{(-a)}=\\pi-\\operatorname{arccot}{a},\\, \\forall a\\in\\mathbb{R}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_inversetrigonometricfunctions_f4"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_inversetrigonometricfunctions-f5",
+      "title": "Inverse Trigonometric Functions - Formula 5",
+      "latex": "\\arcsin{a}+\\arccos{a}=\\frac{\\pi}{2},\\, \\forall a\\in [-1,1]",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\arcsin{a}+\\arccos{a}=\\frac{\\pi}{2},\\, \\forall a\\in [-1,1]",
+          "wolframQuery": "simplify \\arcsin{a}+\\arccos{a}=\\frac{\\pi}{2},\\, \\forall a\\in [-1,1]",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\arcsin{a}+\\arccos{a}=\\frac{\\pi}{2},\\, \\forall a\\in [-1,1]",
+          "wolframQuery": "simplify \\arcsin{a}+\\arccos{a}=\\frac{\\pi}{2},\\, \\forall a\\in [-1,1]",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\arcsin{a}+\\arccos{a}=\\frac{\\pi}{2},\\, \\forall a\\in [-1,1]",
+          "wolframQuery": "simplify \\arcsin{a}+\\arccos{a}=\\frac{\\pi}{2},\\, \\forall a\\in [-1,1]",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_inversetrigonometricfunctions_f5"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_inversetrigonometricfunctions-f6",
+      "title": "Inverse Trigonometric Functions - Formula 6",
+      "latex": "\\arctan{a}+\\operatorname{arccot}{a}=\\frac{\\pi}{2},\\, \\forall a\\in \\mathbb{R}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\arctan{a}+\\operatorname{arccot}{a}=\\frac{\\pi}{2},\\, \\forall a\\in \\mathbb{R}",
+          "wolframQuery": "simplify \\arctan{a}+\\operatorname{arccot}{a}=\\frac{\\pi}{2},\\, \\forall a\\in \\mathbb{R}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\arctan{a}+\\operatorname{arccot}{a}=\\frac{\\pi}{2},\\, \\forall a\\in \\mathbb{R}",
+          "wolframQuery": "simplify \\arctan{a}+\\operatorname{arccot}{a}=\\frac{\\pi}{2},\\, \\forall a\\in \\mathbb{R}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\arctan{a}+\\operatorname{arccot}{a}=\\frac{\\pi}{2},\\, \\forall a\\in \\mathbb{R}",
+          "wolframQuery": "simplify \\arctan{a}+\\operatorname{arccot}{a}=\\frac{\\pi}{2},\\, \\forall a\\in \\mathbb{R}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_inversetrigonometricfunctions_f6"
+        }
+      ]
+    }
+  ]
+}

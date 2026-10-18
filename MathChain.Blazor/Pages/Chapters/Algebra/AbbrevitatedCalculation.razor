@@ -62,6 +62,7 @@
 	private bool _mathFormatted = false;
 	private List<Formula> _formulas = new();
 
+	private const string ChapterSlug = "algebra_calcul_prescurtat";
 	private const string ChapterIpfsCid = "QmUCwQjzHKBF7pzYd3dSgPQrAUaSSLz4HU8y8SG61U8mNc";
 
 	protected override async Task OnInitializedAsync()
@@ -69,7 +70,7 @@
 		_isLoading = true;
 		try
 		{
-			var curriculum = await IpfsService.GetCurriculumFromIpfsAsync(ChapterIpfsCid);
+			var curriculum = await IpfsService.GetCurriculumBySlugAsync(ChapterSlug, ChapterIpfsCid);
 
 			if (curriculum?.Formulas != null)
 			{

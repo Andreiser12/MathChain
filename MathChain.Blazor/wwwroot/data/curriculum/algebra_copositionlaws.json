@@ -1,0 +1,369 @@
+{
+  "chapterId": "algebra_copositionlaws",
+  "title": "Composition Laws",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Composition Laws.",
+  "formulas": [
+    {
+      "id": "algebra_copositionlaws-f1",
+      "title": "Composition Laws - Formula 1",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ is associative if } (x \\circ y) \\circ z = x \\circ (y \\circ z), \\forall x, y, z \\in H \\\\\n\t\t\t\t\t\\text{The equality is proven by direct calculation.} \\\\\n\t\t\t\t\tH \\text{ is an interval.}\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ is associative if } (x \\circ y) \\circ z = x \\circ (y \\circ z), \\forall x, y, z \\in H \\\\\n\t\t\t\t\t\\text{The equality is proven by direct calculation.} \\\\\n\t\t\t\t\tH \\text{ is an interval.}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ is associative if } (x \\circ y) \\circ z = x \\circ (y \\circ z), \\forall x, y, z \\in H \\\\\n\t\t\t\t\t\\text{The equality is proven by direct calculation.} \\\\\n\t\t\t\t\tH \\text{ is an interval.}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ is associative if } (x \\circ y) \\circ z = x \\circ (y \\circ z), \\forall x, y, z \\in H \\\\\n\t\t\t\t\t\\text{The equality is proven by direct calculation.} \\\\\n\t\t\t\t\tH \\text{ is an interval.}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ is associative if } (x \\circ y) \\circ z = x \\circ (y \\circ z), \\forall x, y, z \\in H \\\\\n\t\t\t\t\t\\text{The equality is proven by direct calculation.} \\\\\n\t\t\t\t\tH \\text{ is an interval.}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ is associative if } (x \\circ y) \\circ z = x \\circ (y \\circ z), \\forall x, y, z \\in H \\\\\n\t\t\t\t\t\\text{The equality is proven by direct calculation.} \\\\\n\t\t\t\t\tH \\text{ is an interval.}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ is associative if } (x \\circ y) \\circ z = x \\circ (y \\circ z), \\forall x, y, z \\in H \\\\\n\t\t\t\t\t\\text{The equality is proven by direct calculation.} \\\\\n\t\t\t\t\tH \\text{ is an interval.}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_copositionlaws_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_copositionlaws-f2",
+      "title": "Composition Laws - Formula 2",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ is commutative if } x \\circ y = y \\circ x,\\forall x, y \\in H\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ is commutative if } x \\circ y = y \\circ x,\\forall x, y \\in H\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ is commutative if } x \\circ y = y \\circ x,\\forall x, y \\in H\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ is commutative if } x \\circ y = y \\circ x,\\forall x, y \\in H\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ is commutative if } x \\circ y = y \\circ x,\\forall x, y \\in H\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ is commutative if } x \\circ y = y \\circ x,\\forall x, y \\in H\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ is commutative if } x \\circ y = y \\circ x,\\forall x, y \\in H\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_copositionlaws_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_copositionlaws-f3",
+      "title": "Composition Laws - Formula 3",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ has an identity element if there exists } e \\in H \\\\\n\t\t\t\t\t\\text{such that } x \\circ e = e \\circ x = x, \\forall x \\in H \\\\\n\t\t\t\t\t\\text{The element } e \\text{ is explicitly determined.}\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ has an identity element if there exists } e \\in H \\\\\n\t\t\t\t\t\\text{such that } x \\circ e = e \\circ x = x, \\forall x \\in H \\\\\n\t\t\t\t\t\\text{The element } e \\text{ is explicitly determined.}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ has an identity element if there exists } e \\in H \\\\\n\t\t\t\t\t\\text{such that } x \\circ e = e \\circ x = x, \\forall x \\in H \\\\\n\t\t\t\t\t\\text{The element } e \\text{ is explicitly determined.}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ has an identity element if there exists } e \\in H \\\\\n\t\t\t\t\t\\text{such that } x \\circ e = e \\circ x = x, \\forall x \\in H \\\\\n\t\t\t\t\t\\text{The element } e \\text{ is explicitly determined.}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ has an identity element if there exists } e \\in H \\\\\n\t\t\t\t\t\\text{such that } x \\circ e = e \\circ x = x, \\forall x \\in H \\\\\n\t\t\t\t\t\\text{The element } e \\text{ is explicitly determined.}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ has an identity element if there exists } e \\in H \\\\\n\t\t\t\t\t\\text{such that } x \\circ e = e \\circ x = x, \\forall x \\in H \\\\\n\t\t\t\t\t\\text{The element } e \\text{ is explicitly determined.}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ has an identity element if there exists } e \\in H \\\\\n\t\t\t\t\t\\text{such that } x \\circ e = e \\circ x = x, \\forall x \\in H \\\\\n\t\t\t\t\t\\text{The element } e \\text{ is explicitly determined.}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_copositionlaws_f3"
+        }
+      ]
+    },
+    {
+      "id": "algebra_copositionlaws-f4",
+      "title": "Composition Laws - Formula 4",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ has an absorbing element if there exists } a \\in H \\\\\n\t\t\t\t\t\\text{such that } x \\circ a = a \\circ x = a, \\forall x \\in H \\\\\n\t\t\t\t\t\\text{The element } a \\text{ is explicitly determined.}\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ has an absorbing element if there exists } a \\in H \\\\\n\t\t\t\t\t\\text{such that } x \\circ a = a \\circ x = a, \\forall x \\in H \\\\\n\t\t\t\t\t\\text{The element } a \\text{ is explicitly determined.}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ has an absorbing element if there exists } a \\in H \\\\\n\t\t\t\t\t\\text{such that } x \\circ a = a \\circ x = a, \\forall x \\in H \\\\\n\t\t\t\t\t\\text{The element } a \\text{ is explicitly determined.}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ has an absorbing element if there exists } a \\in H \\\\\n\t\t\t\t\t\\text{such that } x \\circ a = a \\circ x = a, \\forall x \\in H \\\\\n\t\t\t\t\t\\text{The element } a \\text{ is explicitly determined.}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ has an absorbing element if there exists } a \\in H \\\\\n\t\t\t\t\t\\text{such that } x \\circ a = a \\circ x = a, \\forall x \\in H \\\\\n\t\t\t\t\t\\text{The element } a \\text{ is explicitly determined.}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ has an absorbing element if there exists } a \\in H \\\\\n\t\t\t\t\t\\text{such that } x \\circ a = a \\circ x = a, \\forall x \\in H \\\\\n\t\t\t\t\t\\text{The element } a \\text{ is explicitly determined.}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t''\\circ'' \\text{ has an absorbing element if there exists } a \\in H \\\\\n\t\t\t\t\t\\text{such that } x \\circ a = a \\circ x = a, \\forall x \\in H \\\\\n\t\t\t\t\t\\text{The element } a \\text{ is explicitly determined.}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_copositionlaws_f4"
+        }
+      ]
+    },
+    {
+      "id": "algebra_copositionlaws-f5",
+      "title": "Composition Laws - Formula 5",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t\\text{The inverse of } x \\text{ is } x' \\text{ if } x \\circ x' = x' \\circ x = e \\\\\n\t\t\t\t\t\\text{The element } x' \\text{ is determined in terms of } x.\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{The inverse of } x \\text{ is } x' \\text{ if } x \\circ x' = x' \\circ x = e \\\\\n\t\t\t\t\t\\text{The element } x' \\text{ is determined in terms of } x.\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{The inverse of } x \\text{ is } x' \\text{ if } x \\circ x' = x' \\circ x = e \\\\\n\t\t\t\t\t\\text{The element } x' \\text{ is determined in terms of } x.\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{The inverse of } x \\text{ is } x' \\text{ if } x \\circ x' = x' \\circ x = e \\\\\n\t\t\t\t\t\\text{The element } x' \\text{ is determined in terms of } x.\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{The inverse of } x \\text{ is } x' \\text{ if } x \\circ x' = x' \\circ x = e \\\\\n\t\t\t\t\t\\text{The element } x' \\text{ is determined in terms of } x.\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{The inverse of } x \\text{ is } x' \\text{ if } x \\circ x' = x' \\circ x = e \\\\\n\t\t\t\t\t\\text{The element } x' \\text{ is determined in terms of } x.\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{The inverse of } x \\text{ is } x' \\text{ if } x \\circ x' = x' \\circ x = e \\\\\n\t\t\t\t\t\\text{The element } x' \\text{ is determined in terms of } x.\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_copositionlaws_f5"
+        }
+      ]
+    },
+    {
+      "id": "algebra_copositionlaws-f6",
+      "title": "Composition Laws - Formula 6",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t\\text{A subset } H \\text{ of } M \\text{ is said to be closed} \\\\\n\t\t\t\t\t\\text{under } ''\\circ'' \\text{ if } \\forall x, y \\in H \\Rightarrow x \\circ y \\in H\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{A subset } H \\text{ of } M \\text{ is said to be closed} \\\\\n\t\t\t\t\t\\text{under } ''\\circ'' \\text{ if } \\forall x, y \\in H \\Rightarrow x \\circ y \\in H\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{A subset } H \\text{ of } M \\text{ is said to be closed} \\\\\n\t\t\t\t\t\\text{under } ''\\circ'' \\text{ if } \\forall x, y \\in H \\Rightarrow x \\circ y \\in H\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{A subset } H \\text{ of } M \\text{ is said to be closed} \\\\\n\t\t\t\t\t\\text{under } ''\\circ'' \\text{ if } \\forall x, y \\in H \\Rightarrow x \\circ y \\in H\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{A subset } H \\text{ of } M \\text{ is said to be closed} \\\\\n\t\t\t\t\t\\text{under } ''\\circ'' \\text{ if } \\forall x, y \\in H \\Rightarrow x \\circ y \\in H\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{A subset } H \\text{ of } M \\text{ is said to be closed} \\\\\n\t\t\t\t\t\\text{under } ''\\circ'' \\text{ if } \\forall x, y \\in H \\Rightarrow x \\circ y \\in H\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{A subset } H \\text{ of } M \\text{ is said to be closed} \\\\\n\t\t\t\t\t\\text{under } ''\\circ'' \\text{ if } \\forall x, y \\in H \\Rightarrow x \\circ y \\in H\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_copositionlaws_f6"
+        }
+      ]
+    }
+  ]
+}

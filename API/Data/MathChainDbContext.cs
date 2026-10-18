@@ -19,6 +19,7 @@ namespace MathChain.API.Data
         public DbSet<ClassAnnouncement> ClassAnnouncements { get; set; }
         public DbSet<MessageComment> MessagesComments { get; set; }
         public DbSet<ClassMedia> ClassMedia { get; set; }
+        public DbSet<CurriculumChapter> CurriculumChapters { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,6 +36,10 @@ namespace MathChain.API.Data
 
             modelBuilder.Entity<ClassRoom>()
                 .HasIndex(c => c.JoinCode)
+                .IsUnique();
+
+            modelBuilder.Entity<CurriculumChapter>()
+                .HasIndex(c => c.ChapterSlug)
                 .IsUnique();
         }
 

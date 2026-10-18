@@ -1,0 +1,129 @@
+{
+  "chapterId": "calculus_monotonesequences",
+  "title": "Monotone Sequences",
+  "category": "Calculus",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Monotone Sequences.",
+  "formulas": [
+    {
+      "id": "calculus_monotonesequences-f1",
+      "title": "Monotone Sequences - Formula 1",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&a_n \\text{ is ascending if }a_n\\leq a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is strictly ascending if }a_n< a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is descending if }a_n\\geq a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is strictly descending if }a_n> a_{n+1}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/LR1.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&a_n \\text{ is ascending if }a_n\\leq a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is strictly ascending if }a_n< a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is descending if }a_n\\geq a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is strictly descending if }a_n> a_{n+1}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&a_n \\text{ is ascending if }a_n\\leq a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is strictly ascending if }a_n< a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is descending if }a_n\\geq a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is strictly descending if }a_n> a_{n+1}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&a_n \\text{ is ascending if }a_n\\leq a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is strictly ascending if }a_n< a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is descending if }a_n\\geq a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is strictly descending if }a_n> a_{n+1}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&a_n \\text{ is ascending if }a_n\\leq a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is strictly ascending if }a_n< a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is descending if }a_n\\geq a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is strictly descending if }a_n> a_{n+1}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&a_n \\text{ is ascending if }a_n\\leq a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is strictly ascending if }a_n< a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is descending if }a_n\\geq a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is strictly descending if }a_n> a_{n+1}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&a_n \\text{ is ascending if }a_n\\leq a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is strictly ascending if }a_n< a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is descending if }a_n\\geq a_{n+1}\\\\\n\t\t\t\t\t&a_n \\text{ is strictly descending if }a_n> a_{n+1}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_monotonesequences_f1"
+        }
+      ]
+    },
+    {
+      "id": "calculus_monotonesequences-f2",
+      "title": "Monotone Sequences - Formula 2",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\text{We can verify if a sequence is ascending or}\\\\\n\t\t\t\t\t&\\text{descending by using:}\\\\\n\t\t\t\t\t&a_{n+1}-a_n>0 \\text{ or } \\frac{a_{n+1}}{a_n}>1\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/LR1.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{We can verify if a sequence is ascending or}\\\\\n\t\t\t\t\t&\\text{descending by using:}\\\\\n\t\t\t\t\t&a_{n+1}-a_n>0 \\text{ or } \\frac{a_{n+1}}{a_n}>1\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{We can verify if a sequence is ascending or}\\\\\n\t\t\t\t\t&\\text{descending by using:}\\\\\n\t\t\t\t\t&a_{n+1}-a_n>0 \\text{ or } \\frac{a_{n+1}}{a_n}>1\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{We can verify if a sequence is ascending or}\\\\\n\t\t\t\t\t&\\text{descending by using:}\\\\\n\t\t\t\t\t&a_{n+1}-a_n>0 \\text{ or } \\frac{a_{n+1}}{a_n}>1\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{We can verify if a sequence is ascending or}\\\\\n\t\t\t\t\t&\\text{descending by using:}\\\\\n\t\t\t\t\t&a_{n+1}-a_n>0 \\text{ or } \\frac{a_{n+1}}{a_n}>1\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{We can verify if a sequence is ascending or}\\\\\n\t\t\t\t\t&\\text{descending by using:}\\\\\n\t\t\t\t\t&a_{n+1}-a_n>0 \\text{ or } \\frac{a_{n+1}}{a_n}>1\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{We can verify if a sequence is ascending or}\\\\\n\t\t\t\t\t&\\text{descending by using:}\\\\\n\t\t\t\t\t&a_{n+1}-a_n>0 \\text{ or } \\frac{a_{n+1}}{a_n}>1\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_monotonesequences_f2"
+        }
+      ]
+    }
+  ]
+}

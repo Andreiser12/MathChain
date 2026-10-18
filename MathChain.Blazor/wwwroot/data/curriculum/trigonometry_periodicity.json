@@ -1,0 +1,249 @@
+{
+  "chapterId": "trigonometry_periodicity",
+  "title": "Periodicity",
+  "category": "Trigonometry",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Periodicity.",
+  "formulas": [
+    {
+      "id": "trigonometry_periodicity-f1",
+      "title": "Periodicity - Formula 1",
+      "latex": "\\sin{(2k\\pi +a)}=\\sin{a}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sin{(2k\\pi +a)}=\\sin{a}",
+          "wolframQuery": "simplify \\sin{(2k\\pi +a)}=\\sin{a}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\sin{(2k\\pi +a)}=\\sin{a}",
+          "wolframQuery": "simplify \\sin{(2k\\pi +a)}=\\sin{a}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sin{(2k\\pi +a)}=\\sin{a}",
+          "wolframQuery": "simplify \\sin{(2k\\pi +a)}=\\sin{a}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_periodicity_f1"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_periodicity-f2",
+      "title": "Periodicity - Formula 2",
+      "latex": "\\cos{(2k\\pi +a)}=\\cos{a}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\cos{(2k\\pi +a)}=\\cos{a}",
+          "wolframQuery": "simplify \\cos{(2k\\pi +a)}=\\cos{a}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\cos{(2k\\pi +a)}=\\cos{a}",
+          "wolframQuery": "simplify \\cos{(2k\\pi +a)}=\\cos{a}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\cos{(2k\\pi +a)}=\\cos{a}",
+          "wolframQuery": "simplify \\cos{(2k\\pi +a)}=\\cos{a}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_periodicity_f2"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_periodicity-f3",
+      "title": "Periodicity - Formula 3",
+      "latex": "\\tan{(k\\pi +a)}=\\tan{a}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\tan{(k\\pi +a)}=\\tan{a}",
+          "wolframQuery": "simplify \\tan{(k\\pi +a)}=\\tan{a}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\tan{(k\\pi +a)}=\\tan{a}",
+          "wolframQuery": "simplify \\tan{(k\\pi +a)}=\\tan{a}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\tan{(k\\pi +a)}=\\tan{a}",
+          "wolframQuery": "simplify \\tan{(k\\pi +a)}=\\tan{a}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_periodicity_f3"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_periodicity-f4",
+      "title": "Periodicity - Formula 4",
+      "latex": "\\cot{(k\\pi +a)}=\\cot{a}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\cot{(k\\pi +a)}=\\cot{a}",
+          "wolframQuery": "simplify \\cot{(k\\pi +a)}=\\cot{a}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\cot{(k\\pi +a)}=\\cot{a}",
+          "wolframQuery": "simplify \\cot{(k\\pi +a)}=\\cot{a}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\cot{(k\\pi +a)}=\\cot{a}",
+          "wolframQuery": "simplify \\cot{(k\\pi +a)}=\\cot{a}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_periodicity_f4"
+        }
+      ]
+    }
+  ]
+}

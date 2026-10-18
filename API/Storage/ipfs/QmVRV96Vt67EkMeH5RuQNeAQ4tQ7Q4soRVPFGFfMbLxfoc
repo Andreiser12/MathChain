@@ -1,0 +1,489 @@
+{
+  "chapterId": "geometry_planexoy",
+  "title": "xOy Plane",
+  "category": "Geometry",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru xOy Plane.",
+  "formulas": [
+    {
+      "id": "geometry_planexoy-f1",
+      "title": "xOy Plane - Formula 1",
+      "latex": "\\text{A vector }\\overrightarrow{u}=x\\overrightarrow{i}+y\\overrightarrow{j}\\text{ has the coordinates } (x,y)",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{A vector }\\overrightarrow{u}=x\\overrightarrow{i}+y\\overrightarrow{j}\\text{ has the coordinates } (x,y)",
+          "wolframQuery": "simplify \\text{A vector }\\overrightarrow{u}=x\\overrightarrow{i}+y\\overrightarrow{j}\\text{ has the coordinates } (x,y)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{A vector }\\overrightarrow{u}=x\\overrightarrow{i}+y\\overrightarrow{j}\\text{ has the coordinates } (x,y)",
+          "wolframQuery": "simplify \\text{A vector }\\overrightarrow{u}=x\\overrightarrow{i}+y\\overrightarrow{j}\\text{ has the coordinates } (x,y)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{A vector }\\overrightarrow{u}=x\\overrightarrow{i}+y\\overrightarrow{j}\\text{ has the coordinates } (x,y)",
+          "wolframQuery": "simplify \\text{A vector }\\overrightarrow{u}=x\\overrightarrow{i}+y\\overrightarrow{j}\\text{ has the coordinates } (x,y)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_planexoy_f1"
+        }
+      ]
+    },
+    {
+      "id": "geometry_planexoy-f2",
+      "title": "xOy Plane - Formula 2",
+      "latex": "|\\overrightarrow{u}|=\\sqrt{x^2+y^2}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|\\overrightarrow{u}|=\\sqrt{x^2+y^2}",
+          "wolframQuery": "simplify |\\overrightarrow{u}|=\\sqrt{x^2+y^2}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "|\\overrightarrow{u}|=\\sqrt{x^2+y^2}",
+          "wolframQuery": "simplify |\\overrightarrow{u}|=\\sqrt{x^2+y^2}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "|\\overrightarrow{u}|=\\sqrt{x^2+y^2}",
+          "wolframQuery": "simplify |\\overrightarrow{u}|=\\sqrt{x^2+y^2}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_planexoy_f2"
+        }
+      ]
+    },
+    {
+      "id": "geometry_planexoy-f3",
+      "title": "xOy Plane - Formula 3",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\overrightarrow{u}=x\\overrightarrow{i}+y\\overrightarrow{j},\\,\\overrightarrow{v}=z\\overrightarrow{i}+t\\overrightarrow{j}\\\\\n\t\t\t\t\t&\\overrightarrow{u}=\\overrightarrow{v}\\Leftrightarrow x=z,\\,y=t\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\overrightarrow{u}=x\\overrightarrow{i}+y\\overrightarrow{j},\\,\\overrightarrow{v}=z\\overrightarrow{i}+t\\overrightarrow{j}\\\\\n\t\t\t\t\t&\\overrightarrow{u}=\\overrightarrow{v}\\Leftrightarrow x=z,\\,y=t\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\overrightarrow{u}=x\\overrightarrow{i}+y\\overrightarrow{j},\\,\\overrightarrow{v}=z\\overrightarrow{i}+t\\overrightarrow{j}\\\\\n\t\t\t\t\t&\\overrightarrow{u}=\\overrightarrow{v}\\Leftrightarrow x=z,\\,y=t\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\overrightarrow{u}=x\\overrightarrow{i}+y\\overrightarrow{j},\\,\\overrightarrow{v}=z\\overrightarrow{i}+t\\overrightarrow{j}\\\\\n\t\t\t\t\t&\\overrightarrow{u}=\\overrightarrow{v}\\Leftrightarrow x=z,\\,y=t\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\overrightarrow{u}=x\\overrightarrow{i}+y\\overrightarrow{j},\\,\\overrightarrow{v}=z\\overrightarrow{i}+t\\overrightarrow{j}\\\\\n\t\t\t\t\t&\\overrightarrow{u}=\\overrightarrow{v}\\Leftrightarrow x=z,\\,y=t\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\overrightarrow{u}=x\\overrightarrow{i}+y\\overrightarrow{j},\\,\\overrightarrow{v}=z\\overrightarrow{i}+t\\overrightarrow{j}\\\\\n\t\t\t\t\t&\\overrightarrow{u}=\\overrightarrow{v}\\Leftrightarrow x=z,\\,y=t\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\overrightarrow{u}=x\\overrightarrow{i}+y\\overrightarrow{j},\\,\\overrightarrow{v}=z\\overrightarrow{i}+t\\overrightarrow{j}\\\\\n\t\t\t\t\t&\\overrightarrow{u}=\\overrightarrow{v}\\Leftrightarrow x=z,\\,y=t\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_planexoy_f3"
+        }
+      ]
+    },
+    {
+      "id": "geometry_planexoy-f4",
+      "title": "xOy Plane - Formula 4",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\overrightarrow{u}\\cdot \\overrightarrow{v}=x\\cdot z+y\\cdot t\\\\\n\t\t\t\t\t&\\overrightarrow{u}\\cdot \\overrightarrow{v}=|\\overrightarrow{u}|\\cdot |\\overrightarrow{v}|\\cdot \\cos{(\\overrightarrow{u},\\overrightarrow{v})}\\\\\n\t\t\t\t\t&(\\overrightarrow{u},\\overrightarrow{v})<\\frac{\\pi}{2}\\Leftrightarrow \\cos{(\\overrightarrow{u},\\overrightarrow{v})}>0\\\\\n\t\t\t\t\t&(\\overrightarrow{u},\\overrightarrow{v})>\\frac{\\pi}{2}\\Leftrightarrow \\cos{(\\overrightarrow{u},\\overrightarrow{v})}<0\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\overrightarrow{u}\\cdot \\overrightarrow{v}=x\\cdot z+y\\cdot t\\\\\n\t\t\t\t\t&\\overrightarrow{u}\\cdot \\overrightarrow{v}=|\\overrightarrow{u}|\\cdot |\\overrightarrow{v}|\\cdot \\cos{(\\overrightarrow{u},\\overrightarrow{v})}\\\\\n\t\t\t\t\t&(\\overrightarrow{u},\\overrightarrow{v})<\\frac{\\pi}{2}\\Leftrightarrow \\cos{(\\overrightarrow{u},\\overrightarrow{v})}>0\\\\\n\t\t\t\t\t&(\\overrightarrow{u},\\overrightarrow{v})>\\frac{\\pi}{2}\\Leftrightarrow \\cos{(\\overrightarrow{u},\\overrightarrow{v})}<0\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\overrightarrow{u}\\cdot \\overrightarrow{v}=x\\cdot z+y\\cdot t\\\\\n\t\t\t\t\t&\\overrightarrow{u}\\cdot \\overrightarrow{v}=|\\overrightarrow{u}|\\cdot |\\overrightarrow{v}|\\cdot \\cos{(\\overrightarrow{u},\\overrightarrow{v})}\\\\\n\t\t\t\t\t&(\\overrightarrow{u},\\overrightarrow{v})<\\frac{\\pi}{2}\\Leftrightarrow \\cos{(\\overrightarrow{u},\\overrightarrow{v})}>0\\\\\n\t\t\t\t\t&(\\overrightarrow{u},\\overrightarrow{v})>\\frac{\\pi}{2}\\Leftrightarrow \\cos{(\\overrightarrow{u},\\overrightarrow{v})}<0\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\overrightarrow{u}\\cdot \\overrightarrow{v}=x\\cdot z+y\\cdot t\\\\\n\t\t\t\t\t&\\overrightarrow{u}\\cdot \\overrightarrow{v}=|\\overrightarrow{u}|\\cdot |\\overrightarrow{v}|\\cdot \\cos{(\\overrightarrow{u},\\overrightarrow{v})}\\\\\n\t\t\t\t\t&(\\overrightarrow{u},\\overrightarrow{v})<\\frac{\\pi}{2}\\Leftrightarrow \\cos{(\\overrightarrow{u},\\overrightarrow{v})}>0\\\\\n\t\t\t\t\t&(\\overrightarrow{u},\\overrightarrow{v})>\\frac{\\pi}{2}\\Leftrightarrow \\cos{(\\overrightarrow{u},\\overrightarrow{v})}<0\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\overrightarrow{u}\\cdot \\overrightarrow{v}=x\\cdot z+y\\cdot t\\\\\n\t\t\t\t\t&\\overrightarrow{u}\\cdot \\overrightarrow{v}=|\\overrightarrow{u}|\\cdot |\\overrightarrow{v}|\\cdot \\cos{(\\overrightarrow{u},\\overrightarrow{v})}\\\\\n\t\t\t\t\t&(\\overrightarrow{u},\\overrightarrow{v})<\\frac{\\pi}{2}\\Leftrightarrow \\cos{(\\overrightarrow{u},\\overrightarrow{v})}>0\\\\\n\t\t\t\t\t&(\\overrightarrow{u},\\overrightarrow{v})>\\frac{\\pi}{2}\\Leftrightarrow \\cos{(\\overrightarrow{u},\\overrightarrow{v})}<0\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\overrightarrow{u}\\cdot \\overrightarrow{v}=x\\cdot z+y\\cdot t\\\\\n\t\t\t\t\t&\\overrightarrow{u}\\cdot \\overrightarrow{v}=|\\overrightarrow{u}|\\cdot |\\overrightarrow{v}|\\cdot \\cos{(\\overrightarrow{u},\\overrightarrow{v})}\\\\\n\t\t\t\t\t&(\\overrightarrow{u},\\overrightarrow{v})<\\frac{\\pi}{2}\\Leftrightarrow \\cos{(\\overrightarrow{u},\\overrightarrow{v})}>0\\\\\n\t\t\t\t\t&(\\overrightarrow{u},\\overrightarrow{v})>\\frac{\\pi}{2}\\Leftrightarrow \\cos{(\\overrightarrow{u},\\overrightarrow{v})}<0\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\overrightarrow{u}\\cdot \\overrightarrow{v}=x\\cdot z+y\\cdot t\\\\\n\t\t\t\t\t&\\overrightarrow{u}\\cdot \\overrightarrow{v}=|\\overrightarrow{u}|\\cdot |\\overrightarrow{v}|\\cdot \\cos{(\\overrightarrow{u},\\overrightarrow{v})}\\\\\n\t\t\t\t\t&(\\overrightarrow{u},\\overrightarrow{v})<\\frac{\\pi}{2}\\Leftrightarrow \\cos{(\\overrightarrow{u},\\overrightarrow{v})}>0\\\\\n\t\t\t\t\t&(\\overrightarrow{u},\\overrightarrow{v})>\\frac{\\pi}{2}\\Leftrightarrow \\cos{(\\overrightarrow{u},\\overrightarrow{v})}<0\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_planexoy_f4"
+        }
+      ]
+    },
+    {
+      "id": "geometry_planexoy-f5",
+      "title": "xOy Plane - Formula 5",
+      "latex": "\\overrightarrow{u}\\cdot \\overrightarrow{v}=0 \\Leftrightarrow \\overrightarrow{u}\\text{ is perpendicular to }\\overrightarrow{v}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\overrightarrow{u}\\cdot \\overrightarrow{v}=0 \\Leftrightarrow \\overrightarrow{u}\\text{ is perpendicular to }\\overrightarrow{v}",
+          "wolframQuery": "simplify \\overrightarrow{u}\\cdot \\overrightarrow{v}=0 \\Leftrightarrow \\overrightarrow{u}\\text{ is perpendicular to }\\overrightarrow{v}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\overrightarrow{u}\\cdot \\overrightarrow{v}=0 \\Leftrightarrow \\overrightarrow{u}\\text{ is perpendicular to }\\overrightarrow{v}",
+          "wolframQuery": "simplify \\overrightarrow{u}\\cdot \\overrightarrow{v}=0 \\Leftrightarrow \\overrightarrow{u}\\text{ is perpendicular to }\\overrightarrow{v}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\overrightarrow{u}\\cdot \\overrightarrow{v}=0 \\Leftrightarrow \\overrightarrow{u}\\text{ is perpendicular to }\\overrightarrow{v}",
+          "wolframQuery": "simplify \\overrightarrow{u}\\cdot \\overrightarrow{v}=0 \\Leftrightarrow \\overrightarrow{u}\\text{ is perpendicular to }\\overrightarrow{v}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_planexoy_f5"
+        }
+      ]
+    },
+    {
+      "id": "geometry_planexoy-f6",
+      "title": "xOy Plane - Formula 6",
+      "latex": "\\overrightarrow{u}\\text{ is parallel to }\\overrightarrow{v}\\Leftrightarrow \\frac{x}{z}=\\frac{y}{t}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\overrightarrow{u}\\text{ is parallel to }\\overrightarrow{v}\\Leftrightarrow \\frac{x}{z}=\\frac{y}{t}",
+          "wolframQuery": "simplify \\overrightarrow{u}\\text{ is parallel to }\\overrightarrow{v}\\Leftrightarrow \\frac{x}{z}=\\frac{y}{t}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\overrightarrow{u}\\text{ is parallel to }\\overrightarrow{v}\\Leftrightarrow \\frac{x}{z}=\\frac{y}{t}",
+          "wolframQuery": "simplify \\overrightarrow{u}\\text{ is parallel to }\\overrightarrow{v}\\Leftrightarrow \\frac{x}{z}=\\frac{y}{t}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\overrightarrow{u}\\text{ is parallel to }\\overrightarrow{v}\\Leftrightarrow \\frac{x}{z}=\\frac{y}{t}",
+          "wolframQuery": "simplify \\overrightarrow{u}\\text{ is parallel to }\\overrightarrow{v}\\Leftrightarrow \\frac{x}{z}=\\frac{y}{t}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_planexoy_f6"
+        }
+      ]
+    },
+    {
+      "id": "geometry_planexoy-f7",
+      "title": "xOy Plane - Formula 7",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\text{The position vector of the vector}\\\\\n\t\t\t\t\t&A(x_A,y_A)\\in xOy\\text{ is }\\overrightarrow{r_A}=x_A\\overrightarrow{i}+y_A\\overrightarrow{j}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The position vector of the vector}\\\\\n\t\t\t\t\t&A(x_A,y_A)\\in xOy\\text{ is }\\overrightarrow{r_A}=x_A\\overrightarrow{i}+y_A\\overrightarrow{j}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The position vector of the vector}\\\\\n\t\t\t\t\t&A(x_A,y_A)\\in xOy\\text{ is }\\overrightarrow{r_A}=x_A\\overrightarrow{i}+y_A\\overrightarrow{j}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The position vector of the vector}\\\\\n\t\t\t\t\t&A(x_A,y_A)\\in xOy\\text{ is }\\overrightarrow{r_A}=x_A\\overrightarrow{i}+y_A\\overrightarrow{j}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The position vector of the vector}\\\\\n\t\t\t\t\t&A(x_A,y_A)\\in xOy\\text{ is }\\overrightarrow{r_A}=x_A\\overrightarrow{i}+y_A\\overrightarrow{j}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The position vector of the vector}\\\\\n\t\t\t\t\t&A(x_A,y_A)\\in xOy\\text{ is }\\overrightarrow{r_A}=x_A\\overrightarrow{i}+y_A\\overrightarrow{j}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The position vector of the vector}\\\\\n\t\t\t\t\t&A(x_A,y_A)\\in xOy\\text{ is }\\overrightarrow{r_A}=x_A\\overrightarrow{i}+y_A\\overrightarrow{j}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_planexoy_f7"
+        }
+      ]
+    },
+    {
+      "id": "geometry_planexoy-f8",
+      "title": "xOy Plane - Formula 8",
+      "latex": "\\text{For two points }A,\\,B\\in xOy \\Rightarrow \\overrightarrow{AB}=(x_B-x_A)\\overrightarrow{i}+(y_B-y_A)\\overrightarrow{j}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{For two points }A,\\,B\\in xOy \\Rightarrow \\overrightarrow{AB}=(x_B-x_A)\\overrightarrow{i}+(y_B-y_A)\\overrightarrow{j}",
+          "wolframQuery": "simplify \\text{For two points }A,\\,B\\in xOy \\Rightarrow \\overrightarrow{AB}=(x_B-x_A)\\overrightarrow{i}+(y_B-y_A)\\overrightarrow{j}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{For two points }A,\\,B\\in xOy \\Rightarrow \\overrightarrow{AB}=(x_B-x_A)\\overrightarrow{i}+(y_B-y_A)\\overrightarrow{j}",
+          "wolframQuery": "simplify \\text{For two points }A,\\,B\\in xOy \\Rightarrow \\overrightarrow{AB}=(x_B-x_A)\\overrightarrow{i}+(y_B-y_A)\\overrightarrow{j}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{For two points }A,\\,B\\in xOy \\Rightarrow \\overrightarrow{AB}=(x_B-x_A)\\overrightarrow{i}+(y_B-y_A)\\overrightarrow{j}",
+          "wolframQuery": "simplify \\text{For two points }A,\\,B\\in xOy \\Rightarrow \\overrightarrow{AB}=(x_B-x_A)\\overrightarrow{i}+(y_B-y_A)\\overrightarrow{j}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_planexoy_f8"
+        }
+      ]
+    }
+  ]
+}

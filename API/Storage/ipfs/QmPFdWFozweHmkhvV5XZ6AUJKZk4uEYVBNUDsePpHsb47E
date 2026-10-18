@@ -1,0 +1,189 @@
+{
+  "chapterId": "algebra_rankmatrices",
+  "title": "Rank",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Rank.",
+  "formulas": [
+    {
+      "id": "algebra_rankmatrices-f1",
+      "title": "Rank - Formula 1",
+      "latex": "\\text{rank }A\\leq \\min(m,n)",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{rank }A\\leq \\min(m,n)",
+          "wolframQuery": "simplify \\text{rank }A\\leq \\min(m,n)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{rank }A\\leq \\min(m,n)",
+          "wolframQuery": "simplify \\text{rank }A\\leq \\min(m,n)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{rank }A\\leq \\min(m,n)",
+          "wolframQuery": "simplify \\text{rank }A\\leq \\min(m,n)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_rankmatrices_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_rankmatrices-f2",
+      "title": "Rank - Formula 2",
+      "latex": "\\text{ rank for }m=n",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{ rank for }m=n",
+          "wolframQuery": "simplify \\text{ rank for }m=n",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{ rank for }m=n",
+          "wolframQuery": "simplify \\text{ rank for }m=n",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{ rank for }m=n",
+          "wolframQuery": "simplify \\text{ rank for }m=n",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_rankmatrices_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_rankmatrices-f3",
+      "title": "Rank - Formula 3",
+      "latex": "\\text{rank for } m\\neq n",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{rank for } m\\neq n",
+          "wolframQuery": "simplify \\text{rank for } m\\neq n",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{rank for } m\\neq n",
+          "wolframQuery": "simplify \\text{rank for } m\\neq n",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{rank for } m\\neq n",
+          "wolframQuery": "simplify \\text{rank for } m\\neq n",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_rankmatrices_f3"
+        }
+      ]
+    }
+  ]
+}

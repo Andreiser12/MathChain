@@ -1,0 +1,249 @@
+{
+  "chapterId": "trigonometry_parity",
+  "title": "Parity",
+  "category": "Trigonometry",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Parity.",
+  "formulas": [
+    {
+      "id": "trigonometry_parity-f1",
+      "title": "Parity - Formula 1",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\sin :\\mathbb{R}\\to [-1,1]\\\\\n\t\t\t\t\t&\\sin{(-a)}=-\\sin{a}\\\\\n\t\t\t\t\t&\\sin{(a+2k\\pi)}=\\sin{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\sin :\\mathbb{R}\\to [-1,1]\\\\\n\t\t\t\t\t&\\sin{(-a)}=-\\sin{a}\\\\\n\t\t\t\t\t&\\sin{(a+2k\\pi)}=\\sin{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\sin :\\mathbb{R}\\to [-1,1]\\\\\n\t\t\t\t\t&\\sin{(-a)}=-\\sin{a}\\\\\n\t\t\t\t\t&\\sin{(a+2k\\pi)}=\\sin{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\sin :\\mathbb{R}\\to [-1,1]\\\\\n\t\t\t\t\t&\\sin{(-a)}=-\\sin{a}\\\\\n\t\t\t\t\t&\\sin{(a+2k\\pi)}=\\sin{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\sin :\\mathbb{R}\\to [-1,1]\\\\\n\t\t\t\t\t&\\sin{(-a)}=-\\sin{a}\\\\\n\t\t\t\t\t&\\sin{(a+2k\\pi)}=\\sin{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\sin :\\mathbb{R}\\to [-1,1]\\\\\n\t\t\t\t\t&\\sin{(-a)}=-\\sin{a}\\\\\n\t\t\t\t\t&\\sin{(a+2k\\pi)}=\\sin{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\sin :\\mathbb{R}\\to [-1,1]\\\\\n\t\t\t\t\t&\\sin{(-a)}=-\\sin{a}\\\\\n\t\t\t\t\t&\\sin{(a+2k\\pi)}=\\sin{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_parity_f1"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_parity-f2",
+      "title": "Parity - Formula 2",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\cos :\\mathbb{R}\\to [-1,1]\\\\\n\t\t\t\t\t&\\cos{(-a)}=\\sin{a}\\\\\n\t\t\t\t\t&\\cos{(a+2k\\pi)}=\\sin{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\cos :\\mathbb{R}\\to [-1,1]\\\\\n\t\t\t\t\t&\\cos{(-a)}=\\sin{a}\\\\\n\t\t\t\t\t&\\cos{(a+2k\\pi)}=\\sin{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\cos :\\mathbb{R}\\to [-1,1]\\\\\n\t\t\t\t\t&\\cos{(-a)}=\\sin{a}\\\\\n\t\t\t\t\t&\\cos{(a+2k\\pi)}=\\sin{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\cos :\\mathbb{R}\\to [-1,1]\\\\\n\t\t\t\t\t&\\cos{(-a)}=\\sin{a}\\\\\n\t\t\t\t\t&\\cos{(a+2k\\pi)}=\\sin{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\cos :\\mathbb{R}\\to [-1,1]\\\\\n\t\t\t\t\t&\\cos{(-a)}=\\sin{a}\\\\\n\t\t\t\t\t&\\cos{(a+2k\\pi)}=\\sin{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\cos :\\mathbb{R}\\to [-1,1]\\\\\n\t\t\t\t\t&\\cos{(-a)}=\\sin{a}\\\\\n\t\t\t\t\t&\\cos{(a+2k\\pi)}=\\sin{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\cos :\\mathbb{R}\\to [-1,1]\\\\\n\t\t\t\t\t&\\cos{(-a)}=\\sin{a}\\\\\n\t\t\t\t\t&\\cos{(a+2k\\pi)}=\\sin{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_parity_f2"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_parity-f3",
+      "title": "Parity - Formula 3",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\tan :\\mathbb{R}\\setminus \\left\\{ (2k+1)\\frac{\\pi}{2} \\right\\}\\to \\mathbb{R}\\\\\n\t\t\t\t\t&\\tan{(-a)}=-\\tan{a}\\\\\n\t\t\t\t\t&\\tan{(a+k\\pi)}=\\tan{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\tan :\\mathbb{R}\\setminus \\left\\{ (2k+1)\\frac{\\pi}{2} \\right\\}\\to \\mathbb{R}\\\\\n\t\t\t\t\t&\\tan{(-a)}=-\\tan{a}\\\\\n\t\t\t\t\t&\\tan{(a+k\\pi)}=\\tan{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\tan :\\mathbb{R}\\setminus \\left\\{ (2k+1)\\frac{\\pi}{2} \\right\\}\\to \\mathbb{R}\\\\\n\t\t\t\t\t&\\tan{(-a)}=-\\tan{a}\\\\\n\t\t\t\t\t&\\tan{(a+k\\pi)}=\\tan{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\tan :\\mathbb{R}\\setminus \\left\\{ (2k+1)\\frac{\\pi}{2} \\right\\}\\to \\mathbb{R}\\\\\n\t\t\t\t\t&\\tan{(-a)}=-\\tan{a}\\\\\n\t\t\t\t\t&\\tan{(a+k\\pi)}=\\tan{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\tan :\\mathbb{R}\\setminus \\left\\{ (2k+1)\\frac{\\pi}{2} \\right\\}\\to \\mathbb{R}\\\\\n\t\t\t\t\t&\\tan{(-a)}=-\\tan{a}\\\\\n\t\t\t\t\t&\\tan{(a+k\\pi)}=\\tan{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\tan :\\mathbb{R}\\setminus \\left\\{ (2k+1)\\frac{\\pi}{2} \\right\\}\\to \\mathbb{R}\\\\\n\t\t\t\t\t&\\tan{(-a)}=-\\tan{a}\\\\\n\t\t\t\t\t&\\tan{(a+k\\pi)}=\\tan{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\tan :\\mathbb{R}\\setminus \\left\\{ (2k+1)\\frac{\\pi}{2} \\right\\}\\to \\mathbb{R}\\\\\n\t\t\t\t\t&\\tan{(-a)}=-\\tan{a}\\\\\n\t\t\t\t\t&\\tan{(a+k\\pi)}=\\tan{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_parity_f3"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_parity-f4",
+      "title": "Parity - Formula 4",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\cot :\\mathbb{R}\\setminus \\{k\\pi\\}\\to \\mathbb{R}\\\\\n\t\t\t\t\t&\\cot{(-a)}=-\\cot{a}\\\\\n\t\t\t\t\t&\\cot{(a+k\\pi)}=\\cot{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\cot :\\mathbb{R}\\setminus \\{k\\pi\\}\\to \\mathbb{R}\\\\\n\t\t\t\t\t&\\cot{(-a)}=-\\cot{a}\\\\\n\t\t\t\t\t&\\cot{(a+k\\pi)}=\\cot{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\cot :\\mathbb{R}\\setminus \\{k\\pi\\}\\to \\mathbb{R}\\\\\n\t\t\t\t\t&\\cot{(-a)}=-\\cot{a}\\\\\n\t\t\t\t\t&\\cot{(a+k\\pi)}=\\cot{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\cot :\\mathbb{R}\\setminus \\{k\\pi\\}\\to \\mathbb{R}\\\\\n\t\t\t\t\t&\\cot{(-a)}=-\\cot{a}\\\\\n\t\t\t\t\t&\\cot{(a+k\\pi)}=\\cot{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\cot :\\mathbb{R}\\setminus \\{k\\pi\\}\\to \\mathbb{R}\\\\\n\t\t\t\t\t&\\cot{(-a)}=-\\cot{a}\\\\\n\t\t\t\t\t&\\cot{(a+k\\pi)}=\\cot{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\cot :\\mathbb{R}\\setminus \\{k\\pi\\}\\to \\mathbb{R}\\\\\n\t\t\t\t\t&\\cot{(-a)}=-\\cot{a}\\\\\n\t\t\t\t\t&\\cot{(a+k\\pi)}=\\cot{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\cot :\\mathbb{R}\\setminus \\{k\\pi\\}\\to \\mathbb{R}\\\\\n\t\t\t\t\t&\\cot{(-a)}=-\\cot{a}\\\\\n\t\t\t\t\t&\\cot{(a+k\\pi)}=\\cot{a},\\, k\\in \\mathbb{Z}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_parity_f4"
+        }
+      ]
+    }
+  ]
+}

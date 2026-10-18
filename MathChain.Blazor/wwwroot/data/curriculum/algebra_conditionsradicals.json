@@ -1,0 +1,129 @@
+{
+  "chapterId": "algebra_conditionsradicals",
+  "title": "Conditions of Existence",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Conditions of Existence.",
+  "formulas": [
+    {
+      "id": "algebra_conditionsradicals-f1",
+      "title": "Conditions of Existence - Formula 1",
+      "latex": "\\sqrt{f(x)}=g(x), \\text{ where } f(x),\\text{ } g(x)\\geq0",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sqrt{f(x)}=g(x), \\text{ where } f(x),\\text{ } g(x)\\geq0",
+          "wolframQuery": "simplify \\sqrt{f(x)}=g(x), \\text{ where } f(x),\\text{ } g(x)\\geq0",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\sqrt{f(x)}=g(x), \\text{ where } f(x),\\text{ } g(x)\\geq0",
+          "wolframQuery": "simplify \\sqrt{f(x)}=g(x), \\text{ where } f(x),\\text{ } g(x)\\geq0",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sqrt{f(x)}=g(x), \\text{ where } f(x),\\text{ } g(x)\\geq0",
+          "wolframQuery": "simplify \\sqrt{f(x)}=g(x), \\text{ where } f(x),\\text{ } g(x)\\geq0",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_conditionsradicals_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_conditionsradicals-f2",
+      "title": "Conditions of Existence - Formula 2",
+      "latex": "\\sqrt[3]{f(x)}= g(x), \\text{ } x\\in R",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sqrt[3]{f(x)}= g(x), \\text{ } x\\in R",
+          "wolframQuery": "simplify \\sqrt[3]{f(x)}= g(x), \\text{ } x\\in R",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\sqrt[3]{f(x)}= g(x), \\text{ } x\\in R",
+          "wolframQuery": "simplify \\sqrt[3]{f(x)}= g(x), \\text{ } x\\in R",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sqrt[3]{f(x)}= g(x), \\text{ } x\\in R",
+          "wolframQuery": "simplify \\sqrt[3]{f(x)}= g(x), \\text{ } x\\in R",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_conditionsradicals_f2"
+        }
+      ]
+    }
+  ]
+}

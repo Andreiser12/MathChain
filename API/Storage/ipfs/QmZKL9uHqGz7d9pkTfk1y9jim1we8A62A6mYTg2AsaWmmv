@@ -1,0 +1,849 @@
+{
+  "chapterId": "calculus_compositefunctions",
+  "title": "Basic Functions",
+  "category": "Calculus",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Basic Functions.",
+  "formulas": [
+    {
+      "id": "calculus_compositefunctions-f1",
+      "title": "Basic Functions - Formula 1",
+      "latex": "\\left(f(x)^n\\right)'=nx^{n-1}f'(x)",
+      "model3D": "Assets/3DModels/int1pex.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(f(x)^n\\right)'=nx^{n-1}f'(x)",
+          "wolframQuery": "simplify \\left(f(x)^n\\right)'=nx^{n-1}f'(x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\left(f(x)^n\\right)'=nx^{n-1}f'(x)",
+          "wolframQuery": "simplify \\left(f(x)^n\\right)'=nx^{n-1}f'(x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(f(x)^n\\right)'=nx^{n-1}f'(x)",
+          "wolframQuery": "simplify \\left(f(x)^n\\right)'=nx^{n-1}f'(x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_compositefunctions_f1"
+        }
+      ]
+    },
+    {
+      "id": "calculus_compositefunctions-f2",
+      "title": "Basic Functions - Formula 2",
+      "latex": "\\left(\\sqrt{f(x)}\\right)'=\\frac{1}{2\\sqrt{x}}f'(x)",
+      "model3D": "Assets/3DModels/intalax.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\sqrt{f(x)}\\right)'=\\frac{1}{2\\sqrt{x}}f'(x)",
+          "wolframQuery": "simplify \\left(\\sqrt{f(x)}\\right)'=\\frac{1}{2\\sqrt{x}}f'(x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\left(\\sqrt{f(x)}\\right)'=\\frac{1}{2\\sqrt{x}}f'(x)",
+          "wolframQuery": "simplify \\left(\\sqrt{f(x)}\\right)'=\\frac{1}{2\\sqrt{x}}f'(x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\sqrt{f(x)}\\right)'=\\frac{1}{2\\sqrt{x}}f'(x)",
+          "wolframQuery": "simplify \\left(\\sqrt{f(x)}\\right)'=\\frac{1}{2\\sqrt{x}}f'(x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_compositefunctions_f2"
+        }
+      ]
+    },
+    {
+      "id": "calculus_compositefunctions-f3",
+      "title": "Basic Functions - Formula 3",
+      "latex": "\\left(a^{f(x)}\\right)'=a^x\\ln({a})f('x)",
+      "model3D": "Assets/3DModels/intelax.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(a^{f(x)}\\right)'=a^x\\ln({a})f('x)",
+          "wolframQuery": "simplify \\left(a^{f(x)}\\right)'=a^x\\ln({a})f('x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\left(a^{f(x)}\\right)'=a^x\\ln({a})f('x)",
+          "wolframQuery": "simplify \\left(a^{f(x)}\\right)'=a^x\\ln({a})f('x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(a^{f(x)}\\right)'=a^x\\ln({a})f('x)",
+          "wolframQuery": "simplify \\left(a^{f(x)}\\right)'=a^x\\ln({a})f('x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_compositefunctions_f3"
+        }
+      ]
+    },
+    {
+      "id": "calculus_compositefunctions-f4",
+      "title": "Basic Functions - Formula 4",
+      "latex": "\\left(\\ln{f(x)}\\right)'=\\frac{1}{x}f'(x)",
+      "model3D": "Assets/3DModels/int1pexla2minusala2.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\ln{f(x)}\\right)'=\\frac{1}{x}f'(x)",
+          "wolframQuery": "simplify \\left(\\ln{f(x)}\\right)'=\\frac{1}{x}f'(x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\left(\\ln{f(x)}\\right)'=\\frac{1}{x}f'(x)",
+          "wolframQuery": "simplify \\left(\\ln{f(x)}\\right)'=\\frac{1}{x}f'(x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\ln{f(x)}\\right)'=\\frac{1}{x}f'(x)",
+          "wolframQuery": "simplify \\left(\\ln{f(x)}\\right)'=\\frac{1}{x}f'(x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_compositefunctions_f4"
+        }
+      ]
+    },
+    {
+      "id": "calculus_compositefunctions-f5",
+      "title": "Basic Functions - Formula 5",
+      "latex": "\\left(\\frac{1}{f(x)}\\right)'=-\\frac{1}{x^2}f'(x)",
+      "model3D": "Assets/3DModels/int1pexla2plusala2(2).glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\frac{1}{f(x)}\\right)'=-\\frac{1}{x^2}f'(x)",
+          "wolframQuery": "simplify \\left(\\frac{1}{f(x)}\\right)'=-\\frac{1}{x^2}f'(x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\left(\\frac{1}{f(x)}\\right)'=-\\frac{1}{x^2}f'(x)",
+          "wolframQuery": "simplify \\left(\\frac{1}{f(x)}\\right)'=-\\frac{1}{x^2}f'(x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\frac{1}{f(x)}\\right)'=-\\frac{1}{x^2}f'(x)",
+          "wolframQuery": "simplify \\left(\\frac{1}{f(x)}\\right)'=-\\frac{1}{x^2}f'(x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_compositefunctions_f5"
+        }
+      ]
+    },
+    {
+      "id": "calculus_compositefunctions-f6",
+      "title": "Basic Functions - Formula 6",
+      "latex": "\\left(e^{f(x)}\\right)'=e^xf'(x)",
+      "model3D": "Assets/3DModels/int1peradala2minusxla2.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(e^{f(x)}\\right)'=e^xf'(x)",
+          "wolframQuery": "simplify \\left(e^{f(x)}\\right)'=e^xf'(x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\left(e^{f(x)}\\right)'=e^xf'(x)",
+          "wolframQuery": "simplify \\left(e^{f(x)}\\right)'=e^xf'(x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(e^{f(x)}\\right)'=e^xf'(x)",
+          "wolframQuery": "simplify \\left(e^{f(x)}\\right)'=e^xf'(x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_compositefunctions_f6"
+        }
+      ]
+    },
+    {
+      "id": "calculus_compositefunctions-f7",
+      "title": "Basic Functions - Formula 7",
+      "latex": "\\left(\\sin{f(x)}\\right)'=(\\cos{x})f'(x)",
+      "model3D": "Assets/3DModels/int1peradxla2plusala2.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\sin{f(x)}\\right)'=(\\cos{x})f'(x)",
+          "wolframQuery": "simplify \\left(\\sin{f(x)}\\right)'=(\\cos{x})f'(x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\left(\\sin{f(x)}\\right)'=(\\cos{x})f'(x)",
+          "wolframQuery": "simplify \\left(\\sin{f(x)}\\right)'=(\\cos{x})f'(x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\sin{f(x)}\\right)'=(\\cos{x})f'(x)",
+          "wolframQuery": "simplify \\left(\\sin{f(x)}\\right)'=(\\cos{x})f'(x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_compositefunctions_f7"
+        }
+      ]
+    },
+    {
+      "id": "calculus_compositefunctions-f8",
+      "title": "Basic Functions - Formula 8",
+      "latex": "\\left(\\cos{f(x)}\\right)'=-(\\sin{x})f'(x)",
+      "model3D": "Assets/3DModels/int1peradxla2minusala2.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\cos{f(x)}\\right)'=-(\\sin{x})f'(x)",
+          "wolframQuery": "simplify \\left(\\cos{f(x)}\\right)'=-(\\sin{x})f'(x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\left(\\cos{f(x)}\\right)'=-(\\sin{x})f'(x)",
+          "wolframQuery": "simplify \\left(\\cos{f(x)}\\right)'=-(\\sin{x})f'(x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\cos{f(x)}\\right)'=-(\\sin{x})f'(x)",
+          "wolframQuery": "simplify \\left(\\cos{f(x)}\\right)'=-(\\sin{x})f'(x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_compositefunctions_f8"
+        }
+      ]
+    },
+    {
+      "id": "calculus_compositefunctions-f9",
+      "title": "Basic Functions - Formula 9",
+      "latex": "\\left(\\tan{f(x)}\\right)'=\\frac{1}{cos^2{x}}f'(x)",
+      "model3D": "Assets/3DModels/intsinx.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\tan{f(x)}\\right)'=\\frac{1}{cos^2{x}}f'(x)",
+          "wolframQuery": "simplify \\left(\\tan{f(x)}\\right)'=\\frac{1}{cos^2{x}}f'(x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\left(\\tan{f(x)}\\right)'=\\frac{1}{cos^2{x}}f'(x)",
+          "wolframQuery": "simplify \\left(\\tan{f(x)}\\right)'=\\frac{1}{cos^2{x}}f'(x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\tan{f(x)}\\right)'=\\frac{1}{cos^2{x}}f'(x)",
+          "wolframQuery": "simplify \\left(\\tan{f(x)}\\right)'=\\frac{1}{cos^2{x}}f'(x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_compositefunctions_f9"
+        }
+      ]
+    },
+    {
+      "id": "calculus_compositefunctions-f10",
+      "title": "Basic Functions - Formula 10",
+      "latex": "\\left(\\cot{f(x)}\\right)'=-\\frac{1}{sin^2{x}}f'(x)",
+      "model3D": "Assets/3DModels/intcosx.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\cot{f(x)}\\right)'=-\\frac{1}{sin^2{x}}f'(x)",
+          "wolframQuery": "simplify \\left(\\cot{f(x)}\\right)'=-\\frac{1}{sin^2{x}}f'(x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\left(\\cot{f(x)}\\right)'=-\\frac{1}{sin^2{x}}f'(x)",
+          "wolframQuery": "simplify \\left(\\cot{f(x)}\\right)'=-\\frac{1}{sin^2{x}}f'(x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\cot{f(x)}\\right)'=-\\frac{1}{sin^2{x}}f'(x)",
+          "wolframQuery": "simplify \\left(\\cot{f(x)}\\right)'=-\\frac{1}{sin^2{x}}f'(x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_compositefunctions_f10"
+        }
+      ]
+    },
+    {
+      "id": "calculus_compositefunctions-f11",
+      "title": "Basic Functions - Formula 11",
+      "latex": "\\left(\\arcsin{f(x)}\\right)'=\\frac{1}{\\sqrt{1-x^2}}f'(x)",
+      "model3D": "Assets/3DModels/inttanx.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\arcsin{f(x)}\\right)'=\\frac{1}{\\sqrt{1-x^2}}f'(x)",
+          "wolframQuery": "simplify \\left(\\arcsin{f(x)}\\right)'=\\frac{1}{\\sqrt{1-x^2}}f'(x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\left(\\arcsin{f(x)}\\right)'=\\frac{1}{\\sqrt{1-x^2}}f'(x)",
+          "wolframQuery": "simplify \\left(\\arcsin{f(x)}\\right)'=\\frac{1}{\\sqrt{1-x^2}}f'(x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\arcsin{f(x)}\\right)'=\\frac{1}{\\sqrt{1-x^2}}f'(x)",
+          "wolframQuery": "simplify \\left(\\arcsin{f(x)}\\right)'=\\frac{1}{\\sqrt{1-x^2}}f'(x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_compositefunctions_f11"
+        }
+      ]
+    },
+    {
+      "id": "calculus_compositefunctions-f12",
+      "title": "Basic Functions - Formula 12",
+      "latex": "\\left(\\arccos{f(x)}\\right)'=-\\frac{1}{\\sqrt{1-x^2}}f'(x)",
+      "model3D": "Assets/3DModels/intcotx.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\arccos{f(x)}\\right)'=-\\frac{1}{\\sqrt{1-x^2}}f'(x)",
+          "wolframQuery": "simplify \\left(\\arccos{f(x)}\\right)'=-\\frac{1}{\\sqrt{1-x^2}}f'(x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\left(\\arccos{f(x)}\\right)'=-\\frac{1}{\\sqrt{1-x^2}}f'(x)",
+          "wolframQuery": "simplify \\left(\\arccos{f(x)}\\right)'=-\\frac{1}{\\sqrt{1-x^2}}f'(x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\arccos{f(x)}\\right)'=-\\frac{1}{\\sqrt{1-x^2}}f'(x)",
+          "wolframQuery": "simplify \\left(\\arccos{f(x)}\\right)'=-\\frac{1}{\\sqrt{1-x^2}}f'(x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_compositefunctions_f12"
+        }
+      ]
+    },
+    {
+      "id": "calculus_compositefunctions-f13",
+      "title": "Basic Functions - Formula 13",
+      "latex": "\\left(\\arctan{f(x)}\\right)'=\\frac{1}{x^2+1}f'(x)",
+      "model3D": "Assets/3DModels/int1pecosla2x.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\arctan{f(x)}\\right)'=\\frac{1}{x^2+1}f'(x)",
+          "wolframQuery": "simplify \\left(\\arctan{f(x)}\\right)'=\\frac{1}{x^2+1}f'(x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\left(\\arctan{f(x)}\\right)'=\\frac{1}{x^2+1}f'(x)",
+          "wolframQuery": "simplify \\left(\\arctan{f(x)}\\right)'=\\frac{1}{x^2+1}f'(x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\arctan{f(x)}\\right)'=\\frac{1}{x^2+1}f'(x)",
+          "wolframQuery": "simplify \\left(\\arctan{f(x)}\\right)'=\\frac{1}{x^2+1}f'(x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_compositefunctions_f13"
+        }
+      ]
+    },
+    {
+      "id": "calculus_compositefunctions-f14",
+      "title": "Basic Functions - Formula 14",
+      "latex": "\\left(\\operatorname{arccot}{f(x)}\\right)'=-\\frac{1}{x^2+1}f'(x)",
+      "model3D": "Assets/3DModels/int1pesinla2x.glb",
+      "description": "",
+      "requirement": "Calculate the derivative, then evaluate at x = 1.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\operatorname{arccot}{f(x)}\\right)'=-\\frac{1}{x^2+1}f'(x)",
+          "wolframQuery": "simplify \\left(\\operatorname{arccot}{f(x)}\\right)'=-\\frac{1}{x^2+1}f'(x)",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\left(\\operatorname{arccot}{f(x)}\\right)'=-\\frac{1}{x^2+1}f'(x)",
+          "wolframQuery": "simplify \\left(\\operatorname{arccot}{f(x)}\\right)'=-\\frac{1}{x^2+1}f'(x)",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\left(\\operatorname{arccot}{f(x)}\\right)'=-\\frac{1}{x^2+1}f'(x)",
+          "wolframQuery": "simplify \\left(\\operatorname{arccot}{f(x)}\\right)'=-\\frac{1}{x^2+1}f'(x)",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_compositefunctions_f14"
+        }
+      ]
+    }
+  ]
+}

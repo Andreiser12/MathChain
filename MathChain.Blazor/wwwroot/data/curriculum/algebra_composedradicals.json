@@ -1,0 +1,69 @@
+{
+  "chapterId": "algebra_composedradicals",
+  "title": "Composed Radicals",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Composed Radicals.",
+  "formulas": [
+    {
+      "id": "algebra_composedradicals-f1",
+      "title": "Composed Radicals - Formula 1",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t \\sqrt{a\\pm\\sqrt{b}}=\\sqrt{\\frac{a+c}{2}}\\pm \\sqrt{\\frac{a-c}{2}} \\\\\n\t\t\t\t\t c^2=a^2-b\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t \\sqrt{a\\pm\\sqrt{b}}=\\sqrt{\\frac{a+c}{2}}\\pm \\sqrt{\\frac{a-c}{2}} \\\\\n\t\t\t\t\t c^2=a^2-b\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t \\sqrt{a\\pm\\sqrt{b}}=\\sqrt{\\frac{a+c}{2}}\\pm \\sqrt{\\frac{a-c}{2}} \\\\\n\t\t\t\t\t c^2=a^2-b\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t \\sqrt{a\\pm\\sqrt{b}}=\\sqrt{\\frac{a+c}{2}}\\pm \\sqrt{\\frac{a-c}{2}} \\\\\n\t\t\t\t\t c^2=a^2-b\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t \\sqrt{a\\pm\\sqrt{b}}=\\sqrt{\\frac{a+c}{2}}\\pm \\sqrt{\\frac{a-c}{2}} \\\\\n\t\t\t\t\t c^2=a^2-b\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t \\sqrt{a\\pm\\sqrt{b}}=\\sqrt{\\frac{a+c}{2}}\\pm \\sqrt{\\frac{a-c}{2}} \\\\\n\t\t\t\t\t c^2=a^2-b\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t \\sqrt{a\\pm\\sqrt{b}}=\\sqrt{\\frac{a+c}{2}}\\pm \\sqrt{\\frac{a-c}{2}} \\\\\n\t\t\t\t\t c^2=a^2-b\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_composedradicals_f1"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "chapterId": "calculus_continuity",
+  "title": "Continuity",
+  "category": "Calculus",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Continuity.",
+  "formulas": [
+    {
+      "id": "calculus_continuity-f1",
+      "title": "Continuity - Formula 1",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&f:[a,b]\\to \\mathbb{R}\\\\\n\t\t\t\t\t&f \\text{ is continuous in }a \\Leftrightarrow \\lim_{\\substack{x\\to a\\\\x<a}}f(x)=\\lim_{\\substack{x\\to a\\\\x>a}}f(x)=f(a)\\\\\n\t\t\t\t\t&\\left.\\begin{matrix}\n\t\t\t\t\t\tf \\text{ is continuous on } [a, b] \\\\\n\t\t\t\t\t\tf(a) \\cdot f(b) < 0\n\t\t\t\t\t\\end{matrix}\n\t\t\t\t\t\\right\\} \\text{ there is at least a } c \\in (a, b) \\text{ such that } f(c) = 0\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/LR1.glb",
+      "description": "",
+      "requirement": "Calculate the limit",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&f:[a,b]\\to \\mathbb{R}\\\\\n\t\t\t\t\t&f \\text{ is continuous in }a \\Leftrightarrow \\lim_{\\substack{x\\to a\\\\x<a}}f(x)=\\lim_{\\substack{x\\to a\\\\x>a}}f(x)=f(a)\\\\\n\t\t\t\t\t&\\left.\\begin{matrix}\n\t\t\t\t\t\tf \\text{ is continuous on } [a, b] \\\\\n\t\t\t\t\t\tf(a) \\cdot f(b) < 0\n\t\t\t\t\t\\end{matrix}\n\t\t\t\t\t\\right\\} \\text{ there is at least a } c \\in (a, b) \\text{ such that } f(c) = 0\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&f:[a,b]\\to \\mathbb{R}\\\\\n\t\t\t\t\t&f \\text{ is continuous in }a \\Leftrightarrow \\lim_{\\substack{x\\to a\\\\x<a}}f(x)=\\lim_{\\substack{x\\to a\\\\x>a}}f(x)=f(a)\\\\\n\t\t\t\t\t&\\left.\\begin{matrix}\n\t\t\t\t\t\tf \\text{ is continuous on } [a, b] \\\\\n\t\t\t\t\t\tf(a) \\cdot f(b) < 0\n\t\t\t\t\t\\end{matrix}\n\t\t\t\t\t\\right\\} \\text{ there is at least a } c \\in (a, b) \\text{ such that } f(c) = 0\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&f:[a,b]\\to \\mathbb{R}\\\\\n\t\t\t\t\t&f \\text{ is continuous in }a \\Leftrightarrow \\lim_{\\substack{x\\to a\\\\x<a}}f(x)=\\lim_{\\substack{x\\to a\\\\x>a}}f(x)=f(a)\\\\\n\t\t\t\t\t&\\left.\\begin{matrix}\n\t\t\t\t\t\tf \\text{ is continuous on } [a, b] \\\\\n\t\t\t\t\t\tf(a) \\cdot f(b) < 0\n\t\t\t\t\t\\end{matrix}\n\t\t\t\t\t\\right\\} \\text{ there is at least a } c \\in (a, b) \\text{ such that } f(c) = 0\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&f:[a,b]\\to \\mathbb{R}\\\\\n\t\t\t\t\t&f \\text{ is continuous in }a \\Leftrightarrow \\lim_{\\substack{x\\to a\\\\x<a}}f(x)=\\lim_{\\substack{x\\to a\\\\x>a}}f(x)=f(a)\\\\\n\t\t\t\t\t&\\left.\\begin{matrix}\n\t\t\t\t\t\tf \\text{ is continuous on } [a, b] \\\\\n\t\t\t\t\t\tf(a) \\cdot f(b) < 0\n\t\t\t\t\t\\end{matrix}\n\t\t\t\t\t\\right\\} \\text{ there is at least a } c \\in (a, b) \\text{ such that } f(c) = 0\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&f:[a,b]\\to \\mathbb{R}\\\\\n\t\t\t\t\t&f \\text{ is continuous in }a \\Leftrightarrow \\lim_{\\substack{x\\to a\\\\x<a}}f(x)=\\lim_{\\substack{x\\to a\\\\x>a}}f(x)=f(a)\\\\\n\t\t\t\t\t&\\left.\\begin{matrix}\n\t\t\t\t\t\tf \\text{ is continuous on } [a, b] \\\\\n\t\t\t\t\t\tf(a) \\cdot f(b) < 0\n\t\t\t\t\t\\end{matrix}\n\t\t\t\t\t\\right\\} \\text{ there is at least a } c \\in (a, b) \\text{ such that } f(c) = 0\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&f:[a,b]\\to \\mathbb{R}\\\\\n\t\t\t\t\t&f \\text{ is continuous in }a \\Leftrightarrow \\lim_{\\substack{x\\to a\\\\x<a}}f(x)=\\lim_{\\substack{x\\to a\\\\x>a}}f(x)=f(a)\\\\\n\t\t\t\t\t&\\left.\\begin{matrix}\n\t\t\t\t\t\tf \\text{ is continuous on } [a, b] \\\\\n\t\t\t\t\t\tf(a) \\cdot f(b) < 0\n\t\t\t\t\t\\end{matrix}\n\t\t\t\t\t\\right\\} \\text{ there is at least a } c \\in (a, b) \\text{ such that } f(c) = 0\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_continuity_f1"
+        }
+      ]
+    }
+  ]
+}

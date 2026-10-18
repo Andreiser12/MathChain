@@ -1,0 +1,189 @@
+{
+  "chapterId": "trigonometry_sums",
+  "title": "Sums",
+  "category": "Trigonometry",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Sums.",
+  "formulas": [
+    {
+      "id": "trigonometry_sums-f1",
+      "title": "Sums - Formula 1",
+      "latex": "\\sin{(a\\pm b)}=\\sin{a}\\cdot \\cos{b}\\pm \\sin{b}\\cdot \\cos{a}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sin{(a\\pm b)}=\\sin{a}\\cdot \\cos{b}\\pm \\sin{b}\\cdot \\cos{a}",
+          "wolframQuery": "simplify \\sin{(a\\pm b)}=\\sin{a}\\cdot \\cos{b}\\pm \\sin{b}\\cdot \\cos{a}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\sin{(a\\pm b)}=\\sin{a}\\cdot \\cos{b}\\pm \\sin{b}\\cdot \\cos{a}",
+          "wolframQuery": "simplify \\sin{(a\\pm b)}=\\sin{a}\\cdot \\cos{b}\\pm \\sin{b}\\cdot \\cos{a}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sin{(a\\pm b)}=\\sin{a}\\cdot \\cos{b}\\pm \\sin{b}\\cdot \\cos{a}",
+          "wolframQuery": "simplify \\sin{(a\\pm b)}=\\sin{a}\\cdot \\cos{b}\\pm \\sin{b}\\cdot \\cos{a}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_sums_f1"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_sums-f2",
+      "title": "Sums - Formula 2",
+      "latex": "\\cos{(a\\pm b)}=\\cos{a}\\cdot \\cos{b}\\mp \\sin{b}\\cdot \\sin{a}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\cos{(a\\pm b)}=\\cos{a}\\cdot \\cos{b}\\mp \\sin{b}\\cdot \\sin{a}",
+          "wolframQuery": "simplify \\cos{(a\\pm b)}=\\cos{a}\\cdot \\cos{b}\\mp \\sin{b}\\cdot \\sin{a}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\cos{(a\\pm b)}=\\cos{a}\\cdot \\cos{b}\\mp \\sin{b}\\cdot \\sin{a}",
+          "wolframQuery": "simplify \\cos{(a\\pm b)}=\\cos{a}\\cdot \\cos{b}\\mp \\sin{b}\\cdot \\sin{a}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\cos{(a\\pm b)}=\\cos{a}\\cdot \\cos{b}\\mp \\sin{b}\\cdot \\sin{a}",
+          "wolframQuery": "simplify \\cos{(a\\pm b)}=\\cos{a}\\cdot \\cos{b}\\mp \\sin{b}\\cdot \\sin{a}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_sums_f2"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_sums-f3",
+      "title": "Sums - Formula 3",
+      "latex": "\\tan{(a\\pm b)}=\\frac{\\tan{a\\pm \\tan{b}}}{1\\mp \\tan{a}\\cdot \\tan{b}}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\tan{(a\\pm b)}=\\frac{\\tan{a\\pm \\tan{b}}}{1\\mp \\tan{a}\\cdot \\tan{b}}",
+          "wolframQuery": "simplify \\tan{(a\\pm b)}=\\frac{\\tan{a\\pm \\tan{b}}}{1\\mp \\tan{a}\\cdot \\tan{b}}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\tan{(a\\pm b)}=\\frac{\\tan{a\\pm \\tan{b}}}{1\\mp \\tan{a}\\cdot \\tan{b}}",
+          "wolframQuery": "simplify \\tan{(a\\pm b)}=\\frac{\\tan{a\\pm \\tan{b}}}{1\\mp \\tan{a}\\cdot \\tan{b}}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\tan{(a\\pm b)}=\\frac{\\tan{a\\pm \\tan{b}}}{1\\mp \\tan{a}\\cdot \\tan{b}}",
+          "wolframQuery": "simplify \\tan{(a\\pm b)}=\\frac{\\tan{a\\pm \\tan{b}}}{1\\mp \\tan{a}\\cdot \\tan{b}}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_sums_f3"
+        }
+      ]
+    }
+  ]
+}

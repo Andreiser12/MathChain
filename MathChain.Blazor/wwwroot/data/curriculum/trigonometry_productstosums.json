@@ -1,0 +1,249 @@
+{
+  "chapterId": "trigonometry_productstosums",
+  "title": "Products to Sums",
+  "category": "Trigonometry",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Products to Sums.",
+  "formulas": [
+    {
+      "id": "trigonometry_productstosums-f1",
+      "title": "Products to Sums - Formula 1",
+      "latex": "\\sin{a}\\cdot \\sin{b}=\\frac{\\cos{(a-b)}-\\cos{(a+b)}}{2}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sin{a}\\cdot \\sin{b}=\\frac{\\cos{(a-b)}-\\cos{(a+b)}}{2}",
+          "wolframQuery": "simplify \\sin{a}\\cdot \\sin{b}=\\frac{\\cos{(a-b)}-\\cos{(a+b)}}{2}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\sin{a}\\cdot \\sin{b}=\\frac{\\cos{(a-b)}-\\cos{(a+b)}}{2}",
+          "wolframQuery": "simplify \\sin{a}\\cdot \\sin{b}=\\frac{\\cos{(a-b)}-\\cos{(a+b)}}{2}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sin{a}\\cdot \\sin{b}=\\frac{\\cos{(a-b)}-\\cos{(a+b)}}{2}",
+          "wolframQuery": "simplify \\sin{a}\\cdot \\sin{b}=\\frac{\\cos{(a-b)}-\\cos{(a+b)}}{2}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_productstosums_f1"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_productstosums-f2",
+      "title": "Products to Sums - Formula 2",
+      "latex": "\\cos{a}\\cdot \\cos{b}=\\frac{\\cos{(a+b)}+\\cos{(a-b)}}{2}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\cos{a}\\cdot \\cos{b}=\\frac{\\cos{(a+b)}+\\cos{(a-b)}}{2}",
+          "wolframQuery": "simplify \\cos{a}\\cdot \\cos{b}=\\frac{\\cos{(a+b)}+\\cos{(a-b)}}{2}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\cos{a}\\cdot \\cos{b}=\\frac{\\cos{(a+b)}+\\cos{(a-b)}}{2}",
+          "wolframQuery": "simplify \\cos{a}\\cdot \\cos{b}=\\frac{\\cos{(a+b)}+\\cos{(a-b)}}{2}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\cos{a}\\cdot \\cos{b}=\\frac{\\cos{(a+b)}+\\cos{(a-b)}}{2}",
+          "wolframQuery": "simplify \\cos{a}\\cdot \\cos{b}=\\frac{\\cos{(a+b)}+\\cos{(a-b)}}{2}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_productstosums_f2"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_productstosums-f3",
+      "title": "Products to Sums - Formula 3",
+      "latex": "\\sin{a}\\cdot \\cos{b}=\\frac{\\sin{(a+b)}+\\cos{(a-b)}}{2}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sin{a}\\cdot \\cos{b}=\\frac{\\sin{(a+b)}+\\cos{(a-b)}}{2}",
+          "wolframQuery": "simplify \\sin{a}\\cdot \\cos{b}=\\frac{\\sin{(a+b)}+\\cos{(a-b)}}{2}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\sin{a}\\cdot \\cos{b}=\\frac{\\sin{(a+b)}+\\cos{(a-b)}}{2}",
+          "wolframQuery": "simplify \\sin{a}\\cdot \\cos{b}=\\frac{\\sin{(a+b)}+\\cos{(a-b)}}{2}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sin{a}\\cdot \\cos{b}=\\frac{\\sin{(a+b)}+\\cos{(a-b)}}{2}",
+          "wolframQuery": "simplify \\sin{a}\\cdot \\cos{b}=\\frac{\\sin{(a+b)}+\\cos{(a-b)}}{2}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_productstosums_f3"
+        }
+      ]
+    },
+    {
+      "id": "trigonometry_productstosums-f4",
+      "title": "Products to Sums - Formula 4",
+      "latex": "\\tan{a}\\cdot \\tan{b}=\\frac{\\tan{a}+\\tan{b}}{\\cot{a}+\\cot{b}}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\tan{a}\\cdot \\tan{b}=\\frac{\\tan{a}+\\tan{b}}{\\cot{a}+\\cot{b}}",
+          "wolframQuery": "simplify \\tan{a}\\cdot \\tan{b}=\\frac{\\tan{a}+\\tan{b}}{\\cot{a}+\\cot{b}}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\tan{a}\\cdot \\tan{b}=\\frac{\\tan{a}+\\tan{b}}{\\cot{a}+\\cot{b}}",
+          "wolframQuery": "simplify \\tan{a}\\cdot \\tan{b}=\\frac{\\tan{a}+\\tan{b}}{\\cot{a}+\\cot{b}}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\tan{a}\\cdot \\tan{b}=\\frac{\\tan{a}+\\tan{b}}{\\cot{a}+\\cot{b}}",
+          "wolframQuery": "simplify \\tan{a}\\cdot \\tan{b}=\\frac{\\tan{a}+\\tan{b}}{\\cot{a}+\\cot{b}}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_trigonometry_productstosums_f4"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "chapterId": "algebra_partialpermutations",
+  "title": "Partial Permutations",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Partial Permutations.",
+  "formulas": [
+    {
+      "id": "algebra_partialpermutations-f1",
+      "title": "Partial Permutations - Formula 1",
+      "latex": "P(n,k)=\\frac{n!}{(n-k)!}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "P(n,k)=\\frac{n!}{(n-k)!}",
+          "wolframQuery": "simplify P(n,k)=\\frac{n!}{(n-k)!}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "P(n,k)=\\frac{n!}{(n-k)!}",
+          "wolframQuery": "simplify P(n,k)=\\frac{n!}{(n-k)!}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "P(n,k)=\\frac{n!}{(n-k)!}",
+          "wolframQuery": "simplify P(n,k)=\\frac{n!}{(n-k)!}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_partialpermutations_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_partialpermutations-f2",
+      "title": "Partial Permutations - Formula 2",
+      "latex": "\\begin{gather*}\n\t\t\t\t\t\\text{The number of injective functions }f:A\\to B=P(n,k)\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{The number of injective functions }f:A\\to B=P(n,k)\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{The number of injective functions }f:A\\to B=P(n,k)\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{The number of injective functions }f:A\\to B=P(n,k)\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{The number of injective functions }f:A\\to B=P(n,k)\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\t\\text{The number of injective functions }f:A\\to B=P(n,k)\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\t\\text{The number of injective functions }f:A\\to B=P(n,k)\\\\\n\t\t\t\t\tn=|B| \\\\\n\t\t\t\t\tk=|A|\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_partialpermutations_f2"
+        }
+      ]
+    }
+  ]
+}

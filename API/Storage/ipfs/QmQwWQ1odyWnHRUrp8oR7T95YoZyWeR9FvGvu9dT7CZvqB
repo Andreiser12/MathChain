@@ -1,0 +1,969 @@
+{
+  "chapterId": "calculus_basicformulas",
+  "title": "Basic Formulas",
+  "category": "Calculus",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Basic Formulas.",
+  "formulas": [
+    {
+      "id": "calculus_basicformulas-f1",
+      "title": "Basic Formulas - Formula 1",
+      "latex": "\\int a \\,dx = ax + C",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int a \\,dx = ax + C",
+          "wolframQuery": "simplify \\int a \\,dx = ax + C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int a \\,dx = ax + C",
+          "wolframQuery": "simplify \\int a \\,dx = ax + C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int a \\,dx = ax + C",
+          "wolframQuery": "simplify \\int a \\,dx = ax + C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_basicformulas_f1"
+        }
+      ]
+    },
+    {
+      "id": "calculus_basicformulas-f2",
+      "title": "Basic Formulas - Formula 2",
+      "latex": "\\int x^n \\,dx = \\frac{x^{n+1}}{n+1} + C",
+      "model3D": "Assets/3DModels/intxlan.glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int x^n \\,dx = \\frac{x^{n+1}}{n+1} + C",
+          "wolframQuery": "simplify \\int x^n \\,dx = \\frac{x^{n+1}}{n+1} + C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int x^n \\,dx = \\frac{x^{n+1}}{n+1} + C",
+          "wolframQuery": "simplify \\int x^n \\,dx = \\frac{x^{n+1}}{n+1} + C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int x^n \\,dx = \\frac{x^{n+1}}{n+1} + C",
+          "wolframQuery": "simplify \\int x^n \\,dx = \\frac{x^{n+1}}{n+1} + C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_basicformulas_f2"
+        }
+      ]
+    },
+    {
+      "id": "calculus_basicformulas-f3",
+      "title": "Basic Formulas - Formula 3",
+      "latex": "\\int \\frac{1}{x} \\,dx = \\ln|x| + C",
+      "model3D": "Assets/3DModels/int1pex.glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{x} \\,dx = \\ln|x| + C",
+          "wolframQuery": "simplify \\int \\frac{1}{x} \\,dx = \\ln|x| + C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{x} \\,dx = \\ln|x| + C",
+          "wolframQuery": "simplify \\int \\frac{1}{x} \\,dx = \\ln|x| + C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{x} \\,dx = \\ln|x| + C",
+          "wolframQuery": "simplify \\int \\frac{1}{x} \\,dx = \\ln|x| + C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_basicformulas_f3"
+        }
+      ]
+    },
+    {
+      "id": "calculus_basicformulas-f4",
+      "title": "Basic Formulas - Formula 4",
+      "latex": "\\int a^x \\,dx = \\frac{a^x}{\\ln a} + C",
+      "model3D": "Assets/3DModels/intalax.glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int a^x \\,dx = \\frac{a^x}{\\ln a} + C",
+          "wolframQuery": "simplify \\int a^x \\,dx = \\frac{a^x}{\\ln a} + C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int a^x \\,dx = \\frac{a^x}{\\ln a} + C",
+          "wolframQuery": "simplify \\int a^x \\,dx = \\frac{a^x}{\\ln a} + C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int a^x \\,dx = \\frac{a^x}{\\ln a} + C",
+          "wolframQuery": "simplify \\int a^x \\,dx = \\frac{a^x}{\\ln a} + C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_basicformulas_f4"
+        }
+      ]
+    },
+    {
+      "id": "calculus_basicformulas-f5",
+      "title": "Basic Formulas - Formula 5",
+      "latex": "\\int e^x \\,dx = e^x + C",
+      "model3D": "Assets/3DModels/intelax.glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int e^x \\,dx = e^x + C",
+          "wolframQuery": "simplify \\int e^x \\,dx = e^x + C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int e^x \\,dx = e^x + C",
+          "wolframQuery": "simplify \\int e^x \\,dx = e^x + C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int e^x \\,dx = e^x + C",
+          "wolframQuery": "simplify \\int e^x \\,dx = e^x + C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_basicformulas_f5"
+        }
+      ]
+    },
+    {
+      "id": "calculus_basicformulas-f6",
+      "title": "Basic Formulas - Formula 6",
+      "latex": "\\int \\frac{1}{x^2-a^2} \\,dx = \\frac{1}{2a} \\ln \\left|\\frac{x-a}{x+a}\\right| + C",
+      "model3D": "Assets/3DModels/int1pexla2minusala2.glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{x^2-a^2} \\,dx = \\frac{1}{2a} \\ln \\left|\\frac{x-a}{x+a}\\right| + C",
+          "wolframQuery": "simplify \\int \\frac{1}{x^2-a^2} \\,dx = \\frac{1}{2a} \\ln \\left|\\frac{x-a}{x+a}\\right| + C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{x^2-a^2} \\,dx = \\frac{1}{2a} \\ln \\left|\\frac{x-a}{x+a}\\right| + C",
+          "wolframQuery": "simplify \\int \\frac{1}{x^2-a^2} \\,dx = \\frac{1}{2a} \\ln \\left|\\frac{x-a}{x+a}\\right| + C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{x^2-a^2} \\,dx = \\frac{1}{2a} \\ln \\left|\\frac{x-a}{x+a}\\right| + C",
+          "wolframQuery": "simplify \\int \\frac{1}{x^2-a^2} \\,dx = \\frac{1}{2a} \\ln \\left|\\frac{x-a}{x+a}\\right| + C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_basicformulas_f6"
+        }
+      ]
+    },
+    {
+      "id": "calculus_basicformulas-f7",
+      "title": "Basic Formulas - Formula 7",
+      "latex": "\\int \\frac{1}{x^2+a^2} \\,dx = \\frac{1}{a} \\arctan{\\frac{x}{a}} + C",
+      "model3D": "Assets/3DModels/int1pexla2plusala2(2).glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{x^2+a^2} \\,dx = \\frac{1}{a} \\arctan{\\frac{x}{a}} + C",
+          "wolframQuery": "simplify \\int \\frac{1}{x^2+a^2} \\,dx = \\frac{1}{a} \\arctan{\\frac{x}{a}} + C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{x^2+a^2} \\,dx = \\frac{1}{a} \\arctan{\\frac{x}{a}} + C",
+          "wolframQuery": "simplify \\int \\frac{1}{x^2+a^2} \\,dx = \\frac{1}{a} \\arctan{\\frac{x}{a}} + C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{x^2+a^2} \\,dx = \\frac{1}{a} \\arctan{\\frac{x}{a}} + C",
+          "wolframQuery": "simplify \\int \\frac{1}{x^2+a^2} \\,dx = \\frac{1}{a} \\arctan{\\frac{x}{a}} + C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_basicformulas_f7"
+        }
+      ]
+    },
+    {
+      "id": "calculus_basicformulas-f8",
+      "title": "Basic Formulas - Formula 8",
+      "latex": "\\int \\frac{1}{\\sqrt{a^2-x^2}} \\,dx = \\arcsin{\\frac{x}{a}} + C",
+      "model3D": "Assets/3DModels/int1peradala2minusxla2.glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{\\sqrt{a^2-x^2}} \\,dx = \\arcsin{\\frac{x}{a}} + C",
+          "wolframQuery": "simplify \\int \\frac{1}{\\sqrt{a^2-x^2}} \\,dx = \\arcsin{\\frac{x}{a}} + C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{\\sqrt{a^2-x^2}} \\,dx = \\arcsin{\\frac{x}{a}} + C",
+          "wolframQuery": "simplify \\int \\frac{1}{\\sqrt{a^2-x^2}} \\,dx = \\arcsin{\\frac{x}{a}} + C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{\\sqrt{a^2-x^2}} \\,dx = \\arcsin{\\frac{x}{a}} + C",
+          "wolframQuery": "simplify \\int \\frac{1}{\\sqrt{a^2-x^2}} \\,dx = \\arcsin{\\frac{x}{a}} + C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_basicformulas_f8"
+        }
+      ]
+    },
+    {
+      "id": "calculus_basicformulas-f9",
+      "title": "Basic Formulas - Formula 9",
+      "latex": "\\int \\frac{1}{\\sqrt{x^2+a^2}} \\,dx = \\ln|x + \\sqrt{x^2 + a^2}| + C",
+      "model3D": "Assets/3DModels/int1peradxla2plusala2.glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{\\sqrt{x^2+a^2}} \\,dx = \\ln|x + \\sqrt{x^2 + a^2}| + C",
+          "wolframQuery": "simplify \\int \\frac{1}{\\sqrt{x^2+a^2}} \\,dx = \\ln|x + \\sqrt{x^2 + a^2}| + C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{\\sqrt{x^2+a^2}} \\,dx = \\ln|x + \\sqrt{x^2 + a^2}| + C",
+          "wolframQuery": "simplify \\int \\frac{1}{\\sqrt{x^2+a^2}} \\,dx = \\ln|x + \\sqrt{x^2 + a^2}| + C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{\\sqrt{x^2+a^2}} \\,dx = \\ln|x + \\sqrt{x^2 + a^2}| + C",
+          "wolframQuery": "simplify \\int \\frac{1}{\\sqrt{x^2+a^2}} \\,dx = \\ln|x + \\sqrt{x^2 + a^2}| + C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_basicformulas_f9"
+        }
+      ]
+    },
+    {
+      "id": "calculus_basicformulas-f10",
+      "title": "Basic Formulas - Formula 10",
+      "latex": "\\int \\frac{1}{\\sqrt{x^2-a^2}} \\,dx = \\ln|x + \\sqrt{x^2 - a^2}| + C",
+      "model3D": "Assets/3DModels/int1peradxla2minusala2.glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{\\sqrt{x^2-a^2}} \\,dx = \\ln|x + \\sqrt{x^2 - a^2}| + C",
+          "wolframQuery": "simplify \\int \\frac{1}{\\sqrt{x^2-a^2}} \\,dx = \\ln|x + \\sqrt{x^2 - a^2}| + C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{\\sqrt{x^2-a^2}} \\,dx = \\ln|x + \\sqrt{x^2 - a^2}| + C",
+          "wolframQuery": "simplify \\int \\frac{1}{\\sqrt{x^2-a^2}} \\,dx = \\ln|x + \\sqrt{x^2 - a^2}| + C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{\\sqrt{x^2-a^2}} \\,dx = \\ln|x + \\sqrt{x^2 - a^2}| + C",
+          "wolframQuery": "simplify \\int \\frac{1}{\\sqrt{x^2-a^2}} \\,dx = \\ln|x + \\sqrt{x^2 - a^2}| + C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_basicformulas_f10"
+        }
+      ]
+    },
+    {
+      "id": "calculus_basicformulas-f11",
+      "title": "Basic Formulas - Formula 11",
+      "latex": "\\int \\sin x \\,dx = -\\cos x + C",
+      "model3D": "Assets/3DModels/intsinx.glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\sin x \\,dx = -\\cos x + C",
+          "wolframQuery": "simplify \\int \\sin x \\,dx = -\\cos x + C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\sin x \\,dx = -\\cos x + C",
+          "wolframQuery": "simplify \\int \\sin x \\,dx = -\\cos x + C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\sin x \\,dx = -\\cos x + C",
+          "wolframQuery": "simplify \\int \\sin x \\,dx = -\\cos x + C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_basicformulas_f11"
+        }
+      ]
+    },
+    {
+      "id": "calculus_basicformulas-f12",
+      "title": "Basic Formulas - Formula 12",
+      "latex": "\\int \\cos x \\,dx = \\sin x + C",
+      "model3D": "Assets/3DModels/intcosx.glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\cos x \\,dx = \\sin x + C",
+          "wolframQuery": "simplify \\int \\cos x \\,dx = \\sin x + C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\cos x \\,dx = \\sin x + C",
+          "wolframQuery": "simplify \\int \\cos x \\,dx = \\sin x + C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\cos x \\,dx = \\sin x + C",
+          "wolframQuery": "simplify \\int \\cos x \\,dx = \\sin x + C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_basicformulas_f12"
+        }
+      ]
+    },
+    {
+      "id": "calculus_basicformulas-f13",
+      "title": "Basic Formulas - Formula 13",
+      "latex": "\\int \\tan x \\,dx = -\\ln|\\cos x| + C",
+      "model3D": "Assets/3DModels/inttanx.glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\tan x \\,dx = -\\ln|\\cos x| + C",
+          "wolframQuery": "simplify \\int \\tan x \\,dx = -\\ln|\\cos x| + C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\tan x \\,dx = -\\ln|\\cos x| + C",
+          "wolframQuery": "simplify \\int \\tan x \\,dx = -\\ln|\\cos x| + C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\tan x \\,dx = -\\ln|\\cos x| + C",
+          "wolframQuery": "simplify \\int \\tan x \\,dx = -\\ln|\\cos x| + C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_basicformulas_f13"
+        }
+      ]
+    },
+    {
+      "id": "calculus_basicformulas-f14",
+      "title": "Basic Formulas - Formula 14",
+      "latex": "\\int \\cot x \\,dx = \\ln|\\sin x| + C",
+      "model3D": "Assets/3DModels/intcotx.glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\cot x \\,dx = \\ln|\\sin x| + C",
+          "wolframQuery": "simplify \\int \\cot x \\,dx = \\ln|\\sin x| + C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\cot x \\,dx = \\ln|\\sin x| + C",
+          "wolframQuery": "simplify \\int \\cot x \\,dx = \\ln|\\sin x| + C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\cot x \\,dx = \\ln|\\sin x| + C",
+          "wolframQuery": "simplify \\int \\cot x \\,dx = \\ln|\\sin x| + C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_basicformulas_f14"
+        }
+      ]
+    },
+    {
+      "id": "calculus_basicformulas-f15",
+      "title": "Basic Formulas - Formula 15",
+      "latex": "\\int \\frac{1}{cos^2{x}} \\,dx = \\tan x + C",
+      "model3D": "Assets/3DModels/int1pecosla2x.glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{cos^2{x}} \\,dx = \\tan x + C",
+          "wolframQuery": "simplify \\int \\frac{1}{cos^2{x}} \\,dx = \\tan x + C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{cos^2{x}} \\,dx = \\tan x + C",
+          "wolframQuery": "simplify \\int \\frac{1}{cos^2{x}} \\,dx = \\tan x + C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{cos^2{x}} \\,dx = \\tan x + C",
+          "wolframQuery": "simplify \\int \\frac{1}{cos^2{x}} \\,dx = \\tan x + C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_basicformulas_f15"
+        }
+      ]
+    },
+    {
+      "id": "calculus_basicformulas-f16",
+      "title": "Basic Formulas - Formula 16",
+      "latex": "\\int \\frac{1}{\\sin^2{x}} \\,dx = -\\cot x + C",
+      "model3D": "Assets/3DModels/int1pesinla2x.glb",
+      "description": "",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{\\sin^2{x}} \\,dx = -\\cot x + C",
+          "wolframQuery": "simplify \\int \\frac{1}{\\sin^2{x}} \\,dx = -\\cot x + C",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{\\sin^2{x}} \\,dx = -\\cot x + C",
+          "wolframQuery": "simplify \\int \\frac{1}{\\sin^2{x}} \\,dx = -\\cot x + C",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\int \\frac{1}{\\sin^2{x}} \\,dx = -\\cot x + C",
+          "wolframQuery": "simplify \\int \\frac{1}{\\sin^2{x}} \\,dx = -\\cot x + C",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_calculus_basicformulas_f16"
+        }
+      ]
+    }
+  ]
+}

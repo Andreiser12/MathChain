@@ -1,0 +1,309 @@
+{
+  "chapterId": "algebra_wholepart",
+  "title": "Whole Part",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Whole Part.",
+  "formulas": [
+    {
+      "id": "algebra_wholepart-f1",
+      "title": "Whole Part - Formula 1",
+      "latex": "[x]=\\max\\{a\\in \\mathbb{Z}| a\\leq x\\}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "[x]=\\max\\{a\\in \\mathbb{Z}| a\\leq x\\}",
+          "wolframQuery": "simplify [x]=\\max\\{a\\in \\mathbb{Z}| a\\leq x\\}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "[x]=\\max\\{a\\in \\mathbb{Z}| a\\leq x\\}",
+          "wolframQuery": "simplify [x]=\\max\\{a\\in \\mathbb{Z}| a\\leq x\\}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "[x]=\\max\\{a\\in \\mathbb{Z}| a\\leq x\\}",
+          "wolframQuery": "simplify [x]=\\max\\{a\\in \\mathbb{Z}| a\\leq x\\}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_wholepart_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_wholepart-f2",
+      "title": "Whole Part - Formula 2",
+      "latex": "[x] \\leq x \\leq x+1",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "[x] \\leq x \\leq x+1",
+          "wolframQuery": "simplify [x] \\leq x \\leq x+1",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "[x] \\leq x \\leq x+1",
+          "wolframQuery": "simplify [x] \\leq x \\leq x+1",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "[x] \\leq x \\leq x+1",
+          "wolframQuery": "simplify [x] \\leq x \\leq x+1",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_wholepart_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_wholepart-f3",
+      "title": "Whole Part - Formula 3",
+      "latex": "x-1 < [x] \\leq x",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "x-1 < [x] \\leq x",
+          "wolframQuery": "simplify x-1 < [x] \\leq x",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "x-1 < [x] \\leq x",
+          "wolframQuery": "simplify x-1 < [x] \\leq x",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "x-1 < [x] \\leq x",
+          "wolframQuery": "simplify x-1 < [x] \\leq x",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_wholepart_f3"
+        }
+      ]
+    },
+    {
+      "id": "algebra_wholepart-f4",
+      "title": "Whole Part - Formula 4",
+      "latex": "[x]=x \\Leftrightarrow x \\in \\mathbb{Z}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "[x]=x \\Leftrightarrow x \\in \\mathbb{Z}",
+          "wolframQuery": "simplify [x]=x \\Leftrightarrow x \\in \\mathbb{Z}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "[x]=x \\Leftrightarrow x \\in \\mathbb{Z}",
+          "wolframQuery": "simplify [x]=x \\Leftrightarrow x \\in \\mathbb{Z}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "[x]=x \\Leftrightarrow x \\in \\mathbb{Z}",
+          "wolframQuery": "simplify [x]=x \\Leftrightarrow x \\in \\mathbb{Z}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_wholepart_f4"
+        }
+      ]
+    },
+    {
+      "id": "algebra_wholepart-f5",
+      "title": "Whole Part - Formula 5",
+      "latex": "[x+n]=[x]+n \\Leftrightarrow n\\in \\mathbb{Z}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "[x+n]=[x]+n \\Leftrightarrow n\\in \\mathbb{Z}",
+          "wolframQuery": "simplify [x+n]=[x]+n \\Leftrightarrow n\\in \\mathbb{Z}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "[x+n]=[x]+n \\Leftrightarrow n\\in \\mathbb{Z}",
+          "wolframQuery": "simplify [x+n]=[x]+n \\Leftrightarrow n\\in \\mathbb{Z}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "[x+n]=[x]+n \\Leftrightarrow n\\in \\mathbb{Z}",
+          "wolframQuery": "simplify [x+n]=[x]+n \\Leftrightarrow n\\in \\mathbb{Z}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_wholepart_f5"
+        }
+      ]
+    }
+  ]
+}

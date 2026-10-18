@@ -1,0 +1,429 @@
+{
+  "chapterId": "algebra_propertiesradicals",
+  "title": "Properties",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Properties.",
+  "formulas": [
+    {
+      "id": "algebra_propertiesradicals-f1",
+      "title": "Properties - Formula 1",
+      "latex": "a^\\frac{p}{q}=\\sqrt[q]{a^p}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "a^\\frac{p}{q}=\\sqrt[q]{a^p}",
+          "wolframQuery": "simplify a^\\frac{p}{q}=\\sqrt[q]{a^p}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "a^\\frac{p}{q}=\\sqrt[q]{a^p}",
+          "wolframQuery": "simplify a^\\frac{p}{q}=\\sqrt[q]{a^p}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "a^\\frac{p}{q}=\\sqrt[q]{a^p}",
+          "wolframQuery": "simplify a^\\frac{p}{q}=\\sqrt[q]{a^p}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiesradicals_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiesradicals-f2",
+      "title": "Properties - Formula 2",
+      "latex": "\\sqrt[n]{a^n}=a",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sqrt[n]{a^n}=a",
+          "wolframQuery": "simplify \\sqrt[n]{a^n}=a",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\sqrt[n]{a^n}=a",
+          "wolframQuery": "simplify \\sqrt[n]{a^n}=a",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sqrt[n]{a^n}=a",
+          "wolframQuery": "simplify \\sqrt[n]{a^n}=a",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiesradicals_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiesradicals-f3",
+      "title": "Properties - Formula 3",
+      "latex": "\\sqrt[n]{a\\cdot b}=\\sqrt[n]{a} \\cdot \\sqrt[n]{b}",
+      "model3D": "Assets/3DModels/int1pex.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sqrt[n]{a\\cdot b}=\\sqrt[n]{a} \\cdot \\sqrt[n]{b}",
+          "wolframQuery": "simplify \\sqrt[n]{a\\cdot b}=\\sqrt[n]{a} \\cdot \\sqrt[n]{b}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\sqrt[n]{a\\cdot b}=\\sqrt[n]{a} \\cdot \\sqrt[n]{b}",
+          "wolframQuery": "simplify \\sqrt[n]{a\\cdot b}=\\sqrt[n]{a} \\cdot \\sqrt[n]{b}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sqrt[n]{a\\cdot b}=\\sqrt[n]{a} \\cdot \\sqrt[n]{b}",
+          "wolframQuery": "simplify \\sqrt[n]{a\\cdot b}=\\sqrt[n]{a} \\cdot \\sqrt[n]{b}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiesradicals_f3"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiesradicals-f4",
+      "title": "Properties - Formula 4",
+      "latex": "\\sqrt[n]{\\frac{a}{b}}=\\frac{\\sqrt[n]{a}}{\\sqrt[n]{b}}",
+      "model3D": "Assets/3DModels/intalax.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sqrt[n]{\\frac{a}{b}}=\\frac{\\sqrt[n]{a}}{\\sqrt[n]{b}}",
+          "wolframQuery": "simplify \\sqrt[n]{\\frac{a}{b}}=\\frac{\\sqrt[n]{a}}{\\sqrt[n]{b}}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\sqrt[n]{\\frac{a}{b}}=\\frac{\\sqrt[n]{a}}{\\sqrt[n]{b}}",
+          "wolframQuery": "simplify \\sqrt[n]{\\frac{a}{b}}=\\frac{\\sqrt[n]{a}}{\\sqrt[n]{b}}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sqrt[n]{\\frac{a}{b}}=\\frac{\\sqrt[n]{a}}{\\sqrt[n]{b}}",
+          "wolframQuery": "simplify \\sqrt[n]{\\frac{a}{b}}=\\frac{\\sqrt[n]{a}}{\\sqrt[n]{b}}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiesradicals_f4"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiesradicals-f5",
+      "title": "Properties - Formula 5",
+      "latex": "\\sqrt[n]{\\sqrt[m]{a}}= \\sqrt[n\\cdot m]{a}",
+      "model3D": "Assets/3DModels/intelax.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sqrt[n]{\\sqrt[m]{a}}= \\sqrt[n\\cdot m]{a}",
+          "wolframQuery": "simplify \\sqrt[n]{\\sqrt[m]{a}}= \\sqrt[n\\cdot m]{a}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\sqrt[n]{\\sqrt[m]{a}}= \\sqrt[n\\cdot m]{a}",
+          "wolframQuery": "simplify \\sqrt[n]{\\sqrt[m]{a}}= \\sqrt[n\\cdot m]{a}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sqrt[n]{\\sqrt[m]{a}}= \\sqrt[n\\cdot m]{a}",
+          "wolframQuery": "simplify \\sqrt[n]{\\sqrt[m]{a}}= \\sqrt[n\\cdot m]{a}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiesradicals_f5"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiesradicals-f6",
+      "title": "Properties - Formula 6",
+      "latex": "\\sqrt[n\\cdot k]{a^{m\\cdot k}}= \\sqrt[n]{a^m}",
+      "model3D": "Assets/3DModels/int1pexla2minusala2.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sqrt[n\\cdot k]{a^{m\\cdot k}}= \\sqrt[n]{a^m}",
+          "wolframQuery": "simplify \\sqrt[n\\cdot k]{a^{m\\cdot k}}= \\sqrt[n]{a^m}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\sqrt[n\\cdot k]{a^{m\\cdot k}}= \\sqrt[n]{a^m}",
+          "wolframQuery": "simplify \\sqrt[n\\cdot k]{a^{m\\cdot k}}= \\sqrt[n]{a^m}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sqrt[n\\cdot k]{a^{m\\cdot k}}= \\sqrt[n]{a^m}",
+          "wolframQuery": "simplify \\sqrt[n\\cdot k]{a^{m\\cdot k}}= \\sqrt[n]{a^m}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiesradicals_f6"
+        }
+      ]
+    },
+    {
+      "id": "algebra_propertiesradicals-f7",
+      "title": "Properties - Formula 7",
+      "latex": "\\sqrt[n]{a}< \\sqrt[n]{b} \\Leftrightarrow a<b",
+      "model3D": "Assets/3DModels/int1pexla2plusala2(2).glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sqrt[n]{a}< \\sqrt[n]{b} \\Leftrightarrow a<b",
+          "wolframQuery": "simplify \\sqrt[n]{a}< \\sqrt[n]{b} \\Leftrightarrow a<b",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\sqrt[n]{a}< \\sqrt[n]{b} \\Leftrightarrow a<b",
+          "wolframQuery": "simplify \\sqrt[n]{a}< \\sqrt[n]{b} \\Leftrightarrow a<b",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\sqrt[n]{a}< \\sqrt[n]{b} \\Leftrightarrow a<b",
+          "wolframQuery": "simplify \\sqrt[n]{a}< \\sqrt[n]{b} \\Leftrightarrow a<b",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_propertiesradicals_f7"
+        }
+      ]
+    }
+  ]
+}

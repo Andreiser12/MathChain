@@ -1,0 +1,369 @@
+{
+  "chapterId": "algebra_bijectionfunctions",
+  "title": "Bijection",
+  "category": "Algebra",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Bijection.",
+  "formulas": [
+    {
+      "id": "algebra_bijectionfunctions-f1",
+      "title": "Bijection - Formula 1",
+      "latex": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B, \\text{ } f(x)=y\\\\\n\t\t\t\t\tA = \\text{domain of definition, }x\\in A \\\\\n\t\t\t\t\tB = \\text{codomain, }y\\in B\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B, \\text{ } f(x)=y\\\\\n\t\t\t\t\tA = \\text{domain of definition, }x\\in A \\\\\n\t\t\t\t\tB = \\text{codomain, }y\\in B\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tf:A\\to B, \\text{ } f(x)=y\\\\\n\t\t\t\t\tA = \\text{domain of definition, }x\\in A \\\\\n\t\t\t\t\tB = \\text{codomain, }y\\in B\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B, \\text{ } f(x)=y\\\\\n\t\t\t\t\tA = \\text{domain of definition, }x\\in A \\\\\n\t\t\t\t\tB = \\text{codomain, }y\\in B\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tf:A\\to B, \\text{ } f(x)=y\\\\\n\t\t\t\t\tA = \\text{domain of definition, }x\\in A \\\\\n\t\t\t\t\tB = \\text{codomain, }y\\in B\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B, \\text{ } f(x)=y\\\\\n\t\t\t\t\tA = \\text{domain of definition, }x\\in A \\\\\n\t\t\t\t\tB = \\text{codomain, }y\\in B\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tf:A\\to B, \\text{ } f(x)=y\\\\\n\t\t\t\t\tA = \\text{domain of definition, }x\\in A \\\\\n\t\t\t\t\tB = \\text{codomain, }y\\in B\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_bijectionfunctions_f1"
+        }
+      ]
+    },
+    {
+      "id": "algebra_bijectionfunctions-f2",
+      "title": "Bijection - Formula 2",
+      "latex": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is injective if from } f(x_1)=f(x_2) \\Rightarrow x_1=x_2 \\\\\n\t\t\t\t\tf \\text{ is not injective if } x_1\\neq x_2 \\text{ such that } f(x_1)=f(x_2) \n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is injective if from } f(x_1)=f(x_2) \\Rightarrow x_1=x_2 \\\\\n\t\t\t\t\tf \\text{ is not injective if } x_1\\neq x_2 \\text{ such that } f(x_1)=f(x_2) \n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is injective if from } f(x_1)=f(x_2) \\Rightarrow x_1=x_2 \\\\\n\t\t\t\t\tf \\text{ is not injective if } x_1\\neq x_2 \\text{ such that } f(x_1)=f(x_2) \n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is injective if from } f(x_1)=f(x_2) \\Rightarrow x_1=x_2 \\\\\n\t\t\t\t\tf \\text{ is not injective if } x_1\\neq x_2 \\text{ such that } f(x_1)=f(x_2) \n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is injective if from } f(x_1)=f(x_2) \\Rightarrow x_1=x_2 \\\\\n\t\t\t\t\tf \\text{ is not injective if } x_1\\neq x_2 \\text{ such that } f(x_1)=f(x_2) \n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is injective if from } f(x_1)=f(x_2) \\Rightarrow x_1=x_2 \\\\\n\t\t\t\t\tf \\text{ is not injective if } x_1\\neq x_2 \\text{ such that } f(x_1)=f(x_2) \n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is injective if from } f(x_1)=f(x_2) \\Rightarrow x_1=x_2 \\\\\n\t\t\t\t\tf \\text{ is not injective if } x_1\\neq x_2 \\text{ such that } f(x_1)=f(x_2) \n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_bijectionfunctions_f2"
+        }
+      ]
+    },
+    {
+      "id": "algebra_bijectionfunctions-f3",
+      "title": "Bijection - Formula 3",
+      "latex": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is surjective if the ecuation } f(x)=y \\text{ has at least one solution} \\\\\n\t\t\t\t\tf \\text{ is not surjective if the ecuation } f(x)=y \\text{ does not have solutions}\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is surjective if the ecuation } f(x)=y \\text{ has at least one solution} \\\\\n\t\t\t\t\tf \\text{ is not surjective if the ecuation } f(x)=y \\text{ does not have solutions}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is surjective if the ecuation } f(x)=y \\text{ has at least one solution} \\\\\n\t\t\t\t\tf \\text{ is not surjective if the ecuation } f(x)=y \\text{ does not have solutions}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is surjective if the ecuation } f(x)=y \\text{ has at least one solution} \\\\\n\t\t\t\t\tf \\text{ is not surjective if the ecuation } f(x)=y \\text{ does not have solutions}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is surjective if the ecuation } f(x)=y \\text{ has at least one solution} \\\\\n\t\t\t\t\tf \\text{ is not surjective if the ecuation } f(x)=y \\text{ does not have solutions}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is surjective if the ecuation } f(x)=y \\text{ has at least one solution} \\\\\n\t\t\t\t\tf \\text{ is not surjective if the ecuation } f(x)=y \\text{ does not have solutions}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is surjective if the ecuation } f(x)=y \\text{ has at least one solution} \\\\\n\t\t\t\t\tf \\text{ is not surjective if the ecuation } f(x)=y \\text{ does not have solutions}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_bijectionfunctions_f3"
+        }
+      ]
+    },
+    {
+      "id": "algebra_bijectionfunctions-f4",
+      "title": "Bijection - Formula 4",
+      "latex": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is surjective if the ecuation } f(x)=y \\text{ has at least one solution} \\\\\n\t\t\t\t\tf \\text{ is not surjective if the ecuation } f(x)=y \\text{ does not have solutions}\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is surjective if the ecuation } f(x)=y \\text{ has at least one solution} \\\\\n\t\t\t\t\tf \\text{ is not surjective if the ecuation } f(x)=y \\text{ does not have solutions}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is surjective if the ecuation } f(x)=y \\text{ has at least one solution} \\\\\n\t\t\t\t\tf \\text{ is not surjective if the ecuation } f(x)=y \\text{ does not have solutions}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is surjective if the ecuation } f(x)=y \\text{ has at least one solution} \\\\\n\t\t\t\t\tf \\text{ is not surjective if the ecuation } f(x)=y \\text{ does not have solutions}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is surjective if the ecuation } f(x)=y \\text{ has at least one solution} \\\\\n\t\t\t\t\tf \\text{ is not surjective if the ecuation } f(x)=y \\text{ does not have solutions}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is surjective if the ecuation } f(x)=y \\text{ has at least one solution} \\\\\n\t\t\t\t\tf \\text{ is not surjective if the ecuation } f(x)=y \\text{ does not have solutions}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is surjective if the ecuation } f(x)=y \\text{ has at least one solution} \\\\\n\t\t\t\t\tf \\text{ is not surjective if the ecuation } f(x)=y \\text{ does not have solutions}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_bijectionfunctions_f4"
+        }
+      ]
+    },
+    {
+      "id": "algebra_bijectionfunctions-f5",
+      "title": "Bijection - Formula 5",
+      "latex": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is bijective if } f\\text{ is injective and surjective} \\\\\n\t\t\t\t\tf \\text{ is bijective if the ecuation } f(x)=y \\text{ has a unique solution}\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is bijective if } f\\text{ is injective and surjective} \\\\\n\t\t\t\t\tf \\text{ is bijective if the ecuation } f(x)=y \\text{ has a unique solution}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is bijective if } f\\text{ is injective and surjective} \\\\\n\t\t\t\t\tf \\text{ is bijective if the ecuation } f(x)=y \\text{ has a unique solution}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is bijective if } f\\text{ is injective and surjective} \\\\\n\t\t\t\t\tf \\text{ is bijective if the ecuation } f(x)=y \\text{ has a unique solution}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is bijective if } f\\text{ is injective and surjective} \\\\\n\t\t\t\t\tf \\text{ is bijective if the ecuation } f(x)=y \\text{ has a unique solution}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is bijective if } f\\text{ is injective and surjective} \\\\\n\t\t\t\t\tf \\text{ is bijective if the ecuation } f(x)=y \\text{ has a unique solution}\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tf:A\\to B\\\\\n\t\t\t\t\tf \\text{ is bijective if } f\\text{ is injective and surjective} \\\\\n\t\t\t\t\tf \\text{ is bijective if the ecuation } f(x)=y \\text{ has a unique solution}\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_bijectionfunctions_f5"
+        }
+      ]
+    },
+    {
+      "id": "algebra_bijectionfunctions-f6",
+      "title": "Bijection - Formula 6",
+      "latex": "\\begin{gather*}\n\t\t\t\t\tf \\text{ is invertible if it is bijective and satisfies}  \\\\ \\text{ the property } f(x)=y \\Leftrightarrow x=f^{-1}(y)\n\t\t\t\t\t\\end{gather*}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "",
+      "requirement": "",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tf \\text{ is invertible if it is bijective and satisfies}  \\\\ \\text{ the property } f(x)=y \\Leftrightarrow x=f^{-1}(y)\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tf \\text{ is invertible if it is bijective and satisfies}  \\\\ \\text{ the property } f(x)=y \\Leftrightarrow x=f^{-1}(y)\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tf \\text{ is invertible if it is bijective and satisfies}  \\\\ \\text{ the property } f(x)=y \\Leftrightarrow x=f^{-1}(y)\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tf \\text{ is invertible if it is bijective and satisfies}  \\\\ \\text{ the property } f(x)=y \\Leftrightarrow x=f^{-1}(y)\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{gather*}\n\t\t\t\t\tf \\text{ is invertible if it is bijective and satisfies}  \\\\ \\text{ the property } f(x)=y \\Leftrightarrow x=f^{-1}(y)\n\t\t\t\t\t\\end{gather*}",
+          "wolframQuery": "simplify \\begin{gather*}\n\t\t\t\t\tf \\text{ is invertible if it is bijective and satisfies}  \\\\ \\text{ the property } f(x)=y \\Leftrightarrow x=f^{-1}(y)\n\t\t\t\t\t\\end{gather*}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_algebra_bijectionfunctions_f6"
+        }
+      ]
+    }
+  ]
+}

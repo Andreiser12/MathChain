@@ -1,0 +1,309 @@
+{
+  "chapterId": "geometry_vectorsinplane",
+  "title": "Vectors in Plane",
+  "category": "Geometry",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Vectors in Plane.",
+  "formulas": [
+    {
+      "id": "geometry_vectorsinplane-f1",
+      "title": "Vectors in Plane - Formula 1",
+      "latex": "\\text{In parallelogram }ABCD\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{AD}=\\overrightarrow{AC}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{In parallelogram }ABCD\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{AD}=\\overrightarrow{AC}",
+          "wolframQuery": "simplify \\text{In parallelogram }ABCD\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{AD}=\\overrightarrow{AC}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{In parallelogram }ABCD\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{AD}=\\overrightarrow{AC}",
+          "wolframQuery": "simplify \\text{In parallelogram }ABCD\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{AD}=\\overrightarrow{AC}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{In parallelogram }ABCD\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{AD}=\\overrightarrow{AC}",
+          "wolframQuery": "simplify \\text{In parallelogram }ABCD\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{AD}=\\overrightarrow{AC}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_vectorsinplane_f1"
+        }
+      ]
+    },
+    {
+      "id": "geometry_vectorsinplane-f2",
+      "title": "Vectors in Plane - Formula 2",
+      "latex": "\\text{In triangle ABC}\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{BC}=\\overrightarrow{AC}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{In triangle ABC}\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{BC}=\\overrightarrow{AC}",
+          "wolframQuery": "simplify \\text{In triangle ABC}\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{BC}=\\overrightarrow{AC}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{In triangle ABC}\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{BC}=\\overrightarrow{AC}",
+          "wolframQuery": "simplify \\text{In triangle ABC}\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{BC}=\\overrightarrow{AC}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{In triangle ABC}\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{BC}=\\overrightarrow{AC}",
+          "wolframQuery": "simplify \\text{In triangle ABC}\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{BC}=\\overrightarrow{AC}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_vectorsinplane_f2"
+        }
+      ]
+    },
+    {
+      "id": "geometry_vectorsinplane-f3",
+      "title": "Vectors in Plane - Formula 3",
+      "latex": "\\text{In polygon ABCDE}\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{BC}+\\overrightarrow{CD}+\\overrightarrow{DE}=\\overrightarrow{AE}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{In polygon ABCDE}\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{BC}+\\overrightarrow{CD}+\\overrightarrow{DE}=\\overrightarrow{AE}",
+          "wolframQuery": "simplify \\text{In polygon ABCDE}\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{BC}+\\overrightarrow{CD}+\\overrightarrow{DE}=\\overrightarrow{AE}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{In polygon ABCDE}\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{BC}+\\overrightarrow{CD}+\\overrightarrow{DE}=\\overrightarrow{AE}",
+          "wolframQuery": "simplify \\text{In polygon ABCDE}\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{BC}+\\overrightarrow{CD}+\\overrightarrow{DE}=\\overrightarrow{AE}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{In polygon ABCDE}\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{BC}+\\overrightarrow{CD}+\\overrightarrow{DE}=\\overrightarrow{AE}",
+          "wolframQuery": "simplify \\text{In polygon ABCDE}\\Rightarrow \\overrightarrow{AB}+\\overrightarrow{BC}+\\overrightarrow{CD}+\\overrightarrow{DE}=\\overrightarrow{AE}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_vectorsinplane_f3"
+        }
+      ]
+    },
+    {
+      "id": "geometry_vectorsinplane-f4",
+      "title": "Vectors in Plane - Formula 4",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\text{The point }M\\text{ is the midpoint if the segment }AB \\Leftrightarrow\\\\\n\t\t\t\t\t&\\text{for any point }O\\Rightarrow \\overrightarrow{OM}=\\frac{1}{2}(\\overrightarrow{OA}+\\overrightarrow{OB})\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The point }M\\text{ is the midpoint if the segment }AB \\Leftrightarrow\\\\\n\t\t\t\t\t&\\text{for any point }O\\Rightarrow \\overrightarrow{OM}=\\frac{1}{2}(\\overrightarrow{OA}+\\overrightarrow{OB})\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The point }M\\text{ is the midpoint if the segment }AB \\Leftrightarrow\\\\\n\t\t\t\t\t&\\text{for any point }O\\Rightarrow \\overrightarrow{OM}=\\frac{1}{2}(\\overrightarrow{OA}+\\overrightarrow{OB})\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The point }M\\text{ is the midpoint if the segment }AB \\Leftrightarrow\\\\\n\t\t\t\t\t&\\text{for any point }O\\Rightarrow \\overrightarrow{OM}=\\frac{1}{2}(\\overrightarrow{OA}+\\overrightarrow{OB})\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The point }M\\text{ is the midpoint if the segment }AB \\Leftrightarrow\\\\\n\t\t\t\t\t&\\text{for any point }O\\Rightarrow \\overrightarrow{OM}=\\frac{1}{2}(\\overrightarrow{OA}+\\overrightarrow{OB})\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The point }M\\text{ is the midpoint if the segment }AB \\Leftrightarrow\\\\\n\t\t\t\t\t&\\text{for any point }O\\Rightarrow \\overrightarrow{OM}=\\frac{1}{2}(\\overrightarrow{OA}+\\overrightarrow{OB})\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The point }M\\text{ is the midpoint if the segment }AB \\Leftrightarrow\\\\\n\t\t\t\t\t&\\text{for any point }O\\Rightarrow \\overrightarrow{OM}=\\frac{1}{2}(\\overrightarrow{OA}+\\overrightarrow{OB})\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_vectorsinplane_f4"
+        }
+      ]
+    },
+    {
+      "id": "geometry_vectorsinplane-f5",
+      "title": "Vectors in Plane - Formula 5",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\text{For a point }M\\in AB\\text{ such that } \\overrightarrow{MA}=k\\overrightarrow{MB}\\Rightarrow\\\\\n\t\t\t\t\t&\\overrightarrow{OM}=\\frac{1}{1-k}\\overrightarrow{OA}-\\frac{k}{1-k}\\overrightarrow{OB},\\,\\text{for any point }O\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{For a point }M\\in AB\\text{ such that } \\overrightarrow{MA}=k\\overrightarrow{MB}\\Rightarrow\\\\\n\t\t\t\t\t&\\overrightarrow{OM}=\\frac{1}{1-k}\\overrightarrow{OA}-\\frac{k}{1-k}\\overrightarrow{OB},\\,\\text{for any point }O\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{For a point }M\\in AB\\text{ such that } \\overrightarrow{MA}=k\\overrightarrow{MB}\\Rightarrow\\\\\n\t\t\t\t\t&\\overrightarrow{OM}=\\frac{1}{1-k}\\overrightarrow{OA}-\\frac{k}{1-k}\\overrightarrow{OB},\\,\\text{for any point }O\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{For a point }M\\in AB\\text{ such that } \\overrightarrow{MA}=k\\overrightarrow{MB}\\Rightarrow\\\\\n\t\t\t\t\t&\\overrightarrow{OM}=\\frac{1}{1-k}\\overrightarrow{OA}-\\frac{k}{1-k}\\overrightarrow{OB},\\,\\text{for any point }O\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{For a point }M\\in AB\\text{ such that } \\overrightarrow{MA}=k\\overrightarrow{MB}\\Rightarrow\\\\\n\t\t\t\t\t&\\overrightarrow{OM}=\\frac{1}{1-k}\\overrightarrow{OA}-\\frac{k}{1-k}\\overrightarrow{OB},\\,\\text{for any point }O\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{For a point }M\\in AB\\text{ such that } \\overrightarrow{MA}=k\\overrightarrow{MB}\\Rightarrow\\\\\n\t\t\t\t\t&\\overrightarrow{OM}=\\frac{1}{1-k}\\overrightarrow{OA}-\\frac{k}{1-k}\\overrightarrow{OB},\\,\\text{for any point }O\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{For a point }M\\in AB\\text{ such that } \\overrightarrow{MA}=k\\overrightarrow{MB}\\Rightarrow\\\\\n\t\t\t\t\t&\\overrightarrow{OM}=\\frac{1}{1-k}\\overrightarrow{OA}-\\frac{k}{1-k}\\overrightarrow{OB},\\,\\text{for any point }O\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_vectorsinplane_f5"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,789 @@
+{
+  "chapterId": "geometry_lineinplane",
+  "title": "Line in Plane",
+  "category": "Geometry",
+  "version": "1.0",
+  "description": "Curriculum descentralizat IPFS pentru Line in Plane.",
+  "formulas": [
+    {
+      "id": "geometry_lineinplane-f1",
+      "title": "Line in Plane - Formula 1",
+      "latex": "\\text{The general equation of a line is }d:ax+by+c=0",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{The general equation of a line is }d:ax+by+c=0",
+          "wolframQuery": "simplify \\text{The general equation of a line is }d:ax+by+c=0",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{The general equation of a line is }d:ax+by+c=0",
+          "wolframQuery": "simplify \\text{The general equation of a line is }d:ax+by+c=0",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{The general equation of a line is }d:ax+by+c=0",
+          "wolframQuery": "simplify \\text{The general equation of a line is }d:ax+by+c=0",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_lineinplane_f1"
+        }
+      ]
+    },
+    {
+      "id": "geometry_lineinplane-f2",
+      "title": "Line in Plane - Formula 2",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the point }A(x_A,y_A)\\\\\n\t\t\t\t\t&\\text{ and has the given slope }m \\text { has the equation }d:y-y_A=m(x-x_A)\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the point }A(x_A,y_A)\\\\\n\t\t\t\t\t&\\text{ and has the given slope }m \\text { has the equation }d:y-y_A=m(x-x_A)\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the point }A(x_A,y_A)\\\\\n\t\t\t\t\t&\\text{ and has the given slope }m \\text { has the equation }d:y-y_A=m(x-x_A)\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the point }A(x_A,y_A)\\\\\n\t\t\t\t\t&\\text{ and has the given slope }m \\text { has the equation }d:y-y_A=m(x-x_A)\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the point }A(x_A,y_A)\\\\\n\t\t\t\t\t&\\text{ and has the given slope }m \\text { has the equation }d:y-y_A=m(x-x_A)\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the point }A(x_A,y_A)\\\\\n\t\t\t\t\t&\\text{ and has the given slope }m \\text { has the equation }d:y-y_A=m(x-x_A)\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the point }A(x_A,y_A)\\\\\n\t\t\t\t\t&\\text{ and has the given slope }m \\text { has the equation }d:y-y_A=m(x-x_A)\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_lineinplane_f2"
+        }
+      ]
+    },
+    {
+      "id": "geometry_lineinplane-f3",
+      "title": "Line in Plane - Formula 3",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }A(x_A,y_A)\\text{ and }B(x_B,y_B)\\\\\n\t\t\t\t\t&\\text {has the equation }\\frac{x-x_A}{x_B-x_A}=\\frac{y-y_A}{y_B-y_A}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }A(x_A,y_A)\\text{ and }B(x_B,y_B)\\\\\n\t\t\t\t\t&\\text {has the equation }\\frac{x-x_A}{x_B-x_A}=\\frac{y-y_A}{y_B-y_A}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }A(x_A,y_A)\\text{ and }B(x_B,y_B)\\\\\n\t\t\t\t\t&\\text {has the equation }\\frac{x-x_A}{x_B-x_A}=\\frac{y-y_A}{y_B-y_A}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }A(x_A,y_A)\\text{ and }B(x_B,y_B)\\\\\n\t\t\t\t\t&\\text {has the equation }\\frac{x-x_A}{x_B-x_A}=\\frac{y-y_A}{y_B-y_A}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }A(x_A,y_A)\\text{ and }B(x_B,y_B)\\\\\n\t\t\t\t\t&\\text {has the equation }\\frac{x-x_A}{x_B-x_A}=\\frac{y-y_A}{y_B-y_A}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }A(x_A,y_A)\\text{ and }B(x_B,y_B)\\\\\n\t\t\t\t\t&\\text {has the equation }\\frac{x-x_A}{x_B-x_A}=\\frac{y-y_A}{y_B-y_A}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }A(x_A,y_A)\\text{ and }B(x_B,y_B)\\\\\n\t\t\t\t\t&\\text {has the equation }\\frac{x-x_A}{x_B-x_A}=\\frac{y-y_A}{y_B-y_A}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_lineinplane_f3"
+        }
+      ]
+    },
+    {
+      "id": "geometry_lineinplane-f4",
+      "title": "Line in Plane - Formula 4",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }\\\\\n\t\t\t\t\t&A(x_A,y_A)\\text{ and }B(x_B,y_B)\\text{ is }m_{AB}=\\frac{y_B-y_A}{x_B-x_A}\\\\\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }\\\\\n\t\t\t\t\t&A(x_A,y_A)\\text{ and }B(x_B,y_B)\\text{ is }m_{AB}=\\frac{y_B-y_A}{x_B-x_A}\\\\\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }\\\\\n\t\t\t\t\t&A(x_A,y_A)\\text{ and }B(x_B,y_B)\\text{ is }m_{AB}=\\frac{y_B-y_A}{x_B-x_A}\\\\\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }\\\\\n\t\t\t\t\t&A(x_A,y_A)\\text{ and }B(x_B,y_B)\\text{ is }m_{AB}=\\frac{y_B-y_A}{x_B-x_A}\\\\\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }\\\\\n\t\t\t\t\t&A(x_A,y_A)\\text{ and }B(x_B,y_B)\\text{ is }m_{AB}=\\frac{y_B-y_A}{x_B-x_A}\\\\\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }\\\\\n\t\t\t\t\t&A(x_A,y_A)\\text{ and }B(x_B,y_B)\\text{ is }m_{AB}=\\frac{y_B-y_A}{x_B-x_A}\\\\\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }\\\\\n\t\t\t\t\t&A(x_A,y_A)\\text{ and }B(x_B,y_B)\\text{ is }m_{AB}=\\frac{y_B-y_A}{x_B-x_A}\\\\\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_lineinplane_f4"
+        }
+      ]
+    },
+    {
+      "id": "geometry_lineinplane-f5",
+      "title": "Line in Plane - Formula 5",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }\\\\\n\t\t\t\t\t&A(x_A,y_A)\\text{ and }B(x_B,y_B)\\text{ is }m_{AB}=\\frac{y_B-y_A}{x_B-x_A}\\\\\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }\\\\\n\t\t\t\t\t&A(x_A,y_A)\\text{ and }B(x_B,y_B)\\text{ is }m_{AB}=\\frac{y_B-y_A}{x_B-x_A}\\\\\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }\\\\\n\t\t\t\t\t&A(x_A,y_A)\\text{ and }B(x_B,y_B)\\text{ is }m_{AB}=\\frac{y_B-y_A}{x_B-x_A}\\\\\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }\\\\\n\t\t\t\t\t&A(x_A,y_A)\\text{ and }B(x_B,y_B)\\text{ is }m_{AB}=\\frac{y_B-y_A}{x_B-x_A}\\\\\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }\\\\\n\t\t\t\t\t&A(x_A,y_A)\\text{ and }B(x_B,y_B)\\text{ is }m_{AB}=\\frac{y_B-y_A}{x_B-x_A}\\\\\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }\\\\\n\t\t\t\t\t&A(x_A,y_A)\\text{ and }B(x_B,y_B)\\text{ is }m_{AB}=\\frac{y_B-y_A}{x_B-x_A}\\\\\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The line that passes through the points }\\\\\n\t\t\t\t\t&A(x_A,y_A)\\text{ and }B(x_B,y_B)\\text{ is }m_{AB}=\\frac{y_B-y_A}{x_B-x_A}\\\\\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_lineinplane_f5"
+        }
+      ]
+    },
+    {
+      "id": "geometry_lineinplane-f6",
+      "title": "Line in Plane - Formula 6",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\text{If the line }d\\text{ has the equation }d:y=mx+n,\\\\\n\t\t\t\t\t&\\text{then }m \\text{ is the slope of the line }d\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{If the line }d\\text{ has the equation }d:y=mx+n,\\\\\n\t\t\t\t\t&\\text{then }m \\text{ is the slope of the line }d\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{If the line }d\\text{ has the equation }d:y=mx+n,\\\\\n\t\t\t\t\t&\\text{then }m \\text{ is the slope of the line }d\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{If the line }d\\text{ has the equation }d:y=mx+n,\\\\\n\t\t\t\t\t&\\text{then }m \\text{ is the slope of the line }d\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{If the line }d\\text{ has the equation }d:y=mx+n,\\\\\n\t\t\t\t\t&\\text{then }m \\text{ is the slope of the line }d\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{If the line }d\\text{ has the equation }d:y=mx+n,\\\\\n\t\t\t\t\t&\\text{then }m \\text{ is the slope of the line }d\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{If the line }d\\text{ has the equation }d:y=mx+n,\\\\\n\t\t\t\t\t&\\text{then }m \\text{ is the slope of the line }d\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_lineinplane_f6"
+        }
+      ]
+    },
+    {
+      "id": "geometry_lineinplane-f7",
+      "title": "Line in Plane - Formula 7",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\text{If the line }d\\text{ has the equation }d:ax+by+c=0,\\\\\n\t\t\t\t\t&\\text{then the slope of the line }d \\text{ is equal to }m=-\\frac{a}{b}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{If the line }d\\text{ has the equation }d:ax+by+c=0,\\\\\n\t\t\t\t\t&\\text{then the slope of the line }d \\text{ is equal to }m=-\\frac{a}{b}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{If the line }d\\text{ has the equation }d:ax+by+c=0,\\\\\n\t\t\t\t\t&\\text{then the slope of the line }d \\text{ is equal to }m=-\\frac{a}{b}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{If the line }d\\text{ has the equation }d:ax+by+c=0,\\\\\n\t\t\t\t\t&\\text{then the slope of the line }d \\text{ is equal to }m=-\\frac{a}{b}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{If the line }d\\text{ has the equation }d:ax+by+c=0,\\\\\n\t\t\t\t\t&\\text{then the slope of the line }d \\text{ is equal to }m=-\\frac{a}{b}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{If the line }d\\text{ has the equation }d:ax+by+c=0,\\\\\n\t\t\t\t\t&\\text{then the slope of the line }d \\text{ is equal to }m=-\\frac{a}{b}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{If the line }d\\text{ has the equation }d:ax+by+c=0,\\\\\n\t\t\t\t\t&\\text{then the slope of the line }d \\text{ is equal to }m=-\\frac{a}{b}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_lineinplane_f7"
+        }
+      ]
+    },
+    {
+      "id": "geometry_lineinplane-f8",
+      "title": "Line in Plane - Formula 8",
+      "latex": "\\text{Two lines are parallel}\\Leftrightarrow \\text{they have equal slopes}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{Two lines are parallel}\\Leftrightarrow \\text{they have equal slopes}",
+          "wolframQuery": "simplify \\text{Two lines are parallel}\\Leftrightarrow \\text{they have equal slopes}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{Two lines are parallel}\\Leftrightarrow \\text{they have equal slopes}",
+          "wolframQuery": "simplify \\text{Two lines are parallel}\\Leftrightarrow \\text{they have equal slopes}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{Two lines are parallel}\\Leftrightarrow \\text{they have equal slopes}",
+          "wolframQuery": "simplify \\text{Two lines are parallel}\\Leftrightarrow \\text{they have equal slopes}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_lineinplane_f8"
+        }
+      ]
+    },
+    {
+      "id": "geometry_lineinplane-f9",
+      "title": "Line in Plane - Formula 9",
+      "latex": "\\text{Two lines $d_1,\\, d_2$ are perpendicular}\\Leftrightarrow m_1\\cdot m_2=-1",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{Two lines $d_1,\\, d_2$ are perpendicular}\\Leftrightarrow m_1\\cdot m_2=-1",
+          "wolframQuery": "simplify \\text{Two lines $d_1,\\, d_2$ are perpendicular}\\Leftrightarrow m_1\\cdot m_2=-1",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\text{Two lines $d_1,\\, d_2$ are perpendicular}\\Leftrightarrow m_1\\cdot m_2=-1",
+          "wolframQuery": "simplify \\text{Two lines $d_1,\\, d_2$ are perpendicular}\\Leftrightarrow m_1\\cdot m_2=-1",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\text{Two lines $d_1,\\, d_2$ are perpendicular}\\Leftrightarrow m_1\\cdot m_2=-1",
+          "wolframQuery": "simplify \\text{Two lines $d_1,\\, d_2$ are perpendicular}\\Leftrightarrow m_1\\cdot m_2=-1",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_lineinplane_f9"
+        }
+      ]
+    },
+    {
+      "id": "geometry_lineinplane-f10",
+      "title": "Line in Plane - Formula 10",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\text{The distance between the point }A(x_A,y_A)\\text{ and}\\\\\n\t\t\t\t\t&\\text{the line }d:ax+by+c=0 \\text{ is }d(A,d)=\\frac{|ax_A+by_A+c|}{\\sqrt{a^2+b^2}} \n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The distance between the point }A(x_A,y_A)\\text{ and}\\\\\n\t\t\t\t\t&\\text{the line }d:ax+by+c=0 \\text{ is }d(A,d)=\\frac{|ax_A+by_A+c|}{\\sqrt{a^2+b^2}} \n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The distance between the point }A(x_A,y_A)\\text{ and}\\\\\n\t\t\t\t\t&\\text{the line }d:ax+by+c=0 \\text{ is }d(A,d)=\\frac{|ax_A+by_A+c|}{\\sqrt{a^2+b^2}} \n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The distance between the point }A(x_A,y_A)\\text{ and}\\\\\n\t\t\t\t\t&\\text{the line }d:ax+by+c=0 \\text{ is }d(A,d)=\\frac{|ax_A+by_A+c|}{\\sqrt{a^2+b^2}} \n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The distance between the point }A(x_A,y_A)\\text{ and}\\\\\n\t\t\t\t\t&\\text{the line }d:ax+by+c=0 \\text{ is }d(A,d)=\\frac{|ax_A+by_A+c|}{\\sqrt{a^2+b^2}} \n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The distance between the point }A(x_A,y_A)\\text{ and}\\\\\n\t\t\t\t\t&\\text{the line }d:ax+by+c=0 \\text{ is }d(A,d)=\\frac{|ax_A+by_A+c|}{\\sqrt{a^2+b^2}} \n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The distance between the point }A(x_A,y_A)\\text{ and}\\\\\n\t\t\t\t\t&\\text{the line }d:ax+by+c=0 \\text{ is }d(A,d)=\\frac{|ax_A+by_A+c|}{\\sqrt{a^2+b^2}} \n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_lineinplane_f10"
+        }
+      ]
+    },
+    {
+      "id": "geometry_lineinplane-f11",
+      "title": "Line in Plane - Formula 11",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{coincide if }\\frac{a_1}{a_2}=\\frac{b_1}{b_2}=\\frac{c_1}{c_2}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{coincide if }\\frac{a_1}{a_2}=\\frac{b_1}{b_2}=\\frac{c_1}{c_2}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{coincide if }\\frac{a_1}{a_2}=\\frac{b_1}{b_2}=\\frac{c_1}{c_2}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{coincide if }\\frac{a_1}{a_2}=\\frac{b_1}{b_2}=\\frac{c_1}{c_2}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{coincide if }\\frac{a_1}{a_2}=\\frac{b_1}{b_2}=\\frac{c_1}{c_2}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{coincide if }\\frac{a_1}{a_2}=\\frac{b_1}{b_2}=\\frac{c_1}{c_2}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{coincide if }\\frac{a_1}{a_2}=\\frac{b_1}{b_2}=\\frac{c_1}{c_2}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_lineinplane_f11"
+        }
+      ]
+    },
+    {
+      "id": "geometry_lineinplane-f12",
+      "title": "Line in Plane - Formula 12",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{are parallel and unequal if }\\frac{a_1}{a_2}=\\frac{b_1}{b_2}\\neq\\frac{c_1}{c_2}\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{are parallel and unequal if }\\frac{a_1}{a_2}=\\frac{b_1}{b_2}\\neq\\frac{c_1}{c_2}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{are parallel and unequal if }\\frac{a_1}{a_2}=\\frac{b_1}{b_2}\\neq\\frac{c_1}{c_2}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{are parallel and unequal if }\\frac{a_1}{a_2}=\\frac{b_1}{b_2}\\neq\\frac{c_1}{c_2}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{are parallel and unequal if }\\frac{a_1}{a_2}=\\frac{b_1}{b_2}\\neq\\frac{c_1}{c_2}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{are parallel and unequal if }\\frac{a_1}{a_2}=\\frac{b_1}{b_2}\\neq\\frac{c_1}{c_2}\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{are parallel and unequal if }\\frac{a_1}{a_2}=\\frac{b_1}{b_2}\\neq\\frac{c_1}{c_2}\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_lineinplane_f12"
+        }
+      ]
+    },
+    {
+      "id": "geometry_lineinplane-f13",
+      "title": "Line in Plane - Formula 13",
+      "latex": "\\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{are perpendicular if }a_1a_2+b_1b_2=0\n\t\t\t\t\t\\end{aligned}",
+      "model3D": "Assets/3DModels/inta.glb",
+      "description": "The integral of a constant a is the (constant * x), plus the constant of integration C.",
+      "requirement": "Calculate the primitive, then evaluate at x = 1 and C = 0.",
+      "exercises": [
+        {
+          "difficulty": "Easy",
+          "order": 1,
+          "variables": {
+            "a": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{are perpendicular if }a_1a_2+b_1b_2=0\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{are perpendicular if }a_1a_2+b_1b_2=0\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Aplica direct formula fundamentala.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Medium",
+          "order": 2,
+          "variables": {
+            "a": [
+              2,
+              6
+            ],
+            "b": [
+              1,
+              4
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{are perpendicular if }a_1a_2+b_1b_2=0\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{are perpendicular if }a_1a_2+b_1b_2=0\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
+          "solutionIpfs": null
+        },
+        {
+          "difficulty": "Hard",
+          "order": 3,
+          "variables": {
+            "a": [
+              2,
+              8
+            ],
+            "b": [
+              2,
+              5
+            ]
+          },
+          "latexTemplate": "\\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{are perpendicular if }a_1a_2+b_1b_2=0\n\t\t\t\t\t\\end{aligned}",
+          "wolframQuery": "simplify \\begin{aligned}\n\t\t\t\t\t&\\text{The lines }d_1:a_1x+b_1+c_1=0\\text{ and }d_2:a_2x+b_2+c_2=0\\\\\n\t\t\t\t\t&\\text{are perpendicular if }a_1a_2+b_1b_2=0\n\t\t\t\t\t\\end{aligned}",
+          "hint": "Combina proprietatile specifice capitolului.",
+          "solutionIpfs": "QmHardSol_geometry_lineinplane_f13"
+        }
+      ]
+    }
+  ]
+}

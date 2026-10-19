@@ -21,7 +21,7 @@ namespace MathChain.Persistence.Context
         public DbSet<AssignmentBase> Assignments { get; set; }
         public DbSet<Submission> Submissions { get; set; }
         public DbSet<Grade> Grades { get; set; }
-        public DbSet<ClassResource> ClassMaterials { get; set; }
+        public DbSet<ClassResource> ClassResources { get; set; }
         public DbSet<ClassAnnouncement> ClassAnnouncements { get; set; }
         public DbSet<MessageComment> MessagesComments { get; set; }
         public DbSet<ClassMedia> ClassMedia { get; set; }

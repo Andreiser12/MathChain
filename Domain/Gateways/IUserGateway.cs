@@ -9,7 +9,7 @@ namespace MathChain.Domain.Gateways
 {
     public interface IUserGateway
     {
-        Task<User?> GetbyWalletAddressAsync(string walletAddress);
+        Task<User?> GetByWalletAddressAsync(string walletAddress);
         Task<List<User>> GetAllAsync();
         Task<User> CreateOrUpdateAsync(User user);
     }

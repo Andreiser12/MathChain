@@ -4,8 +4,8 @@ namespace MathChain.Domain.Gateways
 {
     public interface ICurriculumGateway
     {
-        Task<CurriculumChapter?> GetbySlugAsync(string slug);
-        Task<List<ChapterCurriculum>> GetAllAsync();
-        Task UpdateIpfshashAsync(string slug, string newIpfsHash);
+        Task<CurriculumChapter?> GetBySlugAsync(string slug);
+        Task<List<CurriculumChapter>> GetAllAsync();
+        Task UpdateIpfsHashAsync(string slug, string newIpfsHash);
     }
 }

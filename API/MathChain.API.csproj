@@ -12,19 +12,16 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.30">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
-    <PackageReference Include="Wolfram.Alpha" Version="1.0.7" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Blockchain\MathChain.Blockchain.csproj" />
     <ProjectReference Include="..\Domain\MathChain.Domain.csproj" />
     <ProjectReference Include="..\Domain\MathChain.Domain.csproj" />
+    <ProjectReference Include="..\MathChain.Application\MathChain.Application.csproj" />
+    <ProjectReference Include="..\MathChain.Gateway\MathChain.Gateway.csproj" />
+    <ProjectReference Include="..\MathChain.Infrastructure\MathChain.Infrastructure.csproj" />
+    <ProjectReference Include="..\MathChain.Persistence\MathChain.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>

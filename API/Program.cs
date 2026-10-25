@@ -1,10 +1,9 @@
-using MathChain.API.Services;
-using MathChain.API.Data;
-using MathChain.Blockchain;
-using MathChain.Blockchain.Services;
-using MathChain.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using MathChain.Application.Extensions;
+using MathChain.Persistence.Extentions;
+using MathChain.Gateway.Extensions;
+using MathChain.Infrastructure.Extensions;
 
 DotNetEnv.Env.Load();
 
@@ -19,20 +18,6 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var blockchainConfig = new BlockchainConfig();
-
-builder.Services.AddSingleton(blockchainConfig);
-builder.Services.AddSingleton<IBlockchainService, BlockchainService>();
-
-builder.Services.AddHttpClient();
-builder.Services.AddHttpClient<WolframService>();
-
-builder.Services.AddDbContext<MathChainDbContext>(options =>
-{
-    var connectionString = builder.Configuration.GetConnectionString("MathChainDb");
-    options.UseNpgsql(connectionString);
-});
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowBlazor", policy =>
@@ -42,6 +27,14 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader();
     });
 });
+
+var connectionString = builder.Configuration.GetConnectionString("MathchainDB") ??
+    throw new InvalidOperationException("Connection string 'MathChainDb' was not found.");
+
+builder.Services.AddPersistenceLayer(connectionString);
+builder.Services.AddGatewayLayer();
+builder.Services.AddInfrastructureLayer();
+builder.Services.AddApplicationLayer();
 
 var app = builder.Build();
 

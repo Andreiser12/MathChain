@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MathChain.API.Controllers.MyClassesControllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/classroom")]
     public class ClassRoomController : ControllerBase
     {
         private readonly IClassRoomContext _classRoomContext;

@@ -51,11 +51,14 @@ namespace MathChain.API.Controllers
                 return BadRequest("IPFS hash is required.");
             }
 
+            Console.WriteLine($"[IPFS] Download requested for hash: '{hash}', fileName: '{fileName}'");
+
             var fileBytes = await _ipfsService.GetFileAsync(hash);
 
             if (fileBytes == null)
             {
-                return NotFound("File not found on IPFS storage.");
+                Console.WriteLine($"[IPFS] Content with hash '{hash}' not found in local node or remote gateways.");
+                return NotFound($"File not found on IPFS storage (hash: {hash}).");
             }
 
             var downloadName = !string.IsNullOrWhiteSpace(fileName) ? fileName : hash;

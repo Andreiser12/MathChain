@@ -1,4 +1,4 @@
-﻿using MathChain.Domain.Entities;
+using MathChain.Domain.Entities;
 using MathChain.Domain.Gateways;
 using MathChain.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
@@ -66,18 +66,22 @@ namespace MathChain.Gateway.Repositories
 
         public async Task<List<ClassRoom>> GetByTeacherWalletAsync(string teacherWallet)
         {
+            var wallet = teacherWallet.Trim().ToLower();
+
             return await _context.ClassRooms
                 .AsNoTracking()
-                .Where(c => c.TeacherWallet == teacherWallet)
+                .Where(c => c.TeacherWallet.ToLower() == wallet)
                 .OrderByDescending(c => c.CreatedAt)
                 .ToListAsync();
         }
 
         public async Task<List<ClassRoom>> GetEnrolledByStudentWalletAsync(string studentWallet)
         {
+            var wallet = studentWallet.Trim().ToLower();
+
             return await _context.Enrollments
                 .AsNoTracking()
-                .Where(e => e.StudentWallet == studentWallet)
+                .Where(e => e.StudentWallet.ToLower() == wallet)
                 .Join(_context.ClassRooms.AsNoTracking(),
                  enrollment => enrollment.ClassRoomId,
                  classRoom => classRoom.Id,
@@ -102,8 +106,10 @@ namespace MathChain.Gateway.Repositories
 
         public async Task<bool> IsStudentEnrolledAsync(Guid classRoomId, string studentWallet)
         {
+            var wallet = studentWallet.Trim().ToLower();
+
             return await _context.Enrollments
-                .AnyAsync(e => e.ClassRoomId == classRoomId && e.StudentWallet == studentWallet);
+                .AnyAsync(e => e.ClassRoomId == classRoomId && e.StudentWallet.ToLower() == wallet);
         }
     }
 }

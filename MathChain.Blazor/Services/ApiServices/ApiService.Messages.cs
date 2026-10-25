@@ -12,24 +12,25 @@ namespace MathChain.Blazor.Services
             {
                 var response = await _httpClient.GetAsync($"{_baseUrl}/classroom/{classRoomId}/messages");
 
-                if (!response.IsSuccessStatusCode)
-                {
-                    return new List<AnnouncementResponseDto>();
-                }
-                var content = await response.Content.ReadAsStringAsync();
-
-                return JsonSerializer.Deserialize<List<AnnouncementResponseDto>>(content, _jsonOptions) ?? new List<AnnouncementResponseDto>();
+                return await ReadEnvelopeListAsync<AnnouncementResponseDto>(response);
             }
             catch
             {
                 return new List<AnnouncementResponseDto>();
             }
         }
+
         public async Task<bool> CreateClassMessageAsync(Guid classRoomId, string title, string content, string authorWallet)
         {
             try
             {
-                var json = JsonSerializer.Serialize(new { ClassRoomId = classRoomId, Title = title, Content = content, AuthorWallet = authorWallet });
+                var json = JsonSerializer.Serialize(new
+                { 
+                    ClassRoomId = classRoomId,
+                    Title = title,
+                    Content = content,
+                    AuthorWallet = authorWallet
+                });
 
                 var body = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -38,10 +39,11 @@ namespace MathChain.Blazor.Services
                 return response.IsSuccessStatusCode;
             }
             catch
-            { 
+            {
                 return false;
             }
         }
+
         public async Task<bool> DeleteClassMessageAsync(Guid messageId)
         {
             try
@@ -55,15 +57,35 @@ namespace MathChain.Blazor.Services
                 return false;
             }
         }
+
         public async Task<bool> AddMessageCommentAsync(Guid messageId, string content, string authorWallet)
         {
             try
             {
-                var json = JsonSerializer.Serialize(new { MessageId = messageId, Content = content, AuthorWallet = authorWallet });
+                var json = JsonSerializer.Serialize(new
+                {
+                    MessageId = messageId,
+                    Content = content,
+                    AuthorWallet = authorWallet
+                });
 
                 var body = new StringContent(json, Encoding.UTF8, "application/json");
 
                 var response = await _httpClient.PostAsync($"{_baseUrl}/classroom/messages/{messageId}/comments", body);
+
+                return response.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteMessageCommentAsync(Guid commentId)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"{_baseUrl}/classroom/messages/comments/{commentId}");
 
                 return response.IsSuccessStatusCode;
             }

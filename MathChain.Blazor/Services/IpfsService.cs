@@ -26,6 +26,7 @@ namespace MathChain.Blazor.Services
             {
                 using var stream = file.OpenReadStream(maxAllowedSize: 20 * 1024 * 1024);
                 using var streamContent = new StreamContent(stream);
+
                 streamContent.Headers.ContentType = new MediaTypeHeaderValue(
                     string.IsNullOrWhiteSpace(file.ContentType) ? "application/octet-stream" : file.ContentType);
 
@@ -33,6 +34,7 @@ namespace MathChain.Blazor.Services
                 formData.Add(streamContent, "file", file.Name);
 
                 HttpResponseMessage response;
+
                 try
                 {
                     response = await _httpClient.PostAsync(_primaryUrl, formData);
@@ -41,6 +43,7 @@ namespace MathChain.Blazor.Services
                 {
                     using var fallbackStream = file.OpenReadStream(maxAllowedSize: 20 * 1024 * 1024);
                     using var fallbackStreamContent = new StreamContent(fallbackStream);
+
                     fallbackStreamContent.Headers.ContentType = new MediaTypeHeaderValue(
                         string.IsNullOrWhiteSpace(file.ContentType) ? "application/octet-stream" : file.ContentType);
 
@@ -54,17 +57,21 @@ namespace MathChain.Blazor.Services
                 {
                     var err = await response.Content.ReadAsStringAsync();
                     Console.WriteLine($"Upload failed ({response.StatusCode}): {err}");
+
                     return null;
                 }
 
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 using var document = JsonDocument.Parse(jsonResponse);
 
+                if (document.RootElement.TryGetProperty("data", out var dataElement) && dataElement.ValueKind == JsonValueKind.String)
+                {
+                    return dataElement.GetString();
+                }
                 if (document.RootElement.TryGetProperty("ipfsHash", out var hashElement))
                 {
                     return hashElement.GetString();
                 }
-
                 return null;
             }
             catch (Exception ex)
@@ -83,6 +90,7 @@ namespace MathChain.Blazor.Services
                 if (_manifestCache == null)
                 {
                     var manifestRes = await _httpClient.GetAsync("data/curriculum/manifest.json");
+
                     if (manifestRes.IsSuccessStatusCode)
                     {
                         var manifestJson = await manifestRes.Content.ReadAsStringAsync();
@@ -115,6 +123,7 @@ namespace MathChain.Blazor.Services
                 }
 
                 HttpResponseMessage response;
+
                 try
                 {
                     response = await _httpClient.GetAsync(url);
@@ -131,21 +140,26 @@ namespace MathChain.Blazor.Services
                     try
                     {
                         var fallbackFile = await GetFallbackPathAsync(ipfsHashOrUrl);
+
                         if (!string.IsNullOrEmpty(fallbackFile))
                         {
                             var staticResponse = await _httpClient.GetAsync(fallbackFile);
+
                             if (staticResponse.IsSuccessStatusCode)
                             {
                                 var staticJson = await staticResponse.Content.ReadAsStringAsync();
+
                                 return JsonSerializer.Deserialize<ChapterCurriculumDto>(staticJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                             }
                         }
                     }
                     catch { }
+
                     return null;
                 }
 
                 var json = await response.Content.ReadAsStringAsync();
+
                 var options = new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
@@ -159,17 +173,21 @@ namespace MathChain.Blazor.Services
                 try
                 {
                     var fallbackFile = await GetFallbackPathAsync(ipfsHashOrUrl);
+
                     if (!string.IsNullOrEmpty(fallbackFile))
                     {
                         var staticResponse = await _httpClient.GetAsync(fallbackFile);
+
                         if (staticResponse.IsSuccessStatusCode)
                         {
                             var staticJson = await staticResponse.Content.ReadAsStringAsync();
+
                             return JsonSerializer.Deserialize<ChapterCurriculumDto>(staticJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                         }
                     }
                 }
                 catch { }
+
                 return null;
             }
         }
@@ -193,11 +211,13 @@ namespace MathChain.Blazor.Services
                 if(response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
+
                     using var doc = JsonDocument.Parse(json);
 
                     if(doc.RootElement.TryGetProperty("ipfsHash", out var hashEl))
                     {
                         var dynamicHash = hashEl.GetString();
+
                         if(!string.IsNullOrEmpty(dynamicHash))
                         {
                             var curriculumfromDbHash = await GetCurriculumFromIpfsAsync(dynamicHash);

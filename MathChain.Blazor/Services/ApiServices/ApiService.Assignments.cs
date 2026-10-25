@@ -12,13 +12,7 @@ namespace MathChain.Blazor.Services
             {
                 var response = await _httpClient.GetAsync($"{_baseUrl}/classroom/{classRoomId}/assignment");
 
-                if(!response.IsSuccessStatusCode)
-                {
-                    return new List<AssignmentItemDto>();
-                }
-
-                var content = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<List<AssignmentItemDto>>(content, _jsonOptions) ?? new List<AssignmentItemDto>();
+                return await ReadEnvelopeListAsync<AssignmentItemDto>(response);
             }
             catch
             {
@@ -43,6 +37,7 @@ namespace MathChain.Blazor.Services
                 });
 
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
+
                 var response = await _httpClient.PostAsync($"{_baseUrl}/classroom/{classRoomId}/assignment", content);
 
                 return response.IsSuccessStatusCode;
@@ -73,13 +68,7 @@ namespace MathChain.Blazor.Services
             {
                 var response = await _httpClient.GetAsync($"{_baseUrl}/classroom/assignment/{assignmentId}/submissions");
 
-                if(!response.IsSuccessStatusCode)
-                {
-                    return new List<SubmissionItemDto>();
-                }
-
-                var content = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<List<SubmissionItemDto>>(content, _jsonOptions) ?? new List<SubmissionItemDto>();
+                return await ReadEnvelopeListAsync<SubmissionItemDto>(response);
             }
             catch
             {
@@ -122,6 +111,7 @@ namespace MathChain.Blazor.Services
                 });
 
                 var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
                 var response = await _httpClient.PostAsync($"{_baseUrl}/classroom/assignment/{assignmentId}/submit", httpContent);
 
                 return response.IsSuccessStatusCode;

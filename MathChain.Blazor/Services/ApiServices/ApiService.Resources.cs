@@ -11,9 +11,8 @@ namespace MathChain.Blazor.Services
             try
             {
                 var response = await _httpClient.GetAsync($"{_baseUrl}/classroom/{classRoomId}/materials");
-                if (!response.IsSuccessStatusCode) return new List<ClassResourceDto>();
-                var content = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<List<ClassResourceDto>>(content, _jsonOptions) ?? new List<ClassResourceDto>();
+
+                return await ReadEnvelopeListAsync<ClassResourceDto>(response);
             }
             catch
             {
@@ -34,11 +33,12 @@ namespace MathChain.Blazor.Services
                     FileName = fileName,
                     IpfsHash = ipfsHash
                 });
+
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
+
                 var response = await _httpClient.PostAsync($"{_baseUrl}/classroom/{classRoomId}/materials", content);
-                if (!response.IsSuccessStatusCode) return null;
-                var resContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<ClassResourceDto>(resContent, _jsonOptions);
+
+                return await ReadEnvelopeDataAsync<ClassResourceDto>(response);
             }
             catch
             {
@@ -51,6 +51,7 @@ namespace MathChain.Blazor.Services
             try
             {
                 var response = await _httpClient.DeleteAsync($"{_baseUrl}/classroom/materials/{resourceId}");
+
                 return response.IsSuccessStatusCode;
             }
             catch

@@ -1,4 +1,4 @@
-﻿using MathChain.API.DTOs;
+using MathChain.Application.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using MathChain.Domain.Interfaces;
 

@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MathChain.API.Migrations
+namespace MathChain.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -140,3 +140,4 @@ namespace MathChain.API.Migrations
         }
     }
 }
+

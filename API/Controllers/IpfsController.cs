@@ -1,4 +1,5 @@
-using MathChain.API.Services;
+using MathChain.Infrastructure.Ipfs;
+using MathChain.Infrastructure.ResponseHandling;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MathChain.API.Controllers
@@ -12,15 +13,10 @@ namespace MathChain.API.Controllers
     [Route("api/[controller]")]
     public class IpfsController : ControllerBase
     {
-        private readonly string _storagePath;
-
-        public IpfsController(IWebHostEnvironment env)
+        private readonly IIpfsStorageService _ipfsService;
+        public IpfsController(IIpfsStorageService ipfsService)
         {
-            _storagePath = Path.Combine(env.ContentRootPath, "Storage", "ipfs");
-            if(!Directory.Exists(_storagePath))
-            {
-                Directory.CreateDirectory(_storagePath);
-            }
+            _ipfsService = ipfsService;
         }
 
         [HttpPost("upload")]
@@ -29,31 +25,21 @@ namespace MathChain.API.Controllers
         public async Task<IActionResult> Upload([FromForm] FileUploadRequest request)
         {
             var file = request?.File;
+
             if (file == null || file.Length == 0)
             {
-                return BadRequest("No file uploaded.");
+                return BadRequest(EnvelopeExtensions.Failure<string>("No file uploaded.", 400));
             }
 
-            try
-            {
-                using var memoryStream = new MemoryStream();
-                await file.CopyToAsync(memoryStream);
-                byte[] fileBytes = memoryStream.ToArray();
+            using var memoryStream = new MemoryStream();
 
-                string ipfsHash = IpfsHashHelper.ComputeCid(fileBytes);
-                string destinationPath = Path.Combine(_storagePath, ipfsHash);
+            await file.CopyToAsync(memoryStream);
 
-                if(!System.IO.File.Exists(destinationPath))
-                {
-                    await System.IO.File.WriteAllBytesAsync(destinationPath, fileBytes);
-                }
+            byte[] fileBytes = memoryStream.ToArray();
 
-                return Ok(new { ipfsHash });
-            }
-            catch(Exception ex)
-            {
-                return StatusCode(500, $"Internal storage error: {ex.Message}");
-            }
+            var result = await _ipfsService.SaveFileAsync(fileBytes);
+
+            return StatusCode(result.StatusCode, result);
         }
 
         [HttpGet("download/{hash}")]
@@ -62,20 +48,19 @@ namespace MathChain.API.Controllers
         {
             if (string.IsNullOrWhiteSpace(hash))
             {
-                return BadRequest("Hash is required.");
+                return BadRequest("IPFS hash is required.");
             }
 
-            string filePath = Path.Combine(_storagePath, hash);
+            var fileBytes = await _ipfsService.GetFileAsync(hash);
 
-            if(!System.IO.File.Exists(filePath))
+            if (fileBytes == null)
             {
-                return NotFound($"Content with hash {hash} not found in local IPFS node.");
+                return NotFound("File not found on IPFS storage.");
             }
 
-            var fileStream = System.IO.File.OpenRead(filePath);
-            var safeFileName = string.IsNullOrWhiteSpace(fileName) ? $"{hash}.bin" : fileName;
+            var downloadName = !string.IsNullOrWhiteSpace(fileName) ? fileName : hash;
 
-            return File(fileStream, "application/octet-stream", safeFileName);
+            return File(fileBytes, "application/octet-stream", downloadName);
         }
     }
 }

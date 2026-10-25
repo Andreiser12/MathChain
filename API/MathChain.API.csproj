@@ -16,8 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\MathChain.Domain.csproj" />
-    <ProjectReference Include="..\Domain\MathChain.Domain.csproj" />
     <ProjectReference Include="..\MathChain.Application\MathChain.Application.csproj" />
     <ProjectReference Include="..\MathChain.Gateway\MathChain.Gateway.csproj" />
     <ProjectReference Include="..\MathChain.Infrastructure\MathChain.Infrastructure.csproj" />

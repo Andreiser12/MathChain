@@ -1,5 +1,5 @@
-﻿using MathChain.API.Data;
-using MathChain.API.DTOs;
+using MathChain.Persistence.Context;
+using MathChain.Application.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

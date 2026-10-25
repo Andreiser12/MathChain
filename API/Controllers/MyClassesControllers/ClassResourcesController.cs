@@ -1,8 +1,6 @@
-using MathChain.API.Data;
-using MathChain.API.DTOs;
-using MathChain.Domain.Entities;
+using MathChain.Application.Contexts;
+using MathChain.Application.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace MathChain.API.Controllers.MyClassesControllers
 {
@@ -10,66 +8,34 @@ namespace MathChain.API.Controllers.MyClassesControllers
     [Route("api/classroom")]
     public class ClassResourcesController : ControllerBase
     {
-        private readonly MathChainDbContext _context;
-
-        public ClassResourcesController(MathChainDbContext context)
+        private readonly IClassContentContext _contentContext;
+        public ClassResourcesController(IClassContentContext contentContext)
         {
-            _context = context;
+            _contentContext = contentContext;
         }
 
-        [HttpGet("{classRoomId}/materials")]
         [HttpGet("{classRoomId}/resources")]
         public async Task<IActionResult> GetResources(Guid classRoomId)
         {
-            var materials = await _context.ClassMaterials
-                .Where(m => m.ClassRoomId == classRoomId)
-                .OrderBy(m => m.WeekNumber)
-                .ThenBy(m => m.CreatedAt)
-                .ToListAsync();
+            var result = await _contentContext.GetResourcesAsync(classRoomId);
 
-            return Ok(materials);
+            return StatusCode(result.StatusCode, result);
         }
 
-        [HttpPost("{classRoomId}/materials")]
-        public async Task<IActionResult> AddResource(Guid classRoomId, [FromBody] CreateMaterialRequest request)
+        [HttpPost("{classRoomId}/resources")]
+        public async Task<IActionResult> AddResource(Guid classRoomId, [FromBody] CreateResourceRequest request)
         {
-            var classRoom = await _context.ClassRooms.FindAsync(classRoomId);
-            if (classRoom == null)
-            {
-                return NotFound("Class not found!");
-            }
+            var result = await _contentContext.AddResourceAsync(classRoomId, request);
 
-            var material = new ClassResource
-            {
-                Id = Guid.NewGuid(),
-                ClassRoomId = classRoomId,
-                WeekNumber = request.WeekNumber,
-                Title = request.Title,
-                Description = request.Description,
-                FileName = request.FileName,
-                IpfsHash = request.IpfsHash,
-                CreatedAt = DateTime.UtcNow
-            };
-
-            _context.ClassMaterials.Add(material);
-            await _context.SaveChangesAsync();
-
-            return Ok(material);
+            return StatusCode(result.StatusCode, result);
         }
 
-        [HttpDelete("materials/{materialId:guid}")]
-        public async Task<IActionResult> DeleteResource(Guid materialId)
+        [HttpDelete("materials/{resourceId:guid}")]
+        public async Task<IActionResult> DeleteResource(Guid resourceId)
         {
-            var material = await _context.ClassMaterials.FindAsync(materialId);
-            if (material == null)
-            {
-                return NotFound("Material not found!");
-            }
+            var result = await _contentContext.DeleteResourceAsync(resourceId);
 
-            _context.ClassMaterials.Remove(material);
-            await _context.SaveChangesAsync();
-
-            return Ok();
+            return StatusCode(result.StatusCode, result);
         }
     }
 }

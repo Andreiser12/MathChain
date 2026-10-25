@@ -88,15 +88,20 @@ namespace MathChain.Blazor.Services
         public async Task<bool> CheckUserExistsAsync(string walletAddress)
         {
             var response = await _httpClient.GetAsync($"{_baseUrl}/user/exists/{walletAddress}");
-            response.EnsureSuccessStatusCode();
-            var content = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<bool>(content);
+
+            return await ReadEnvelopeDataAsync<bool>(response);
         }
 
         public async Task<UserDto?> LoginAsync(string walletAddress, string? role = null)
         {
-            var json = JsonSerializer.Serialize(new { WalletAddress = walletAddress, Role = role });
+            var json = JsonSerializer.Serialize(new
+            {
+                WalletAddress = walletAddress,
+                Role = role
+            });
+
             var content = new StringContent(json, Encoding.UTF8, "application/json");
+
             var response = await _httpClient.PostAsync($"{_baseUrl}/user/login", content);
 
             if (string.IsNullOrEmpty(role) && !response.IsSuccessStatusCode)
@@ -104,9 +109,56 @@ namespace MathChain.Blazor.Services
                 return null;
             }
 
-            response.EnsureSuccessStatusCode();
-            var responseContent = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<UserDto>(responseContent, _jsonOptions);
+            return await ReadEnvelopeDataAsync<UserDto>(response);
+        }
+
+        private async Task<T?> ReadEnvelopeDataAsync<T>(HttpResponseMessage response)
+        {
+            if (!response.IsSuccessStatusCode)
+            {
+                return default;
+            }
+
+            var content = await response.Content.ReadAsStringAsync();
+
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                return default;
+            }
+
+            var envelope = JsonSerializer.Deserialize<Envelope<T>>(content, _jsonOptions);
+
+            return envelope != null && envelope.Success ? envelope.Data : default;
+        }
+
+        private async Task<List<T>> ReadEnvelopeListAsync<T>(HttpResponseMessage response)
+        {
+            if (!response.IsSuccessStatusCode)
+            {
+                return new List<T>();
+            }
+            var content = await response.Content.ReadAsStringAsync();
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                return new List<T>();
+            }
+            var envelope = JsonSerializer.Deserialize<Envelope<List<T>>>(content, _jsonOptions);
+            return envelope?.Data ?? new List<T>();
+        }
+
+        private async Task<bool> ReadEnvelopeSuccessAsync(HttpResponseMessage response)
+        {
+            if (!response.IsSuccessStatusCode)
+            {
+                return false;
+            }
+            var content = await response.Content.ReadAsStringAsync();
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                return false;
+            }
+            var envelope = JsonSerializer.Deserialize<Envelope<object>>(content, _jsonOptions);
+            return envelope?.Success ?? false;
         }
     }
 }

@@ -49,10 +49,7 @@
         </MudItem>
 
         <MudItem xs="4" Style="height: 100%;">
-            <MudPaper Class="pa-4 d-flex justify-center align-center"
-                      Style="height: 100%; background-color: #16213E;">
-                <MudText Color="Color.Tertiary">Scientific Calculator</MudText>
-            </MudPaper>
+            <ScientificCalculator OnPasteResult="OnCalculatorPaste" />
         </MudItem>
     </MudGrid>
 
@@ -71,8 +68,8 @@
 
 @code {
 
-    private string _userAnswer;
-    private string _currentLatex;
+    private string _userAnswer = "";
+    private string _currentLatex = "";
     private double _currentAnswer;
 
     protected override async Task OnInitializedAsync()
@@ -95,6 +92,13 @@
         };
 
         await GenerateNewExercise();
+    }
+
+    private void OnCalculatorPaste(string result)
+    {
+        _userAnswer = result;
+        Snackbar.Add($"Result {result} pasted into answer!", Severity.Info);
+        StateHasChanged();
     }
 
     private async Task GenerateNewExercise()

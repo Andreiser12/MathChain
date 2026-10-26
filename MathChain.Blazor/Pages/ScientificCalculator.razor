@@ -11,7 +11,6 @@
         padding: 14px;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
         box-sizing: border-box;
         position: relative;
     }
@@ -83,27 +82,30 @@
         width: 100%;
     }
 
-    /* Grila tastaturii principale: 4 coloane x 5 randuri, butoane masive de 76px inaltime */
+    /* Grila tastaturii principale: 4 coloane x 5 randuri, umple complet tot spatiul pana jos */
     .calc-grid-layout {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(5, 76px);
+        grid-template-rows: repeat(5, 1fr);
         gap: 10px;
+        flex: 1;
+        min-height: 0;
         width: 100%;
+        height: 100%;
     }
 
-    /* Stil buton tastatura principala: bloc masiv, curat */
+    /* Butoane solide, patrate, merg pana jos */
     .calc-btn {
         background-color: #005ea6 !important;
         color: #ffffff !important;
-        font-size: 1.2rem !important;
+        font-size: 1.25rem !important;
         font-weight: 600 !important;
         border-radius: 4px !important;
         min-width: 0 !important;
         padding: 0 !important;
         width: 100% !important;
         height: 100% !important;
-        min-height: 76px !important;
+        min-height: 0 !important;
         text-transform: none !important;
         transition: background-color 0.15s ease-in-out !important;
         box-shadow: none !important;
@@ -145,7 +147,7 @@
         background-color: #c62828 !important;
     }
 
-    /* Panoul plutitor spre stanga cu butoane DE ACELEASI DIMENSIUNI ca pe calculator (95px x 76px) */
+    /* Panoul plutitor spre stanga cu butoane patrate */
     .calc-flyout-panel {
         position: absolute;
         right: calc(100% + 14px);
@@ -163,18 +165,25 @@
         to { opacity: 1; transform: translateX(0); }
     }
 
-    /* Grile pentru meniul expandat: butoanele au EXACT aceeasi latime (95px) si inaltime (76px) ca pe calculator */
+    /* Grile pentru meniul expandat: butoane patrate 85px x 85px */
     .flyout-grid-4col {
         display: grid;
-        grid-template-columns: repeat(4, 95px);
-        grid-auto-rows: 76px;
+        grid-template-columns: repeat(4, 85px);
+        grid-auto-rows: 85px;
         gap: 10px;
     }
 
     .flyout-grid-3col {
         display: grid;
-        grid-template-columns: repeat(3, 95px);
-        grid-auto-rows: 76px;
+        grid-template-columns: repeat(3, 85px);
+        grid-auto-rows: 85px;
+        gap: 10px;
+    }
+
+    .flyout-grid-2col {
+        display: grid;
+        grid-template-columns: repeat(2, 85px);
+        grid-auto-rows: 85px;
         gap: 10px;
     }
 
@@ -190,7 +199,9 @@
         outline: none !important;
         width: 100% !important;
         height: 100% !important;
-        min-height: 76px !important;
+        min-width: 85px !important;
+        min-height: 85px !important;
+        aspect-ratio: 1 / 1 !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
@@ -242,7 +253,7 @@
     <!-- 3. Horizontal Separator Line -->
     <div class="calc-divider"></div>
 
-    <!-- 4. Keypad Grid Principal (Exact 4 Coloane x 5 Randuri, cu butoane masive) -->
+    <!-- 4. Keypad Grid Principal (4 Coloane x 5 Randuri, patrate, merg pana jos) -->
     <div class="calc-grid-layout">
         <!-- Randul 1: sin / cos | Ans | ⬅ | AC -->
         <MudButton Class="@($"calc-btn {(_activeFlyout == FlyoutType.Trig ? "active" : "")}")"
@@ -322,9 +333,9 @@
         </MudButton>
     </div>
 
-    <!-- 5. Floating Flyout Panels (Butoanele expandate au ACELEASI dimensiuni: 95px x 76px, fara buton close) -->
+    <!-- 5. Floating Flyout Panels (fara buton close, butoane patrate) -->
     
-    <!-- Flyout 1: Trigonometrie (butoane mari 95px x 76px) -->
+    <!-- Flyout 1: Trigonometrie (butoane patrate 85px x 85px) -->
     @if (_activeFlyout == FlyoutType.Trig)
     {
         <div class="calc-flyout-panel" style="top: 140px;">
@@ -347,10 +358,10 @@
         </div>
     }
 
-    <!-- Flyout 2: Log (butoane mari 95px x 76px) -->
+    <!-- Flyout 2: Log (butoane patrate 85px x 85px) -->
     @if (_activeFlyout == FlyoutType.Log)
     {
-        <div class="calc-flyout-panel" style="top: 226px;">
+        <div class="calc-flyout-panel" style="top: 220px;">
             <div class="flyout-grid-3col">
                 <MudButton Class="flyout-btn" onmousedown="event.preventDefault()" OnClick='() => SelectFunction("log(")'>log</MudButton>
                 <MudButton Class="flyout-btn" onmousedown="event.preventDefault()" OnClick='() => SelectFunction("lg(")'>lg</MudButton>
@@ -359,22 +370,21 @@
         </div>
     }
 
-    <!-- Flyout 3: Constante (butoane mari 95px x 76px) -->
+    <!-- Flyout 3: Constante (EXCLUSIV pi si e, Ans STERS) -->
     @if (_activeFlyout == FlyoutType.Constants)
     {
-        <div class="calc-flyout-panel" style="top: 312px;">
-            <div class="flyout-grid-3col">
+        <div class="calc-flyout-panel" style="top: 290px;">
+            <div class="flyout-grid-2col">
                 <MudButton Class="flyout-btn" onmousedown="event.preventDefault()" OnClick='() => SelectText("pi")'>pi</MudButton>
                 <MudButton Class="flyout-btn" onmousedown="event.preventDefault()" OnClick='() => SelectText("e")'>e</MudButton>
-                <MudButton Class="flyout-btn" onmousedown="event.preventDefault()" OnClick='() => SelectText("Ans")'>Ans</MudButton>
             </div>
         </div>
     }
 
-    <!-- Flyout 4: Puteri si Radicali (butoane mari 95px x 76px) -->
+    <!-- Flyout 4: Puteri si Radicali (butoane patrate 85px x 85px) -->
     @if (_activeFlyout == FlyoutType.Powers)
     {
-        <div class="calc-flyout-panel" style="top: 250px;">
+        <div class="calc-flyout-panel" style="bottom: 14px;">
             <div class="flyout-grid-3col">
                 <MudButton Class="flyout-btn" onmousedown="event.preventDefault()" OnClick='() => SelectText("^2")'>x²</MudButton>
                 <MudButton Class="flyout-btn" onmousedown="event.preventDefault()" OnClick='() => SelectText("^3")'>x³</MudButton>
@@ -389,10 +399,10 @@
         </div>
     }
 
-    <!-- Flyout 5: Numpad (butoane mari 95px x 76px, exact dimensiunea butoanelor din calculator) -->
+    <!-- Flyout 5: Numpad (butoane patrate 85px x 85px) -->
     @if (_activeFlyout == FlyoutType.Numpad)
     {
-        <div class="calc-flyout-panel" style="top: 180px;">
+        <div class="calc-flyout-panel" style="bottom: 14px;">
             <div class="flyout-grid-3col">
                 <MudButton Class="flyout-btn" onmousedown="event.preventDefault()" OnClick='() => AppendDigit("7")'>7</MudButton>
                 <MudButton Class="flyout-btn" onmousedown="event.preventDefault()" OnClick='() => AppendDigit("8")'>8</MudButton>

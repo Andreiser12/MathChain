@@ -24,6 +24,11 @@
         background-color: #005ea6 !important;
         color: #ffffff !important;
         border-radius: 0px !important;
+        border: 2px solid transparent !important;
+    }
+
+    .week-card-current {
+        border: 2px solid #4caf50 !important;
     }
 
     .week-header {
@@ -93,7 +98,7 @@ else
 <!-- Săptămâni disponibile (generate dinamic de la StartDate până la EndDate) -->
 @foreach (var week in _weeks)
 {
-    <MudPaper Elevation="0" Square="true" Class="week-card mb-5 w-100">
+    <MudPaper Elevation="0" Square="true" Class="@($"week-card mb-5 w-100 {(week.IsCurrentWeek ? "week-card-current" : "")}")">
         <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Class="week-header pr-4">
             <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3" Class="h-100">
                 <MudIconButton Icon="@(week.IsOpen ? Icons.Material.Filled.ArrowDownward : Icons.Material.Filled.ArrowForward)"
@@ -160,6 +165,7 @@ else
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public bool IsOpen { get; set; }
+        public bool IsCurrentWeek { get; set; }
         public List<MaterialItem> Materials { get; set; } = new();
     }
 
@@ -288,6 +294,7 @@ else
 
         DateTime currentStart = fromDate.Date;
         int weekNumber = 1;
+        var today = DateTime.Today;
 
         while (currentStart <= toDate.Date)
         {
@@ -295,12 +302,15 @@ else
             DateTime currentSunday = currentStart.AddDays(daysUntilSunday);
             DateTime currentEnd = currentSunday >= toDate.Date ? toDate.Date : currentSunday;
 
+            bool isCurrent = today >= currentStart && today <= currentEnd;
+
             var week = new WeekItem
             {
                 Number = weekNumber++,
                 StartDate = currentStart,
                 EndDate = currentEnd,
-                IsOpen = (weekNumber == 2) // Prima săptămână este deschisă implicit
+                IsCurrentWeek = isCurrent,
+                IsOpen = isCurrent
             };
 
             _weeks.Add(week);

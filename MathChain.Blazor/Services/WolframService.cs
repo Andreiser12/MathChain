@@ -1,6 +1,7 @@
 ﻿using MathChain.Domain.Entities;
 using Microsoft.Extensions.Logging;
 using System.Globalization;
+using System.Text.Json;
 using static MudBlazor.CategoryTypes;
 
 namespace MathChain.Blazor.Services
@@ -52,18 +53,33 @@ namespace MathChain.Blazor.Services
                     $"http://localhost:5065/api/wolfram/solve?query={Uri.EscapeDataString(query)}");
 
                 response.EnsureSuccessStatusCode();
+
                 var content = await response.Content.ReadAsStringAsync();
+
+                using var doc = JsonDocument.Parse(content);
+
+                if (doc.RootElement.TryGetProperty("data", out var dataElem))
+                {
+                    if (dataElem.ValueKind == JsonValueKind.Number)
+                    {
+                        return dataElem.GetDouble();
+                    }
+
+                    if (dataElem.ValueKind == JsonValueKind.String &&
+                        double.TryParse(dataElem.GetString(), NumberStyles.Any, CultureInfo.InvariantCulture, out double parsedVal))
+                    {
+                        return parsedVal;
+                    }
+                }
 
                 return double.Parse(content, CultureInfo.InvariantCulture);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("API call error: " + ex.Message);
+                Console.WriteLine("Math solve error: " + ex.Message);
+
                 return 0;
             }
         }
-
-
-
     }
 }

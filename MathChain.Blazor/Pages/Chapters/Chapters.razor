@@ -38,21 +38,41 @@
 		z-index: 2;
 	}
 
-	.admin-header-actions {
+	.chapter-page-header {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 48px;
+		width: 100%;
+		margin-bottom: 24px;
+	}
+
+	.header-title-box {
+		text-align: center;
+		width: 100%;
+		padding: 0 240px;
+	}
+
+	.header-actions-box {
 		position: absolute;
 		right: 0;
 		top: 50%;
 		transform: translateY(-50%);
+		z-index: 5;
 	}
 
 	@@media (max-width: 960px) {
-		.header-container {
+		.chapter-page-header {
 			flex-direction: column;
+			gap: 16px;
 		}
-		.admin-header-actions {
+		.header-title-box {
+			padding: 0;
+		}
+		.header-actions-box {
 			position: static;
 			transform: none;
-			margin-top: 16px;
 		}
 	}
 </style>
@@ -69,8 +89,8 @@
 		</MudBreadcrumbs>
 	}
 
-	<div class="position-relative d-flex justify-center align-center mb-6 header-container">
-		<div class="text-center px-4">
+	<div class="chapter-page-header mb-6">
+		<div class="header-title-box">
 			<MudText Typo="Typo.h4" Align="Align.Center" Style="font-weight: 600; color: #ffffff;">
 				@PageTitle
 			</MudText>
@@ -84,7 +104,7 @@
 
 		@if (Session.Role == UserRole.Admin)
 		{
-			<div class="admin-header-actions">
+			<div class="header-actions-box">
 				<MudStack Row="true" Spacing="2" AlignItems="AlignItems.Center">
 					@if (IsRootLevel)
 					{
@@ -102,6 +122,13 @@
 								   StartIcon="@Icons.Material.Filled.Add"
 								   OnClick="OpenCreateSubChapterDialog">
 							New Subchapter
+						</MudButton>
+
+						<MudButton Variant="Variant.Outlined"
+								   Color="Color.Success"
+								   StartIcon="@Icons.Material.Filled.Add"
+								   OnClick="OpenCreateFormulaDialog">
+							New Formula
 						</MudButton>
 
 						<MudMenu Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Dense="true">
@@ -131,12 +158,22 @@
 	{
 		@if (HasSubChapters)
 		{
-			@if (HasFormulas)
-			{
-				<MudText Typo="Typo.h5" Style="font-weight: 600; color: #ffffff;" Class="mb-3">
-					Subchapters
+			<div class="d-flex justify-space-between align-center mb-4">
+				<MudText Typo="Typo.h5" Style="font-weight: 600; color: #ffffff;">
+					@(IsRootLevel ? "Chapters" : "Subchapters")
 				</MudText>
-			}
+
+				@if (Session.Role == UserRole.Admin)
+				{
+					<MudButton Variant="Variant.Filled"
+							   Color="Color.Primary"
+							   Size="Size.Small"
+							   StartIcon="@Icons.Material.Filled.Add"
+							   OnClick="@(IsRootLevel ? OpenCreateRootChapterDialog : OpenCreateSubChapterDialog)">
+						@(IsRootLevel ? "New Chapter" : "New Subchapter")
+					</MudButton>
+				}
+			</div>
 
 			<MudGrid Class="@(HasFormulas ? "mb-8" : "")">
 				@foreach (var chapter in DisplayedChapters)
@@ -150,21 +187,27 @@
 							@if (Session.Role == UserRole.Admin)
 							{
 								<div class="card-admin-actions" @onclick:stopPropagation="true">
-									<MudIconButton Icon="@Icons.Material.Filled.Add"
-												   Size="Size.Small"
-												   Color="Color.Primary"
-												   aria-label="Add Subchapter"
-												   OnClick="() => OpenCreateSubForCard(chapter)" />
-									<MudIconButton Icon="@Icons.Material.Filled.Edit"
-												   Size="Size.Small"
-												   Color="Color.Warning"
-												   aria-label="Edit"
-												   OnClick="() => OpenEditCard(chapter)" />
-									<MudIconButton Icon="@Icons.Material.Filled.Delete"
-												   Size="Size.Small"
-												   Color="Color.Error"
-												   aria-label="Delete"
-												   OnClick="() => ConfirmDeleteCard(chapter)" />
+									<MudTooltip Text="Add Subchapter" Arrow="true" Placement="Placement.Top">
+										<MudIconButton Icon="@Icons.Material.Filled.Add"
+													   Size="Size.Small"
+													   Color="Color.Primary"
+													   aria-label="Add Subchapter"
+													   OnClick="() => OpenCreateSubForCard(chapter)" />
+									</MudTooltip>
+									<MudTooltip Text="Edit Chapter" Arrow="true" Placement="Placement.Top">
+										<MudIconButton Icon="@Icons.Material.Filled.Edit"
+													   Size="Size.Small"
+													   Color="Color.Warning"
+													   aria-label="Edit"
+													   OnClick="() => OpenEditCard(chapter)" />
+									</MudTooltip>
+									<MudTooltip Text="Delete Chapter" Arrow="true" Placement="Placement.Top">
+										<MudIconButton Icon="@Icons.Material.Filled.Delete"
+													   Size="Size.Small"
+													   Color="Color.Error"
+													   aria-label="Delete"
+													   OnClick="() => ConfirmDeleteCard(chapter)" />
+									</MudTooltip>
 								</div>
 							}
 
@@ -203,6 +246,19 @@
 											</MudChip>
 										}
 									</div>
+
+									@if (Session.Role == UserRole.Admin)
+									{
+										<div class="mt-3 pt-2 d-flex justify-center w-100" style="border-top: 1px solid rgba(255, 255, 255, 0.08);" @onclick:stopPropagation="true">
+											<MudButton Variant="Variant.Text"
+													   Color="Color.Primary"
+													   Size="Size.Small"
+													   StartIcon="@Icons.Material.Filled.Add"
+													   OnClick="() => OpenCreateSubForCard(chapter)">
+												New Subchapter
+											</MudButton>
+										</div>
+									}
 								</MudCardContent>
 							</div>
 						</MudCard>
@@ -213,18 +269,44 @@
 
 		@if (HasFormulas)
 		{
-			@if (HasSubChapters)
-			{
-				<MudText Typo="Typo.h5" Style="font-weight: 600; color: #ffffff;" Class="mb-3">
+			<div class="d-flex justify-space-between align-center mb-3">
+				<MudText Typo="Typo.h5" Style="font-weight: 600; color: #ffffff;">
 					Formulas
 				</MudText>
-			}
+
+				@if (Session.Role == UserRole.Admin)
+				{
+					<MudButton Variant="Variant.Outlined"
+							   Color="Color.Success"
+							   Size="Size.Small"
+							   StartIcon="@Icons.Material.Filled.Add"
+							   OnClick="OpenCreateFormulaDialog">
+						New Formula
+					</MudButton>
+				}
+			</div>
 
 			<MudGrid>
 				@foreach (var formula in _formulas)
 				{
 					<MudItem xs="12" sm="6" md="4">
-						<MudCard Elevation="4" Class="pa-4 h-100" Style="background-color: #222222; border-radius: 8px;">
+						<MudCard Elevation="4" Class="pa-4 h-100 position-relative" Style="background-color: #222222; border-radius: 8px;">
+							@if (Session.Role == UserRole.Admin)
+							{
+								<div class="card-admin-actions" @onclick:stopPropagation="true">
+									<MudIconButton Icon="@Icons.Material.Filled.Edit"
+												   Size="Size.Small"
+												   Color="Color.Warning"
+												   aria-label="Edit Formula"
+												   OnClick="() => OpenEditFormula(formula)" />
+									<MudIconButton Icon="@Icons.Material.Filled.Delete"
+												   Size="Size.Small"
+												   Color="Color.Error"
+												   aria-label="Delete Formula"
+												   OnClick="() => ConfirmDeleteFormula(formula)" />
+								</div>
+							}
+
 							<div class="formula-card"
 								 @onmouseenter="(() => Load3DModel(formula))"
 								 @onmouseleave="(() => Unload3DModel(formula))"
@@ -255,7 +337,7 @@
 			<MudText Typo="Typo.body1" Class="mt-2 mb-6" Style="color: rgba(255, 255, 255, 0.6); max-width: 600px; margin: 0 auto;">
 				@if (Session.Role == UserRole.Admin)
 				{
-					<span>You can use the button below to create the first subchapter or edit this chapter to link formulas.</span>
+					<span>You can use the buttons below to create a subchapter or add the first formula.</span>
 				}
 				else
 				{
@@ -265,13 +347,23 @@
 
 			@if (Session.Role == UserRole.Admin)
 			{
-				<MudButton Variant="Variant.Filled"
-						   Color="Color.Primary"
-						   Size="Size.Large"
-						   StartIcon="@Icons.Material.Filled.Add"
-						   OnClick="OpenCreateSubChapterDialog">
-					New Subchapter
-				</MudButton>
+				<MudStack Row="true" Spacing="2" Justify="Justify.Center">
+					<MudButton Variant="Variant.Filled"
+							   Color="Color.Primary"
+							   Size="Size.Large"
+							   StartIcon="@Icons.Material.Filled.Add"
+							   OnClick="OpenCreateSubChapterDialog">
+						New Subchapter
+					</MudButton>
+
+					<MudButton Variant="Variant.Outlined"
+							   Color="Color.Success"
+							   Size="Size.Large"
+							   StartIcon="@Icons.Material.Filled.Add"
+							   OnClick="OpenCreateFormulaDialog">
+						New Formula
+					</MudButton>
+				</MudStack>
 			}
 		</MudPaper>
 	}
@@ -361,9 +453,27 @@
 						_breadcrumbItems.Add(new BreadcrumbItem(b.Title, $"/chapters/{b.Slug}"));
 					}
 
-					// Try to load formulas from IPFS if IpfsHash exists
-					if (!string.IsNullOrEmpty(_currentDetail.Chapter.IpfsHash))
+					// 1. Try to load formulas from Database via API first!
+					var dbFormulas = await Api.GetFormulasByChapterAsync(_currentDetail.Chapter.Id.ToString());
+					if (dbFormulas.Any())
 					{
+						_formulas = dbFormulas.Select(f => new Formula
+						{
+							Id = f.Id,
+							Title = f.Title,
+							FormulaCode = f.FormulaCode,
+							Latex = f.Latex.StartsWith("$$") ? f.Latex : $"$${f.Latex}$$",
+							ModelPath = f.Model3D ?? "",
+							Category = _currentDetail.Chapter.Category,
+							Description = f.Description ?? "",
+							Requirement = f.Requirement ?? "",
+							ExercisesJson = f.ExercisesJson,
+							Order = f.Order
+						}).ToList();
+					}
+					else if (!string.IsNullOrEmpty(_currentDetail.Chapter.IpfsHash))
+					{
+						// Fallback to IPFS/JSON if DB has none yet
 						await LoadCurriculumFormulasAsync(_currentDetail.Chapter.ChapterSlug, _currentDetail.Chapter.IpfsHash);
 					}
 				}
@@ -391,6 +501,7 @@
 				_formulas = curriculum.Formulas.Select(f => new Formula
 				{
 					Id = Guid.NewGuid(),
+					Title = f.Title,
 					Latex = f.Latex.StartsWith("$$") ? f.Latex : $"$${f.Latex}$$",
 					ModelPath = f.Model3D,
 					Category = curriculum.Category,
@@ -435,7 +546,7 @@
 		return url;
 	}
 
-	#region Admin Actions
+	#region Admin Chapter Actions
 
 	private async Task OpenCreateRootChapterDialog()
 	{
@@ -607,6 +718,104 @@
 			else
 			{
 				Snackbar.Add("Failed to delete chapter.", Severity.Error);
+			}
+		}
+	}
+
+	#endregion
+
+	#region Admin Formula Actions
+
+	private async Task OpenCreateFormulaDialog()
+	{
+		if (_currentDetail == null) return;
+
+		var parameters = new DialogParameters<CreateEditFormulaDialog>
+		{
+			{ x => x.IsEdit, false },
+			{ x => x.ChapterTitle, _currentDetail.Chapter.Title }
+		};
+
+		var dialog = await DialogService.ShowAsync<CreateEditFormulaDialog>("New Formula", parameters, _dialogOptions);
+		var result = await dialog.Result;
+
+		if (result != null && !result.Canceled && result.Data is CreateFormulaDto dto)
+		{
+			var created = await Api.CreateFormulaAsync(_currentDetail.Chapter.Id, dto);
+			if (created != null)
+			{
+				Snackbar.Add($"Formula '{created.Title}' created successfully!", Severity.Success);
+				await LoadDataAsync();
+			}
+			else
+			{
+				Snackbar.Add("Failed to create formula.", Severity.Error);
+			}
+		}
+	}
+
+	private async Task OpenEditFormula(Formula formula)
+	{
+		if (_currentDetail == null) return;
+
+		var existingDto = new CurriculumFormulaDto
+		{
+			Id = formula.Id,
+			ChapterId = _currentDetail.Chapter.Id,
+			FormulaCode = formula.FormulaCode,
+			Title = formula.Title,
+			Latex = formula.Latex,
+			Model3D = formula.ModelPath,
+			Description = formula.Description,
+			Requirement = formula.Requirement,
+			ExercisesJson = formula.ExercisesJson,
+			Order = formula.Order
+		};
+
+		var parameters = new DialogParameters<CreateEditFormulaDialog>
+		{
+			{ x => x.IsEdit, true },
+			{ x => x.ChapterTitle, _currentDetail.Chapter.Title },
+			{ x => x.ExistingFormula, existingDto }
+		};
+
+		var dialog = await DialogService.ShowAsync<CreateEditFormulaDialog>("Edit Formula", parameters, _dialogOptions);
+		var result = await dialog.Result;
+
+		if (result != null && !result.Canceled && result.Data is UpdateFormulaDto dto)
+		{
+			var updated = await Api.UpdateFormulaAsync(formula.Id, dto);
+			if (updated != null)
+			{
+				Snackbar.Add($"Formula '{updated.Title}' updated successfully!", Severity.Success);
+				await LoadDataAsync();
+			}
+			else
+			{
+				Snackbar.Add("Failed to update formula.", Severity.Error);
+			}
+		}
+	}
+
+	private async Task ConfirmDeleteFormula(Formula formula)
+	{
+		bool? confirmed = await DialogService.ShowMessageBoxAsync(
+			"Delete Formula",
+			$"Are you sure you want to delete formula '{formula.Title}'?",
+			yesText: "Delete",
+			cancelText: "Cancel");
+
+		if (confirmed == true)
+		{
+			var success = await Api.DeleteFormulaAsync(formula.Id);
+			if (success)
+			{
+				Snackbar.Add($"Formula '{formula.Title}' was deleted.", Severity.Info);
+				await LoadDataAsync();
+			}
+			else
+			{
+				Snackbar.Add("Failed to delete formula.", Severity.Error);
 			}
 		}
 	}

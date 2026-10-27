@@ -1,4 +1,4 @@
-﻿using MathChain.Domain.Entities;
+using MathChain.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -26,6 +26,7 @@ namespace MathChain.Persistence.Context
         public DbSet<MessageComment> MessagesComments { get; set; }
         public DbSet<ClassMedia> ClassMedia { get; set; }
         public DbSet<CurriculumChapter> CurriculumChapters { get; set; }
+        public DbSet<CurriculumFormula> CurriculumFormulas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

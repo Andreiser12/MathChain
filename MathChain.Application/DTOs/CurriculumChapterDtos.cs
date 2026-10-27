@@ -60,4 +60,43 @@ namespace MathChain.Application.DTOs
         public int Order { get; set; }
         public int FormulasCount { get; set; } = 0;
     }
+
+    public class CurriculumFormulaResponseDto
+    {
+        public Guid Id { get; set; }
+        public Guid ChapterId { get; set; }
+        public string FormulaCode { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
+        public string Latex { get; set; } = string.Empty;
+        public string? Description { get; set; }
+        public string? Requirement { get; set; }
+        public string? Model3D { get; set; }
+        public string? ExercisesJson { get; set; }
+        public int Order { get; set; }
+        public DateTime UpdatedAt { get; set; }
+    }
+
+    public class CreateFormulaRequest
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Latex { get; set; } = string.Empty;
+        public string? FormulaCode { get; set; }
+        public string? Description { get; set; }
+        public string? Requirement { get; set; }
+        public string? Model3D { get; set; }
+        public string? ExercisesJson { get; set; }
+        public int Order { get; set; } = 0;
+    }
+
+    public class UpdateFormulaRequest
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Latex { get; set; } = string.Empty;
+        public string? FormulaCode { get; set; }
+        public string? Description { get; set; }
+        public string? Requirement { get; set; }
+        public string? Model3D { get; set; }
+        public string? ExercisesJson { get; set; }
+        public int Order { get; set; } = 0;
+    }
 }

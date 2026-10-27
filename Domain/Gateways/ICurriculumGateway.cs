@@ -17,5 +17,12 @@ namespace MathChain.Domain.Gateways
         Task<CurriculumChapter> UpdateAsync(CurriculumChapter chapter);
         Task<bool> DeleteAsync(Guid id);
         Task UpdateIpfsHashAsync(string slug, string newIpfsHash);
+
+        // Formulas
+        Task<List<CurriculumFormula>> GetFormulasByChapterIdAsync(Guid chapterId);
+        Task<CurriculumFormula?> GetFormulaByIdAsync(Guid id);
+        Task<CurriculumFormula> CreateFormulaAsync(CurriculumFormula formula);
+        Task<CurriculumFormula> UpdateFormulaAsync(CurriculumFormula formula);
+        Task<bool> DeleteFormulaAsync(Guid id);
     }
 }

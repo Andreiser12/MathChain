@@ -146,6 +146,34 @@ namespace MathChain.Blazor.Services
             return await ReadEnvelopeSuccessAsync(response);
         }
 
+        public async Task<List<CurriculumFormulaDto>> GetFormulasByChapterAsync(string idOrSlug)
+        {
+            var response = await _httpClient.GetAsync($"{_baseUrl}/curriculum/{Uri.EscapeDataString(idOrSlug)}/formulas");
+            return await ReadEnvelopeListAsync<CurriculumFormulaDto>(response);
+        }
+
+        public async Task<CurriculumFormulaDto?> CreateFormulaAsync(Guid chapterId, CreateFormulaDto dto)
+        {
+            var json = JsonSerializer.Serialize(dto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync($"{_baseUrl}/curriculum/{chapterId}/formulas", content);
+            return await ReadEnvelopeDataAsync<CurriculumFormulaDto>(response);
+        }
+
+        public async Task<CurriculumFormulaDto?> UpdateFormulaAsync(Guid id, UpdateFormulaDto dto)
+        {
+            var json = JsonSerializer.Serialize(dto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PutAsync($"{_baseUrl}/curriculum/formulas/{id}", content);
+            return await ReadEnvelopeDataAsync<CurriculumFormulaDto>(response);
+        }
+
+        public async Task<bool> DeleteFormulaAsync(Guid id)
+        {
+            var response = await _httpClient.DeleteAsync($"{_baseUrl}/curriculum/formulas/{id}");
+            return await ReadEnvelopeSuccessAsync(response);
+        }
+
         private async Task<T?> ReadEnvelopeDataAsync<T>(HttpResponseMessage response)
         {
             if (!response.IsSuccessStatusCode)

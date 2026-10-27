@@ -72,6 +72,35 @@ namespace MathChain.API.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
+        // Formula endpoints
+        [HttpGet("{idOrSlug}/formulas")]
+        public async Task<IActionResult> GetChapterFormulas(string idOrSlug)
+        {
+            var result = await _curriculumContext.GetFormulasByChapterAsync(idOrSlug);
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpPost("{chapterId:guid}/formulas")]
+        public async Task<IActionResult> CreateFormula(Guid chapterId, [FromBody] CreateFormulaRequest request)
+        {
+            var result = await _curriculumContext.CreateFormulaAsync(chapterId, request);
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpPut("formulas/{id:guid}")]
+        public async Task<IActionResult> UpdateFormula(Guid id, [FromBody] UpdateFormulaRequest request)
+        {
+            var result = await _curriculumContext.UpdateFormulaAsync(id, request);
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpDelete("formulas/{id:guid}")]
+        public async Task<IActionResult> DeleteFormula(Guid id)
+        {
+            var result = await _curriculumContext.DeleteFormulaAsync(id);
+            return StatusCode(result.StatusCode, result);
+        }
+
         public class UpdateIpfsHashRequest
         {
             public string IpfsHash { get; set; } = string.Empty;

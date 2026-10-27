@@ -148,11 +148,71 @@ namespace MathChain.Gateway.Repositories
             if (chapter != null)
             {
                 chapter.IpfsHash = newIpfsHash;
-                chapter.Version += 1;
                 chapter.UpdatedAt = DateTime.UtcNow;
-
                 await _context.SaveChangesAsync();
             }
+        }
+
+        // Formulas
+        public async Task<List<CurriculumFormula>> GetFormulasByChapterIdAsync(Guid chapterId)
+        {
+            return await _context.CurriculumFormulas
+                .AsNoTracking()
+                .Where(f => f.ChapterId == chapterId)
+                .OrderBy(f => f.Order)
+                .ThenBy(f => f.CreatedAt)
+                .ToListAsync();
+        }
+
+        public async Task<CurriculumFormula?> GetFormulaByIdAsync(Guid id)
+        {
+            return await _context.CurriculumFormulas
+                .AsNoTracking()
+                .FirstOrDefaultAsync(f => f.Id == id);
+        }
+
+        public async Task<CurriculumFormula> CreateFormulaAsync(CurriculumFormula formula)
+        {
+            formula.CreatedAt = DateTime.UtcNow;
+            formula.UpdatedAt = DateTime.UtcNow;
+            _context.CurriculumFormulas.Add(formula);
+            await _context.SaveChangesAsync();
+            return formula;
+        }
+
+        public async Task<CurriculumFormula> UpdateFormulaAsync(CurriculumFormula formula)
+        {
+            var existing = await _context.CurriculumFormulas.FirstOrDefaultAsync(f => f.Id == formula.Id);
+            if (existing == null)
+            {
+                throw new KeyNotFoundException($"Formula with ID '{formula.Id}' was not found.");
+            }
+
+            existing.FormulaCode = formula.FormulaCode;
+            existing.Title = formula.Title;
+            existing.Latex = formula.Latex;
+            existing.Description = formula.Description;
+            existing.Requirement = formula.Requirement;
+            existing.Model3D = formula.Model3D;
+            existing.ExercisesJson = formula.ExercisesJson;
+            existing.Order = formula.Order;
+            existing.UpdatedAt = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
+            return existing;
+        }
+
+        public async Task<bool> DeleteFormulaAsync(Guid id)
+        {
+            var formula = await _context.CurriculumFormulas.FirstOrDefaultAsync(f => f.Id == id);
+            if (formula == null)
+            {
+                return false;
+            }
+
+            _context.CurriculumFormulas.Remove(formula);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

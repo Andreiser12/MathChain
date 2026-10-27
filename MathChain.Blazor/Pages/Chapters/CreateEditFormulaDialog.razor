@@ -1,0 +1,153 @@
+@using MathChain.Blazor.DTOs
+@using MudBlazor
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6" Style="font-weight: 600;">
+            <MudIcon Icon="@(IsEdit ? Icons.Material.Filled.Edit : Icons.Material.Filled.AddCircle)" Class="mr-2" />
+            @DialogTitle
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudStack Spacing="3" Class="pt-2">
+            @if (ChapterTitle != null)
+            {
+                <MudAlert Severity="Severity.Info" Dense="true" Class="mb-1">
+                    Chapter: <strong>@ChapterTitle</strong>
+                </MudAlert>
+            }
+
+            <MudTextField @bind-Value="_title"
+                          Label="Formula Title"
+                          Variant="Variant.Outlined"
+                          Required="true"
+                          RequiredError="Title is required"
+                          HelperText="e.g. Constant Rule, Power Rule, Integration by Parts" />
+
+            <MudTextField @bind-Value="_latex"
+                          Label="LaTeX Formula"
+                          Variant="Variant.Outlined"
+                          Required="true"
+                          RequiredError="LaTeX code is required"
+                          HelperText="LaTeX math notation (e.g. \int a \, dx = ax + C or x^2 + y^2 = r^2)" />
+
+            <MudTextField @bind-Value="_description"
+                          Label="Description (optional)"
+                          Variant="Variant.Outlined"
+                          Lines="2" />
+
+            <MudTextField @bind-Value="_requirement"
+                          Label="Requirement / Template (optional)"
+                          Variant="Variant.Outlined"
+                          HelperText="Exercise problem requirement or template prompt" />
+
+            <MudTextField @bind-Value="_model3D"
+                          Label="3D Model Path (optional)"
+                          Variant="Variant.Outlined"
+                          HelperText="Path to 3D .glb model (e.g. Assets/3DModels/inta.glb)" />
+
+            <MudNumericField @bind-Value="_order"
+                             Label="Display Order"
+                             Variant="Variant.Outlined"
+                             Min="1" />
+        </MudStack>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel" Variant="Variant.Text">Cancel</MudButton>
+        <MudButton OnClick="Save" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Save">
+            Save
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; } = null!;
+
+    [Parameter]
+    public bool IsEdit { get; set; } = false;
+
+    [Parameter]
+    public string? ChapterTitle { get; set; }
+
+    [Parameter]
+    public CurriculumFormulaDto? ExistingFormula { get; set; }
+
+    private string DialogTitle => IsEdit ? "Edit Formula" : "New Formula";
+
+    private string _title = string.Empty;
+    private string _latex = string.Empty;
+    private string _description = string.Empty;
+    private string _requirement = string.Empty;
+    private string _model3D = string.Empty;
+    private int _order = 1;
+
+    protected override void OnInitialized()
+    {
+        if (IsEdit && ExistingFormula != null)
+        {
+            _title = ExistingFormula.Title;
+            _latex = ExistingFormula.Latex.Replace("$$", "").Trim();
+            _description = ExistingFormula.Description ?? string.Empty;
+            _requirement = ExistingFormula.Requirement ?? string.Empty;
+            _model3D = ExistingFormula.Model3D ?? string.Empty;
+            _order = ExistingFormula.Order;
+        }
+    }
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private void Save()
+    {
+        if (string.IsNullOrWhiteSpace(_title))
+        {
+            Snackbar.Add("Title is required!", Severity.Warning);
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(_latex))
+        {
+            Snackbar.Add("LaTeX formula code is required!", Severity.Warning);
+            return;
+        }
+
+        var cleanLatex = _latex.Trim();
+        if (cleanLatex.StartsWith("$$") && cleanLatex.EndsWith("$$") && cleanLatex.Length > 4)
+        {
+            cleanLatex = cleanLatex.Substring(2, cleanLatex.Length - 4).Trim();
+        }
+
+        if (IsEdit && ExistingFormula != null)
+        {
+            var updateDto = new UpdateFormulaDto
+            {
+                Title = _title.Trim(),
+                Latex = cleanLatex,
+                FormulaCode = ExistingFormula.FormulaCode,
+                Description = _description.Trim(),
+                Requirement = _requirement.Trim(),
+                Model3D = _model3D.Trim(),
+                ExercisesJson = ExistingFormula.ExercisesJson,
+                Order = _order
+            };
+            MudDialog.Close(DialogResult.Ok(updateDto));
+        }
+        else
+        {
+            var createDto = new CreateFormulaDto
+            {
+                Title = _title.Trim(),
+                Latex = cleanLatex,
+                Description = _description.Trim(),
+                Requirement = _requirement.Trim(),
+                Model3D = _model3D.Trim(),
+                Order = _order
+            };
+            MudDialog.Close(DialogResult.Ok(createDto));
+        }
+    }
+}

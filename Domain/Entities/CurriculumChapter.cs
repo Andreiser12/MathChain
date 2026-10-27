@@ -25,5 +25,8 @@ namespace MathChain.Domain.Entities
 
         [JsonIgnore]
         public ICollection<CurriculumChapter> SubChapters { get; set; } = new List<CurriculumChapter>();
+
+        [JsonIgnore]
+        public ICollection<CurriculumFormula> Formulas { get; set; } = new List<CurriculumFormula>();
     }
 }

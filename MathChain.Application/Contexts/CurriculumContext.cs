@@ -1,10 +1,12 @@
 using MathChain.Application.DTOs;
 using MathChain.Domain.Entities;
 using MathChain.Domain.Gateways;
+using MathChain.Infrastructure.Ipfs;
 using MathChain.Infrastructure.ResponseHandling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -13,10 +15,12 @@ namespace MathChain.Application.Contexts
     public class CurriculumContext : ICurriculumContext
     {
         private readonly ICurriculumGateway _curriculumGateway;
+        private readonly IIpfsStorageService? _ipfsStorageService;
 
-        public CurriculumContext(ICurriculumGateway curriculumGateway)
+        public CurriculumContext(ICurriculumGateway curriculumGateway, IIpfsStorageService? ipfsStorageService = null)
         {
             _curriculumGateway = curriculumGateway;
+            _ipfsStorageService = ipfsStorageService;
         }
 
         public async Task<Envelope<List<CurriculumChapterResponseDto>>> GetAllChaptersAsync()
@@ -212,6 +216,201 @@ namespace MathChain.Application.Contexts
             var updated = await _curriculumGateway.GetBySlugAsync(slug);
             return EnvelopeExtensions.Success(updated!, "The IPFS hash was successfully updated.");
         }
+
+        #region Formulas CRUD & Hybrid Sync
+
+        public async Task<Envelope<List<CurriculumFormulaResponseDto>>> GetFormulasByChapterAsync(string idOrSlug)
+        {
+            if (string.IsNullOrWhiteSpace(idOrSlug))
+            {
+                return EnvelopeExtensions.Failure<List<CurriculumFormulaResponseDto>>("Chapter identifier is required.", 400);
+            }
+
+            CurriculumChapter? chapter;
+            if (Guid.TryParse(idOrSlug, out var id))
+            {
+                chapter = await _curriculumGateway.GetByIdAsync(id);
+            }
+            else
+            {
+                chapter = await _curriculumGateway.GetBySlugAsync(idOrSlug);
+            }
+
+            if (chapter == null)
+            {
+                return EnvelopeExtensions.Failure<List<CurriculumFormulaResponseDto>>($"Chapter '{idOrSlug}' was not found.", 404);
+            }
+
+            var formulas = await _curriculumGateway.GetFormulasByChapterIdAsync(chapter.Id);
+            var dtos = formulas.Select(MapFormulaToDto).ToList();
+            return EnvelopeExtensions.Success(dtos, "Formulas retrieved successfully.");
+        }
+
+        public async Task<Envelope<CurriculumFormulaResponseDto>> CreateFormulaAsync(Guid chapterId, CreateFormulaRequest request)
+        {
+            if (request == null || string.IsNullOrWhiteSpace(request.Title) || string.IsNullOrWhiteSpace(request.Latex))
+            {
+                return EnvelopeExtensions.Failure<CurriculumFormulaResponseDto>("Title and LaTeX formula are required.", 400);
+            }
+
+            var chapter = await _curriculumGateway.GetByIdAsync(chapterId);
+            if (chapter == null)
+            {
+                return EnvelopeExtensions.Failure<CurriculumFormulaResponseDto>($"Chapter with ID '{chapterId}' was not found.", 404);
+            }
+
+            var existingFormulas = await _curriculumGateway.GetFormulasByChapterIdAsync(chapterId);
+            string code = !string.IsNullOrWhiteSpace(request.FormulaCode)
+                ? request.FormulaCode
+                : $"{chapter.ChapterSlug}-f{existingFormulas.Count + 1}";
+
+            var formula = new CurriculumFormula
+            {
+                Id = Guid.NewGuid(),
+                ChapterId = chapterId,
+                FormulaCode = code,
+                Title = request.Title.Trim(),
+                Latex = request.Latex.Trim(),
+                Description = request.Description?.Trim(),
+                Requirement = request.Requirement?.Trim(),
+                Model3D = request.Model3D?.Trim(),
+                ExercisesJson = request.ExercisesJson,
+                Order = request.Order > 0 ? request.Order : existingFormulas.Count + 1,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+
+            var created = await _curriculumGateway.CreateFormulaAsync(formula);
+            existingFormulas.Add(created);
+
+            chapter.FormulasCount = existingFormulas.Count;
+            await SyncChapterToIpfsAsync(chapter, existingFormulas);
+            await _curriculumGateway.UpdateAsync(chapter);
+
+            return EnvelopeExtensions.Success(MapFormulaToDto(created), "Formula created successfully.", 201);
+        }
+
+        public async Task<Envelope<CurriculumFormulaResponseDto>> UpdateFormulaAsync(Guid id, UpdateFormulaRequest request)
+        {
+            if (request == null || string.IsNullOrWhiteSpace(request.Title) || string.IsNullOrWhiteSpace(request.Latex))
+            {
+                return EnvelopeExtensions.Failure<CurriculumFormulaResponseDto>("Title and LaTeX formula are required.", 400);
+            }
+
+            var formula = await _curriculumGateway.GetFormulaByIdAsync(id);
+            if (formula == null)
+            {
+                return EnvelopeExtensions.Failure<CurriculumFormulaResponseDto>($"Formula with ID '{id}' was not found.", 404);
+            }
+
+            formula.Title = request.Title.Trim();
+            formula.Latex = request.Latex.Trim();
+            if (!string.IsNullOrWhiteSpace(request.FormulaCode)) formula.FormulaCode = request.FormulaCode.Trim();
+            formula.Description = request.Description?.Trim();
+            formula.Requirement = request.Requirement?.Trim();
+            formula.Model3D = request.Model3D?.Trim();
+            if (request.ExercisesJson != null) formula.ExercisesJson = request.ExercisesJson;
+            formula.Order = request.Order;
+            formula.UpdatedAt = DateTime.UtcNow;
+
+            var updated = await _curriculumGateway.UpdateFormulaAsync(formula);
+
+            var chapter = await _curriculumGateway.GetByIdAsync(formula.ChapterId);
+            if (chapter != null)
+            {
+                var existingFormulas = await _curriculumGateway.GetFormulasByChapterIdAsync(chapter.Id);
+                await SyncChapterToIpfsAsync(chapter, existingFormulas);
+                await _curriculumGateway.UpdateAsync(chapter);
+            }
+
+            return EnvelopeExtensions.Success(MapFormulaToDto(updated), "Formula updated successfully.");
+        }
+
+        public async Task<Envelope<bool>> DeleteFormulaAsync(Guid id)
+        {
+            var formula = await _curriculumGateway.GetFormulaByIdAsync(id);
+            if (formula == null)
+            {
+                return EnvelopeExtensions.Failure<bool>($"Formula with ID '{id}' was not found.", 404);
+            }
+
+            var chapterId = formula.ChapterId;
+            var deleted = await _curriculumGateway.DeleteFormulaAsync(id);
+
+            if (deleted)
+            {
+                var chapter = await _curriculumGateway.GetByIdAsync(chapterId);
+                if (chapter != null)
+                {
+                    var existingFormulas = await _curriculumGateway.GetFormulasByChapterIdAsync(chapter.Id);
+                    chapter.FormulasCount = existingFormulas.Count;
+                    await SyncChapterToIpfsAsync(chapter, existingFormulas);
+                    await _curriculumGateway.UpdateAsync(chapter);
+                }
+            }
+
+            return EnvelopeExtensions.Success(deleted, "Formula deleted successfully.");
+        }
+
+        private async Task SyncChapterToIpfsAsync(CurriculumChapter chapter, List<CurriculumFormula> formulas)
+        {
+            if (_ipfsStorageService == null) return;
+            try
+            {
+                var payload = new
+                {
+                    chapterId = chapter.ChapterSlug,
+                    title = chapter.Title,
+                    category = chapter.Category,
+                    version = $"{chapter.Version}.0",
+                    description = chapter.Description ?? "",
+                    formulas = formulas.OrderBy(f => f.Order).Select(f => new
+                    {
+                        id = f.FormulaCode,
+                        title = f.Title,
+                        latex = f.Latex,
+                        model3D = f.Model3D ?? "",
+                        description = f.Description ?? "",
+                        requirement = f.Requirement ?? "",
+                        exercises = !string.IsNullOrWhiteSpace(f.ExercisesJson)
+                            ? JsonSerializer.Deserialize<object>(f.ExercisesJson)
+                            : new object[0]
+                    }).ToList()
+                };
+
+                var jsonString = JsonSerializer.Serialize(payload, new JsonSerializerOptions { WriteIndented = true });
+                var bytes = System.Text.Encoding.UTF8.GetBytes(jsonString);
+                var uploadRes = await _ipfsStorageService.SaveFileAsync(bytes);
+                if (uploadRes.Success && !string.IsNullOrWhiteSpace(uploadRes.Data))
+                {
+                    chapter.IpfsHash = uploadRes.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[IPFS Background Sync] Warning: {ex.Message}");
+            }
+        }
+
+        private static CurriculumFormulaResponseDto MapFormulaToDto(CurriculumFormula f)
+        {
+            return new CurriculumFormulaResponseDto
+            {
+                Id = f.Id,
+                ChapterId = f.ChapterId,
+                FormulaCode = f.FormulaCode,
+                Title = f.Title,
+                Latex = f.Latex,
+                Description = f.Description,
+                Requirement = f.Requirement,
+                Model3D = f.Model3D,
+                ExercisesJson = f.ExercisesJson,
+                Order = f.Order,
+                UpdatedAt = f.UpdatedAt
+            };
+        }
+
+        #endregion
 
         private static (int TotalSubs, int TotalFormulas) ComputeDescendantStats(Guid chapterId, ILookup<Guid?, CurriculumChapter> childrenLookup)
         {

@@ -112,6 +112,40 @@ namespace MathChain.Blazor.Services
             return await ReadEnvelopeDataAsync<UserDto>(response);
         }
 
+        public async Task<List<CurriculumChapterDto>> GetRootChaptersAsync()
+        {
+            var response = await _httpClient.GetAsync($"{_baseUrl}/curriculum/roots");
+            return await ReadEnvelopeListAsync<CurriculumChapterDto>(response);
+        }
+
+        public async Task<ChapterDetailDto?> GetChapterDetailAsync(string idOrSlug)
+        {
+            var response = await _httpClient.GetAsync($"{_baseUrl}/curriculum/{Uri.EscapeDataString(idOrSlug)}");
+            return await ReadEnvelopeDataAsync<ChapterDetailDto>(response);
+        }
+
+        public async Task<CurriculumChapterDto?> CreateChapterAsync(CreateChapterDto dto)
+        {
+            var json = JsonSerializer.Serialize(dto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync($"{_baseUrl}/curriculum", content);
+            return await ReadEnvelopeDataAsync<CurriculumChapterDto>(response);
+        }
+
+        public async Task<CurriculumChapterDto?> UpdateChapterAsync(Guid id, UpdateChapterDto dto)
+        {
+            var json = JsonSerializer.Serialize(dto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PutAsync($"{_baseUrl}/curriculum/{id}", content);
+            return await ReadEnvelopeDataAsync<CurriculumChapterDto>(response);
+        }
+
+        public async Task<bool> DeleteChapterAsync(Guid id)
+        {
+            var response = await _httpClient.DeleteAsync($"{_baseUrl}/curriculum/{id}");
+            return await ReadEnvelopeSuccessAsync(response);
+        }
+
         private async Task<T?> ReadEnvelopeDataAsync<T>(HttpResponseMessage response)
         {
             if (!response.IsSuccessStatusCode)

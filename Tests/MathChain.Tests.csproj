@@ -18,6 +18,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\MathChain.Domain.csproj" />
+    <ProjectReference Include="..\MathChain.Persistence\MathChain.Persistence.csproj" />
+    <ProjectReference Include="..\MathChain.Gateway\MathChain.Gateway.csproj" />
+    <ProjectReference Include="..\MathChain.Application\MathChain.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

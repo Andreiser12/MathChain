@@ -1,0 +1,157 @@
+@using MathChain.Blazor.DTOs
+@using MudBlazor
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6" Style="font-weight: 600;">
+            <MudIcon Icon="@(IsEdit ? Icons.Material.Filled.Edit : Icons.Material.Filled.AddCircle)" Class="mr-2" />
+            @DialogTitle
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudStack Spacing="3" Class="pt-2">
+            @if (ParentTitle != null)
+            {
+                <MudAlert Severity="Severity.Info" Dense="true" Class="mb-1">
+                    Parent: <strong>@ParentTitle</strong>
+                </MudAlert>
+            }
+
+            <MudTextField @bind-Value="_title"
+                          Label="Chapter Title"
+                          Variant="Variant.Outlined"
+                          Required="true"
+                          RequiredError="Title is required"
+                          Immediate="true"
+                          HelperText="Display title of the chapter (e.g. Linear Algebra, Integrals)" />
+
+            <MudTextField @bind-Value="_category"
+                          Label="Category"
+                          Variant="Variant.Outlined"
+                          HelperText="e.g. Calculus, Algebra, Geometry (optional)" />
+
+            <MudTextField @bind-Value="_description"
+                          Label="Description (optional)"
+                          Variant="Variant.Outlined"
+                          Lines="2" />
+
+            <MudTextField @bind-Value="_imageUrl"
+                          Label="Image Path or Custom URL"
+                          Variant="Variant.Outlined"
+                          HelperText="Image path (e.g. Assets/Images/Calculus_Image.png)" />
+
+            <MudNumericField @bind-Value="_order"
+                             Label="Display Order"
+                             Variant="Variant.Outlined"
+                             Min="0" />
+        </MudStack>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel" Variant="Variant.Text">Cancel</MudButton>
+        <MudButton OnClick="Save" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Save">
+            @(IsEdit ? "Save Changes" : "Create")
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; } = null!;
+
+    [Parameter]
+    public bool IsEdit { get; set; } = false;
+
+    [Parameter]
+    public string? ParentTitle { get; set; }
+
+    [Parameter]
+    public Guid? ParentId { get; set; }
+
+    [Parameter]
+    public CurriculumChapterDto? ExistingChapter { get; set; }
+
+    private string DialogTitle => IsEdit
+        ? "Edit Chapter"
+        : (ParentId.HasValue ? "Add New Subchapter" : "Create New Chapter");
+
+    private string _title = string.Empty;
+    private string _category = string.Empty;
+    private string _description = string.Empty;
+    private string _imageUrl = "Assets/Images/Calculus_Image.png";
+    private int _order = 0;
+
+    protected override void OnInitialized()
+    {
+        if (IsEdit && ExistingChapter != null)
+        {
+            _title = ExistingChapter.Title;
+            _category = ExistingChapter.Category;
+            _description = ExistingChapter.Description ?? string.Empty;
+            _imageUrl = !string.IsNullOrEmpty(ExistingChapter.ImageUrl) ? ExistingChapter.ImageUrl : "Assets/Images/Calculus_Image.png";
+            _order = ExistingChapter.Order;
+        }
+        else
+        {
+            if (ParentTitle != null)
+            {
+                _category = ParentTitle;
+            }
+        }
+    }
+
+    private string GenerateSlug(string title)
+    {
+        if (string.IsNullOrWhiteSpace(title)) return string.Empty;
+        var clean = title.ToLowerInvariant().Trim();
+        clean = System.Text.RegularExpressions.Regex.Replace(clean, @"[^a-z0-9\s-_]", "");
+        clean = System.Text.RegularExpressions.Regex.Replace(clean, @"[\s-]+", "_").Trim('_');
+        return clean;
+    }
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private void Save()
+    {
+        if (string.IsNullOrWhiteSpace(_title))
+        {
+            Snackbar.Add("Title is required!", Severity.Warning);
+            return;
+        }
+
+        var slug = GenerateSlug(_title);
+
+        if (IsEdit && ExistingChapter != null)
+        {
+            var updateDto = new UpdateChapterDto
+            {
+                Title = _title.Trim(),
+                ChapterSlug = slug,
+                Category = _category.Trim(),
+                Description = _description.Trim(),
+                ImageUrl = _imageUrl.Trim(),
+                IpfsHash = ExistingChapter.IpfsHash ?? string.Empty,
+                Order = _order
+            };
+            MudDialog.Close(DialogResult.Ok(updateDto));
+        }
+        else
+        {
+            var createDto = new CreateChapterDto
+            {
+                ParentId = ParentId,
+                Title = _title.Trim(),
+                ChapterSlug = slug,
+                Category = _category.Trim(),
+                Description = _description.Trim(),
+                ImageUrl = _imageUrl.Trim(),
+                IpfsHash = string.Empty,
+                Order = _order
+            };
+            MudDialog.Close(DialogResult.Ok(createDto));
+        }
+    }
+}

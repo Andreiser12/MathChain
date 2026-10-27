@@ -1,4 +1,5 @@
 @page "/account"
+@using MathChain.Domain.Enums
 @inject AppSession Session
 @inject NavigationManager Nav
 @inject ISnackbar Snackbar
@@ -10,8 +11,8 @@
     <MudCard Elevation="4" Style="background-color: #16213e; color: #ffffff; border-radius: 4px;">
         <MudCardHeader>
             <CardHeaderAvatar>
-                <MudAvatar Color="Color.Primary" Size="Size.Large">
-                    <MudIcon Icon="@(Session.Role == UserRole.Teacher ? Icons.Material.Filled.School : Icons.Material.Filled.Person)" />
+                <MudAvatar Color="@(Session.Role == UserRole.Admin ? Color.Error : Color.Primary)" Size="Size.Large">
+                    <MudIcon Icon="@(Session.Role == UserRole.Admin ? Icons.Material.Filled.AdminPanelSettings : Session.Role == UserRole.Teacher ? Icons.Material.Filled.School : Icons.Material.Filled.Person)" />
                 </MudAvatar>
             </CardHeaderAvatar>
             <CardHeaderContent>
@@ -25,7 +26,13 @@
                 <div>
                     <MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">ROL CURENT</MudText>
                     <div class="mt-1">
-                        @if (Session.Role == UserRole.Teacher)
+                        @if (Session.Role == UserRole.Admin)
+                        {
+                            <MudChip T="string" Color="Color.Error" Variant="Variant.Filled" Icon="@Icons.Material.Filled.AdminPanelSettings">
+                                Administrator (Admin)
+                            </MudChip>
+                        }
+                        else if (Session.Role == UserRole.Teacher)
                         {
                             <MudChip T="string" Color="Color.Success" Variant="Variant.Filled" Icon="@Icons.Material.Filled.School">
                                 Profesor (Teacher)

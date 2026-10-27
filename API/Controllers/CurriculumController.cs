@@ -1,5 +1,8 @@
-﻿using MathChain.Application.Contexts;
+using MathChain.Application.Contexts;
+using MathChain.Application.DTOs;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace MathChain.API.Controllers
 {
@@ -8,24 +11,57 @@ namespace MathChain.API.Controllers
     public class CurriculumController : ControllerBase
     {
         private readonly ICurriculumContext _curriculumContext;
+
         public CurriculumController(ICurriculumContext curriculumContext)
         {
             _curriculumContext = curriculumContext;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllChapters()
+        public async Task<IActionResult> GetAllChapters([FromQuery] bool rootsOnly = false)
         {
-            var result = await _curriculumContext.GetAllChaptersAsync();
+            if (rootsOnly)
+            {
+                var rootResult = await _curriculumContext.GetRootChaptersAsync();
+                return StatusCode(rootResult.StatusCode, rootResult);
+            }
 
+            var result = await _curriculumContext.GetAllChaptersAsync();
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("{slug}")]
-        public async Task<IActionResult> GetChapterBySlug(string slug)
+        [HttpGet("roots")]
+        public async Task<IActionResult> GetRootChapters()
         {
-            var result = await _curriculumContext.GetChapterBySlugAsync(slug);
+            var result = await _curriculumContext.GetRootChaptersAsync();
+            return StatusCode(result.StatusCode, result);
+        }
 
+        [HttpGet("{idOrSlug}")]
+        public async Task<IActionResult> GetChapterDetail(string idOrSlug)
+        {
+            var result = await _curriculumContext.GetChapterDetailAsync(idOrSlug);
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateChapter([FromBody] CreateChapterRequest request)
+        {
+            var result = await _curriculumContext.CreateChapterAsync(request);
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> UpdateChapter(Guid id, [FromBody] UpdateChapterRequest request)
+        {
+            var result = await _curriculumContext.UpdateChapterAsync(id, request);
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteChapter(Guid id)
+        {
+            var result = await _curriculumContext.DeleteChapterAsync(id);
             return StatusCode(result.StatusCode, result);
         }
 
@@ -33,7 +69,6 @@ namespace MathChain.API.Controllers
         public async Task<IActionResult> UpdateIpfsHash(string slug, [FromBody] UpdateIpfsHashRequest request)
         {
             var result = await _curriculumContext.UpdateIpfsHashAsync(slug, request.IpfsHash);
-
             return StatusCode(result.StatusCode, result);
         }
 

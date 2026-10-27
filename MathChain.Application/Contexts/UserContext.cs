@@ -1,4 +1,4 @@
-﻿using MathChain.Application.DTOs;
+using MathChain.Application.DTOs;
 using MathChain.Domain.Entities;
 using MathChain.Domain.Enums;
 using MathChain.Domain.Gateways;
@@ -21,7 +21,7 @@ namespace MathChain.Application.Contexts
                 return EnvelopeExtensions.Failure<User>("Wallet address is required.", 400);
             }
 
-            var wallet = request.WalletAddress.Trim().ToLower();
+            var wallet = NormalizeWalletAddress(request.WalletAddress);
 
             var existingUser = await _userGateway.GetByWalletAddressAsync(wallet);
 
@@ -58,6 +58,7 @@ namespace MathChain.Application.Contexts
 
             return EnvelopeExtensions.Success(createdUser, "User registered successfully.", 201);
         }
+
         public async Task<Envelope<User>> GetByWalletAddressAsync(string walletAddress)
         {
             if (string.IsNullOrWhiteSpace(walletAddress))
@@ -65,7 +66,7 @@ namespace MathChain.Application.Contexts
                 return EnvelopeExtensions.Failure<User>("Wallet address is required.", 400);
             }
 
-            var wallet = walletAddress.Trim().ToLower();
+            var wallet = NormalizeWalletAddress(walletAddress);
 
             var user = await _userGateway.GetByWalletAddressAsync(wallet);
 
@@ -76,6 +77,7 @@ namespace MathChain.Application.Contexts
 
             return EnvelopeExtensions.Success(user);
         }
+
         public async Task<Envelope<bool>> CheckUserExistsAsync(string walletAddress)
         {
             if (string.IsNullOrWhiteSpace(walletAddress))
@@ -83,17 +85,28 @@ namespace MathChain.Application.Contexts
                 return EnvelopeExtensions.Success(false);
             }
 
-            var wallet = walletAddress.Trim().ToLower();
+            var wallet = NormalizeWalletAddress(walletAddress);
 
             var user = await _userGateway.GetByWalletAddressAsync(wallet);
 
             return EnvelopeExtensions.Success(user != null);
         }
+
         public async Task<Envelope<List<User>>> GetAllUsersAsync()
         {
             var users = await _userGateway.GetAllAsync();
 
             return EnvelopeExtensions.Success(users);
+        }
+
+        private static string NormalizeWalletAddress(string walletAddress)
+        {
+            var wallet = walletAddress.Trim().ToLowerInvariant();
+            if (wallet.StartsWith("00x"))
+            {
+                wallet = wallet.Substring(1);
+            }
+            return wallet;
         }
     }
 }

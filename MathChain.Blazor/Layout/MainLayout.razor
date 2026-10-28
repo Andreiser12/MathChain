@@ -2,6 +2,7 @@
 @implements IDisposable
 @inject AppSession Session
 @inject NavigationManager Nav
+@inject IJSRuntime JS
 
 <MudThemeProvider Theme="@_mudTheme" IsDarkMode=true />
 <MudPopoverProvider />
@@ -97,9 +98,9 @@
 		return Nav.Uri.Contains("/practice");
 	}
 
-	void GoBack()
+	async Task GoBack()
 	{
-		Nav.NavigateTo("javascript:history.back()");
+		await JS.InvokeVoidAsync("history.back");
 	}
 
 	async Task HandleLogout()

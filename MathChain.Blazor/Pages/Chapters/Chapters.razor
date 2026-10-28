@@ -91,14 +91,24 @@
 
 	<div class="chapter-page-header mb-6">
 		<div class="header-title-box">
-			<MudText Typo="Typo.h4" Align="Align.Center" Style="font-weight: 600; color: #ffffff;">
-				@PageTitle
-			</MudText>
-			@if (!string.IsNullOrEmpty(PageDescription))
+			@if (_isLoading && !IsRootLevel)
 			{
-				<MudText Typo="Typo.body1" Align="Align.Center" Class="mt-1" Style="color: rgba(255, 255, 255, 0.7); max-width: 800px; margin: 0 auto;">
-					@PageDescription
+				<div class="d-flex flex-column align-center">
+					<MudSkeleton SkeletonType="SkeletonType.Text" Width="260px" Height="42px" Animation="Animation.Wave" Style="background-color: rgba(255, 255, 255, 0.08);" />
+					<MudSkeleton SkeletonType="SkeletonType.Text" Width="420px" Height="20px" Animation="Animation.Wave" Class="mt-1" Style="background-color: rgba(255, 255, 255, 0.05);" />
+				</div>
+			}
+			else
+			{
+				<MudText Typo="Typo.h4" Align="Align.Center" Style="font-weight: 600; color: #ffffff;">
+					@PageTitle
 				</MudText>
+				@if (!string.IsNullOrEmpty(PageDescription))
+				{
+					<MudText Typo="Typo.body1" Align="Align.Center" Class="mt-1" Style="color: rgba(255, 255, 255, 0.7); max-width: 800px; margin: 0 auto;">
+						@PageDescription
+					</MudText>
+				}
 			}
 		</div>
 
@@ -147,33 +157,36 @@
 
 	@if (_isLoading)
 	{
-		<MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="min-height: 350px;">
-			<MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
-			<MudText Typo="Typo.h6" Class="mt-4" Style="color: rgba(255, 255, 255, 0.7);">
-				Loading chapters...
-			</MudText>
-		</MudStack>
+		<MudGrid>
+			@for (int i = 0; i < 6; i++)
+			{
+				<MudItem xs="12" sm="6" md="4">
+					<MudCard Elevation="4" Style="background-color: #16213E; border-radius: 8px; overflow: hidden;" Class="h-100">
+						<MudSkeleton SkeletonType="SkeletonType.Rectangle" Height="200px" Animation="Animation.Wave" Style="background-color: rgba(255, 255, 255, 0.05);" />
+						<MudCardContent Class="pa-4 d-flex flex-column align-center text-center">
+							<MudSkeleton SkeletonType="SkeletonType.Text" Width="60%" Height="32px" Animation="Animation.Wave" Class="mb-2" Style="background-color: rgba(255, 255, 255, 0.08);" />
+							<MudSkeleton SkeletonType="SkeletonType.Text" Width="85%" Height="18px" Animation="Animation.Wave" Class="mb-1" Style="background-color: rgba(255, 255, 255, 0.04);" />
+							<MudSkeleton SkeletonType="SkeletonType.Text" Width="50%" Height="18px" Animation="Animation.Wave" Class="mb-3" Style="background-color: rgba(255, 255, 255, 0.04);" />
+							<div class="d-flex justify-center gap-2">
+								<MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="85px" Height="24px" Style="border-radius: 12px; background-color: rgba(255, 255, 255, 0.06);" Animation="Animation.Wave" />
+								<MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="75px" Height="24px" Style="border-radius: 12px; background-color: rgba(255, 255, 255, 0.06);" Animation="Animation.Wave" />
+							</div>
+						</MudCardContent>
+					</MudCard>
+				</MudItem>
+			}
+		</MudGrid>
 	}
 	else if (HasSubChapters || HasFormulas)
 	{
 		@if (HasSubChapters)
 		{
-			<div class="d-flex justify-space-between align-center mb-4">
-				<MudText Typo="Typo.h5" Style="font-weight: 600; color: #ffffff;">
-					@(IsRootLevel ? "Chapters" : "Subchapters")
+			@if (HasFormulas)
+			{
+				<MudText Typo="Typo.h5" Style="font-weight: 600; color: #ffffff;" Class="mb-3">
+					Subchapters
 				</MudText>
-
-				@if (Session.Role == UserRole.Admin)
-				{
-					<MudButton Variant="Variant.Filled"
-							   Color="Color.Primary"
-							   Size="Size.Small"
-							   StartIcon="@Icons.Material.Filled.Add"
-							   OnClick="@(IsRootLevel ? OpenCreateRootChapterDialog : OpenCreateSubChapterDialog)">
-						@(IsRootLevel ? "New Chapter" : "New Subchapter")
-					</MudButton>
-				}
-			</div>
+			}
 
 			<MudGrid Class="@(HasFormulas ? "mb-8" : "")">
 				@foreach (var chapter in DisplayedChapters)
@@ -187,13 +200,6 @@
 							@if (Session.Role == UserRole.Admin)
 							{
 								<div class="card-admin-actions" @onclick:stopPropagation="true">
-									<MudTooltip Text="Add Subchapter" Arrow="true" Placement="Placement.Top">
-										<MudIconButton Icon="@Icons.Material.Filled.Add"
-													   Size="Size.Small"
-													   Color="Color.Primary"
-													   aria-label="Add Subchapter"
-													   OnClick="() => OpenCreateSubForCard(chapter)" />
-									</MudTooltip>
 									<MudTooltip Text="Edit Chapter" Arrow="true" Placement="Placement.Top">
 										<MudIconButton Icon="@Icons.Material.Filled.Edit"
 													   Size="Size.Small"
@@ -246,19 +252,6 @@
 											</MudChip>
 										}
 									</div>
-
-									@if (Session.Role == UserRole.Admin)
-									{
-										<div class="mt-3 pt-2 d-flex justify-center w-100" style="border-top: 1px solid rgba(255, 255, 255, 0.08);" @onclick:stopPropagation="true">
-											<MudButton Variant="Variant.Text"
-													   Color="Color.Primary"
-													   Size="Size.Small"
-													   StartIcon="@Icons.Material.Filled.Add"
-													   OnClick="() => OpenCreateSubForCard(chapter)">
-												New Subchapter
-											</MudButton>
-										</div>
-									}
 								</MudCardContent>
 							</div>
 						</MudCard>
@@ -269,22 +262,12 @@
 
 		@if (HasFormulas)
 		{
-			<div class="d-flex justify-space-between align-center mb-3">
-				<MudText Typo="Typo.h5" Style="font-weight: 600; color: #ffffff;">
+			@if (HasSubChapters)
+			{
+				<MudText Typo="Typo.h5" Style="font-weight: 600; color: #ffffff;" Class="mb-3">
 					Formulas
 				</MudText>
-
-				@if (Session.Role == UserRole.Admin)
-				{
-					<MudButton Variant="Variant.Outlined"
-							   Color="Color.Success"
-							   Size="Size.Small"
-							   StartIcon="@Icons.Material.Filled.Add"
-							   OnClick="OpenCreateFormulaDialog">
-						New Formula
-					</MudButton>
-				}
-			</div>
+			}
 
 			<MudGrid>
 				@foreach (var formula in _formulas)
@@ -332,37 +315,50 @@
 		<MudPaper Class="pa-12 text-center mt-6" Style="background-color: #16213E; border-radius: 8px;">
 			<MudIcon Icon="@Icons.Material.Filled.FolderOpen" Color="Color.Primary" Size="Size.Large" Style="font-size: 4rem;" />
 			<MudText Typo="Typo.h5" Class="mt-4" Style="color: #ffffff; font-weight: 600;">
-				This chapter does not contain any subchapters or formulas yet.
+				@(IsRootLevel ? "No chapters available yet." : "This chapter does not contain any subchapters or formulas yet.")
 			</MudText>
 			<MudText Typo="Typo.body1" Class="mt-2 mb-6" Style="color: rgba(255, 255, 255, 0.6); max-width: 600px; margin: 0 auto;">
 				@if (Session.Role == UserRole.Admin)
 				{
-					<span>You can use the buttons below to create a subchapter or add the first formula.</span>
+					<span>@(IsRootLevel ? "Click the button below to create the first chapter." : "You can use the buttons below to create a subchapter or add the first formula.")</span>
 				}
 				else
 				{
-					<span>Content for this chapter will be available soon.</span>
+					<span>Content will be available soon.</span>
 				}
 			</MudText>
 
 			@if (Session.Role == UserRole.Admin)
 			{
 				<MudStack Row="true" Spacing="2" Justify="Justify.Center">
-					<MudButton Variant="Variant.Filled"
-							   Color="Color.Primary"
-							   Size="Size.Large"
-							   StartIcon="@Icons.Material.Filled.Add"
-							   OnClick="OpenCreateSubChapterDialog">
-						New Subchapter
-					</MudButton>
+					@if (IsRootLevel)
+					{
+						<MudButton Variant="Variant.Filled"
+								   Color="Color.Primary"
+								   Size="Size.Large"
+								   StartIcon="@Icons.Material.Filled.Add"
+								   OnClick="OpenCreateRootChapterDialog">
+							New Chapter
+						</MudButton>
+					}
+					else
+					{
+						<MudButton Variant="Variant.Filled"
+								   Color="Color.Primary"
+								   Size="Size.Large"
+								   StartIcon="@Icons.Material.Filled.Add"
+								   OnClick="OpenCreateSubChapterDialog">
+							New Subchapter
+						</MudButton>
 
-					<MudButton Variant="Variant.Outlined"
-							   Color="Color.Success"
-							   Size="Size.Large"
-							   StartIcon="@Icons.Material.Filled.Add"
-							   OnClick="OpenCreateFormulaDialog">
-						New Formula
-					</MudButton>
+						<MudButton Variant="Variant.Outlined"
+								   Color="Color.Success"
+								   Size="Size.Large"
+								   StartIcon="@Icons.Material.Filled.Add"
+								   OnClick="OpenCreateFormulaDialog">
+							New Formula
+						</MudButton>
+					}
 				</MudStack>
 			}
 		</MudPaper>
@@ -402,6 +398,8 @@
 	private bool HasSubChapters => DisplayedChapters.Any();
 	private bool HasFormulas => _formulas.Any();
 
+	private string? _lastLoadedSlug;
+
 	protected override async Task OnInitializedAsync()
 	{
 		if (!Session.IsConnected)
@@ -415,12 +413,21 @@
 			return;
 		}
 
-		await LoadDataAsync();
+		// OnParametersSetAsync runs immediately after OnInitializedAsync, avoiding duplicate loading calls.
 	}
+
+	private bool _hasLoadedRoot;
 
 	protected override async Task OnParametersSetAsync()
 	{
-		await LoadDataAsync();
+		bool needsLoad = IsRootLevel
+			? (!_hasLoadedRoot || !string.IsNullOrEmpty(_lastLoadedSlug))
+			: (ChapterIdOrSlug != _lastLoadedSlug || _currentDetail == null);
+
+		if (needsLoad)
+		{
+			await LoadDataAsync();
+		}
 	}
 
 	private async Task LoadDataAsync()
@@ -428,18 +435,22 @@
 		_isLoading = true;
 		_mathFormatted = false;
 		_formulas.Clear();
-		DisplayedChapters.Clear();
-		_currentDetail = null;
 		_breadcrumbItems.Clear();
 
 		try
 		{
 			if (IsRootLevel)
 			{
-				DisplayedChapters = await Api.GetRootChaptersAsync();
+				_hasLoadedRoot = true;
+				_lastLoadedSlug = null;
+				_currentDetail = null;
+				var roots = await Api.GetRootChaptersAsync();
+				DisplayedChapters = roots;
 			}
 			else
 			{
+				_hasLoadedRoot = false;
+				_lastLoadedSlug = ChapterIdOrSlug;
 				_currentDetail = await Api.GetChapterDetailAsync(ChapterIdOrSlug!);
 
 				if (_currentDetail != null)
@@ -453,28 +464,33 @@
 						_breadcrumbItems.Add(new BreadcrumbItem(b.Title, $"/chapters/{b.Slug}"));
 					}
 
-					// 1. Try to load formulas from Database via API first!
-					var dbFormulas = await Api.GetFormulasByChapterAsync(_currentDetail.Chapter.Id.ToString());
-					if (dbFormulas.Any())
+					// Only load formulas if this chapter has formulas or is a leaf category
+					bool shouldLoadFormulas = (_currentDetail.Chapter.FormulasCount > 0) || !DisplayedChapters.Any();
+
+					if (shouldLoadFormulas)
 					{
-						_formulas = dbFormulas.Select(f => new Formula
+						var dbFormulas = await Api.GetFormulasByChapterAsync(_currentDetail.Chapter.Id.ToString());
+						if (dbFormulas.Any())
 						{
-							Id = f.Id,
-							Title = f.Title,
-							FormulaCode = f.FormulaCode,
-							Latex = f.Latex.StartsWith("$$") ? f.Latex : $"$${f.Latex}$$",
-							ModelPath = f.Model3D ?? "",
-							Category = _currentDetail.Chapter.Category,
-							Description = f.Description ?? "",
-							Requirement = f.Requirement ?? "",
-							ExercisesJson = f.ExercisesJson,
-							Order = f.Order
-						}).ToList();
-					}
-					else if (!string.IsNullOrEmpty(_currentDetail.Chapter.IpfsHash))
-					{
-						// Fallback to IPFS/JSON if DB has none yet
-						await LoadCurriculumFormulasAsync(_currentDetail.Chapter.ChapterSlug, _currentDetail.Chapter.IpfsHash);
+							_formulas = dbFormulas.Select(f => new Formula
+							{
+								Id = f.Id,
+								Title = f.Title,
+								FormulaCode = f.FormulaCode,
+								Latex = f.Latex.StartsWith("$$") ? f.Latex : $"$${f.Latex}$$",
+								ModelPath = f.Model3D ?? "",
+								Category = _currentDetail.Chapter.Category,
+								Description = f.Description ?? "",
+								Requirement = f.Requirement ?? "",
+								ExercisesJson = f.ExercisesJson,
+								Order = f.Order
+							}).ToList();
+						}
+						else if (!string.IsNullOrEmpty(_currentDetail.Chapter.IpfsHash))
+						{
+							// Fallback to IPFS/JSON if DB has none yet
+							await LoadCurriculumFormulasAsync(_currentDetail.Chapter.ChapterSlug, _currentDetail.Chapter.IpfsHash);
+						}
 					}
 				}
 			}

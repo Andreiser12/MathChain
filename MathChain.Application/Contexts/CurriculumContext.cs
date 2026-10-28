@@ -49,14 +49,18 @@ namespace MathChain.Application.Contexts
                 return EnvelopeExtensions.Failure<ChapterDetailResponseDto>("Chapter identifier is required.", 400);
             }
 
-            CurriculumChapter? chapter;
+            var allChapters = await _curriculumGateway.GetAllAsync();
+            var chaptersById = allChapters.ToDictionary(c => c.Id);
+
+            CurriculumChapter? chapter = null;
             if (Guid.TryParse(idOrSlug, out var id))
             {
-                chapter = await _curriculumGateway.GetByIdAsync(id);
+                chaptersById.TryGetValue(id, out chapter);
             }
             else
             {
-                chapter = await _curriculumGateway.GetBySlugAsync(idOrSlug);
+                var cleanSlug = idOrSlug.Trim().ToLowerInvariant();
+                chapter = allChapters.FirstOrDefault(c => c.ChapterSlug.ToLowerInvariant() == cleanSlug);
             }
 
             if (chapter == null)
@@ -64,11 +68,22 @@ namespace MathChain.Application.Contexts
                 return EnvelopeExtensions.Failure<ChapterDetailResponseDto>($"Chapter '{idOrSlug}' was not found.", 404);
             }
 
-            var subChapters = await _curriculumGateway.GetSubChaptersAsync(chapter.Id);
-            var allChapters = await _curriculumGateway.GetAllAsync();
+            var subChapters = allChapters
+                .Where(c => c.ParentId == chapter.Id)
+                .OrderBy(c => c.Order)
+                .ThenBy(c => c.Title)
+                .ToList();
+
             var childrenLookup = allChapters.ToLookup(c => c.ParentId);
 
-            var breadcrumbs = await _curriculumGateway.GetBreadcrumbsAsync(chapter.Id);
+            // Compute breadcrumbs in memory from allChapters - 0 extra network calls!
+            var breadcrumbs = new List<CurriculumChapter>();
+            var currentId = (Guid?)chapter.Id;
+            while (currentId.HasValue && chaptersById.TryGetValue(currentId.Value, out var ancestor))
+            {
+                breadcrumbs.Insert(0, ancestor);
+                currentId = ancestor.ParentId;
+            }
 
             var detail = new ChapterDetailResponseDto
             {

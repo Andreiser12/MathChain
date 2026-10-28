@@ -21,10 +21,13 @@ namespace Tests
             using var db = new MathChainDbContext(options);
 
             var rootCount = await db.CurriculumChapters.CountAsync(c => c.ParentId == null);
-            var formulaCount = await db.CurriculumFormulas.CountAsync();
+            var algebra = await db.CurriculumChapters.FirstOrDefaultAsync(c => c.ChapterSlug == "algebra");
+            Assert.NotNull(algebra);
+
+            var algebraChildrenCount = await db.CurriculumChapters.CountAsync(c => c.ParentId == algebra.Id);
 
             Assert.Equal(6, rootCount);
-            Assert.True(formulaCount >= 390);
+            Assert.Equal(12, algebraChildrenCount);
         }
     }
 }

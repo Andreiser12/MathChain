@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -17,6 +18,18 @@ namespace MathChain.Blazor.Services
             PropertyNameCaseInsensitive = true,
             Converters = { new JsonStringEnumConverter() }
         };
+
+        private static readonly ConcurrentDictionary<string, (DateTime CachedAt, ChapterDetailDto Data)> _chapterDetailCache = new();
+        private static readonly ConcurrentDictionary<string, (DateTime CachedAt, List<CurriculumFormulaDto> Data)> _chapterFormulasCache = new();
+        private static (DateTime CachedAt, List<CurriculumChapterDto> Data)? _rootChaptersCache;
+        private static readonly TimeSpan CacheTtl = TimeSpan.FromMinutes(5);
+
+        public static void InvalidateCurriculumCache()
+        {
+            _chapterDetailCache.Clear();
+            _chapterFormulasCache.Clear();
+            _rootChaptersCache = null;
+        }
 
         public ApiService(HttpClient httpClient, IConfiguration configuration)
         {
@@ -112,20 +125,68 @@ namespace MathChain.Blazor.Services
             return await ReadEnvelopeDataAsync<UserDto>(response);
         }
 
-        public async Task<List<CurriculumChapterDto>> GetRootChaptersAsync()
+        public async Task<List<CurriculumChapterDto>> GetRootChaptersAsync(bool forceRefresh = false)
         {
-            var response = await _httpClient.GetAsync($"{_baseUrl}/curriculum/roots");
-            return await ReadEnvelopeListAsync<CurriculumChapterDto>(response);
+            if (!forceRefresh && _rootChaptersCache.HasValue && _rootChaptersCache.Value.Data.Any() && (DateTime.UtcNow - _rootChaptersCache.Value.CachedAt) < CacheTtl)
+            {
+                return _rootChaptersCache.Value.Data;
+            }
+
+            try
+            {
+                var response = await _httpClient.GetAsync($"{_baseUrl}/curriculum/roots");
+                var list = await ReadEnvelopeListAsync<CurriculumChapterDto>(response);
+                if (list.Any())
+                {
+                    _rootChaptersCache = (DateTime.UtcNow, list);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ApiService] Error fetching root chapters: {ex.Message}");
+                if (_rootChaptersCache.HasValue && _rootChaptersCache.Value.Data.Any())
+                {
+                    return _rootChaptersCache.Value.Data;
+                }
+                return new List<CurriculumChapterDto>();
+            }
         }
 
-        public async Task<ChapterDetailDto?> GetChapterDetailAsync(string idOrSlug)
+        public async Task<ChapterDetailDto?> GetChapterDetailAsync(string idOrSlug, bool forceRefresh = false)
         {
-            var response = await _httpClient.GetAsync($"{_baseUrl}/curriculum/{Uri.EscapeDataString(idOrSlug)}");
-            return await ReadEnvelopeDataAsync<ChapterDetailDto>(response);
+            var key = idOrSlug.Trim().ToLowerInvariant();
+            if (!forceRefresh && _chapterDetailCache.TryGetValue(key, out var cached) && (DateTime.UtcNow - cached.CachedAt) < CacheTtl)
+            {
+                return cached.Data;
+            }
+
+            try
+            {
+                var response = await _httpClient.GetAsync($"{_baseUrl}/curriculum/{Uri.EscapeDataString(idOrSlug)}");
+                var data = await ReadEnvelopeDataAsync<ChapterDetailDto>(response);
+                if (data != null && data.Chapter != null)
+                {
+                    _chapterDetailCache[key] = (DateTime.UtcNow, data);
+                    _chapterDetailCache[data.Chapter.Id.ToString()] = (DateTime.UtcNow, data);
+                    _chapterDetailCache[data.Chapter.ChapterSlug.ToLowerInvariant()] = (DateTime.UtcNow, data);
+                }
+                return data;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ApiService] Error fetching chapter detail '{idOrSlug}': {ex.Message}");
+                if (_chapterDetailCache.TryGetValue(key, out var cachedFallback))
+                {
+                    return cachedFallback.Data;
+                }
+                return null;
+            }
         }
 
         public async Task<CurriculumChapterDto?> CreateChapterAsync(CreateChapterDto dto)
         {
+            InvalidateCurriculumCache();
             var json = JsonSerializer.Serialize(dto);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync($"{_baseUrl}/curriculum", content);
@@ -134,6 +195,7 @@ namespace MathChain.Blazor.Services
 
         public async Task<CurriculumChapterDto?> UpdateChapterAsync(Guid id, UpdateChapterDto dto)
         {
+            InvalidateCurriculumCache();
             var json = JsonSerializer.Serialize(dto);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _httpClient.PutAsync($"{_baseUrl}/curriculum/{id}", content);
@@ -142,18 +204,43 @@ namespace MathChain.Blazor.Services
 
         public async Task<bool> DeleteChapterAsync(Guid id)
         {
+            InvalidateCurriculumCache();
             var response = await _httpClient.DeleteAsync($"{_baseUrl}/curriculum/{id}");
             return await ReadEnvelopeSuccessAsync(response);
         }
 
-        public async Task<List<CurriculumFormulaDto>> GetFormulasByChapterAsync(string idOrSlug)
+        public async Task<List<CurriculumFormulaDto>> GetFormulasByChapterAsync(string idOrSlug, bool forceRefresh = false)
         {
-            var response = await _httpClient.GetAsync($"{_baseUrl}/curriculum/{Uri.EscapeDataString(idOrSlug)}/formulas");
-            return await ReadEnvelopeListAsync<CurriculumFormulaDto>(response);
+            var key = idOrSlug.Trim().ToLowerInvariant();
+            if (!forceRefresh && _chapterFormulasCache.TryGetValue(key, out var cached) && (DateTime.UtcNow - cached.CachedAt) < CacheTtl)
+            {
+                return cached.Data;
+            }
+
+            try
+            {
+                var response = await _httpClient.GetAsync($"{_baseUrl}/curriculum/{Uri.EscapeDataString(idOrSlug)}/formulas");
+                var list = await ReadEnvelopeListAsync<CurriculumFormulaDto>(response);
+                if (list.Any())
+                {
+                    _chapterFormulasCache[key] = (DateTime.UtcNow, list);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ApiService] Error fetching formulas for '{idOrSlug}': {ex.Message}");
+                if (_chapterFormulasCache.TryGetValue(key, out var cachedFallback))
+                {
+                    return cachedFallback.Data;
+                }
+                return new List<CurriculumFormulaDto>();
+            }
         }
 
         public async Task<CurriculumFormulaDto?> CreateFormulaAsync(Guid chapterId, CreateFormulaDto dto)
         {
+            InvalidateCurriculumCache();
             var json = JsonSerializer.Serialize(dto);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync($"{_baseUrl}/curriculum/{chapterId}/formulas", content);
@@ -162,6 +249,7 @@ namespace MathChain.Blazor.Services
 
         public async Task<CurriculumFormulaDto?> UpdateFormulaAsync(Guid id, UpdateFormulaDto dto)
         {
+            InvalidateCurriculumCache();
             var json = JsonSerializer.Serialize(dto);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _httpClient.PutAsync($"{_baseUrl}/curriculum/formulas/{id}", content);
@@ -170,6 +258,7 @@ namespace MathChain.Blazor.Services
 
         public async Task<bool> DeleteFormulaAsync(Guid id)
         {
+            InvalidateCurriculumCache();
             var response = await _httpClient.DeleteAsync($"{_baseUrl}/curriculum/formulas/{id}");
             return await ReadEnvelopeSuccessAsync(response);
         }

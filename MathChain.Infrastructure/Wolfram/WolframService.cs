@@ -95,7 +95,7 @@ namespace MathChain.Infrastructure.Wolfram
 
                 if (!double.IsNaN(val) && !double.IsInfinity(val))
                 {
-                    result = Math.Round(val, 6);
+                    result = Math.Round(val, 3);
                     return true;
                 }
             }
@@ -130,7 +130,7 @@ namespace MathChain.Infrastructure.Wolfram
                     if (firstReal != null)
                     {
                         var evaluated = firstReal.EvalNumerical();
-                        result = Math.Round((double)evaluated, 6);
+                        result = Math.Round((double)evaluated, 3);
                         return true;
                     }
                 }
@@ -147,13 +147,13 @@ namespace MathChain.Infrastructure.Wolfram
                     Entity intExpr = $"integrate({func}, x, {from}, {to})";
 
                     var eval = intExpr.EvalNumerical();
-                    result = Math.Round((double)eval, 6);
+                    result = Math.Round((double)eval, 3);
                     return true;
                 }
 
                 Entity general = exprStr;
                 var num = general.EvalNumerical();
-                result = Math.Round((double)num, 6);
+                result = Math.Round((double)num, 3);
                 return true;
             }
             catch { }
@@ -214,7 +214,7 @@ namespace MathChain.Infrastructure.Wolfram
                             double.TryParse(parts[1], NumberStyles.Any, CultureInfo.InvariantCulture, out double denominator) &&
                             denominator != 0)
                         {
-                            return Math.Round(numerator / denominator, 6);
+                            return Math.Round(numerator / denominator, 3);
                         }
                     }
 
@@ -223,7 +223,7 @@ namespace MathChain.Infrastructure.Wolfram
                     if (numberMatch.Success && double.TryParse(numberMatch.Value, NumberStyles.Any,
                         CultureInfo.InvariantCulture, out double exactResult))
                     {
-                        return Math.Round(exactResult, 6);
+                        return Math.Round(exactResult, 3);
                     }
                 }
 

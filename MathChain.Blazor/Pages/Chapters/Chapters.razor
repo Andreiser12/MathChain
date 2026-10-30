@@ -27,6 +27,51 @@
 		box-shadow: 0 0 15px rgba(83, 109, 254, 0.4);
 	}
 
+	.mode-selection-container {
+		padding-top: 16px !important;
+		padding-bottom: 20px !important;
+		min-height: calc(100vh - var(--mud-appbar-height, 64px));
+		display: flex;
+		flex-direction: column;
+		box-sizing: border-box;
+	}
+
+	.mode-selection-grid {
+		flex: 1 1 auto;
+		width: 100%;
+	}
+
+	.mode-selection-card {
+		background-color: #005ea6 !important;
+		border-radius: 0px !important;
+		height: calc(100vh - var(--mud-appbar-height, 64px) - 36px) !important;
+		min-height: 480px;
+		width: 100%;
+		transition: background-color 0.2s ease-in-out;
+		cursor: pointer;
+		user-select: none;
+		border: none !important;
+		box-shadow: none !important;
+	}
+
+	.mode-selection-card:hover {
+		background-color: #006ec4 !important;
+		box-shadow: none !important;
+		border: none !important;
+	}
+
+	@@media (max-width: 959px) {
+		.mode-selection-container {
+			min-height: auto;
+			padding-bottom: 32px !important;
+		}
+
+		.mode-selection-card {
+			height: 260px !important;
+			min-height: 260px !important;
+		}
+	}
+
 	.card-admin-actions {
 		position: absolute;
 		top: 8px;
@@ -77,19 +122,66 @@
 	}
 </style>
 
-<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-12">
-	@if (!string.IsNullOrEmpty(ChapterIdOrSlug))
-	{
-		<MudBreadcrumbs Items="_breadcrumbItems" Class="pa-0 mb-4" Separator=">">
-			<ItemTemplate Context="item">
-				<MudLink Href="@item.Href" Typo="Typo.body2" Style="color: #90caf9; font-weight: 500;">
-					@item.Text
-				</MudLink>
-			</ItemTemplate>
-		</MudBreadcrumbs>
-	}
+@if (ShowSourceSelection)
+{
+	<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mode-selection-container">
+		<MudGrid Spacing="6" Justify="Justify.Center" Class="mode-selection-grid">
+			<!-- CARD 1: For Main Leaderboard -->
+			<MudItem xs="12" md="6" Class="d-flex">
+				<MudPaper Elevation="0"
+						  Square="true"
+						  Class="mode-selection-card d-flex align-center justify-center pa-6"
+						  @onclick="SelectMainLeaderboard">
+					<MudText Align="Align.Center" Style="font-size: 2.2rem; font-weight: 500; color: #ffffff;">
+						For Main Leaderboard
+					</MudText>
+				</MudPaper>
+			</MudItem>
 
-	<div class="chapter-page-header mb-6">
+			<!-- CARD 2: From Your Classes -->
+			<MudItem xs="12" md="6" Class="d-flex">
+				<MudPaper Elevation="0"
+						  Square="true"
+						  Class="mode-selection-card d-flex align-center justify-center pa-6"
+						  @onclick="SelectFromClasses">
+					<MudText Align="Align.Center" Style="font-size: 2.2rem; font-weight: 500; color: #ffffff;">
+						From Your Classes
+					</MudText>
+				</MudPaper>
+			</MudItem>
+		</MudGrid>
+	</MudContainer>
+}
+else
+{
+	<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-12">
+		@if (Session.Role == UserRole.Student && IsRootLevel)
+		{
+			<div class="d-flex align-center justify-space-between mb-4">
+				<MudButton Variant="Variant.Text"
+						   StartIcon="@Icons.Material.Filled.ArrowBack"
+						   Style="color: #90caf9; text-transform: none; font-size: 1.05rem;"
+						   OnClick="ReturnToModeSelection">
+					← Back to Mode Selection
+				</MudButton>
+				<MudChip T="string" Color="Color.Primary" Variant="Variant.Filled" Size="Size.Small" Style="font-weight: 500;">
+					Main Leaderboard
+				</MudChip>
+			</div>
+		}
+
+		@if (!string.IsNullOrEmpty(ChapterIdOrSlug))
+		{
+			<MudBreadcrumbs Items="_breadcrumbItems" Class="pa-0 mb-4" Separator=">">
+				<ItemTemplate Context="item">
+					<MudLink Href="@item.Href" Typo="Typo.body2" Style="color: #90caf9; font-weight: 500;">
+						@item.Text
+					</MudLink>
+				</ItemTemplate>
+			</MudBreadcrumbs>
+		}
+
+		<div class="chapter-page-header mb-6">
 		<div class="header-title-box">
 			@if (_isLoading && !IsRootLevel)
 			{
@@ -363,12 +455,40 @@
 			}
 		</MudPaper>
 	}
-</MudContainer>
+	</MudContainer>
+}
 
 @code
 {
 	[Parameter]
 	public string? ChapterIdOrSlug { get; set; }
+
+	[SupplyParameterFromQuery(Name = "source")]
+	public string? Source { get; set; }
+
+	private bool IsLeaderboardSource =>
+		string.Equals(Source, "leaderboard", StringComparison.OrdinalIgnoreCase) ||
+		Nav.Uri.Contains("source=leaderboard", StringComparison.OrdinalIgnoreCase);
+
+	private bool ShowSourceSelection =>
+		IsRootLevel &&
+		Session.Role == UserRole.Student &&
+		!IsLeaderboardSource;
+
+	private void SelectMainLeaderboard()
+	{
+		Nav.NavigateTo("/chapters?source=leaderboard");
+	}
+
+	private void SelectFromClasses()
+	{
+		Nav.NavigateTo("/my-classes");
+	}
+
+	private void ReturnToModeSelection()
+	{
+		Nav.NavigateTo("/chapters");
+	}
 
 	private bool _isLoading = true;
 	private bool _mathFormatted = false;
@@ -420,8 +540,15 @@
 
 	protected override async Task OnParametersSetAsync()
 	{
+		if (ShowSourceSelection)
+		{
+			_isLoading = false;
+			StateHasChanged();
+			return;
+		}
+
 		bool needsLoad = IsRootLevel
-			? (!_hasLoadedRoot || !string.IsNullOrEmpty(_lastLoadedSlug))
+			? (!_hasLoadedRoot || !string.IsNullOrEmpty(_lastLoadedSlug) || !DisplayedChapters.Any())
 			: (ChapterIdOrSlug != _lastLoadedSlug || _currentDetail == null);
 
 		if (needsLoad)
@@ -458,7 +585,16 @@
 					DisplayedChapters = _currentDetail.SubChapters;
 
 					// Build breadcrumbs
-					_breadcrumbItems.Add(new BreadcrumbItem("Chapters", "/chapters"));
+					if (Session.Role == UserRole.Student)
+					{
+						_breadcrumbItems.Add(new BreadcrumbItem("Mode Selection", "/chapters"));
+						_breadcrumbItems.Add(new BreadcrumbItem("Chapters", "/chapters?source=leaderboard"));
+					}
+					else
+					{
+						_breadcrumbItems.Add(new BreadcrumbItem("Chapters", "/chapters"));
+					}
+
 					foreach (var b in _currentDetail.Breadcrumbs)
 					{
 						_breadcrumbItems.Add(new BreadcrumbItem(b.Title, $"/chapters/{b.Slug}"));

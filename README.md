@@ -96,9 +96,6 @@ and minimize gas fees:
 ## What's next?
 - Integrate the blockchain logic, including the step-by-step solution system.
 - Implement Dashboard, Account and Settings pages in Blazor project.
-- Bring more formulas from Blender.
-- Add a scientific calculator for exercise page.
-- Accounts for admins.
 - Account Abstraction and Smart Contracts.
 - Custom Subgraph.
 - Soulbound Tokens.

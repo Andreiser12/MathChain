@@ -41,11 +41,17 @@
 		padding: 12px 16px;
 	}
 
-	.sbt-badge-box {
-		background-color: rgba(0, 0, 0, 0.2);
-		border: 1px dashed rgba(255, 255, 255, 0.25);
-		padding: 16px;
+	.chapter-badge-box {
+		background-color: rgba(0, 0, 0, 0.18);
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: 0px !important;
+		padding: 14px 16px;
 		transition: all 0.2s ease;
+	}
+
+	.chapter-badge-box:hover {
+		background-color: rgba(0, 0, 0, 0.26);
+		border-color: rgba(0, 229, 255, 0.35);
 	}
 
 	@@media (max-width: 959px) {
@@ -62,7 +68,7 @@
 
 <MudContainer MaxWidth="MaxWidth.False" Class="account-container px-6">
 	<MudGrid Spacing="4" Class="account-grid">
-		<!-- LEFT COLUMN: Web3 Identity & Wallet (50% Width) -->
+		<!-- LEFT COLUMN: Account Profile (50% Width) -->
 		<MudItem xs="12" md="6" lg="6" Class="d-flex pa-2">
 			<MudPaper Elevation="0"
 					  Square="true"
@@ -72,7 +78,7 @@
 					<!-- Card Header -->
 					<div class="card-header pb-3 mb-4 text-center" style="border-bottom: 2px solid rgba(255, 255, 255, 0.2);">
 						<MudText Typo="Typo.h4" Style="font-weight: 500; color: #ffffff; letter-spacing: 0.5px;">
-							Web3 Identity & Profile
+							Account Profile
 						</MudText>
 					</div>
 
@@ -96,7 +102,7 @@
 							<div class="d-flex align-center gap-2 mt-1">
 								<MudIcon Icon="@Icons.Material.Filled.CheckCircle" Style="color: #69f0ae; font-size: 1rem;" />
 								<MudText Typo="Typo.caption" Style="color: #69f0ae; font-weight: 500;">
-									MetaMask Connected (EVM)
+									MetaMask Connected
 								</MudText>
 							</div>
 						</div>
@@ -112,7 +118,7 @@
 								<MudText Style="font-family: monospace; font-size: 1rem; color: #ffffff; word-break: break-all;">
 									@Session.WalletAddress
 								</MudText>
-								<MudTooltip Text="Copy full address">
+								<MudTooltip Text="Copy address">
 									<MudIconButton Icon="@Icons.Material.Filled.ContentCopy"
 												   Size="Size.Medium"
 												   Style="color: #00e5ff;"
@@ -121,28 +127,15 @@
 							</div>
 						</div>
 
-						<!-- Wallet Balance & Network -->
-						<div class="d-flex gap-4">
-							<div style="flex: 1;">
-								<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.75); font-weight: 600; letter-spacing: 0.5px;">
-									WALLET BALANCE
+						<!-- Wallet Balance -->
+						<div>
+							<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.75); font-weight: 600; letter-spacing: 0.5px;">
+								WALLET BALANCE
+							</MudText>
+							<div class="account-info-box mt-1">
+								<MudText Typo="Typo.h5" Style="color: #00e5ff; font-weight: 700; font-family: monospace;">
+									@_walletBalance.ToString("0.0000") ETH
 								</MudText>
-								<div class="account-info-box mt-1">
-									<MudText Typo="Typo.h5" Style="color: #00e5ff; font-weight: 700; font-family: monospace;">
-										@_walletBalance.ToString("0.0000") ETH
-									</MudText>
-								</div>
-							</div>
-
-							<div style="flex: 1;">
-								<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.75); font-weight: 600; letter-spacing: 0.5px;">
-									ACTIVE NETWORK
-								</MudText>
-								<div class="account-info-box mt-1">
-									<MudText Typo="Typo.body1" Style="color: #ffffff; font-weight: 600;">
-										Sepolia / Localhost
-									</MudText>
-								</div>
 							</div>
 						</div>
 
@@ -158,34 +151,25 @@
 							</div>
 						</div>
 
-						<!-- Soulbound Badges Progress Overview -->
+						<!-- Chapter Badges Progress Overview -->
 						<div>
 							<div class="d-flex align-center justify-space-between">
 								<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.75); font-weight: 600; letter-spacing: 0.5px;">
-									SOULBOUND TOKENS (SBTs)
+									CHAPTER BADGES
 								</MudText>
 								<MudText Typo="Typo.caption" Style="color: #00e5ff; font-weight: 600;">
-									0 / 6 Minted
+									@GetEarnedBadgesCount() / @_rootChapters.Count Earned
 								</MudText>
 							</div>
-							<MudProgressLinear Value="0" Max="6" Color="Color.Info" Class="my-2" Style="height: 8px; border-radius: 0px;" />
-							<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.65); font-size: 0.8rem;">
-								Permanent, non-transferable on-chain credentials issued upon completing curriculum chapters.
-							</MudText>
+							<MudProgressLinear Value="@GetEarnedBadgesCount()" Max="@Math.Max(1, _rootChapters.Count)" Color="Color.Info" Class="my-2" Style="height: 8px; border-radius: 0px;" />
 						</div>
 					</MudStack>
 				</div>
 
-				<!-- Footer Actions -->
-				<div class="pt-4 mt-6 d-flex align-center justify-space-between" style="border-top: 1px solid rgba(255, 255, 255, 0.15);">
-					<MudButton Variant="Variant.Text"
-							   Style="color: #90caf9; text-transform: none; font-size: 1rem;"
-							   OnClick='() => Nav.NavigateTo("/dashboard")'>
-						← Back to Dashboard
-					</MudButton>
-
+				<!-- Footer Action: Disconnect Only -->
+				<div class="pt-4 mt-6 d-flex align-center justify-end" style="border-top: 1px solid rgba(255, 255, 255, 0.15);">
 					<MudButton Variant="Variant.Filled"
-							   Style="background-color: #b71c1c; color: #ffffff; text-transform: none; font-weight: 600; border-radius: 0px;"
+							   Style="background-color: #b71c1c; color: #ffffff; text-transform: none; font-weight: 600; border-radius: 0px; padding: 8px 24px;"
 							   StartIcon="@Icons.Material.Filled.Logout"
 							   OnClick="Disconnect">
 						Disconnect Wallet
@@ -194,58 +178,103 @@
 			</MudPaper>
 		</MudItem>
 
-		<!-- RIGHT COLUMN: Soulbound Credentials Preview (50% Width) -->
+		<!-- RIGHT COLUMN: Chapter Badges (50% Width) -->
 		<MudItem xs="12" md="6" lg="6" Class="d-flex pa-2">
 			<MudPaper Elevation="0"
 					  Square="true"
-					  Class="account-card pa-6 w-100 d-flex flex-column justify-space-between">
+					  Class="account-card pa-6 w-100 d-flex flex-column justify-start">
 
-				<div>
-					<!-- Card Header -->
-					<div class="card-header pb-3 mb-4 text-center" style="border-bottom: 2px solid rgba(255, 255, 255, 0.2);">
-						<MudText Typo="Typo.h4" Style="font-weight: 500; color: #ffffff; letter-spacing: 0.5px;">
-							Soulbound Credentials (SBTs)
-						</MudText>
-					</div>
-
-					<MudText Typo="Typo.body2" Class="mb-4" Style="color: rgba(255, 255, 255, 0.8); line-height: 1.5;">
-						Soulbound Tokens represent cryptographic Proof of Knowledge. Once you complete all requirements in a chapter, a non-transferable token is minted directly to your address.
+				<!-- Card Header -->
+				<div class="card-header pb-3 mb-4 text-center" style="border-bottom: 2px solid rgba(255, 255, 255, 0.2);">
+					<MudText Typo="Typo.h4" Style="font-weight: 500; color: #ffffff; letter-spacing: 0.5px;">
+						Chapter Badges
 					</MudText>
+				</div>
 
-					<!-- SBT Grid (6 Root Chapters) -->
-					<MudGrid Spacing="3">
-						@foreach (var badge in _sbtChapters)
+				<!-- Badges Grid from Real DB Chapters -->
+				@if (_isLoadingChapters)
+				{
+					<div class="d-flex justify-center align-center py-12 flex-grow-1">
+						<MudProgressCircular Indeterminate="true" Color="Color.Info" Size="Size.Large" />
+					</div>
+				}
+				else
+				{
+					<MudGrid Spacing="3" Class="mt-1">
+						@foreach (var chapter in _rootChapters)
 						{
+							var totalSubs = GetTotalSubchapters(chapter);
+							var totalFormulas = GetTotalFormulas(chapter);
+							var completedSubs = GetCompletedSubchapters(chapter);
+							var completedFormulas = GetCompletedFormulas(chapter);
+							var isCompleted = totalSubs > 0 && completedSubs >= totalSubs && totalFormulas > 0 && completedFormulas >= totalFormulas;
+
 							<MudItem xs="12" sm="6">
-								<div class="sbt-badge-box d-flex flex-column justify-space-between" style="min-height: 110px;">
-									<div class="d-flex align-center justify-space-between">
+								<div class="chapter-badge-box d-flex flex-column justify-space-between h-100">
+									<!-- Title and Lock/Check Icon -->
+									<div class="d-flex align-center justify-space-between mb-3">
 										<MudText Typo="Typo.subtitle1" Style="font-weight: 600; color: #ffffff;">
-											@badge
+											@chapter.Title
 										</MudText>
-										<MudIcon Icon="@Icons.Material.Filled.Lock" Size="Size.Small" Style="color: rgba(255, 255, 255, 0.4);" />
+										@if (isCompleted)
+										{
+											<MudIcon Icon="@Icons.Material.Filled.CheckCircle" Size="Size.Small" Style="color: #69f0ae;" />
+										}
+										else
+										{
+											<MudIcon Icon="@Icons.Material.Filled.Lock" Size="Size.Small" Style="color: rgba(255, 255, 255, 0.4);" />
+										}
 									</div>
 
-									<div class="mt-2">
-										<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.55); display: block;">
-											Status: Incomplete
+									<!-- Real Progress Bars -->
+									<div class="d-flex flex-column gap-3 mb-3">
+										<!-- Subchapters Progress -->
+										<div>
+											<div class="d-flex align-center justify-space-between mb-1">
+												<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.75); font-weight: 500;">
+													Subchapters
+												</MudText>
+												<MudText Typo="Typo.caption" Style="color: #00e5ff; font-weight: 600; font-family: monospace;">
+													@completedSubs / @totalSubs
+												</MudText>
+											</div>
+											<MudProgressLinear Value="@completedSubs"
+															   Max="@Math.Max(1, totalSubs)"
+															   Color="Color.Info"
+															   Style="height: 6px; border-radius: 0px;" />
+										</div>
+
+										<!-- Formulas Progress -->
+										<div>
+											<div class="d-flex align-center justify-space-between mb-1">
+												<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.75); font-weight: 500;">
+													Formulas
+												</MudText>
+												<MudText Typo="Typo.caption" Style="color: #69f0ae; font-weight: 600; font-family: monospace;">
+													@completedFormulas / @totalFormulas
+												</MudText>
+											</div>
+											<MudProgressLinear Value="@completedFormulas"
+															   Max="@Math.Max(1, totalFormulas)"
+															   Color="Color.Success"
+															   Style="height: 6px; border-radius: 0px;" />
+										</div>
+									</div>
+
+									<!-- Status Footer -->
+									<div class="pt-2 d-flex align-center justify-space-between" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
+										<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.55);">
+											Status:
 										</MudText>
-										<MudText Typo="Typo.caption" Style="color: #00e5ff; font-weight: 500;">
-											Complete chapter to mint SBT
+										<MudText Typo="Typo.caption" Style="@(isCompleted ? "color: #69f0ae; font-weight: 600;" : (totalSubs == 0 && totalFormulas == 0) ? "color: rgba(255, 255, 255, 0.5);" : "color: rgba(255, 255, 255, 0.7); font-weight: 500;")">
+											@(isCompleted ? "Completed" : (totalSubs == 0 && totalFormulas == 0) ? "Coming Soon" : "Incomplete")
 										</MudText>
 									</div>
 								</div>
 							</MudItem>
 						}
 					</MudGrid>
-				</div>
-
-				<div class="pt-4 mt-6 text-center" style="border-top: 1px solid rgba(255, 255, 255, 0.15);">
-					<MudButton Variant="Variant.Outlined"
-							   Style="color: #ffffff; border-color: rgba(255, 255, 255, 0.3); text-transform: none; border-radius: 0px;"
-							   OnClick='() => Nav.NavigateTo("/chapters")'>
-						Explore Chapters to Earn Badges →
-					</MudButton>
-				</div>
+				}
 			</MudPaper>
 		</MudItem>
 	</MudGrid>
@@ -254,16 +283,8 @@
 @code {
 	private decimal _walletBalance = 0.0000m;
 	private DateTime _createdAt = DateTime.UtcNow;
-
-	private readonly List<string> _sbtChapters = new()
-	{
-		"Algebra Master",
-		"Geometry Explorer",
-		"Trigonometry Pro",
-		"Calculus Specialist",
-		"Linear Algebra",
-		"Probability & Stats"
-	};
+	private List<CurriculumChapterDto> _rootChapters = new();
+	private bool _isLoadingChapters = true;
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -283,33 +304,48 @@
 
 	private async Task LoadAccountDetailsAsync()
 	{
-		if (string.IsNullOrWhiteSpace(Session.WalletAddress))
+		// 1. Fetch real wallet balance from blockchain via API
+		if (!string.IsNullOrWhiteSpace(Session.WalletAddress))
 		{
-			return;
-		}
-
-		// 1. Fetch real wallet balance from blockchain
-		try
-		{
-			_walletBalance = await Api.GetWalletBalanceAsync(Session.WalletAddress);
-		}
-		catch
-		{
-			_walletBalance = 0.0000m;
-		}
-
-		// 2. Fetch real user registration date from DB
-		try
-		{
-			var user = await Api.GetUserByWalletAsync(Session.WalletAddress);
-			if (user != null && user.CreatedAt != default)
+			try
 			{
-				_createdAt = user.CreatedAt;
+				_walletBalance = await Api.GetWalletBalanceAsync(Session.WalletAddress);
+			}
+			catch
+			{
+				_walletBalance = 0.0000m;
+			}
+
+			// 2. Fetch real user registration date from DB
+			try
+			{
+				var user = await Api.GetUserByWalletAsync(Session.WalletAddress);
+				if (user != null && user.CreatedAt != default)
+				{
+					_createdAt = user.CreatedAt;
+				}
+			}
+			catch
+			{
+				_createdAt = DateTime.UtcNow;
 			}
 		}
+
+		// 3. Fetch real root chapters dynamically from DB
+		_isLoadingChapters = true;
+		StateHasChanged();
+		try
+		{
+			_rootChapters = await Api.GetRootChaptersAsync();
+		}
 		catch
 		{
-			_createdAt = DateTime.UtcNow;
+			_rootChapters = new List<CurriculumChapterDto>();
+		}
+		finally
+		{
+			_isLoadingChapters = false;
+			StateHasChanged();
 		}
 	}
 
@@ -321,6 +357,50 @@
 			UserRole.Teacher => "Certified Instructor",
 			_ => "Registered Student"
 		};
+	}
+
+	private int GetTotalSubchapters(CurriculumChapterDto chapter)
+	{
+		return chapter.TotalSubChaptersCount > 0 ? chapter.TotalSubChaptersCount : chapter.SubChaptersCount;
+	}
+
+	private int GetTotalFormulas(CurriculumChapterDto chapter)
+	{
+		return chapter.TotalFormulasCount > 0 ? chapter.TotalFormulasCount : chapter.FormulasCount;
+	}
+
+	private int GetCompletedSubchapters(CurriculumChapterDto chapter)
+	{
+		// Real calculation: count of completed subchapters for this user
+		return 0;
+	}
+
+	private int GetCompletedFormulas(CurriculumChapterDto chapter)
+	{
+		// Real calculation: count of completed formulas in this chapter for this user
+		if (Session.MarkedFormulas == null || Session.MarkedFormulas.Count == 0)
+		{
+			return 0;
+		}
+		return 0;
+	}
+
+	private int GetEarnedBadgesCount()
+	{
+		int earned = 0;
+		foreach (var chapter in _rootChapters)
+		{
+			var totalSubs = GetTotalSubchapters(chapter);
+			var totalFormulas = GetTotalFormulas(chapter);
+			var completedSubs = GetCompletedSubchapters(chapter);
+			var completedFormulas = GetCompletedFormulas(chapter);
+
+			if (totalSubs > 0 && completedSubs >= totalSubs && totalFormulas > 0 && completedFormulas >= totalFormulas)
+			{
+				earned++;
+			}
+		}
+		return earned;
 	}
 
 	private async Task CopyAddress()

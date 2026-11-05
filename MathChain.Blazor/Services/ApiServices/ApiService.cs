@@ -105,6 +105,36 @@ namespace MathChain.Blazor.Services
             return await ReadEnvelopeDataAsync<bool>(response);
         }
 
+        public async Task<UserDto?> GetUserByWalletAsync(string walletAddress)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"{_baseUrl}/user/{Uri.EscapeDataString(walletAddress)}");
+                return await ReadEnvelopeDataAsync<UserDto>(response);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public async Task<DashboardStatsDto?> GetDashboardStatsAsync(string? walletAddress)
+        {
+            try
+            {
+                var url = string.IsNullOrWhiteSpace(walletAddress)
+                    ? $"{_baseUrl}/dashboard"
+                    : $"{_baseUrl}/dashboard?walletAddress={Uri.EscapeDataString(walletAddress)}";
+
+                var response = await _httpClient.GetAsync(url);
+                return await ReadEnvelopeDataAsync<DashboardStatsDto>(response);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public async Task<UserDto?> LoginAsync(string walletAddress, string? role = null)
         {
             var json = JsonSerializer.Serialize(new

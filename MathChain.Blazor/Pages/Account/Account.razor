@@ -1,109 +1,340 @@
 @page "/account"
 @using MathChain.Domain.Enums
+@using MathChain.Domain.Entities
+@using MathChain.Blazor.DTOs
+@using MudBlazor
 @inject AppSession Session
+@inject ApiService Api
 @inject NavigationManager Nav
 @inject ISnackbar Snackbar
 @inject IJSRuntime JS
 
 <PageTitle>Account - MathChain</PageTitle>
 
-<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-8 px-4">
-    <MudCard Elevation="4" Style="background-color: #16213e; color: #ffffff; border-radius: 4px;">
-        <MudCardHeader>
-            <CardHeaderAvatar>
-                <MudAvatar Color="@(Session.Role == UserRole.Admin ? Color.Error : Color.Primary)" Size="Size.Large">
-                    <MudIcon Icon="@(Session.Role == UserRole.Admin ? Icons.Material.Filled.AdminPanelSettings : Session.Role == UserRole.Teacher ? Icons.Material.Filled.School : Icons.Material.Filled.Person)" />
-                </MudAvatar>
-            </CardHeaderAvatar>
-            <CardHeaderContent>
-                <MudText Typo="Typo.h5" Style="font-weight: 600; color: #ffffff;">Profil Cont</MudText>
-                <MudText Typo="Typo.body2" Style="color: rgba(255, 255, 255, 0.6);">Detalii sesiune MathChain</MudText>
-            </CardHeaderContent>
-        </MudCardHeader>
+<style>
+	.account-container {
+		padding-top: 16px !important;
+		padding-bottom: 20px !important;
+		min-height: calc(100vh - var(--mud-appbar-height, 64px));
+		box-sizing: border-box;
+		width: 100% !important;
+	}
 
-        <MudCardContent Class="px-6 py-4">
-            <MudStack Spacing="4">
-                <div>
-                    <MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">ROL CURENT</MudText>
-                    <div class="mt-1">
-                        @if (Session.Role == UserRole.Admin)
-                        {
-                            <MudChip T="string" Color="Color.Error" Variant="Variant.Filled" Icon="@Icons.Material.Filled.AdminPanelSettings">
-                                Administrator (Admin)
-                            </MudChip>
-                        }
-                        else if (Session.Role == UserRole.Teacher)
-                        {
-                            <MudChip T="string" Color="Color.Success" Variant="Variant.Filled" Icon="@Icons.Material.Filled.School">
-                                Profesor (Teacher)
-                            </MudChip>
-                        }
-                        else
-                        {
-                            <MudChip T="string" Color="Color.Info" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Person">
-                                Elev / Student
-                            </MudChip>
-                        }
-                    </div>
-                </div>
+	.account-grid {
+		min-height: calc(100vh - var(--mud-appbar-height, 64px) - 36px);
+		width: 100% !important;
+		margin: 0 !important;
+	}
 
-                <MudDivider Style="background-color: rgba(255, 255, 255, 0.1);" />
+	.account-card {
+		background-color: #005ea6 !important;
+		border-radius: 0px !important;
+		border: none !important;
+		box-shadow: none !important;
+		color: #ffffff !important;
+		width: 100% !important;
+	}
 
-                <div>
-                    <MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">ADRESĂ PORTOFEL (METAMASK)</MudText>
-                    <MudPaper Elevation="0" Class="d-flex align-center justify-space-between pa-3 mt-1" Style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);">
-                        <MudText Style="font-family: monospace; font-size: 0.95rem; color: #90caf9; word-break: break-all;">
-                            @Session.WalletAddress
-                        </MudText>
-                        <MudIconButton Icon="@Icons.Material.Filled.ContentCopy" Color="Color.Primary" Size="Size.Small" OnClick="CopyAddress" title="Copiază adresa" />
-                    </MudPaper>
-                </div>
+	.account-info-box {
+		background-color: rgba(0, 0, 0, 0.18);
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		padding: 12px 16px;
+	}
 
-                <MudDivider Style="background-color: rgba(255, 255, 255, 0.1);" />
+	.sbt-badge-box {
+		background-color: rgba(0, 0, 0, 0.2);
+		border: 1px dashed rgba(255, 255, 255, 0.25);
+		padding: 16px;
+		transition: all 0.2s ease;
+	}
 
-                <div>
-                    <MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">STATUS CONEXIUNE</MudText>
-                    <div class="d-flex align-center gap-2 mt-1">
-                        <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Color="Color.Success" Size="Size.Small" />
-                        <MudText Typo="Typo.body2" Color="Color.Success">Conectat activ prin MetaMask</MudText>
-                    </div>
-                </div>
-            </MudStack>
-        </MudCardContent>
+	@@media (max-width: 959px) {
+		.account-container {
+			min-height: auto;
+			padding-bottom: 32px !important;
+		}
 
-        <MudCardActions Class="px-6 py-4 d-flex justify-space-between align-center" Style="background-color: rgba(0, 0, 0, 0.15);">
-            <MudButton Variant="Variant.Text" Color="Color.Inherit" OnClick='() => Nav.NavigateTo("/dashboard")'>
-                Înapoi la Dashboard
-            </MudButton>
+		.account-grid {
+			min-height: auto;
+		}
+	}
+</style>
 
-            <MudButton Variant="Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Filled.Logout" OnClick="Disconnect">
-                Deconectare (Logout)
-            </MudButton>
-        </MudCardActions>
-    </MudCard>
+<MudContainer MaxWidth="MaxWidth.False" Class="account-container px-6">
+	<MudGrid Spacing="4" Class="account-grid">
+		<!-- LEFT COLUMN: Web3 Identity & Wallet (50% Width) -->
+		<MudItem xs="12" md="6" lg="6" Class="d-flex pa-2">
+			<MudPaper Elevation="0"
+					  Square="true"
+					  Class="account-card pa-6 w-100 d-flex flex-column justify-space-between">
+
+				<div>
+					<!-- Card Header -->
+					<div class="card-header pb-3 mb-4 text-center" style="border-bottom: 2px solid rgba(255, 255, 255, 0.2);">
+						<MudText Typo="Typo.h4" Style="font-weight: 500; color: #ffffff; letter-spacing: 0.5px;">
+							Web3 Identity & Profile
+						</MudText>
+					</div>
+
+					<!-- User Header with Avatar & Role -->
+					<div class="d-flex align-center gap-4 mb-6">
+						<MudAvatar Color="Color.Dark" Size="Size.Large" Style="width: 64px; height: 64px; background-color: rgba(0, 0, 0, 0.3); border: 2px solid #00e5ff;">
+							<MudIcon Icon="@(Session.Role == UserRole.Admin ? Icons.Material.Filled.AdminPanelSettings : Session.Role == UserRole.Teacher ? Icons.Material.Filled.School : Icons.Material.Filled.Person)"
+									 Size="Size.Large"
+									 Style="color: #00e5ff;" />
+						</MudAvatar>
+
+						<div class="d-flex flex-column">
+							<div class="d-flex align-center gap-2">
+								<MudText Typo="Typo.h5" Style="font-weight: 600; color: #ffffff;">
+									@GetRoleTitle()
+								</MudText>
+								<MudChip T="string" Size="Size.Small" Variant="Variant.Filled" Style="background-color: #00e5ff; color: #002b4d; font-weight: 700; height: 22px;">
+									@Session.Role.ToString().ToUpper()
+								</MudChip>
+							</div>
+							<div class="d-flex align-center gap-2 mt-1">
+								<MudIcon Icon="@Icons.Material.Filled.CheckCircle" Style="color: #69f0ae; font-size: 1rem;" />
+								<MudText Typo="Typo.caption" Style="color: #69f0ae; font-weight: 500;">
+									MetaMask Connected (EVM)
+								</MudText>
+							</div>
+						</div>
+					</div>
+
+					<MudStack Spacing="4">
+						<!-- Wallet Address -->
+						<div>
+							<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.75); font-weight: 600; letter-spacing: 0.5px;">
+								WALLET ADDRESS
+							</MudText>
+							<div class="account-info-box d-flex align-center justify-space-between mt-1">
+								<MudText Style="font-family: monospace; font-size: 1rem; color: #ffffff; word-break: break-all;">
+									@Session.WalletAddress
+								</MudText>
+								<MudTooltip Text="Copy full address">
+									<MudIconButton Icon="@Icons.Material.Filled.ContentCopy"
+												   Size="Size.Medium"
+												   Style="color: #00e5ff;"
+												   OnClick="CopyAddress" />
+								</MudTooltip>
+							</div>
+						</div>
+
+						<!-- Wallet Balance & Network -->
+						<div class="d-flex gap-4">
+							<div style="flex: 1;">
+								<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.75); font-weight: 600; letter-spacing: 0.5px;">
+									WALLET BALANCE
+								</MudText>
+								<div class="account-info-box mt-1">
+									<MudText Typo="Typo.h5" Style="color: #00e5ff; font-weight: 700; font-family: monospace;">
+										@_walletBalance.ToString("0.0000") ETH
+									</MudText>
+								</div>
+							</div>
+
+							<div style="flex: 1;">
+								<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.75); font-weight: 600; letter-spacing: 0.5px;">
+									ACTIVE NETWORK
+								</MudText>
+								<div class="account-info-box mt-1">
+									<MudText Typo="Typo.body1" Style="color: #ffffff; font-weight: 600;">
+										Sepolia / Localhost
+									</MudText>
+								</div>
+							</div>
+						</div>
+
+						<!-- Account Registration Info -->
+						<div>
+							<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.75); font-weight: 600; letter-spacing: 0.5px;">
+								MEMBER SINCE
+							</MudText>
+							<div class="account-info-box mt-1">
+								<MudText Typo="Typo.body1" Style="color: #ffffff;">
+									@_createdAt.ToString("dd MMMM yyyy")
+								</MudText>
+							</div>
+						</div>
+
+						<!-- Soulbound Badges Progress Overview -->
+						<div>
+							<div class="d-flex align-center justify-space-between">
+								<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.75); font-weight: 600; letter-spacing: 0.5px;">
+									SOULBOUND TOKENS (SBTs)
+								</MudText>
+								<MudText Typo="Typo.caption" Style="color: #00e5ff; font-weight: 600;">
+									0 / 6 Minted
+								</MudText>
+							</div>
+							<MudProgressLinear Value="0" Max="6" Color="Color.Info" Class="my-2" Style="height: 8px; border-radius: 0px;" />
+							<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.65); font-size: 0.8rem;">
+								Permanent, non-transferable on-chain credentials issued upon completing curriculum chapters.
+							</MudText>
+						</div>
+					</MudStack>
+				</div>
+
+				<!-- Footer Actions -->
+				<div class="pt-4 mt-6 d-flex align-center justify-space-between" style="border-top: 1px solid rgba(255, 255, 255, 0.15);">
+					<MudButton Variant="Variant.Text"
+							   Style="color: #90caf9; text-transform: none; font-size: 1rem;"
+							   OnClick='() => Nav.NavigateTo("/dashboard")'>
+						← Back to Dashboard
+					</MudButton>
+
+					<MudButton Variant="Variant.Filled"
+							   Style="background-color: #b71c1c; color: #ffffff; text-transform: none; font-weight: 600; border-radius: 0px;"
+							   StartIcon="@Icons.Material.Filled.Logout"
+							   OnClick="Disconnect">
+						Disconnect Wallet
+					</MudButton>
+				</div>
+			</MudPaper>
+		</MudItem>
+
+		<!-- RIGHT COLUMN: Soulbound Credentials Preview (50% Width) -->
+		<MudItem xs="12" md="6" lg="6" Class="d-flex pa-2">
+			<MudPaper Elevation="0"
+					  Square="true"
+					  Class="account-card pa-6 w-100 d-flex flex-column justify-space-between">
+
+				<div>
+					<!-- Card Header -->
+					<div class="card-header pb-3 mb-4 text-center" style="border-bottom: 2px solid rgba(255, 255, 255, 0.2);">
+						<MudText Typo="Typo.h4" Style="font-weight: 500; color: #ffffff; letter-spacing: 0.5px;">
+							Soulbound Credentials (SBTs)
+						</MudText>
+					</div>
+
+					<MudText Typo="Typo.body2" Class="mb-4" Style="color: rgba(255, 255, 255, 0.8); line-height: 1.5;">
+						Soulbound Tokens represent cryptographic Proof of Knowledge. Once you complete all requirements in a chapter, a non-transferable token is minted directly to your address.
+					</MudText>
+
+					<!-- SBT Grid (6 Root Chapters) -->
+					<MudGrid Spacing="3">
+						@foreach (var badge in _sbtChapters)
+						{
+							<MudItem xs="12" sm="6">
+								<div class="sbt-badge-box d-flex flex-column justify-space-between" style="min-height: 110px;">
+									<div class="d-flex align-center justify-space-between">
+										<MudText Typo="Typo.subtitle1" Style="font-weight: 600; color: #ffffff;">
+											@badge
+										</MudText>
+										<MudIcon Icon="@Icons.Material.Filled.Lock" Size="Size.Small" Style="color: rgba(255, 255, 255, 0.4);" />
+									</div>
+
+									<div class="mt-2">
+										<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.55); display: block;">
+											Status: Incomplete
+										</MudText>
+										<MudText Typo="Typo.caption" Style="color: #00e5ff; font-weight: 500;">
+											Complete chapter to mint SBT
+										</MudText>
+									</div>
+								</div>
+							</MudItem>
+						}
+					</MudGrid>
+				</div>
+
+				<div class="pt-4 mt-6 text-center" style="border-top: 1px solid rgba(255, 255, 255, 0.15);">
+					<MudButton Variant="Variant.Outlined"
+							   Style="color: #ffffff; border-color: rgba(255, 255, 255, 0.3); text-transform: none; border-radius: 0px;"
+							   OnClick='() => Nav.NavigateTo("/chapters")'>
+						Explore Chapters to Earn Badges →
+					</MudButton>
+				</div>
+			</MudPaper>
+		</MudItem>
+	</MudGrid>
 </MudContainer>
 
 @code {
-    protected override void OnInitialized()
-    {
-        if (!Session.IsConnected)
-        {
-            Nav.NavigateTo("/login");
-        }
-    }
+	private decimal _walletBalance = 0.0000m;
+	private DateTime _createdAt = DateTime.UtcNow;
 
-    private async Task CopyAddress()
-    {
-        if (!string.IsNullOrEmpty(Session.WalletAddress))
-        {
-            await JS.InvokeVoidAsync("navigator.clipboard.writeText", Session.WalletAddress);
-            Snackbar.Add("Adresa a fost copiată!", Severity.Info);
-        }
-    }
+	private readonly List<string> _sbtChapters = new()
+	{
+		"Algebra Master",
+		"Geometry Explorer",
+		"Trigonometry Pro",
+		"Calculus Specialist",
+		"Linear Algebra",
+		"Probability & Stats"
+	};
 
-    private void Disconnect()
-    {
-        Session.Logout();
-        Nav.NavigateTo("/login");
-    }
+	protected override async Task OnInitializedAsync()
+	{
+		if (!Session.IsConnected)
+		{
+			await Session.RestoreSessionAsync();
+		}
+
+		if (!Session.IsConnected)
+		{
+			Nav.NavigateTo("/login");
+			return;
+		}
+
+		await LoadAccountDetailsAsync();
+	}
+
+	private async Task LoadAccountDetailsAsync()
+	{
+		if (string.IsNullOrWhiteSpace(Session.WalletAddress))
+		{
+			return;
+		}
+
+		// 1. Fetch real wallet balance from blockchain
+		try
+		{
+			_walletBalance = await Api.GetWalletBalanceAsync(Session.WalletAddress);
+		}
+		catch
+		{
+			_walletBalance = 0.0000m;
+		}
+
+		// 2. Fetch real user registration date from DB
+		try
+		{
+			var user = await Api.GetUserByWalletAsync(Session.WalletAddress);
+			if (user != null && user.CreatedAt != default)
+			{
+				_createdAt = user.CreatedAt;
+			}
+		}
+		catch
+		{
+			_createdAt = DateTime.UtcNow;
+		}
+	}
+
+	private string GetRoleTitle()
+	{
+		return Session.Role switch
+		{
+			UserRole.Admin => "System Administrator",
+			UserRole.Teacher => "Certified Instructor",
+			_ => "Registered Student"
+		};
+	}
+
+	private async Task CopyAddress()
+	{
+		if (!string.IsNullOrEmpty(Session.WalletAddress))
+		{
+			await JS.InvokeVoidAsync("navigator.clipboard.writeText", Session.WalletAddress);
+			Snackbar.Add("Wallet address copied to clipboard!", Severity.Success);
+		}
+	}
+
+	private async Task Disconnect()
+	{
+		await Session.LogoutAsync();
+		Nav.NavigateTo("/login");
+	}
 }

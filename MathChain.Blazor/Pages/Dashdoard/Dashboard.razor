@@ -1,5 +1,381 @@
-﻿@page "/dashboard"
+@page "/dashboard"
+@using MathChain.Domain.Enums
+@using MathChain.Domain.Entities
+@using MathChain.Blazor.DTOs
+@using MudBlazor
+@inject AppSession Session
+@inject ApiService Api
+@inject NavigationManager Nav
+@inject IJSRuntime JS
 
-<PageTitle>Dashboard</PageTitle>
+<PageTitle>Dashboard - MathChain</PageTitle>
 
-<h1>Dashboard available soon!</h1>
+<style>
+	.dashboard-container {
+		padding-top: 16px !important;
+		padding-bottom: 20px !important;
+		min-height: calc(100vh - var(--mud-appbar-height, 64px));
+		box-sizing: border-box;
+		width: 100% !important;
+	}
+
+	.dashboard-grid {
+		min-height: calc(100vh - var(--mud-appbar-height, 64px) - 36px);
+		width: 100% !important;
+		margin: 0 !important;
+	}
+
+	.dashboard-card {
+		background-color: #005ea6 !important;
+		border-radius: 0px !important;
+		border: none !important;
+		box-shadow: none !important;
+		color: #ffffff !important;
+		width: 100% !important;
+	}
+
+	.leaderboard-table table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+
+	.leaderboard-table th {
+		background-color: transparent !important;
+		border-bottom: 2px solid rgba(255, 255, 255, 0.2) !important;
+		padding: 10px 14px !important;
+	}
+
+	.leaderboard-table td {
+		border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+		padding: 8px 14px !important;
+	}
+
+	.leaderboard-table tr:hover {
+		background-color: rgba(255, 255, 255, 0.06) !important;
+	}
+
+	.current-user-row {
+		background-color: rgba(0, 229, 255, 0.15) !important;
+	}
+
+	.current-user-row:hover {
+		background-color: rgba(0, 229, 255, 0.22) !important;
+	}
+
+	.pinned-user-row {
+		border-top: 2px solid rgba(0, 229, 255, 0.6) !important;
+	}
+
+	@@media (max-width: 959px) {
+		.dashboard-container {
+			min-height: auto;
+			padding-bottom: 32px !important;
+		}
+
+		.dashboard-grid {
+			min-height: auto;
+		}
+	}
+</style>
+
+<MudContainer MaxWidth="MaxWidth.False" Class="dashboard-container px-6">
+	<MudGrid Spacing="4" Class="dashboard-grid">
+		<!-- LEFT COLUMN: Global Leaderboard (50% Width) -->
+		<MudItem xs="12" md="6" lg="6" Class="d-flex pa-2">
+			<MudPaper Elevation="0"
+					  Square="true"
+					  Class="dashboard-card pa-6 w-100 d-flex flex-column">
+
+				<!-- Card Header -->
+				<div class="card-header pb-3 mb-3 text-center" style="border-bottom: 2px solid rgba(255, 255, 255, 0.2);">
+					<MudText Typo="Typo.h4" Style="font-weight: 500; color: #ffffff; letter-spacing: 0.5px;">
+						Global Leaderboard
+					</MudText>
+				</div>
+
+				<!-- Leaderboard Table -->
+				@if (_isLoading)
+				{
+					<div class="d-flex justify-center align-center py-12 flex-grow-1">
+						<MudProgressCircular Indeterminate="true" Color="Color.Info" Size="Size.Large" />
+					</div>
+				}
+				else
+				{
+					<div class="flex-grow-1">
+						<MudSimpleTable Dense="true" Elevation="0" Class="leaderboard-table" Style="background: transparent;">
+							<thead>
+								<tr>
+									<th style="color: #ffffff; font-size: 1.05rem; font-weight: 600; width: 18%;">Position</th>
+									<th style="color: #ffffff; font-size: 1.05rem; font-weight: 600; width: 52%;">Wallet Address</th>
+									<th style="color: #ffffff; font-size: 1.05rem; font-weight: 600; text-align: right; width: 30%;">Problems Solved</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var entry in _stats.Leaderboard)
+								{
+									var isCurrentUser = entry.IsCurrentUser || IsMatchingWallet(entry.WalletAddress);
+									<tr class="@(isCurrentUser ? "current-user-row" : "")">
+										<td style="color: #ffffff; font-weight: 600; font-size: 1rem;">
+											@if (entry.Position == 1)
+											{
+												<span style="color: #ffd700;">1.</span>
+											}
+											else if (entry.Position == 2)
+											{
+												<span style="color: #e0e0e0;">2.</span>
+											}
+											else if (entry.Position == 3)
+											{
+												<span style="color: #cd7f32;">3.</span>
+											}
+											else
+											{
+												<span>@entry.Position.</span>
+											}
+										</td>
+										<td style="color: rgba(255, 255, 255, 0.95); font-family: monospace; font-size: 0.95rem;">
+											@FormatWallet(entry.WalletAddress)
+											@if (isCurrentUser)
+											{
+												<MudChip T="string" Size="Size.Small" Variant="Variant.Filled" Style="background-color: #00e5ff; color: #002b4d; margin-left: 8px; font-weight: 700; height: 20px; font-size: 0.75rem;">
+													You
+												</MudChip>
+											}
+										</td>
+										<td style="color: #ffffff; font-weight: 700; font-size: 1.05rem; text-align: right;">
+											@entry.ProblemsSolved
+										</td>
+									</tr>
+								}
+
+								@if (!IsUserInTop10 && !string.IsNullOrWhiteSpace(Session.WalletAddress))
+								{
+									<tr style="border: none; background: transparent !important;">
+										<td colspan="3" style="text-align: center; color: rgba(255, 255, 255, 0.5); padding: 4px; font-size: 1.2rem; border-bottom: none !important;">
+											• • •
+										</td>
+									</tr>
+									<tr class="current-user-row pinned-user-row">
+										<td style="color: #00e5ff; font-weight: 700; font-size: 1.05rem;">
+											#@_stats.UserRank
+										</td>
+										<td style="color: #ffffff; font-family: monospace; font-size: 0.95rem; font-weight: 600;">
+											@FormatWallet(Session.WalletAddress)
+											<MudChip T="string" Size="Size.Small" Variant="Variant.Filled" Style="background-color: #00e5ff; color: #002b4d; margin-left: 8px; font-weight: 700; height: 20px; font-size: 0.75rem;">
+												You
+											</MudChip>
+										</td>
+										<td style="color: #00e5ff; font-weight: 700; font-size: 1.05rem; text-align: right;">
+											@_stats.UserTotalSolved
+										</td>
+									</tr>
+								}
+							</tbody>
+						</MudSimpleTable>
+					</div>
+				}
+			</MudPaper>
+		</MudItem>
+
+		<!-- RIGHT COLUMN: Total Problems Solved + Your Contribution (50% Width) -->
+		<MudItem xs="12" md="6" lg="6" Class="d-flex flex-column justify-space-between pa-2" Style="gap: 20px;">
+			<!-- CARD 1: Total Problems Solved -->
+			<MudPaper Elevation="0"
+					  Square="true"
+					  Class="dashboard-card pa-6 flex-grow-1 d-flex flex-column justify-space-between">
+				<!-- Card Header -->
+				<div class="card-header pb-3 mb-4" style="border-bottom: 2px solid rgba(255, 255, 255, 0.2);">
+					<MudText Typo="Typo.h4" Style="font-weight: 500; color: #ffffff;">
+						Total Problems Solved: @_stats.GlobalTotalSolved
+					</MudText>
+				</div>
+
+				<!-- Difficulty Breakdown -->
+				<MudStack Spacing="4" Class="px-2 my-auto">
+					<div class="d-flex align-center justify-space-between">
+						<MudText Typo="Typo.h5" Style="color: #ffffff; font-weight: 500;">
+							Hard Problems:
+						</MudText>
+						<MudText Typo="Typo.h4" Style="color: #ff5252; font-weight: 700;">
+							@_stats.GlobalHardSolved
+						</MudText>
+					</div>
+
+					<div class="d-flex align-center justify-space-between">
+						<MudText Typo="Typo.h5" Style="color: #ffffff; font-weight: 500;">
+							Medium Problems:
+						</MudText>
+						<MudText Typo="Typo.h4" Style="color: #ffb74d; font-weight: 700;">
+							@_stats.GlobalMediumSolved
+						</MudText>
+					</div>
+
+					<div class="d-flex align-center justify-space-between">
+						<MudText Typo="Typo.h5" Style="color: #ffffff; font-weight: 500;">
+							Easy Problems:
+						</MudText>
+						<MudText Typo="Typo.h4" Style="color: #69f0ae; font-weight: 700;">
+							@_stats.GlobalEasySolved
+						</MudText>
+					</div>
+				</MudStack>
+			</MudPaper>
+
+			<!-- CARD 2: Your Contribution -->
+			<MudPaper Elevation="0"
+					  Square="true"
+					  Class="dashboard-card pa-6 flex-grow-1 d-flex flex-column justify-space-between">
+				<!-- Card Header -->
+				<div class="card-header pb-3 mb-4 text-center" style="border-bottom: 2px solid rgba(255, 255, 255, 0.2);">
+					<MudText Typo="Typo.h4" Style="font-weight: 500; color: #ffffff;">
+						Your Contribution
+					</MudText>
+				</div>
+
+				<!-- Two-Column Grid: Left (Difficulties) | Right (Total & Accuracy) -->
+				<MudGrid Spacing="3" Class="px-2 my-auto">
+					<!-- Left Side: Dificultăți -->
+					<MudItem xs="6" Class="d-flex flex-column justify-space-around" Style="gap: 16px;">
+						<div class="d-flex align-center justify-space-between pr-2">
+							<MudText Typo="Typo.body1" Style="color: #ffffff; font-weight: 500; font-size: 1.1rem;">
+								Hard Problems:
+							</MudText>
+							<MudText Typo="Typo.h5" Style="color: #ff5252; font-weight: 700;">
+								@_stats.UserHardSolved
+							</MudText>
+						</div>
+
+						<div class="d-flex align-center justify-space-between pr-2">
+							<MudText Typo="Typo.body1" Style="color: #ffffff; font-weight: 500; font-size: 1.1rem;">
+								Medium Problems:
+							</MudText>
+							<MudText Typo="Typo.h5" Style="color: #ffb74d; font-weight: 700;">
+								@_stats.UserMediumSolved
+							</MudText>
+						</div>
+
+						<div class="d-flex align-center justify-space-between pr-2">
+							<MudText Typo="Typo.body1" Style="color: #ffffff; font-weight: 500; font-size: 1.1rem;">
+								Easy Problems:
+							</MudText>
+							<MudText Typo="Typo.h5" Style="color: #69f0ae; font-weight: 700;">
+								@_stats.UserEasySolved
+							</MudText>
+						</div>
+					</MudItem>
+
+					<!-- Right Side: Total & Accuracy -->
+					<MudItem xs="6" Class="d-flex flex-column justify-space-around" Style="border-left: 2px solid rgba(255, 255, 255, 0.15); padding-left: 24px; gap: 16px;">
+						<div class="d-flex align-center justify-space-between">
+							<MudText Typo="Typo.h6" Style="color: rgba(255, 255, 255, 0.9); font-weight: 500;">
+								Total:
+							</MudText>
+							<MudText Typo="Typo.h4" Style="color: #ffffff; font-weight: 700;">
+								@_stats.UserTotalSolved
+							</MudText>
+						</div>
+
+						<div class="d-flex align-center justify-space-between">
+							<MudText Typo="Typo.h6" Style="color: rgba(255, 255, 255, 0.9); font-weight: 500;">
+								Accuracy:
+							</MudText>
+							<MudText Typo="Typo.h4" Style="color: #00e5ff; font-weight: 700;">
+								@_stats.UserAccuracy%
+							</MudText>
+						</div>
+					</MudItem>
+				</MudGrid>
+			</MudPaper>
+		</MudItem>
+	</MudGrid>
+</MudContainer>
+
+@code {
+	private DashboardStatsDto _stats = new();
+	private bool _isLoading = true;
+
+	private bool IsUserInTop10 => _stats.Leaderboard.Any(e => e.IsCurrentUser || IsMatchingWallet(e.WalletAddress));
+
+	protected override async Task OnInitializedAsync()
+	{
+		if (!Session.IsConnected)
+		{
+			await Session.RestoreSessionAsync();
+		}
+
+		await LoadDashboardDataAsync();
+	}
+
+	private async Task LoadDashboardDataAsync()
+	{
+		_isLoading = true;
+		StateHasChanged();
+
+		var stats = await Api.GetDashboardStatsAsync(Session.WalletAddress);
+		if (stats != null)
+		{
+			_stats = stats;
+		}
+		else
+		{
+			// Real fallback starting with actual 0 counts
+			_stats = CreateZeroStats(Session.WalletAddress);
+		}
+
+		_isLoading = false;
+		StateHasChanged();
+	}
+
+	private DashboardStatsDto CreateZeroStats(string? wallet)
+	{
+		var userWallet = string.IsNullOrWhiteSpace(wallet) ? "" : wallet;
+
+		var entries = new List<LeaderboardEntryDto>();
+		if (!string.IsNullOrWhiteSpace(userWallet))
+		{
+			entries.Add(new LeaderboardEntryDto
+			{
+				Position = 1,
+				WalletAddress = userWallet,
+				ProblemsSolved = 0,
+				IsCurrentUser = true
+			});
+		}
+
+		return new DashboardStatsDto
+		{
+			GlobalTotalSolved = 0,
+			GlobalHardSolved = 0,
+			GlobalMediumSolved = 0,
+			GlobalEasySolved = 0,
+			UserHardSolved = 0,
+			UserMediumSolved = 0,
+			UserEasySolved = 0,
+			UserTotalSolved = 0,
+			UserAccuracy = 0,
+			UserRank = 1,
+			Leaderboard = entries
+		};
+	}
+
+	private bool IsMatchingWallet(string wallet)
+	{
+		if (string.IsNullOrWhiteSpace(Session.WalletAddress) || string.IsNullOrWhiteSpace(wallet))
+		{
+			return false;
+		}
+
+		return string.Equals(Session.WalletAddress.Trim(), wallet.Trim(), StringComparison.OrdinalIgnoreCase);
+	}
+
+	private string FormatWallet(string wallet)
+	{
+		if (string.IsNullOrWhiteSpace(wallet) || wallet.Length < 10)
+		{
+			return wallet;
+		}
+
+		return $"{wallet[..6]}...{wallet[^4..]}";
+	}
+}

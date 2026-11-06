@@ -57,9 +57,9 @@
 		Dialog.Cancel();
 	}
 
-	void PracticeThis()
+	async Task PracticeThis()
 	{
-		Session.CurrentFormula = Formula;
+		await Session.SetCurrentFormulaAsync(Formula);
 		Dialog.Cancel();
 		Nav.NavigateTo("/practice");
 	}

@@ -1,0 +1,885 @@
+@using MathChain.Blazor.DTOs
+@using MathChain.Blazor.Services
+@using MudBlazor
+@using System.Text.Json
+@using System.Text.RegularExpressions
+@inject ISnackbar Snackbar
+@inject IJSRuntime JS
+@inject WolframService Wolfram
+
+<MudDialog Style="background-color: #1a1a1a; color: #ffffff; border-radius: 0px !important; min-width: 780px; max-width: 900px;">
+    <TitleContent>
+        <div class="d-flex align-center justify-space-between" style="width: 100%;">
+            <div class="d-flex align-center gap-2">
+                <MudIcon Icon="@Icons.Material.Filled.ViewCarousel" Color="Color.Primary" />
+                <MudText Typo="Typo.h6" Style="font-weight: 600; color: #ffffff;">
+                    Exercise Carousel: @FormulaTitle
+                </MudText>
+            </div>
+            <div class="d-flex align-center gap-2">
+                <MudChip T="string" Size="Size.Small" Color="Color.Primary" Variant="Variant.Filled" Style="border-radius: 0px;">
+                    Total: @_exercises.Count
+                </MudChip>
+                <MudChip T="string" Size="Size.Small" Color="Color.Success" Variant="Variant.Outlined" Style="border-radius: 0px;">
+                    @(_exercises.Count(e => e.Difficulty == "Easy")) Easy
+                </MudChip>
+                <MudChip T="string" Size="Size.Small" Color="Color.Warning" Variant="Variant.Outlined" Style="border-radius: 0px;">
+                    @(_exercises.Count(e => e.Difficulty == "Medium")) Medium
+                </MudChip>
+                <MudChip T="string" Size="Size.Small" Color="Color.Error" Variant="Variant.Outlined" Style="border-radius: 0px;">
+                    @(_exercises.Count(e => e.Difficulty == "Hard")) Hard
+                </MudChip>
+            </div>
+        </div>
+    </TitleContent>
+
+    <DialogContent>
+        <!-- Calculation Engine Architecture Banner -->
+        <MudAlert Severity="Severity.Normal" Dense="true" Class="mb-3"
+                  Style="background-color: rgba(0, 94, 166, 0.15); border-left: 3px solid #005ea6; border-radius: 0px; color: #e0e0e0;">
+            <div class="d-flex align-center justify-space-between">
+                <div>
+                    <strong>Calculation Pipeline:</strong> Local Math Engine (mXparser & AngouriMath) executes first. Wolfram Alpha acts as fallback only if needed.
+                </div>
+                <MudChip T="string" Size="Size.Small" Color="Color.Info" Variant="Variant.Text" Style="font-weight: 500;">
+                    Zero Wolfram Syntax Required
+                </MudChip>
+            </div>
+        </MudAlert>
+
+        @if (_exercises.Count == 0)
+        {
+            <div class="text-center pa-8" style="background-color: #242424; border: 1px dashed #444;">
+                <MudText Typo="Typo.h6" Class="mb-2" Style="color: #aaa;">No exercises configured for this formula yet.</MudText>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add"
+                           OnClick="AddNewExercise" Style="border-radius: 0px;">
+                    Add First Exercise
+                </MudButton>
+            </div>
+        }
+        else
+        {
+            <!-- Carousel Top Navigation Strip -->
+            <div class="d-flex align-center justify-space-between pa-2 mb-3"
+                 style="background-color: #222222; border: 1px solid #333333; border-radius: 0px;">
+                <MudButton Variant="Variant.Outlined"
+                           Color="Color.Primary"
+                           Size="Size.Small"
+                           StartIcon="@Icons.Material.Filled.ArrowBack"
+                           Disabled="@(_currentIndex <= 0)"
+                           OnClick="PreviousExercise"
+                           Style="border-radius: 0px;">
+                    Previous
+                </MudButton>
+
+                <div class="d-flex align-center gap-1 overflow-x-auto px-2" style="max-width: 480px;">
+                    @for (int i = 0; i < _exercises.Count; i++)
+                    {
+                        var idx = i;
+                        var ex = _exercises[idx];
+                        var chipColor = ex.Difficulty == "Easy" ? Color.Success : (ex.Difficulty == "Medium" ? Color.Warning : Color.Error);
+                        var isCurrent = idx == _currentIndex;
+
+                        <MudChip T="string"
+                                 Size="Size.Small"
+                                 Variant="@(isCurrent ? Variant.Filled : Variant.Outlined)"
+                                 Color="@chipColor"
+                                 OnClick="() => GoToExercise(idx)"
+                                 Style="@($"cursor: pointer; border-radius: 0px; font-weight: {(isCurrent ? "bold" : "normal")}; border: {(isCurrent ? "2px solid #00e5ff" : "1px solid #555")};")">
+                            @(idx + 1)
+                        </MudChip>
+                    }
+                </div>
+
+                <div class="d-flex align-center gap-1">
+                    <MudButton Variant="Variant.Outlined"
+                               Color="Color.Primary"
+                               Size="Size.Small"
+                               EndIcon="@Icons.Material.Filled.ArrowForward"
+                               Disabled="@(_currentIndex >= _exercises.Count - 1)"
+                               OnClick="NextExercise"
+                               Style="border-radius: 0px;">
+                        Next
+                    </MudButton>
+                </div>
+            </div>
+
+            <!-- Carousel Action Controls -->
+            <div class="d-flex align-center justify-space-between mb-3">
+                <MudText Typo="Typo.subtitle1" Style="font-weight: 600; color: #00e5ff;">
+                    Exercise @(_currentIndex + 1) of @_exercises.Count
+                </MudText>
+                <div class="d-flex gap-2">
+                    <MudButton Variant="Variant.Outlined" Size="Size.Small" Color="Color.Success"
+                               StartIcon="@Icons.Material.Filled.Add" OnClick="AddNewExercise" Style="border-radius: 0px;">
+                        + New
+                    </MudButton>
+                    <MudButton Variant="Variant.Outlined" Size="Size.Small" Color="Color.Info"
+                               StartIcon="@Icons.Material.Filled.ContentCopy" OnClick="DuplicateCurrentExercise" Style="border-radius: 0px;">
+                        Duplicate
+                    </MudButton>
+                    <MudButton Variant="Variant.Outlined" Size="Size.Small" Color="Color.Error"
+                               StartIcon="@Icons.Material.Filled.Delete" OnClick="DeleteCurrentExercise"
+                               Disabled="@(_exercises.Count <= 1)" Style="border-radius: 0px;">
+                        Delete
+                    </MudButton>
+                </div>
+            </div>
+
+            @if (CurrentExercise != null)
+            {
+                <div class="pa-4" style="background-color: #222222; border: 1px solid #333333; border-radius: 0px;">
+                    <MudGrid Spacing="2">
+                        <!-- Difficulty & Order -->
+                        <MudItem xs="12" sm="6">
+                            <MudSelect @bind-Value="CurrentExercise.Difficulty"
+                                       Label="Difficulty Level"
+                                       Variant="Variant.Outlined"
+                                       Dense="true"
+                                       Style="border-radius: 0px;">
+                                <MudSelectItem Value="@("Easy")">🟢 Easy</MudSelectItem>
+                                <MudSelectItem Value="@("Medium")">🟡 Medium</MudSelectItem>
+                                <MudSelectItem Value="@("Hard")">🔴 Hard</MudSelectItem>
+                            </MudSelect>
+                        </MudItem>
+
+                        <MudItem xs="12" sm="6" Class="d-flex align-center">
+                            <MudSwitch @bind-Value="CurrentExercise.IsRandom"
+                                       Color="Color.Primary"
+                                       Label="Randomize Coefficients (Generate variable values per practice)" />
+                        </MudItem>
+
+                        <!-- Custom Requirement Text -->
+                        <MudItem xs="12">
+                            <MudTextField @bind-Value="CurrentExercise.Requirement"
+                                          Label="Custom Requirement / Prompt"
+                                          Variant="Variant.Outlined"
+                                          Margin="Margin.Dense"
+                                          HelperText="e.g. Calculate the definite integral of the constant function on [0, 1]:"
+                                          Style="border-radius: 0px;" />
+                        </MudItem>
+
+                        <!-- LaTeX Formula Template -->
+                        <MudItem xs="12">
+                            <MudTextField @bind-Value="CurrentExercise.LatexTemplate"
+                                          Label="LaTeX Formula Template"
+                                          Variant="Variant.Outlined"
+                                          Margin="Margin.Dense"
+                                          TextChanged="OnLatexChanged"
+                                          HelperText="Use variable placeholders in braces (e.g. \int_{0}^{1} {a} \,dx or \int_{0}^{{b}} {a} \,dx)"
+                                          Style="border-radius: 0px;" />
+                        </MudItem>
+
+                        <!-- Variable Ranges (When IsRandom is true) -->
+                        @if (CurrentExercise.IsRandom)
+                        {
+                            <MudItem xs="12">
+                                <div class="pa-3 mt-1" style="background-color: #1a1a1a; border: 1px solid #333;">
+                                    <div class="d-flex align-center justify-space-between mb-2">
+                                        <MudText Typo="Typo.subtitle2" Style="color: #00e5ff; font-weight: 600;">
+                                            Variable Ranges [Min, Max]
+                                        </MudText>
+                                        <div class="d-flex gap-2">
+                                            <MudButton Variant="Variant.Text" Color="Color.Primary" Size="Size.Small"
+                                                       StartIcon="@Icons.Material.Filled.Refresh" OnClick="RerollSamples">
+                                                🎲 Re-roll Sample
+                                            </MudButton>
+                                            <MudButton Variant="Variant.Outlined" Color="Color.Success" Size="Size.Small"
+                                                       StartIcon="@Icons.Material.Filled.Add" OnClick="AddVariableDialog"
+                                                       Style="border-radius: 0px;">
+                                                Add Variable
+                                            </MudButton>
+                                        </div>
+                                    </div>
+
+                                    @if (CurrentExercise.Variables.Count == 0)
+                                    {
+                                        <MudText Typo="Typo.caption" Style="color: #888;">
+                                            No variables defined. Click 'Add Variable' (e.g. variable 'a' with min 2, max 10).
+                                        </MudText>
+                                    }
+                                    else
+                                    {
+                                        <MudGrid Spacing="1">
+                                            @foreach (var vKey in CurrentExercise.Variables.Keys.ToList())
+                                            {
+                                                var range = CurrentExercise.Variables[vKey];
+                                                var curVal = _sampleValues.ContainsKey(vKey) ? _sampleValues[vKey] : range[0];
+
+                                                <MudItem xs="12" sm="6" md="4">
+                                                    <div class="pa-2 d-flex align-center justify-space-between"
+                                                         style="background-color: #292929; border: 1px solid #444;">
+                                                        <div>
+                                                            <strong style="color: #00e5ff;">@vKey</strong>
+                                                            <span class="ml-1" style="color: #bbb; font-size: 0.85rem;">
+                                                                [@range[0], @range[1]]
+                                                            </span>
+                                                            <span class="ml-2" style="color: #76FF03; font-size: 0.85rem;">
+                                                                (sample: @curVal)
+                                                            </span>
+                                                        </div>
+                                                        <MudIconButton Icon="@Icons.Material.Filled.Close"
+                                                                       Size="Size.Small"
+                                                                       Color="Color.Error"
+                                                                       OnClick="() => RemoveVariable(vKey)" />
+                                                    </div>
+                                                </MudItem>
+                                            }
+                                        </MudGrid>
+                                    }
+                                </div>
+                            </MudItem>
+                        }
+
+                        <!-- Live KaTeX Preview -->
+                        <MudItem xs="12">
+                            <div class="pa-3 mt-1" style="background-color: #111111; border: 1px solid #005ea6; border-radius: 0px;">
+                                <div class="d-flex align-center justify-space-between mb-1">
+                                    <MudText Typo="Typo.caption" Style="color: #00e5ff; font-weight: 600;">
+                                        LIVE KATEX PREVIEW (STUDENT VIEW)
+                                    </MudText>
+                                    <MudText Typo="Typo.caption" Style="color: #777;">
+                                        Rendered with sample values
+                                    </MudText>
+                                </div>
+                                <div id="carousel-preview-latex" style="min-height: 48px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: #ffffff;">
+                                    Loading preview...
+                                </div>
+                            </div>
+                        </MudItem>
+
+                        <!-- Local Calculation Engine Test Solver -->
+                        <MudItem xs="12">
+                            <div class="pa-3 mt-1" style="background-color: #16213e; border: 1px solid #0f3460; border-radius: 0px;">
+                                <div class="d-flex align-center justify-space-between">
+                                    <div>
+                                        <div class="d-flex align-center gap-2">
+                                            <MudIcon Icon="@Icons.Material.Filled.Calculate" Color="Color.Primary" Size="Size.Small" />
+                                            <strong style="color: #ffffff; font-size: 0.9rem;">Local Math Solver Verification</strong>
+                                        </div>
+                                        <MudText Typo="Typo.caption" Style="color: #aaa;">
+                                            Engine query auto-synthesized in background: <code>@_activeEngineQuery</code>
+                                        </MudText>
+                                    </div>
+                                    <MudButton Variant="Variant.Filled"
+                                               Color="Color.Primary"
+                                               Size="Size.Small"
+                                               StartIcon="@Icons.Material.Filled.PlayArrow"
+                                               OnClick="TestSolveCurrentExercise"
+                                               Disabled="_isSolving"
+                                               Style="border-radius: 0px;">
+                                        @(_isSolving ? "Solving..." : "Test Solve")
+                                    </MudButton>
+                                </div>
+
+                                @if (_testResult != null)
+                                {
+                                    <div class="mt-2 pa-2 d-flex align-center justify-space-between"
+                                         style="background-color: rgba(118, 255, 3, 0.1); border: 1px solid #76FF03;">
+                                        <div>
+                                            <span style="color: #76FF03; font-weight: bold;">Expected Solution:</span>
+                                            <strong class="ml-2" style="font-size: 1.1rem; color: #ffffff;">@_testResult</strong>
+                                        </div>
+                                        <MudChip T="string" Size="Size.Small" Color="Color.Success" Variant="Variant.Text">
+                                            Resolved by Local Engine
+                                        </MudChip>
+                                    </div>
+                                }
+                            </div>
+                        </MudItem>
+
+                        <!-- Hint (Optional) -->
+                        <MudItem xs="12">
+                            <MudTextField @bind-Value="CurrentExercise.Hint"
+                                          Label="Student Hint (Optional)"
+                                          Variant="Variant.Outlined"
+                                          Margin="Margin.Dense"
+                                          HelperText="Helpful guidance displayed when student clicks 'Hint'"
+                                          Style="border-radius: 0px;" />
+                        </MudItem>
+                    </MudGrid>
+                </div>
+            }
+        }
+    </DialogContent>
+
+    <DialogActions>
+        <div class="d-flex align-center justify-space-between pa-2" style="width: 100%;">
+            <MudButton OnClick="Cancel" Variant="Variant.Text" Style="border-radius: 0px;">
+                Cancel
+            </MudButton>
+            <MudButton OnClick="SaveAll" Variant="Variant.Filled" Color="Color.Primary"
+                       StartIcon="@Icons.Material.Filled.Save" Style="border-radius: 0px;">
+                Apply & Save Exercises (@_exercises.Count)
+            </MudButton>
+        </div>
+    </DialogActions>
+</MudDialog>
+
+<!-- Sub-dialog for adding a variable range -->
+<MudDialog @bind-Visible="_showAddVarDialog" Style="background-color: #222222; border-radius: 0px !important;">
+    <TitleContent>
+        <MudText Typo="Typo.h6" Style="color: #ffffff;">Add Variable Range</MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudStack Spacing="2">
+            <MudTextField @bind-Value="_newVarName" Label="Variable Name (e.g. a, b, c)" Variant="Variant.Outlined" Margin="Margin.Dense" />
+            <MudNumericField @bind-Value="_newVarMin" Label="Minimum Value" Variant="Variant.Outlined" Margin="Margin.Dense" />
+            <MudNumericField @bind-Value="_newVarMax" Label="Maximum Value" Variant="Variant.Outlined" Margin="Margin.Dense" />
+        </MudStack>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="() => _showAddVarDialog = false" Variant="Variant.Text">Cancel</MudButton>
+        <MudButton OnClick="ConfirmAddVariable" Variant="Variant.Filled" Color="Color.Primary">Add</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; } = null!;
+
+    [Parameter]
+    public string FormulaTitle { get; set; } = "Formula";
+
+    [Parameter]
+    public string? ExercisesJson { get; set; }
+
+    [Parameter]
+    public string DefaultFormulaLatex { get; set; } = "\\int a \\,dx";
+
+    private List<ExerciseTemplateDto> _exercises = new();
+    private int _currentIndex = 0;
+    private Dictionary<string, int> _sampleValues = new();
+    private string _activeEngineQuery = "";
+    private double? _testResult = null;
+    private bool _isSolving = false;
+
+    // Add variable modal state
+    private bool _showAddVarDialog = false;
+    private string _newVarName = "a";
+    private int _newVarMin = 2;
+    private int _newVarMax = 10;
+
+    private ExerciseTemplateDto? CurrentExercise =>
+        (_currentIndex >= 0 && _currentIndex < _exercises.Count) ? _exercises[_currentIndex] : null;
+
+    protected override void OnInitialized()
+    {
+        LoadExercises();
+    }
+
+    private void LoadExercises()
+    {
+        if (!string.IsNullOrWhiteSpace(ExercisesJson))
+        {
+            try
+            {
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                var deserialized = JsonSerializer.Deserialize<List<ExerciseTemplateDto>>(ExercisesJson, options);
+                if (deserialized != null && deserialized.Any())
+                {
+                    _exercises = deserialized;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error parsing exercises JSON: {ex.Message}");
+            }
+        }
+
+        // If no exercises exist yet, provide defaults or create first
+        if (!_exercises.Any())
+        {
+            // Seed 9 exercises if it's the constant integral formula
+            if (DefaultFormulaLatex.Contains("a") || DefaultFormulaLatex.Contains("int"))
+            {
+                _exercises = CreateDefault9ExercisesForConstantIntegral();
+            }
+            else
+            {
+                _exercises.Add(new ExerciseTemplateDto
+                {
+                    Order = 1,
+                    Difficulty = "Easy",
+                    Requirement = "Calculate the value:",
+                    LatexTemplate = DefaultFormulaLatex,
+                    IsRandom = true,
+                    Variables = new Dictionary<string, int[]> { { "a", new[] { 2, 10 } } },
+                    WolframQuery = "integrate {a} from 0 to 1"
+                });
+            }
+        }
+
+        _currentIndex = 0;
+        RefreshSampleValues();
+    }
+
+    private List<ExerciseTemplateDto> CreateDefault9ExercisesForConstantIntegral()
+    {
+        return new List<ExerciseTemplateDto>
+        {
+            // 3 EASY
+            new ExerciseTemplateDto
+            {
+                Order = 1,
+                Difficulty = "Easy",
+                Requirement = "Calculate the coefficient of x in the primitive function:",
+                IsRandom = true,
+                Variables = new Dictionary<string, int[]> { { "a", new[] { 2, 10 } } },
+                LatexTemplate = @"\int {a} \,dx",
+                WolframQuery = "{a}",
+                Hint = @"The primitive is F(x) = a*x + C. The coefficient of x is simply a."
+            },
+            new ExerciseTemplateDto
+            {
+                Order = 2,
+                Difficulty = "Easy",
+                Requirement = "Calculate the coefficient of x in the primitive function:",
+                IsRandom = true,
+                Variables = new Dictionary<string, int[]> { { "a", new[] { 11, 30 } } },
+                LatexTemplate = @"\int {a} \,dx",
+                WolframQuery = "{a}",
+                Hint = @"The primitive is F(x) = a*x + C. The coefficient of x is a."
+            },
+            new ExerciseTemplateDto
+            {
+                Order = 3,
+                Difficulty = "Easy",
+                Requirement = "Calculate the coefficient of x in the primitive function:",
+                IsRandom = true,
+                Variables = new Dictionary<string, int[]> { { "a", new[] { 31, 99 } } },
+                LatexTemplate = @"\int {a} \,dx",
+                WolframQuery = "{a}",
+                Hint = @"The coefficient of x in the primitive is the constant under the integral."
+            },
+
+            // 3 MEDIUM
+            new ExerciseTemplateDto
+            {
+                Order = 4,
+                Difficulty = "Medium",
+                Requirement = "Calculate the coefficient of x in the primitive of the negative constant:",
+                IsRandom = true,
+                Variables = new Dictionary<string, int[]> { { "a", new[] { 2, 25 } } },
+                LatexTemplate = @"\int (-{a}) \,dx",
+                WolframQuery = "-{a}",
+                Hint = @"The primitive is -a*x + C. Don't forget the negative sign."
+            },
+            new ExerciseTemplateDto
+            {
+                Order = 5,
+                Difficulty = "Medium",
+                Requirement = "Calculate the coefficient of x in the primitive function (enter decimal or integer):",
+                IsRandom = true,
+                Variables = new Dictionary<string, int[]> { { "a", new[] { 6, 30 } }, { "b", new[] { 2, 5 } } },
+                LatexTemplate = @"\int \frac{{a}}{{b}} \,dx",
+                WolframQuery = "({a}/{b})",
+                Hint = @"The primitive is (a/b)*x + C. Compute the value of the fraction a/b."
+            },
+            new ExerciseTemplateDto
+            {
+                Order = 6,
+                Difficulty = "Medium",
+                Requirement = "Calculate the coefficient of x in the primitive function:",
+                IsRandom = true,
+                Variables = new Dictionary<string, int[]> { { "a", new[] { 3, 20 } } },
+                LatexTemplate = @"\int -(-{a}) \,dx",
+                WolframQuery = "{a}",
+                Hint = @"-(-a) = a. The two minus signs simplify to positive a."
+            },
+
+            // 3 HARD
+            new ExerciseTemplateDto
+            {
+                Order = 7,
+                Difficulty = "Hard",
+                Requirement = "Calculate the coefficient of x in the primitive function:",
+                IsRandom = true,
+                Variables = new Dictionary<string, int[]> { { "a", new[] { 10, 40 } }, { "b", new[] { 5, 30 } } },
+                LatexTemplate = @"\int ({a} + {b}) \,dx",
+                WolframQuery = "({a} + {b})",
+                Hint = @"First add the two constants (a + b). The coefficient of x will be their sum."
+            },
+            new ExerciseTemplateDto
+            {
+                Order = 8,
+                Difficulty = "Hard",
+                Requirement = "Calculate the coefficient of x in the primitive function:",
+                IsRandom = true,
+                Variables = new Dictionary<string, int[]> { { "a", new[] { 5, 25 } }, { "b", new[] { 10, 35 } } },
+                LatexTemplate = @"\int ({a} - {b}) \,dx",
+                WolframQuery = "({a} - {b})",
+                Hint = @"Compute (a - b). The result may be a negative number."
+            },
+            new ExerciseTemplateDto
+            {
+                Order = 9,
+                Difficulty = "Hard",
+                Requirement = "Calculate the coefficient of x in the primitive function:",
+                IsRandom = true,
+                Variables = new Dictionary<string, int[]> { { "a", new[] { 3, 15 } }, { "b", new[] { 2, 20 } } },
+                LatexTemplate = @"\int (2 \cdot {a} + {b}) \,dx",
+                WolframQuery = "(2*{a} + {b})",
+                Hint = @"Calculate 2*a + b first. That is the constant term multiplied by x in the primitive."
+            }
+        };
+    }
+
+    private void RefreshSampleValues()
+    {
+        _sampleValues.Clear();
+        _testResult = null;
+        var rnd = new Random();
+
+        if (CurrentExercise != null)
+        {
+            if (CurrentExercise.IsRandom && CurrentExercise.Variables != null)
+            {
+                foreach (var kvp in CurrentExercise.Variables)
+                {
+                    int min = kvp.Value.Length > 0 ? kvp.Value[0] : 1;
+                    int max = kvp.Value.Length > 1 ? kvp.Value[1] : 10;
+                    if (max < min) (min, max) = (max, min);
+                    _sampleValues[kvp.Key] = rnd.Next(min, max + 1);
+                }
+            }
+
+            // Synthesize background query if missing or containing placeholders
+            _activeEngineQuery = BuildEngineQuery(CurrentExercise, _sampleValues);
+        }
+    }
+
+    private string BuildEngineQuery(ExerciseTemplateDto ex, Dictionary<string, int> sampleVals)
+    {
+        string baseQuery = ex.WolframQuery;
+
+        if (string.IsNullOrWhiteSpace(baseQuery))
+        {
+            baseQuery = "{a}";
+        }
+
+        // Replace variable tokens {var} with sample values
+        string evaluated = baseQuery;
+        foreach (var kvp in sampleVals)
+        {
+            evaluated = evaluated.Replace("{" + kvp.Key + "}", kvp.Value.ToString());
+        }
+
+        return evaluated;
+    }
+
+    private string GetRenderedLatex()
+    {
+        if (CurrentExercise == null) return "";
+        string latex = CurrentExercise.LatexTemplate;
+
+        if (CurrentExercise.IsRandom)
+        {
+            foreach (var kvp in _sampleValues)
+            {
+                latex = latex.Replace("{" + kvp.Key + "}", kvp.Value.ToString());
+            }
+        }
+
+        return latex;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await RenderKaTeXPreviewAsync();
+    }
+
+    private async Task RenderKaTeXPreviewAsync()
+    {
+        try
+        {
+            string latex = GetRenderedLatex();
+            await JS.InvokeVoidAsync("renderFormula", "carousel-preview-latex", latex);
+        }
+        catch { }
+    }
+
+    private async Task PreviousExercise()
+    {
+        if (_currentIndex > 0)
+        {
+            _currentIndex--;
+            RefreshSampleValues();
+            StateHasChanged();
+            await RenderKaTeXPreviewAsync();
+        }
+    }
+
+    private async Task NextExercise()
+    {
+        if (_currentIndex < _exercises.Count - 1)
+        {
+            _currentIndex++;
+            RefreshSampleValues();
+            StateHasChanged();
+            await RenderKaTeXPreviewAsync();
+        }
+    }
+
+    private async Task GoToExercise(int index)
+    {
+        if (index >= 0 && index < _exercises.Count)
+        {
+            _currentIndex = index;
+            RefreshSampleValues();
+            StateHasChanged();
+            await RenderKaTeXPreviewAsync();
+        }
+    }
+
+    private async Task RerollSamples()
+    {
+        RefreshSampleValues();
+        StateHasChanged();
+        await RenderKaTeXPreviewAsync();
+    }
+
+    private async Task OnLatexChanged(string newLatex)
+    {
+        if (CurrentExercise != null)
+        {
+            CurrentExercise.LatexTemplate = newLatex;
+            _activeEngineQuery = BuildEngineQuery(CurrentExercise, _sampleValues);
+            await RenderKaTeXPreviewAsync();
+        }
+    }
+
+    private void AddNewExercise()
+    {
+        var newEx = new ExerciseTemplateDto
+        {
+            Order = _exercises.Count + 1,
+            Difficulty = "Easy",
+            Requirement = "Compute the definite integral:",
+            LatexTemplate = @"\int_{0}^{1} {a} \,dx",
+            IsRandom = true,
+            Variables = new Dictionary<string, int[]> { { "a", new[] { 2, 10 } } },
+            WolframQuery = "integrate {a} from 0 to 1"
+        };
+        _exercises.Add(newEx);
+        _currentIndex = _exercises.Count - 1;
+        RefreshSampleValues();
+        Snackbar.Add($"Added Exercise {_exercises.Count}", Severity.Info);
+    }
+
+    private void DuplicateCurrentExercise()
+    {
+        if (CurrentExercise == null) return;
+        var clonedVars = new Dictionary<string, int[]>();
+        foreach (var kvp in CurrentExercise.Variables)
+        {
+            clonedVars[kvp.Key] = (int[])kvp.Value.Clone();
+        }
+
+        var dup = new ExerciseTemplateDto
+        {
+            Order = _exercises.Count + 1,
+            Difficulty = CurrentExercise.Difficulty,
+            Requirement = CurrentExercise.Requirement,
+            LatexTemplate = CurrentExercise.LatexTemplate,
+            IsRandom = CurrentExercise.IsRandom,
+            Variables = clonedVars,
+            WolframQuery = CurrentExercise.WolframQuery,
+            Hint = CurrentExercise.Hint
+        };
+        _exercises.Add(dup);
+        _currentIndex = _exercises.Count - 1;
+        RefreshSampleValues();
+        Snackbar.Add($"Exercise duplicated as #{_exercises.Count}", Severity.Success);
+    }
+
+    private void DeleteCurrentExercise()
+    {
+        if (_exercises.Count <= 1)
+        {
+            Snackbar.Add("Cannot delete the last remaining exercise.", Severity.Warning);
+            return;
+        }
+
+        _exercises.RemoveAt(_currentIndex);
+        if (_currentIndex >= _exercises.Count)
+        {
+            _currentIndex = _exercises.Count - 1;
+        }
+
+        // Re-index orders
+        for (int i = 0; i < _exercises.Count; i++)
+        {
+            _exercises[i].Order = i + 1;
+        }
+
+        RefreshSampleValues();
+        Snackbar.Add("Exercise deleted.", Severity.Info);
+    }
+
+    private void AddVariableDialog()
+    {
+        _newVarName = "a";
+        _newVarMin = 2;
+        _newVarMax = 10;
+        _showAddVarDialog = true;
+    }
+
+    private void ConfirmAddVariable()
+    {
+        if (CurrentExercise == null || string.IsNullOrWhiteSpace(_newVarName)) return;
+        string key = _newVarName.Trim().ToLower();
+
+        if (_newVarMax < _newVarMin)
+        {
+            (_newVarMin, _newVarMax) = (_newVarMax, _newVarMin);
+        }
+
+        CurrentExercise.Variables[key] = new[] { _newVarMin, _newVarMax };
+        _showAddVarDialog = false;
+        RefreshSampleValues();
+        Snackbar.Add($"Variable '{key}' [{_newVarMin}, {_newVarMax}] added.", Severity.Success);
+    }
+
+    private void RemoveVariable(string varKey)
+    {
+        if (CurrentExercise == null) return;
+        CurrentExercise.Variables.Remove(varKey);
+        RefreshSampleValues();
+        Snackbar.Add($"Variable '{varKey}' removed.", Severity.Info);
+    }
+
+    private async Task TestSolveCurrentExercise()
+    {
+        if (CurrentExercise == null) return;
+        _isSolving = true;
+        _testResult = null;
+        StateHasChanged();
+
+        try
+        {
+            _activeEngineQuery = BuildEngineQuery(CurrentExercise, _sampleValues);
+            double result = 0;
+            try
+            {
+                result = EvaluateArithmeticExpression(_activeEngineQuery);
+            }
+            catch
+            {
+                result = await Wolfram.GetExactSolutionAsync(_activeEngineQuery);
+            }
+            _testResult = result;
+            Snackbar.Add($"Solved successfully: {result}", Severity.Success);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Evaluation failed: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isSolving = false;
+            StateHasChanged();
+        }
+    }
+
+    private static double EvaluateArithmeticExpression(string expr)
+    {
+        if (string.IsNullOrWhiteSpace(expr)) return 0;
+        string s = expr.Replace(" ", "").Replace(',', '.');
+        int pos = 0;
+
+        double ParseExpression()
+        {
+            double val = ParseTerm();
+            while (pos < s.Length)
+            {
+                char op = s[pos];
+                if (op == '+' || op == '-')
+                {
+                    pos++;
+                    double next = ParseTerm();
+                    val = (op == '+') ? val + next : val - next;
+                }
+                else break;
+            }
+            return val;
+        }
+
+        double ParseTerm()
+        {
+            double val = ParseFactor();
+            while (pos < s.Length)
+            {
+                char op = s[pos];
+                if (op == '*' || op == '/')
+                {
+                    pos++;
+                    double next = ParseFactor();
+                    val = (op == '*') ? val * next : (next != 0 ? val / next : 0);
+                }
+                else break;
+            }
+            return val;
+        }
+
+        double ParseFactor()
+        {
+            if (pos >= s.Length) return 0;
+
+            if (s[pos] == '+') { pos++; return ParseFactor(); }
+            if (s[pos] == '-') { pos++; return -ParseFactor(); }
+
+            if (s[pos] == '(')
+            {
+                pos++;
+                double val = ParseExpression();
+                if (pos < s.Length && s[pos] == ')') pos++;
+                return val;
+            }
+
+            int start = pos;
+            while (pos < s.Length && (char.IsDigit(s[pos]) || s[pos] == '.'))
+            {
+                pos++;
+            }
+
+            if (pos > start)
+            {
+                string numStr = s.Substring(start, pos - start);
+                if (double.TryParse(numStr, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double num))
+                {
+                    return num;
+                }
+            }
+
+            return 0;
+        }
+
+        return Math.Round(ParseExpression(), 3);
+    }
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private void SaveAll()
+    {
+        // Re-index order numbers
+        for (int i = 0; i < _exercises.Count; i++)
+        {
+            _exercises[i].Order = i + 1;
+            if (string.IsNullOrWhiteSpace(_exercises[i].WolframQuery))
+            {
+                _exercises[i].WolframQuery = "integrate {a} from 0 to 1";
+            }
+        }
+
+        string serialized = JsonSerializer.Serialize(_exercises, new JsonSerializerOptions
+        {
+            WriteIndented = true
+        });
+
+        MudDialog.Close(DialogResult.Ok(serialized));
+    }
+}

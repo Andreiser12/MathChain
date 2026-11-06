@@ -76,11 +76,15 @@
 		position: absolute;
 		top: 8px;
 		right: 8px;
-		background: rgba(22, 33, 62, 0.9);
+		background: rgba(22, 33, 62, 0.95);
 		backdrop-filter: blur(4px);
-		border-radius: 20px;
+		border-radius: 0px !important;
 		padding: 2px 4px;
-		z-index: 2;
+		z-index: 30;
+		display: flex;
+		align-items: center;
+		gap: 2px;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.5);
 	}
 
 	.chapter-page-header {
@@ -286,7 +290,7 @@ else
 					<MudItem xs="12" sm="6" md="4">
 						<MudCard Elevation="4"
 								 Class="cursor-pointer hover-effect h-100 d-flex flex-column justify-space-between"
-								 Style="background-color: #16213E; color: #ffffff;"
+								 Style="position: relative !important; background-color: #16213E; color: #ffffff; border-radius: 0px !important;"
 								 @onclick="() => NavigateToChapter(chapter)">
 
 							@if (Session.Role == UserRole.Admin)
@@ -365,7 +369,7 @@ else
 				@foreach (var formula in _formulas)
 				{
 					<MudItem xs="12" sm="6" md="4">
-						<MudCard Elevation="4" Class="pa-4 h-100 position-relative" Style="background-color: #222222; border-radius: 8px;">
+						<MudCard Elevation="4" Class="pa-4 h-100" Style="position: relative !important; background-color: #222222; border-radius: 0px !important;">
 							@if (Session.Role == UserRole.Admin)
 							{
 								<div class="card-admin-actions" @onclick:stopPropagation="true">

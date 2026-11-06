@@ -26,4 +26,20 @@ namespace MathChain.Blazor.DTOs
         public int ProblemsSolved { get; set; }
         public bool IsCurrentUser { get; set; }
     }
+
+    public class RecordSolvedProblemRequest
+    {
+        public string WalletAddress { get; set; } = string.Empty;
+        public string? FormulaId { get; set; }
+        public string? Difficulty { get; set; }
+        public string? Solution { get; set; }
+        public int? ExerciseIndex { get; set; }
+    }
+
+    public class PracticeProgressDto
+    {
+        public string FormulaId { get; set; } = string.Empty;
+        public int LastExerciseIndex { get; set; } = 0;
+        public List<int> SolvedIndices { get; set; } = new();
+    }
 }

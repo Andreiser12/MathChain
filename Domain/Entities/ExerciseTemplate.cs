@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +10,8 @@ namespace MathChain.Domain.Entities
     {
         public string Difficulty { get; set; } = "Easy";
         public int Order { get; set; }
+        public string Requirement { get; set; } = string.Empty;
+        public bool IsRandom { get; set; } = true;
         public Dictionary<string, int[]> Variables { get; set; } = new();
         public string LatexTemplate { get; set; } = string.Empty;
         public string WolframQuery { get; set; } = string.Empty;

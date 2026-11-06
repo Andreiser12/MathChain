@@ -20,15 +20,14 @@ namespace MathChain.Domain.Entities
 
         public override bool ValidateSolution(string solution)
         {
-            const int epsilon = 10;
+            if (string.IsNullOrWhiteSpace(solution)) return false;
 
-            if(double.TryParse(solution, NumberStyles.Float,
-                CultureInfo.InvariantCulture, out double parsedUserSolution))
+            const double epsilon = 0.015;
+            string clean = solution.Trim().Replace(',', '.');
+
+            if (double.TryParse(clean, NumberStyles.Any, CultureInfo.InvariantCulture, out double parsedUserSolution))
             {
-                double userSolution = parsedUserSolution * 1000;
-                double correctSolution = CorrectSolution * 1000;
-
-                return Math.Abs(userSolution - correctSolution) < epsilon;
+                return Math.Abs(parsedUserSolution - CorrectSolution) <= epsilon;
             }
 
             return false;

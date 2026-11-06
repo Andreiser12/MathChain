@@ -38,6 +38,41 @@ namespace MathChain.Blazor.Services
 
         public Formula? CurrentFormula { get; set; }
 
+        public async Task SetCurrentFormulaAsync(Formula? formula)
+        {
+            CurrentFormula = formula;
+            try
+            {
+                if (formula != null)
+                {
+                    var json = System.Text.Json.JsonSerializer.Serialize(formula);
+                    await _js.InvokeVoidAsync("localStorage.setItem", "mathchain_current_formula", json);
+                }
+                else
+                {
+                    await _js.InvokeVoidAsync("localStorage.removeItem", "mathchain_current_formula");
+                }
+            }
+            catch { }
+        }
+
+        public async Task<Formula?> RestoreCurrentFormulaAsync()
+        {
+            if (CurrentFormula != null) return CurrentFormula;
+
+            try
+            {
+                var json = await _js.InvokeAsync<string?>("localStorage.getItem", "mathchain_current_formula");
+                if (!string.IsNullOrWhiteSpace(json))
+                {
+                    CurrentFormula = System.Text.Json.JsonSerializer.Deserialize<Formula>(json);
+                    return CurrentFormula;
+                }
+            }
+            catch { }
+            return null;
+        }
+
         public async Task RestoreSessionAsync()
         {
             if (IsConnected && !string.IsNullOrWhiteSpace(_walletAddress))

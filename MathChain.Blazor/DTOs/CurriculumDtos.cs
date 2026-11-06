@@ -57,6 +57,12 @@ namespace MathChain.Blazor.DTOs
         [JsonPropertyName("order")]
         public int Order { get; set; }
 
+        [JsonPropertyName("requirement")]
+        public string Requirement { get; set; } = string.Empty;
+
+        [JsonPropertyName("isRandom")]
+        public bool IsRandom { get; set; } = true;
+
         [JsonPropertyName("variables")]
         public Dictionary<string, int[]> Variables { get; set; } = new();
 

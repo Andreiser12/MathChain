@@ -1,5 +1,7 @@
 using MathChain.Persistence.Context;
 using MathChain.Application.DTOs;
+using MathChain.Domain.Entities;
+using MathChain.Domain.Enums;
 using MathChain.Infrastructure.ResponseHandling;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -55,9 +57,23 @@ namespace MathChain.API.Controllers
                 if (submissionsByWallet.TryGetValue(w, out var userSubs) && userSubs.Any())
                 {
                     solved = userSubs.Count;
-                    hard = solved / 3;
-                    medium = solved / 3;
-                    easy = solved - hard - medium;
+
+                    int recHard = userSubs.Count(s => s.Content != null && s.Content.Contains("Difficulty Hard", StringComparison.OrdinalIgnoreCase));
+                    int recMed = userSubs.Count(s => s.Content != null && s.Content.Contains("Difficulty Medium", StringComparison.OrdinalIgnoreCase));
+                    int recEasy = userSubs.Count(s => s.Content != null && s.Content.Contains("Difficulty Easy", StringComparison.OrdinalIgnoreCase));
+
+                    if (recHard + recMed + recEasy > 0)
+                    {
+                        hard = recHard;
+                        medium = recMed;
+                        easy = recEasy + (solved - recHard - recMed - recEasy);
+                    }
+                    else
+                    {
+                        hard = solved / 3;
+                        medium = solved / 3;
+                        easy = solved - hard - medium;
+                    }
 
                     var userGrades = userSubs
                         .Where(s => gradesBySubmissionId.ContainsKey(s.Id))
@@ -82,9 +98,23 @@ namespace MathChain.API.Controllers
                 if (submissionsByWallet.TryGetValue(normalizedWallet, out var userSubs) && userSubs.Any())
                 {
                     solved = userSubs.Count;
-                    hard = solved / 3;
-                    medium = solved / 3;
-                    easy = solved - hard - medium;
+
+                    int recHard = userSubs.Count(s => s.Content != null && s.Content.Contains("Difficulty Hard", StringComparison.OrdinalIgnoreCase));
+                    int recMed = userSubs.Count(s => s.Content != null && s.Content.Contains("Difficulty Medium", StringComparison.OrdinalIgnoreCase));
+                    int recEasy = userSubs.Count(s => s.Content != null && s.Content.Contains("Difficulty Easy", StringComparison.OrdinalIgnoreCase));
+
+                    if (recHard + recMed + recEasy > 0)
+                    {
+                        hard = recHard;
+                        medium = recMed;
+                        easy = recEasy + (solved - recHard - recMed - recEasy);
+                    }
+                    else
+                    {
+                        hard = solved / 3;
+                        medium = solved / 3;
+                        easy = solved - hard - medium;
+                    }
 
                     var userGrades = userSubs
                         .Where(s => gradesBySubmissionId.ContainsKey(s.Id))
@@ -140,6 +170,94 @@ namespace MathChain.API.Controllers
                 UserAccuracy = currentUser != default ? currentUser.Accuracy : 0,
                 UserRank = userRank,
                 Leaderboard = leaderboard
+            };
+
+            return Ok(EnvelopeExtensions.Success(dto));
+        }
+
+        [HttpPost("record-solved")]
+        public async Task<IActionResult> RecordSolvedProblem([FromBody] RecordSolvedProblemRequest request)
+        {
+            if (string.IsNullOrWhiteSpace(request.WalletAddress))
+            {
+                return BadRequest(EnvelopeExtensions.Failure<object>("Wallet address is required.", 400));
+            }
+
+            var cleanWallet = request.WalletAddress.Trim();
+
+            // 1. Ensure user exists in Users table so they appear on leaderboard
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.WalletAddress.ToLower() == cleanWallet.ToLower());
+            if (user == null)
+            {
+                user = new User
+                {
+                    Id = Guid.NewGuid(),
+                    WalletAddress = cleanWallet,
+                    Role = UserRole.Student,
+                    CreatedAt = DateTime.UtcNow
+                };
+                _context.Users.Add(user);
+            }
+
+            // 2. Add submission record
+            var submission = new Submission
+            {
+                Id = Guid.NewGuid(),
+                AssignmentId = Guid.Empty,
+                StudentWallet = cleanWallet,
+                Content = $"Practice: Formula {request.FormulaId ?? "General"}, ExerciseIndex {request.ExerciseIndex ?? 0}, Difficulty {request.Difficulty ?? "Easy"}, Solution {request.Solution ?? ""}",
+                SubmittedAt = DateTime.UtcNow
+            };
+            _context.Submissions.Add(submission);
+
+            // 3. Add grade record (10.0 = 100% accuracy)
+            var grade = new Grade
+            {
+                Id = Guid.NewGuid(),
+                SubmissionId = submission.Id,
+                Score = 10.0,
+                Feedback = "Verified correct in Practice Arena",
+                GradedAt = DateTime.UtcNow
+            };
+            _context.Grades.Add(grade);
+
+            await _context.SaveChangesAsync();
+
+            int totalSolved = await _context.Submissions.CountAsync(s => s.StudentWallet.ToLower() == cleanWallet.ToLower());
+
+            return Ok(EnvelopeExtensions.Success(new { TotalSolved = totalSolved }));
+        }
+
+        [HttpGet("practice-progress")]
+        public async Task<IActionResult> GetPracticeProgress([FromQuery] string walletAddress, [FromQuery] string formulaId)
+        {
+            if (string.IsNullOrWhiteSpace(walletAddress) || string.IsNullOrWhiteSpace(formulaId))
+            {
+                return Ok(EnvelopeExtensions.Success(new PracticeProgressDto { FormulaId = formulaId ?? "" }));
+            }
+
+            var cleanWallet = walletAddress.Trim().ToLowerInvariant();
+            var submissions = await _context.Submissions
+                .Where(s => s.StudentWallet.ToLower() == cleanWallet && s.Content.Contains($"Formula {formulaId}"))
+                .ToListAsync();
+
+            var solvedIndices = new HashSet<int>();
+            foreach (var sub in submissions)
+            {
+                var match = System.Text.RegularExpressions.Regex.Match(sub.Content, @"ExerciseIndex\s+(\d+)");
+                if (match.Success && int.TryParse(match.Groups[1].Value, out int idx))
+                {
+                    solvedIndices.Add(idx);
+                }
+            }
+
+            int lastIndex = solvedIndices.Any() ? solvedIndices.Max() + 1 : 0;
+
+            var dto = new PracticeProgressDto
+            {
+                FormulaId = formulaId,
+                LastExerciseIndex = lastIndex,
+                SolvedIndices = solvedIndices.OrderBy(i => i).ToList()
             };
 
             return Ok(EnvelopeExtensions.Success(dto));

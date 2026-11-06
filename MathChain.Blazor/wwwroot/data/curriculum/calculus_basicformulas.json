@@ -16,52 +16,114 @@
         {
           "difficulty": "Easy",
           "order": 1,
+          "requirement": "Calculate the coefficient of x in the primitive function:",
+          "isRandom": true,
           "variables": {
-            "a": [
-              2,
-              5
-            ]
+            "a": [2, 10]
           },
-          "latexTemplate": "\\int a \\,dx = ax + C",
-          "wolframQuery": "simplify \\int a \\,dx = ax + C",
-          "hint": "Aplica direct formula fundamentala.",
-          "solutionIpfs": null
+          "latexTemplate": "\\int {a} \\,dx",
+          "wolframQuery": "{a}",
+          "hint": "The primitive is F(x) = a*x + C. The coefficient of x is simply a."
+        },
+        {
+          "difficulty": "Easy",
+          "order": 2,
+          "requirement": "Calculate the coefficient of x in the primitive function:",
+          "isRandom": true,
+          "variables": {
+            "a": [11, 30]
+          },
+          "latexTemplate": "\\int {a} \\,dx",
+          "wolframQuery": "{a}",
+          "hint": "The primitive is F(x) = a*x + C. The coefficient of x is a."
+        },
+        {
+          "difficulty": "Easy",
+          "order": 3,
+          "requirement": "Calculate the coefficient of x in the primitive function:",
+          "isRandom": true,
+          "variables": {
+            "a": [31, 99]
+          },
+          "latexTemplate": "\\int {a} \\,dx",
+          "wolframQuery": "{a}",
+          "hint": "The coefficient of x in the primitive is the constant under the integral."
         },
         {
           "difficulty": "Medium",
-          "order": 2,
+          "order": 4,
+          "requirement": "Calculate the coefficient of x in the primitive of the negative constant:",
+          "isRandom": true,
           "variables": {
-            "a": [
-              2,
-              6
-            ],
-            "b": [
-              1,
-              4
-            ]
+            "a": [2, 25]
           },
-          "latexTemplate": "\\int a \\,dx = ax + C",
-          "wolframQuery": "simplify \\int a \\,dx = ax + C",
-          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
-          "solutionIpfs": null
+          "latexTemplate": "\\int (-{a}) \\,dx",
+          "wolframQuery": "-{a}",
+          "hint": "The primitive is -a*x + C. Don't forget the negative sign."
+        },
+        {
+          "difficulty": "Medium",
+          "order": 5,
+          "requirement": "Calculate the coefficient of x in the primitive function (enter decimal or integer):",
+          "isRandom": true,
+          "variables": {
+            "a": [6, 30],
+            "b": [2, 5]
+          },
+          "latexTemplate": "\\int \\frac{{a}}{{b}} \\,dx",
+          "wolframQuery": "({a}/{b})",
+          "hint": "The primitive is (a/b)*x + C. Compute the value of the fraction a/b."
+        },
+        {
+          "difficulty": "Medium",
+          "order": 6,
+          "requirement": "Calculate the coefficient of x in the primitive function:",
+          "isRandom": true,
+          "variables": {
+            "a": [3, 20]
+          },
+          "latexTemplate": "\\int -(-{a}) \\,dx",
+          "wolframQuery": "{a}",
+          "hint": "-(-a) = a. The two minus signs simplify to positive a."
         },
         {
           "difficulty": "Hard",
-          "order": 3,
+          "order": 7,
+          "requirement": "Calculate the coefficient of x in the primitive function:",
+          "isRandom": true,
           "variables": {
-            "a": [
-              2,
-              8
-            ],
-            "b": [
-              2,
-              5
-            ]
+            "a": [10, 40],
+            "b": [5, 30]
           },
-          "latexTemplate": "\\int a \\,dx = ax + C",
-          "wolframQuery": "simplify \\int a \\,dx = ax + C",
-          "hint": "Combina proprietatile specifice capitolului.",
-          "solutionIpfs": "QmHardSol_calculus_basicformulas_f1"
+          "latexTemplate": "\\int ({a} + {b}) \\,dx",
+          "wolframQuery": "({a} + {b})",
+          "hint": "First add the two constants (a + b). The coefficient of x will be their sum."
+        },
+        {
+          "difficulty": "Hard",
+          "order": 8,
+          "requirement": "Calculate the coefficient of x in the primitive function:",
+          "isRandom": true,
+          "variables": {
+            "a": [5, 25],
+            "b": [10, 35]
+          },
+          "latexTemplate": "\\int ({a} - {b}) \\,dx",
+          "wolframQuery": "({a} - {b})",
+          "hint": "Compute (a - b). The result may be a negative number."
+        },
+        {
+          "difficulty": "Hard",
+          "order": 9,
+          "requirement": "Calculate the coefficient of x in the primitive function:",
+          "isRandom": true,
+          "variables": {
+            "a": [3, 15],
+            "b": [2, 20]
+          },
+          "latexTemplate": "\\int (2 \\cdot {a} + {b}) \\,dx",
+          "wolframQuery": "(2*{a} + {b})",
+          "hint": "Calculate 2*a + b first. That is the constant term multiplied by x in the primitive."
         }
       ]
     },

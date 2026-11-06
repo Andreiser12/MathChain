@@ -1,8 +1,10 @@
 @using MathChain.Blazor.DTOs
 @using MudBlazor
+@using System.Text.Json
 @inject ISnackbar Snackbar
+@inject IDialogService DialogService
 
-<MudDialog>
+<MudDialog Style="border-radius: 0px !important;">
     <TitleContent>
         <MudText Typo="Typo.h6" Style="font-weight: 600;">
             <MudIcon Icon="@(IsEdit ? Icons.Material.Filled.Edit : Icons.Material.Filled.AddCircle)" Class="mr-2" />
@@ -13,7 +15,7 @@
         <MudStack Spacing="3" Class="pt-2">
             @if (ChapterTitle != null)
             {
-                <MudAlert Severity="Severity.Info" Dense="true" Class="mb-1">
+                <MudAlert Severity="Severity.Info" Dense="true" Class="mb-1" Style="border-radius: 0px;">
                     Chapter: <strong>@ChapterTitle</strong>
                 </MudAlert>
             }
@@ -23,39 +25,73 @@
                           Variant="Variant.Outlined"
                           Required="true"
                           RequiredError="Title is required"
-                          HelperText="e.g. Constant Rule, Power Rule, Integration by Parts" />
+                          HelperText="e.g. Constant Rule, Power Rule, Integration by Parts"
+                          Style="border-radius: 0px;" />
 
             <MudTextField @bind-Value="_latex"
                           Label="LaTeX Formula"
                           Variant="Variant.Outlined"
                           Required="true"
                           RequiredError="LaTeX code is required"
-                          HelperText="LaTeX math notation (e.g. \int a \, dx = ax + C or x^2 + y^2 = r^2)" />
+                          HelperText="LaTeX math notation (e.g. \int a \, dx = ax + C or x^2 + y^2 = r^2)"
+                          Style="border-radius: 0px;" />
+
+            <!-- Exercises Carousel Launcher Button -->
+            <div class="pa-3" style="background-color: #1a1a1a; border: 1px solid #005ea6; border-radius: 0px;">
+                <div class="d-flex align-center justify-space-between">
+                    <div>
+                        <div class="d-flex align-center gap-2">
+                            <MudIcon Icon="@Icons.Material.Filled.ViewCarousel" Color="Color.Primary" Size="Size.Small" />
+                            <MudText Typo="Typo.subtitle2" Style="color: #00e5ff; font-weight: 600;">
+                                Practice Exercises Carousel
+                            </MudText>
+                        </div>
+                        <MudText Typo="Typo.caption" Style="color: #bbb;">
+                            @(_configuredExercisesCount > 0
+                                ? $"{_configuredExercisesCount} practice exercises configured (randomized/fixed coefficients)"
+                                : "No exercises configured yet. Click to configure practice exercises.")
+                        </MudText>
+                    </div>
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               Size="Size.Small"
+                               StartIcon="@Icons.Material.Filled.SettingsSuggest"
+                               OnClick="OpenExercisesCarousel"
+                               Style="border-radius: 0px; background-color: #005ea6;">
+                        Configure Exercises (@_configuredExercisesCount)
+                    </MudButton>
+                </div>
+            </div>
 
             <MudTextField @bind-Value="_description"
                           Label="Description (optional)"
                           Variant="Variant.Outlined"
-                          Lines="2" />
+                          Lines="2"
+                          Style="border-radius: 0px;" />
 
             <MudTextField @bind-Value="_requirement"
                           Label="Requirement / Template (optional)"
                           Variant="Variant.Outlined"
-                          HelperText="Exercise problem requirement or template prompt" />
+                          HelperText="Exercise problem requirement or template prompt"
+                          Style="border-radius: 0px;" />
 
             <MudTextField @bind-Value="_model3D"
                           Label="3D Model Path (optional)"
                           Variant="Variant.Outlined"
-                          HelperText="Path to 3D .glb model (e.g. Assets/3DModels/inta.glb)" />
+                          HelperText="Path to 3D .glb model (e.g. Assets/3DModels/inta.glb)"
+                          Style="border-radius: 0px;" />
 
             <MudNumericField @bind-Value="_order"
                              Label="Display Order"
                              Variant="Variant.Outlined"
-                             Min="1" />
+                             Min="1"
+                             Style="border-radius: 0px;" />
         </MudStack>
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Cancel" Variant="Variant.Text">Cancel</MudButton>
-        <MudButton OnClick="Save" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Save">
+        <MudButton OnClick="Cancel" Variant="Variant.Text" Style="border-radius: 0px;">Cancel</MudButton>
+        <MudButton OnClick="Save" Variant="Variant.Filled" Color="Color.Primary"
+                   StartIcon="@Icons.Material.Filled.Save" Style="border-radius: 0px;">
             Save
         </MudButton>
     </DialogActions>
@@ -81,6 +117,8 @@
     private string _description = string.Empty;
     private string _requirement = string.Empty;
     private string _model3D = string.Empty;
+    private string? _exercisesJson = null;
+    private int _configuredExercisesCount = 0;
     private int _order = 1;
 
     protected override void OnInitialized()
@@ -92,7 +130,57 @@
             _description = ExistingFormula.Description ?? string.Empty;
             _requirement = ExistingFormula.Requirement ?? string.Empty;
             _model3D = ExistingFormula.Model3D ?? string.Empty;
+            _exercisesJson = ExistingFormula.ExercisesJson;
             _order = ExistingFormula.Order;
+            UpdateConfiguredExercisesCount();
+        }
+    }
+
+    private void UpdateConfiguredExercisesCount()
+    {
+        if (!string.IsNullOrWhiteSpace(_exercisesJson))
+        {
+            try
+            {
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                var list = JsonSerializer.Deserialize<List<ExerciseTemplateDto>>(_exercisesJson, options);
+                _configuredExercisesCount = list?.Count ?? 0;
+            }
+            catch
+            {
+                _configuredExercisesCount = 0;
+            }
+        }
+        else
+        {
+            _configuredExercisesCount = 0;
+        }
+    }
+
+    private async Task OpenExercisesCarousel()
+    {
+        var parameters = new DialogParameters<FormulaExercisesCarouselDialog>
+        {
+            { x => x.FormulaTitle, string.IsNullOrWhiteSpace(_title) ? "Formula" : _title },
+            { x => x.ExercisesJson, _exercisesJson },
+            { x => x.DefaultFormulaLatex, string.IsNullOrWhiteSpace(_latex) ? "\\int a \\,dx" : _latex }
+        };
+
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey = true,
+            MaxWidth = MaxWidth.Large,
+            FullWidth = true
+        };
+
+        var dialog = await DialogService.ShowAsync<FormulaExercisesCarouselDialog>("Practice Exercises Carousel", parameters, options);
+        var result = await dialog.Result;
+
+        if (result != null && !result.Canceled && result.Data is string updatedJson)
+        {
+            _exercisesJson = updatedJson;
+            UpdateConfiguredExercisesCount();
+            Snackbar.Add($"Saved {_configuredExercisesCount} practice exercises for formula!", Severity.Success);
         }
     }
 
@@ -131,7 +219,7 @@
                 Description = _description.Trim(),
                 Requirement = _requirement.Trim(),
                 Model3D = _model3D.Trim(),
-                ExercisesJson = ExistingFormula.ExercisesJson,
+                ExercisesJson = _exercisesJson,
                 Order = _order
             };
             MudDialog.Close(DialogResult.Ok(updateDto));
@@ -145,6 +233,7 @@
                 Description = _description.Trim(),
                 Requirement = _requirement.Trim(),
                 Model3D = _model3D.Trim(),
+                ExercisesJson = _exercisesJson,
                 Order = _order
             };
             MudDialog.Close(DialogResult.Ok(createDto));

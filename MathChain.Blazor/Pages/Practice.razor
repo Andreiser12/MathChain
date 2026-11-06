@@ -2,10 +2,14 @@
 @inject AppSession Session
 @inject NavigationManager Nav
 @inject WolframService Wolfram
+@inject ApiService Api
 @inject IJSRuntime JS
 @inject ISnackbar Snackbar
+@using MathChain.Blazor.DTOs
 @using MathChain.Domain.Entities
-
+@using System.Text.Json
+@using System.Text.RegularExpressions
+@using System.Globalization
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge"
               Style="display: flex; flex-direction: column; height: 100vh; padding: 8px 16px; overflow: hidden; box-sizing: border-box;">
@@ -17,34 +21,56 @@
     <MudGrid Style="flex: 1; min-height: 0;">
         <MudItem xs="8" Style="height: 100%;">
             <MudPaper Class="pa-6"
-                      Style="height: 100%; background-color: #16213E; display: flex; flex-direction: column;">
+                      Style="height: 100%; background-color: #16213E; display: flex; flex-direction: column; border-radius: 0px !important;">
 
                 <div class="d-flex flex-column justify-center align-center" style="flex: 1">
 
                     @if(string.IsNullOrEmpty(_currentLatex))
                     {
-                        <MudText Typo="Typo.h4">Loading...</MudText>
+                        <MudProgressCircular Color="Color.Primary" Indeterminate="true" Class="mb-3" />
+                        <MudText Typo="Typo.h5">Loading exercise...</MudText>
                     }
                     else
                     {
-                        <MudText Typo="Typo.h5" Class="mb-4">
-                            @Session.CurrentFormula?.Requirement
+                        @if (_exercises.Any())
+                        {
+                            <div class="d-flex align-center gap-2 mb-3">
+                                <MudChip T="string" Size="Size.Small" Color="Color.Primary" Variant="Variant.Filled" Style="border-radius: 0px;">
+                                    Exercise @(_currentExerciseIndex + 1) of @_exercises.Count
+                                </MudChip>
+                                <MudChip T="string" Size="Size.Small" Color="@CurrentDifficultyColor" Variant="Variant.Outlined" Style="border-radius: 0px;">
+                                    @_currentDifficulty
+                                </MudChip>
+                                @if (_solvedExerciseIndices.Contains(_currentExerciseIndex))
+                                {
+                                    <MudChip T="string" Size="Size.Small" Color="Color.Success" Variant="Variant.Filled" Style="border-radius: 0px;">
+                                        ✓ Solved
+                                    </MudChip>
+                                }
+                                <MudChip T="string" Size="Size.Small" Color="Color.Default" Variant="Variant.Text" Style="color: #90caf9;">
+                                    Completed: @_solvedExerciseIndices.Count / @_exercises.Count
+                                </MudChip>
+                            </div>
+                        }
+
+                        <MudText Typo="Typo.h5" Class="mb-4" Align="Align.Center" Style="color: #ffffff; max-width: 650px;">
+                            @_currentRequirement
                         </MudText>
                     }
 
-                    <div id="formula-display"></div>
+                    <div id="formula-display" style="font-size: 2.2rem; min-height: 60px;"></div>
                 </div>
 
-                
-                
                 <div>
                     <MudText Class="mb-2">
                         Enter your result (number with maximum 3 decimal places):
                     </MudText>
                     <MudTextField @bind-Value="_userAnswer"
-                                  Variant="Variant.Outlined" />
+                                  Variant="Variant.Outlined"
+                                  Placeholder="e.g. 7 or -14"
+                                  Style="border-radius: 0px !important;" />
                 </div>
-                
+
             </MudPaper>
         </MudItem>
 
@@ -54,23 +80,41 @@
     </MudGrid>
 
     <MudStack Row="true" Style="width: 100%;" Class="mt-2" Justify="Justify.SpaceBetween">
-
-        <MudButton Variant="Variant.Filled" Style="background-color: #B71C1C;" OnClick="ExitPractice">Exit</MudButton>
-        <MudButton Variant="Variant.Filled" Style="background-color: #4DD0E1">Previous</MudButton>
-        <MudButton Variant="Variant.Filled" Style="background-color: #FF8F00">Hint</MudButton>
-        <MudButton Variant="Variant.Filled" Style="background-color: #7C4DFF" Disabled="true">View Solution</MudButton>
-        <MudButton Variant="Variant.Filled" Style="background-color: #76FF03" OnClick="VerifyAnswer">Verify Answer</MudButton>
-        <MudButton Variant="Variant.Filled" Style="background-color: #4DD0E1">Next</MudButton>
+        <MudButton Variant="Variant.Filled" Style="background-color: #B71C1C; border-radius: 0px;" OnClick="ExitPractice">Exit</MudButton>
+        <MudButton Variant="Variant.Filled" Style="background-color: #005ea6; border-radius: 0px;"
+                   OnClick="PreviousExercise"
+                   Disabled="@(_exercises.Count <= 1 || _currentExerciseIndex <= 0)">
+            Previous
+        </MudButton>
+        <MudButton Variant="Variant.Filled" Style="background-color: #FF8F00; border-radius: 0px;" OnClick="ShowHint">Hint</MudButton>
+        <MudButton Variant="Variant.Filled" Style="background-color: #7C4DFF; border-radius: 0px;" Disabled="true">View Solution</MudButton>
+        <MudButton Variant="Variant.Filled" Style="background-color: #76FF03; color: #000; font-weight: bold; border-radius: 0px;" OnClick="VerifyAnswer">Verify Answer</MudButton>
+        <MudButton Variant="Variant.Filled" Style="background-color: #005ea6; border-radius: 0px;"
+                   OnClick="NextExercise"
+                   Disabled="@(_exercises.Count <= 1 || _currentExerciseIndex >= _exercises.Count - 1)">
+            Next
+        </MudButton>
     </MudStack>
 
 </MudContainer>
 
 
 @code {
-
     private string _userAnswer = "";
     private string _currentLatex = "";
     private double _currentAnswer;
+    private string _currentRequirement = "";
+    private string _currentDifficulty = "Easy";
+    private string? _currentHint = null;
+
+    private List<ExerciseTemplateDto> _exercises = new();
+    private int _currentExerciseIndex = 0;
+    private HashSet<int> _solvedExerciseIndices = new();
+    private bool _isCurrentExerciseRecorded = false;
+    private bool _resumedNotificationShown = false;
+
+    private Color CurrentDifficultyColor =>
+        _currentDifficulty == "Easy" ? Color.Success : (_currentDifficulty == "Medium" ? Color.Warning : Color.Error);
 
     protected override async Task OnInitializedAsync()
     {
@@ -87,11 +131,164 @@
 
         if(Session.CurrentFormula == null)
         {
+            await Session.RestoreCurrentFormulaAsync();
+        }
+
+        if(Session.CurrentFormula == null)
+        {
             Nav.NavigateTo("/chapters");
             return;
+        }
+
+        LoadFormulaExercises();
+        await RestorePracticeProgressAsync();
+        await LoadCurrentExercise();
+
+        if (_currentExerciseIndex > 0 && !_resumedNotificationShown)
+        {
+            _resumedNotificationShown = true;
+            Snackbar.Add($"Resumed from Exercise {_currentExerciseIndex + 1} of {_exercises.Count}", Severity.Info);
+        }
+    }
+
+    private string GetProgressStorageKey()
+    {
+        var formulaKey = Session.CurrentFormula?.Id.ToString() ?? "default";
+        var wallet = !string.IsNullOrWhiteSpace(Session.WalletAddress) ? Session.WalletAddress.ToLowerInvariant() : "anon";
+        return $"mathchain_practice_progress_{wallet}_{formulaKey}";
+    }
+
+    private async Task RestorePracticeProgressAsync()
+    {
+        if (Session.CurrentFormula == null || !_exercises.Any()) return;
+
+        string key = GetProgressStorageKey();
+        try
+        {
+            var savedJson = await JS.InvokeAsync<string?>("localStorage.getItem", key);
+            if (!string.IsNullOrWhiteSpace(savedJson))
+            {
+                var progress = JsonSerializer.Deserialize<PracticeProgressDto>(savedJson);
+                if (progress != null)
+                {
+                    if (progress.SolvedIndices != null)
+                    {
+                        _solvedExerciseIndices = new HashSet<int>(progress.SolvedIndices);
+                    }
+
+                    int targetIndex = progress.LastExerciseIndex;
+                    if (targetIndex >= 0 && targetIndex < _exercises.Count)
+                    {
+                        _currentExerciseIndex = targetIndex;
+                    }
+                    else if (targetIndex >= _exercises.Count)
+                    {
+                        var firstUnsolved = Enumerable.Range(0, _exercises.Count).FirstOrDefault(i => !_solvedExerciseIndices.Contains(i), _exercises.Count - 1);
+                        _currentExerciseIndex = firstUnsolved;
+                    }
+                    return;
+                }
+            }
+        }
+        catch { }
+
+        // Fallback: check backend API
+        if (!string.IsNullOrWhiteSpace(Session.WalletAddress) && Session.CurrentFormula != null)
+        {
+            try
+            {
+                var backendProgress = await Api.GetPracticeProgressAsync(Session.WalletAddress, Session.CurrentFormula.Id.ToString());
+                if (backendProgress != null && backendProgress.SolvedIndices != null && backendProgress.SolvedIndices.Any())
+                {
+                    _solvedExerciseIndices = new HashSet<int>(backendProgress.SolvedIndices);
+                    int targetIndex = backendProgress.LastExerciseIndex;
+                    if (targetIndex >= 0 && targetIndex < _exercises.Count)
+                    {
+                        _currentExerciseIndex = targetIndex;
+                    }
+                    await SaveProgressAsync();
+                }
+            }
+            catch { }
+        }
+    }
+
+    private async Task SaveProgressAsync(int? targetIndexToSave = null)
+    {
+        if (Session.CurrentFormula == null) return;
+
+        int indexToSave = targetIndexToSave ?? _currentExerciseIndex;
+        var dto = new PracticeProgressDto
+        {
+            FormulaId = Session.CurrentFormula.Id.ToString(),
+            LastExerciseIndex = indexToSave,
+            SolvedIndices = _solvedExerciseIndices.OrderBy(i => i).ToList()
         };
 
-        await GenerateNewExercise();
+        try
+        {
+            string key = GetProgressStorageKey();
+            var json = JsonSerializer.Serialize(dto);
+            await JS.InvokeVoidAsync("localStorage.setItem", key, json);
+        }
+        catch { }
+    }
+
+    private void LoadFormulaExercises()
+    {
+        _exercises.Clear();
+        _currentExerciseIndex = 0;
+
+        if (Session.CurrentFormula != null && !string.IsNullOrWhiteSpace(Session.CurrentFormula.ExercisesJson))
+        {
+            try
+            {
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                var deserialized = JsonSerializer.Deserialize<List<ExerciseTemplateDto>>(Session.CurrentFormula.ExercisesJson, options);
+                if (deserialized != null && deserialized.Any())
+                {
+                    // If formula has old seed with simplify/equals placeholders, upgrade to real 9 exercises
+                    if (deserialized.All(e => e.WolframQuery.StartsWith("simplify") || e.LatexTemplate.Contains("=")))
+                    {
+                        _exercises = GetDefault9Exercises();
+                    }
+                    else
+                    {
+                        _exercises = deserialized;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error parsing formula exercises: {ex.Message}");
+            }
+        }
+
+        if (!_exercises.Any())
+        {
+            _exercises = GetDefault9Exercises();
+        }
+    }
+
+    private List<ExerciseTemplateDto> GetDefault9Exercises()
+    {
+        return new List<ExerciseTemplateDto>
+        {
+            // 3 EASY
+            new() { Order = 1, Difficulty = "Easy", Requirement = "Calculate the coefficient of x in the primitive function:", IsRandom = true, Variables = new() { { "a", new[] { 2, 10 } } }, LatexTemplate = @"\int {a} \,dx", WolframQuery = "{a}", Hint = "The primitive is F(x) = a*x + C. The coefficient of x is simply a." },
+            new() { Order = 2, Difficulty = "Easy", Requirement = "Calculate the coefficient of x in the primitive function:", IsRandom = true, Variables = new() { { "a", new[] { 11, 30 } } }, LatexTemplate = @"\int {a} \,dx", WolframQuery = "{a}", Hint = "The primitive is F(x) = a*x + C. The coefficient of x is a." },
+            new() { Order = 3, Difficulty = "Easy", Requirement = "Calculate the coefficient of x in the primitive function:", IsRandom = true, Variables = new() { { "a", new[] { 31, 99 } } }, LatexTemplate = @"\int {a} \,dx", WolframQuery = "{a}", Hint = "The coefficient of x in the primitive is the constant under the integral." },
+
+            // 3 MEDIUM
+            new() { Order = 4, Difficulty = "Medium", Requirement = "Calculate the coefficient of x in the primitive of the negative constant:", IsRandom = true, Variables = new() { { "a", new[] { 2, 25 } } }, LatexTemplate = @"\int (-{a}) \,dx", WolframQuery = "-{a}", Hint = "The primitive is -a*x + C. Don't forget the negative sign." },
+            new() { Order = 5, Difficulty = "Medium", Requirement = "Calculate the coefficient of x in the primitive function (enter decimal or integer):", IsRandom = true, Variables = new() { { "a", new[] { 6, 30 } }, { "b", new[] { 2, 5 } } }, LatexTemplate = @"\int \frac{{a}}{{b}} \,dx", WolframQuery = "({a}/{b})", Hint = "The primitive is (a/b)*x + C. Compute the value of the fraction a/b." },
+            new() { Order = 6, Difficulty = "Medium", Requirement = "Calculate the coefficient of x in the primitive function:", IsRandom = true, Variables = new() { { "a", new[] { 3, 20 } } }, LatexTemplate = @"\int -(-{a}) \,dx", WolframQuery = "{a}", Hint = "-(-a) = a. The two minus signs simplify to positive a." },
+
+            // 3 HARD
+            new() { Order = 7, Difficulty = "Hard", Requirement = "Calculate the coefficient of x in the primitive function:", IsRandom = true, Variables = new() { { "a", new[] { 10, 40 } }, { "b", new[] { 5, 30 } } }, LatexTemplate = @"\int ({a} + {b}) \,dx", WolframQuery = "({a} + {b})", Hint = "First add the two constants (a + b). The coefficient of x will be their sum." },
+            new() { Order = 8, Difficulty = "Hard", Requirement = "Calculate the coefficient of x in the primitive function:", IsRandom = true, Variables = new() { { "a", new[] { 5, 25 } }, { "b", new[] { 10, 35 } } }, LatexTemplate = @"\int ({a} - {b}) \,dx", WolframQuery = "({a} - {b})", Hint = "Compute (a - b). The result may be a negative number." },
+            new() { Order = 9, Difficulty = "Hard", Requirement = "Calculate the coefficient of x in the primitive function:", IsRandom = true, Variables = new() { { "a", new[] { 3, 15 } }, { "b", new[] { 2, 20 } } }, LatexTemplate = @"\int (2 \cdot {a} + {b}) \,dx", WolframQuery = "(2*{a} + {b})", Hint = "Calculate 2*a + b first. That is the constant term multiplied by x in the primitive." }
+        };
     }
 
     private void OnCalculatorPaste(string result)
@@ -101,16 +298,223 @@
         StateHasChanged();
     }
 
-    private async Task GenerateNewExercise()
+    private async Task LoadCurrentExercise()
     {
-        var (query, latex) = Wolfram.GenerateRandomPrimitive(Session.CurrentFormula!);
-        _currentLatex = latex;
-        _currentAnswer = await Wolfram.GetExactSolutionAsync(query);
+        _userAnswer = "";
+        _currentLatex = "";
+        _isCurrentExerciseRecorded = false;
+        StateHasChanged();
+
+        if (_exercises.Any() && _currentExerciseIndex >= 0 && _currentExerciseIndex < _exercises.Count)
+        {
+            var ex = _exercises[_currentExerciseIndex];
+            _currentDifficulty = ex.Difficulty;
+            _currentRequirement = !string.IsNullOrWhiteSpace(ex.Requirement) && !ex.Requirement.Contains("evaluate at x = 1")
+                ? ex.Requirement
+                : "Calculate the coefficient of x in the primitive function:";
+            _currentHint = ex.Hint;
+
+            var rnd = new Random();
+            var sampleVals = new Dictionary<string, int>();
+
+            if (ex.IsRandom && ex.Variables != null && ex.Variables.Any())
+            {
+                foreach (var kvp in ex.Variables)
+                {
+                    int min = kvp.Value.Length > 0 ? kvp.Value[0] : 1;
+                    int max = kvp.Value.Length > 1 ? kvp.Value[1] : 10;
+                    if (max < min) (min, max) = (max, min);
+                    sampleVals[kvp.Key] = rnd.Next(min, max + 1);
+                }
+            }
+            else
+            {
+                sampleVals["a"] = rnd.Next(2, 10);
+            }
+
+            // Substitute values into LaTeX template
+            string latex = ex.LatexTemplate;
+            foreach (var kvp in sampleVals)
+            {
+                latex = latex.Replace("{" + kvp.Key + "}", kvp.Value.ToString());
+            }
+
+            // Safe substitution for legacy 'a' without braces (using MatchEvaluator to prevent group index bugs)
+            if (sampleVals.ContainsKey("a") && latex.Contains(" a "))
+            {
+                latex = Regex.Replace(latex, @"(\\int\s*)a(\b|\s|\\|,)", m => $"{m.Groups[1].Value}{sampleVals["a"]}{m.Groups[2].Value}");
+            }
+
+            // Strip '= ...' if present
+            if (latex.Contains("="))
+            {
+                latex = latex.Split('=')[0].Trim();
+            }
+
+            // Substitute values into query
+            string query = string.IsNullOrWhiteSpace(ex.WolframQuery) || ex.WolframQuery.StartsWith("simplify")
+                ? (sampleVals.ContainsKey("a") ? sampleVals["a"].ToString() : "1")
+                : ex.WolframQuery;
+            foreach (var kvp in sampleVals)
+            {
+                query = query.Replace("{" + kvp.Key + "}", kvp.Value.ToString());
+            }
+
+            _currentLatex = latex;
+            _currentAnswer = await EvaluateMathSafely(query);
+        }
+        else
+        {
+            _currentRequirement = "Calculate the coefficient of x in the primitive function:";
+            var rnd = new Random();
+            int a = rnd.Next(2, 10);
+            _currentLatex = $"\\int {a} \\,dx";
+            _currentAnswer = a;
+        }
+
+        StateHasChanged();
+    }
+
+    private async Task<double> EvaluateMathSafely(string query)
+    {
+        if (string.IsNullOrWhiteSpace(query)) return 0;
+        string clean = query.Trim();
+
+        // 1. Direct number parse
+        if (double.TryParse(clean, NumberStyles.Any, CultureInfo.InvariantCulture, out double val))
+        {
+            return val;
+        }
+
+        // 2. High-precision local arithmetic evaluator (supports +, -, *, /, fractions, unary minus, parentheses)
+        try
+        {
+            return EvaluateArithmeticExpression(clean);
+        }
+        catch { }
+
+        // 3. Fallback to solver service
+        try
+        {
+            return await Wolfram.GetExactSolutionAsync(query);
+        }
+        catch
+        {
+            return 0;
+        }
+    }
+
+    private static double EvaluateArithmeticExpression(string expr)
+    {
+        if (string.IsNullOrWhiteSpace(expr)) return 0;
+        string s = expr.Replace(" ", "").Replace(',', '.');
+        int pos = 0;
+
+        double ParseExpression()
+        {
+            double val = ParseTerm();
+            while (pos < s.Length)
+            {
+                char op = s[pos];
+                if (op == '+' || op == '-')
+                {
+                    pos++;
+                    double next = ParseTerm();
+                    val = (op == '+') ? val + next : val - next;
+                }
+                else break;
+            }
+            return val;
+        }
+
+        double ParseTerm()
+        {
+            double val = ParseFactor();
+            while (pos < s.Length)
+            {
+                char op = s[pos];
+                if (op == '*' || op == '/')
+                {
+                    pos++;
+                    double next = ParseFactor();
+                    val = (op == '*') ? val * next : (next != 0 ? val / next : 0);
+                }
+                else break;
+            }
+            return val;
+        }
+
+        double ParseFactor()
+        {
+            if (pos >= s.Length) return 0;
+
+            if (s[pos] == '+') { pos++; return ParseFactor(); }
+            if (s[pos] == '-') { pos++; return -ParseFactor(); }
+
+            if (s[pos] == '(')
+            {
+                pos++;
+                double val = ParseExpression();
+                if (pos < s.Length && s[pos] == ')') pos++;
+                return val;
+            }
+
+            int start = pos;
+            while (pos < s.Length && (char.IsDigit(s[pos]) || s[pos] == '.'))
+            {
+                pos++;
+            }
+
+            if (pos > start)
+            {
+                string numStr = s.Substring(start, pos - start);
+                if (double.TryParse(numStr, NumberStyles.Any, CultureInfo.InvariantCulture, out double num))
+                {
+                    return num;
+                }
+            }
+
+            return 0;
+        }
+
+        return Math.Round(ParseExpression(), 3);
+    }
+
+    private async Task NextExercise()
+    {
+        if (_currentExerciseIndex < _exercises.Count - 1)
+        {
+            _currentExerciseIndex++;
+            await SaveProgressAsync(_currentExerciseIndex);
+            await LoadCurrentExercise();
+        }
+    }
+
+    private async Task PreviousExercise()
+    {
+        if (_currentExerciseIndex > 0)
+        {
+            _currentExerciseIndex--;
+            await SaveProgressAsync(_currentExerciseIndex);
+            await LoadCurrentExercise();
+        }
+    }
+
+    private void ShowHint()
+    {
+        if (!string.IsNullOrWhiteSpace(_currentHint))
+        {
+            Snackbar.Add($"Hint: {_currentHint}", Severity.Info);
+        }
+        else
+        {
+            Snackbar.Add("Remember: \\int a dx = a*x + C. The coefficient of x is the constant term.", Severity.Info);
+        }
     }
 
     void ExitPractice()
     {
-        Nav.NavigateTo("javascript:history.back()");
+        Nav.NavigateTo("/chapters");
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -123,6 +527,12 @@
 
     private void VerifyAnswer()
     {
+        if (string.IsNullOrWhiteSpace(_userAnswer))
+        {
+            Snackbar.Add("Please enter a numeric answer.", Severity.Warning);
+            return;
+        }
+
         var problem = new IntegralProblem
         {
 			CorrectSolution = _currentAnswer,
@@ -130,11 +540,40 @@
 
         if (problem.ValidateSolution(_userAnswer))
         {
-            Snackbar.Add("Your answer is correct!", Severity.Success);
+            _solvedExerciseIndices.Add(_currentExerciseIndex);
+
+            int nextIndex = _currentExerciseIndex < _exercises.Count - 1 ? _currentExerciseIndex + 1 : _currentExerciseIndex;
+            _ = SaveProgressAsync(nextIndex);
+
+            if (_currentExerciseIndex < _exercises.Count - 1)
+            {
+                Snackbar.Add($"Correct! Exercise {_currentExerciseIndex + 1} of {_exercises.Count} solved! Progress saved.", Severity.Success);
+            }
+            else
+            {
+                Snackbar.Add($"Congratulations! All {_exercises.Count} exercises for this formula are completed!", Severity.Success);
+            }
+
+            if (!_isCurrentExerciseRecorded && !string.IsNullOrWhiteSpace(Session.WalletAddress))
+            {
+                _isCurrentExerciseRecorded = true;
+                int currentIdx = _currentExerciseIndex;
+                _ = Task.Run(async () =>
+                {
+                    await Api.RecordSolvedProblemAsync(
+                        Session.WalletAddress,
+                        Session.CurrentFormula?.Id.ToString(),
+                        _currentDifficulty,
+                        _userAnswer,
+                        currentIdx);
+                });
+            }
+
+            StateHasChanged();
         }
         else
         {
-			Snackbar.Add($"Incorrect answer. Please try again.", Severity.Error);
+			Snackbar.Add("Incorrect answer. Please try again.", Severity.Error);
         }
     }
 }

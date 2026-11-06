@@ -1,9 +1,378 @@
-﻿@page "/settings"
+@page "/settings"
+@using MathChain.Domain.Enums
+@using MudBlazor
+@inject AppSession Session
+@inject NavigationManager Nav
+@inject ISnackbar Snackbar
+@inject IJSRuntime JS
 
-<PageTitle>Settings</PageTitle>
+<PageTitle>Settings - MathChain</PageTitle>
 
-<h3>Settings available soon!</h3>
+<style>
+	.settings-container {
+		padding-top: 16px !important;
+		padding-bottom: 20px !important;
+		min-height: calc(100vh - var(--mud-appbar-height, 64px));
+		box-sizing: border-box;
+		width: 100% !important;
+	}
+
+	.settings-grid {
+		min-height: calc(100vh - var(--mud-appbar-height, 64px) - 36px);
+		width: 100% !important;
+		margin: 0 !important;
+	}
+
+	.settings-card {
+		background-color: #005ea6 !important;
+		border-radius: 0px !important;
+		border: none !important;
+		box-shadow: none !important;
+		color: #ffffff !important;
+		width: 100% !important;
+	}
+
+	.settings-section-box {
+		background-color: rgba(0, 0, 0, 0.18);
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: 0px !important;
+		padding: 16px 20px;
+		margin-bottom: 20px;
+	}
+
+	.settings-toggle-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 12px 0;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.settings-toggle-row:last-child {
+		border-bottom: none;
+		padding-bottom: 0;
+	}
+
+	.settings-toggle-row:first-child {
+		padding-top: 0;
+	}
+
+	.settings-dropdown {
+		width: 100%;
+		background-color: rgba(0, 0, 0, 0.25);
+		color: #ffffff;
+		border: 1px solid rgba(255, 255, 255, 0.25);
+		border-radius: 0px !important;
+		padding: 10px 14px;
+		font-size: 1rem;
+		font-family: inherit;
+		outline: none;
+		cursor: pointer;
+		box-sizing: border-box;
+		appearance: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300e5ff'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+		background-repeat: no-repeat;
+		background-position: right 14px center;
+		background-size: 20px;
+		transition: border-color 0.2s, background-color 0.2s;
+	}
+
+	.settings-dropdown:hover {
+		border-color: rgba(0, 229, 255, 0.5);
+		background-color: rgba(0, 0, 0, 0.32);
+	}
+
+	.settings-dropdown:focus {
+		border-color: #00e5ff;
+		background-color: rgba(0, 0, 0, 0.38);
+	}
+
+	.settings-dropdown option {
+		background-color: #003760;
+		color: #ffffff;
+		padding: 10px 14px;
+		font-size: 1rem;
+	}
+
+	@@media (max-width: 959px) {
+		.settings-container {
+			min-height: auto;
+			padding-bottom: 32px !important;
+		}
+
+		.settings-grid {
+			min-height: auto;
+		}
+	}
+</style>
+
+<MudContainer MaxWidth="MaxWidth.False" Class="settings-container px-6">
+	<MudGrid Spacing="4" Class="settings-grid">
+
+		<!-- LEFT COLUMN: Notifications & Leaderboard Privacy (50% Width) -->
+		<MudItem xs="12" md="6" lg="6" Class="d-flex pa-2">
+			<MudPaper Elevation="0"
+					  Square="true"
+					  Class="settings-card pa-6 w-100 d-flex flex-column justify-space-between">
+				<div>
+					<!-- Card Header -->
+					<div class="card-header pb-3 mb-4 text-center" style="border-bottom: 2px solid rgba(255, 255, 255, 0.2);">
+						<MudText Typo="Typo.h4" Style="font-weight: 500; color: #ffffff; letter-spacing: 0.5px;">
+							Notifications & Privacy
+						</MudText>
+					</div>
+
+					<!-- SECTION 1: Classroom Notifications -->
+					<div class="settings-section-box">
+						<div class="d-flex align-center gap-2 mb-3">
+							<MudIcon Icon="@Icons.Material.Filled.Notifications" Style="color: #00e5ff; font-size: 1.3rem;" />
+							<MudText Typo="Typo.subtitle1" Style="font-weight: 600; color: #ffffff;">
+								Classroom Notifications
+							</MudText>
+						</div>
+						<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.7); display: block; margin-bottom: 14px;">
+							Choose which academic updates and classroom alerts you want to receive.
+						</MudText>
+
+						<div class="settings-toggle-row">
+							<div class="d-flex flex-column pr-4">
+								<MudText Typo="Typo.body2" Style="font-weight: 600; color: #ffffff;">
+									New Assignments & Tests
+								</MudText>
+								<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.7);">
+									Alerts when instructors publish new homework or test materials.
+								</MudText>
+							</div>
+							<MudSwitch @bind-Value="_notifyNewAssignments" Color="Color.Info" UnCheckedColor="Color.Default" />
+						</div>
+
+						<div class="settings-toggle-row">
+							<div class="d-flex flex-column pr-4">
+								<MudText Typo="Typo.body2" Style="font-weight: 600; color: #ffffff;">
+									Grade & Evaluation Alerts
+								</MudText>
+								<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.7);">
+									Alerts when your submissions are graded or receive teacher feedback.
+								</MudText>
+							</div>
+							<MudSwitch @bind-Value="_notifyGradesPosted" Color="Color.Info" UnCheckedColor="Color.Default" />
+						</div>
+
+						<div class="settings-toggle-row">
+							<div class="d-flex flex-column pr-4">
+								<MudText Typo="Typo.body2" Style="font-weight: 600; color: #ffffff;">
+									Classroom Announcements
+								</MudText>
+								<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.7);">
+									Alerts for official messages and announcements posted to the class board.
+								</MudText>
+							</div>
+							<MudSwitch @bind-Value="_notifyClassAnnouncements" Color="Color.Info" UnCheckedColor="Color.Default" />
+						</div>
+					</div>
+
+					<!-- SECTION 2: Leaderboard Privacy -->
+					<div class="settings-section-box">
+						<div class="d-flex align-center gap-2 mb-3">
+							<MudIcon Icon="@Icons.Material.Filled.Visibility" Style="color: #00e5ff; font-size: 1.3rem;" />
+							<MudText Typo="Typo.subtitle1" Style="font-weight: 600; color: #ffffff;">
+								Leaderboard Privacy
+							</MudText>
+						</div>
+						<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.7); display: block; margin-bottom: 12px;">
+							Control how your address and achievements appear on the Global Leaderboard.
+						</MudText>
+
+						<select class="settings-dropdown" @bind="_leaderboardVisibility">
+							<option value="Public">Public (Display wallet address and rank openly)</option>
+							<option value="Anonymous">Anonymous (Show rank, hide wallet as 'Anonymous Student')</option>
+							<option value="Hidden">Hidden (Completely exclude profile from public rankings)</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="pt-4 mt-2 d-flex align-center justify-between" style="border-top: 1px solid rgba(255, 255, 255, 0.15);">
+					<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">
+						Preferences stored locally for your account
+					</MudText>
+				</div>
+			</MudPaper>
+		</MudItem>
+
+		<!-- RIGHT COLUMN: Language & Security (50% Width) -->
+		<MudItem xs="12" md="6" lg="6" Class="d-flex pa-2">
+			<MudPaper Elevation="0"
+					  Square="true"
+					  Class="settings-card pa-6 w-100 d-flex flex-column justify-space-between">
+				<div>
+					<!-- Card Header -->
+					<div class="card-header pb-3 mb-4 text-center" style="border-bottom: 2px solid rgba(255, 255, 255, 0.2);">
+						<MudText Typo="Typo.h4" Style="font-weight: 500; color: #ffffff; letter-spacing: 0.5px;">
+							Preferences & Security
+						</MudText>
+					</div>
+
+					<!-- SECTION 3: Language & Regional -->
+					<div class="settings-section-box">
+						<div class="d-flex align-center gap-2 mb-3">
+							<MudIcon Icon="@Icons.Material.Filled.Language" Style="color: #00e5ff; font-size: 1.3rem;" />
+							<MudText Typo="Typo.subtitle1" Style="font-weight: 600; color: #ffffff;">
+								Platform Language
+							</MudText>
+						</div>
+						<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.7); display: block; margin-bottom: 12px;">
+							Select your preferred interface display language.
+						</MudText>
+
+						<select class="settings-dropdown" @bind="_selectedLanguage">
+							<option value="en">English (US)</option>
+							<option value="ro">Română (RO)</option>
+						</select>
+					</div>
+
+					<!-- SECTION 4: Session Security & Auto-Logout -->
+					<div class="settings-section-box">
+						<div class="d-flex align-center gap-2 mb-3">
+							<MudIcon Icon="@Icons.Material.Filled.Security" Style="color: #00e5ff; font-size: 1.3rem;" />
+							<MudText Typo="Typo.subtitle1" Style="font-weight: 600; color: #ffffff;">
+								Session Security
+							</MudText>
+						</div>
+						<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.7); display: block; margin-bottom: 12px;">
+							Automatic logout period when inactive (recommended for shared computers in school labs).
+						</MudText>
+
+						<select class="settings-dropdown mb-4" @bind="_autoLogoutMinutes">
+							<option value="0">Disabled (Personal Computer / Keep Logged In)</option>
+							<option value="15">15 Minutes (Recommended for School Labs)</option>
+							<option value="30">30 Minutes</option>
+							<option value="60">60 Minutes (1 Hour)</option>
+						</select>
+
+						<div class="settings-toggle-row">
+							<div class="d-flex flex-column pr-4">
+								<MudText Typo="Typo.body2" Style="font-weight: 600; color: #ffffff;">
+									Confirm Homework Submissions
+								</MudText>
+								<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.7);">
+									Display a confirmation dialog before permanently uploading assignment files.
+								</MudText>
+							</div>
+							<MudSwitch @bind-Value="_confirmSubmission" Color="Color.Info" UnCheckedColor="Color.Default" />
+						</div>
+					</div>
+				</div>
+
+				<!-- Actions Footer: Save & Reset -->
+				<div class="pt-4 mt-4 d-flex align-center justify-end gap-3" style="border-top: 1px solid rgba(255, 255, 255, 0.15);">
+					<MudButton Variant="Variant.Outlined"
+							   Style="border-color: rgba(255, 255, 255, 0.35); color: #ffffff; text-transform: none; font-weight: 600; border-radius: 0px; padding: 8px 20px;"
+							   OnClick="ResetDefaultsAsync">
+						Reset Defaults
+					</MudButton>
+
+					<MudButton Variant="Variant.Filled"
+							   Style="background-color: #00e5ff; color: #002b4d; text-transform: none; font-weight: 700; border-radius: 0px; padding: 8px 28px;"
+							   StartIcon="@Icons.Material.Filled.Save"
+							   OnClick="SaveSettingsAsync">
+						Save Changes
+					</MudButton>
+				</div>
+			</MudPaper>
+		</MudItem>
+
+	</MudGrid>
+</MudContainer>
 
 @code {
+	private bool _notifyNewAssignments = true;
+	private bool _notifyGradesPosted = true;
+	private bool _notifyClassAnnouncements = true;
 
+	private string _leaderboardVisibility = "Public";
+	private string _selectedLanguage = "en";
+	private int _autoLogoutMinutes = 0;
+	private bool _confirmSubmission = true;
+
+	protected override async Task OnInitializedAsync()
+	{
+		if (!Session.IsConnected)
+		{
+			await Session.RestoreSessionAsync();
+		}
+
+		if (!Session.IsConnected)
+		{
+			Nav.NavigateTo("/login");
+			return;
+		}
+
+		await LoadSettingsAsync();
+	}
+
+	private async Task LoadSettingsAsync()
+	{
+		try
+		{
+			var notifyHw = await JS.InvokeAsync<string?>("localStorage.getItem", "mathchain_setting_notify_hw");
+			if (bool.TryParse(notifyHw, out var parsedHw)) _notifyNewAssignments = parsedHw;
+
+			var notifyGrades = await JS.InvokeAsync<string?>("localStorage.getItem", "mathchain_setting_notify_grades");
+			if (bool.TryParse(notifyGrades, out var parsedGrades)) _notifyGradesPosted = parsedGrades;
+
+			var notifyAnnouncements = await JS.InvokeAsync<string?>("localStorage.getItem", "mathchain_setting_notify_announcements");
+			if (bool.TryParse(notifyAnnouncements, out var parsedAnnounce)) _notifyClassAnnouncements = parsedAnnounce;
+
+			var visibility = await JS.InvokeAsync<string?>("localStorage.getItem", "mathchain_setting_leaderboard_visibility");
+			if (!string.IsNullOrWhiteSpace(visibility)) _leaderboardVisibility = visibility;
+
+			var lang = await JS.InvokeAsync<string?>("localStorage.getItem", "mathchain_setting_language");
+			if (!string.IsNullOrWhiteSpace(lang)) _selectedLanguage = lang;
+
+			var autoLogout = await JS.InvokeAsync<string?>("localStorage.getItem", "mathchain_setting_autologout");
+			if (int.TryParse(autoLogout, out var parsedLogout)) _autoLogoutMinutes = parsedLogout;
+
+			var confirm = await JS.InvokeAsync<string?>("localStorage.getItem", "mathchain_setting_confirm_submit");
+			if (bool.TryParse(confirm, out var parsedConfirm)) _confirmSubmission = parsedConfirm;
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"[Settings] Error loading settings: {ex.Message}");
+		}
+	}
+
+	private async Task SaveSettingsAsync()
+	{
+		try
+		{
+			await JS.InvokeVoidAsync("localStorage.setItem", "mathchain_setting_notify_hw", _notifyNewAssignments.ToString());
+			await JS.InvokeVoidAsync("localStorage.setItem", "mathchain_setting_notify_grades", _notifyGradesPosted.ToString());
+			await JS.InvokeVoidAsync("localStorage.setItem", "mathchain_setting_notify_announcements", _notifyClassAnnouncements.ToString());
+			await JS.InvokeVoidAsync("localStorage.setItem", "mathchain_setting_leaderboard_visibility", _leaderboardVisibility);
+			await JS.InvokeVoidAsync("localStorage.setItem", "mathchain_setting_language", _selectedLanguage);
+			await JS.InvokeVoidAsync("localStorage.setItem", "mathchain_setting_autologout", _autoLogoutMinutes.ToString());
+			await JS.InvokeVoidAsync("localStorage.setItem", "mathchain_setting_confirm_submit", _confirmSubmission.ToString());
+
+			Snackbar.Add("Settings saved successfully!", Severity.Success);
+		}
+		catch (Exception ex)
+		{
+			Snackbar.Add($"Failed to save settings: {ex.Message}", Severity.Error);
+		}
+	}
+
+	private async Task ResetDefaultsAsync()
+	{
+		_notifyNewAssignments = true;
+		_notifyGradesPosted = true;
+		_notifyClassAnnouncements = true;
+		_leaderboardVisibility = "Public";
+		_selectedLanguage = "en";
+		_autoLogoutMinutes = 0;
+		_confirmSubmission = true;
+
+		await SaveSettingsAsync();
+	}
 }

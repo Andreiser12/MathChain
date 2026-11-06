@@ -112,7 +112,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach (var entry in _stats.Leaderboard)
+								@foreach (var entry in _stats.Leaderboard.Where(e => !(_leaderboardVisibility == "Hidden" && IsMatchingWallet(e.WalletAddress))))
 								{
 									var isCurrentUser = entry.IsCurrentUser || IsMatchingWallet(entry.WalletAddress);
 									<tr class="@(isCurrentUser ? "current-user-row" : "")">
@@ -149,7 +149,7 @@
 									</tr>
 								}
 
-								@if (!IsUserInTop10 && !string.IsNullOrWhiteSpace(Session.WalletAddress))
+								@if (!IsUserInTop10 && !string.IsNullOrWhiteSpace(Session.WalletAddress) && _leaderboardVisibility != "Hidden")
 								{
 									<tr style="border: none; background: transparent !important;">
 										<td colspan="3" style="text-align: center; color: rgba(255, 255, 255, 0.5); padding: 4px; font-size: 1.2rem; border-bottom: none !important;">
@@ -294,6 +294,7 @@
 @code {
 	private DashboardStatsDto _stats = new();
 	private bool _isLoading = true;
+	private string _leaderboardVisibility = "Public";
 
 	private bool IsUserInTop10 => _stats.Leaderboard.Any(e => e.IsCurrentUser || IsMatchingWallet(e.WalletAddress));
 
@@ -311,6 +312,13 @@
 	{
 		_isLoading = true;
 		StateHasChanged();
+
+		try
+		{
+			var vis = await JS.InvokeAsync<string?>("localStorage.getItem", "mathchain_setting_leaderboard_visibility");
+			if (!string.IsNullOrWhiteSpace(vis)) _leaderboardVisibility = vis;
+		}
+		catch { }
 
 		var stats = await Api.GetDashboardStatsAsync(Session.WalletAddress);
 		if (stats != null)
@@ -374,6 +382,11 @@
 		if (string.IsNullOrWhiteSpace(wallet) || wallet.Length < 10)
 		{
 			return wallet;
+		}
+
+		if (IsMatchingWallet(wallet) && _leaderboardVisibility == "Anonymous")
+		{
+			return "Anonymous Student";
 		}
 
 		return $"{wallet[..6]}...{wallet[^4..]}";

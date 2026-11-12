@@ -34,6 +34,7 @@ namespace MathChain.Tests.Infrastructure
         public static TheoryData<Exception, int> DomainExceptions => new()
         {
             { new NotFoundException("Classroom not found."), StatusCodes.Status404NotFound },
+            { new UnauthorizedException("Invalid wallet signature."), StatusCodes.Status401Unauthorized },
             { new ForbiddenException("Only the teacher can delete this classroom."), StatusCodes.Status403Forbidden },
             { new BusinessRuleException("Student is already enrolled in this classroom."), StatusCodes.Status400BadRequest }
         };

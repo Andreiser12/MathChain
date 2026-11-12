@@ -21,16 +21,9 @@ namespace MathChain.API.Controllers
             {
                 return BadRequest(EnvelopeExtensions.Failure<object>("Query parameter is required.", 400));
             }
-            try
-            {
-                double result = await _wolframService.GetExactSolutionAsync(query);
+            double result = await _wolframService.GetExactSolutionAsync(query);
 
-                return Ok(EnvelopeExtensions.Success(result, "Wolfram Alpha evaluation completed."));
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, EnvelopeExtensions.Failure<object>($"Wolfram computation error: {ex.Message}", 500));
-            }
+            return Ok(EnvelopeExtensions.Success(result, "Wolfram Alpha evaluation completed."));
         }
     }
 }

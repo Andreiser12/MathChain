@@ -4,7 +4,6 @@ using MathChain.Application.Extensions;
 using MathChain.Persistence.Extentions;
 using MathChain.Gateway.Extensions;
 using MathChain.Infrastructure.Extensions;
-using MathChain.Infrastructure.ExceptionHandling;
 
 DotNetEnv.Env.Load();
 
@@ -14,7 +13,8 @@ builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-    });
+    })
+    .AddEnvelopeValidationResponses();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -39,7 +39,7 @@ builder.Services.AddApplicationLayer();
 
 var app = builder.Build();
 
-app.UseMiddleware<GlobalExceptionHandler>();
+app.UseEnvelopeErrorHandling();
 
 if (app.Environment.IsDevelopment())
 {

@@ -1,3 +1,4 @@
+using MathChain.Domain.Exceptions;
 using MathChain.Persistence.Context;
 using MathChain.Application.DTOs;
 using Microsoft.AspNetCore.Mvc;
@@ -77,7 +78,7 @@ namespace MathChain.API.Controllers.MyClassesControllers
 
             if (enrollment == null)
             {
-                return NotFound("Student enrollment not found!");
+                throw new NotFoundException("Student enrollment not found!");
             }
 
             enrollment.FinalGrade = request.FinalGrade;
@@ -94,7 +95,7 @@ namespace MathChain.API.Controllers.MyClassesControllers
 
             if (enrollment == null)
             {
-                return NotFound("Student enrollment not found!");
+                throw new NotFoundException("Student enrollment not found!");
             }
 
             _context.Enrollments.Remove(enrollment);

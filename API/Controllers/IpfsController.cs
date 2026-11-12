@@ -1,3 +1,4 @@
+using MathChain.Domain.Exceptions;
 using MathChain.Domain.Interfaces;
 using MathChain.Infrastructure.ResponseHandling;
 using Microsoft.AspNetCore.Mvc;
@@ -48,7 +49,7 @@ namespace MathChain.API.Controllers
         {
             if (string.IsNullOrWhiteSpace(hash))
             {
-                return BadRequest("IPFS hash is required.");
+                throw new BusinessRuleException("IPFS hash is required.");
             }
 
             Console.WriteLine($"[IPFS] Download requested for hash: '{hash}', fileName: '{fileName}'");
@@ -58,7 +59,7 @@ namespace MathChain.API.Controllers
             if (fileBytes == null)
             {
                 Console.WriteLine($"[IPFS] Content with hash '{hash}' not found in local node or remote gateways.");
-                return NotFound($"File not found on IPFS storage (hash: {hash}).");
+                throw new NotFoundException($"File not found on IPFS storage (hash: {hash}).");
             }
 
             var downloadName = !string.IsNullOrWhiteSpace(fileName) ? fileName : hash;

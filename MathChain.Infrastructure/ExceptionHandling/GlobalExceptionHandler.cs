@@ -35,6 +35,7 @@ namespace MathChain.Infrastructure.ExceptionHandling
             var statusCode = exception switch
             {
                 NotFoundException => StatusCodes.Status404NotFound,
+                UnauthorizedException => StatusCodes.Status401Unauthorized,
                 ForbiddenException => StatusCodes.Status403Forbidden,
                 BusinessRuleException => StatusCodes.Status400BadRequest,
                 DomainException => StatusCodes.Status400BadRequest,

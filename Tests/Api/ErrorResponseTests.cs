@@ -16,7 +16,7 @@ namespace MathChain.Tests.Api
         private static async Task<JsonElement> ReadEnvelopeAsync(HttpResponseMessage response)
         {
             Assert.Equal("application/json", response.Content.Headers.ContentType?.MediaType);
-            using var document = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+            using var document = JsonDocument.Parse(await response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken));
             return document.RootElement.Clone();
         }
 
@@ -25,7 +25,7 @@ namespace MathChain.Tests.Api
         {
             var content = new StringContent("{ this is not json", Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync("/api/auth/challenge", content);
+            var response = await _client.PostAsync("/api/auth/challenge", content, TestContext.Current.CancellationToken);
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
             var envelope = await ReadEnvelopeAsync(response);
@@ -38,7 +38,7 @@ namespace MathChain.Tests.Api
         [Fact]
         public async Task Get_UnknownRoute_ReturnsNotFoundEnvelope()
         {
-            var response = await _client.GetAsync("/api/classroom/not-a-guid");
+            var response = await _client.GetAsync("/api/classroom/not-a-guid", TestContext.Current.CancellationToken);
 
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
             var envelope = await ReadEnvelopeAsync(response);
@@ -49,7 +49,7 @@ namespace MathChain.Tests.Api
         [Fact]
         public async Task Patch_UnsupportedMethod_ReturnsMethodNotAllowedEnvelope()
         {
-            var response = await _client.SendAsync(new HttpRequestMessage(HttpMethod.Patch, "/api/auth/challenge"));
+            var response = await _client.SendAsync(new HttpRequestMessage(HttpMethod.Patch, "/api/auth/challenge"), TestContext.Current.CancellationToken);
 
             Assert.Equal(HttpStatusCode.MethodNotAllowed, response.StatusCode);
             var envelope = await ReadEnvelopeAsync(response);

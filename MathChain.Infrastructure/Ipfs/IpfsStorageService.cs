@@ -1,4 +1,5 @@
-using MathChain.Infrastructure.ResponseHandling;
+using MathChain.Domain.Exceptions;
+using MathChain.Domain.Interfaces;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -167,29 +168,22 @@ namespace MathChain.Infrastructure.Ipfs
             return null;
         }
 
-        public async Task<Envelope<string>> SaveFileAsync(byte[] content)
+        public async Task<string> SaveFileAsync(byte[] content)
         {
             if (content == null || content.Length == 0)
             {
-                return EnvelopeExtensions.Failure<string>("File content is empty.", 400);
+                throw new BusinessRuleException("File content is empty.");
             }
 
-            try
+            string ipfsHash = IpfsHashHelper.ComputeCid(content);
+            string destinationPath = Path.Combine(_storagePath, ipfsHash);
+
+            if (!File.Exists(destinationPath))
             {
-                string ipfsHash = IpfsHashHelper.ComputeCid(content);
-                string destinationPath = Path.Combine(_storagePath, ipfsHash);
-
-                if (!File.Exists(destinationPath))
-                {
-                    await File.WriteAllBytesAsync(destinationPath, content);
-                }
-
-                return EnvelopeExtensions.Success(ipfsHash, "File stored successfully on IPFS node.", 200);
+                await File.WriteAllBytesAsync(destinationPath, content);
             }
-            catch (Exception ex)
-            {
-                return EnvelopeExtensions.Failure<string>($"Error writing to IPFS node: {ex.Message}", 500);
-            }
+
+            return ipfsHash;
         }
     }
 }

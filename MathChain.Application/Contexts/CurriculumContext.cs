@@ -1,7 +1,7 @@
 using MathChain.Application.DTOs;
 using MathChain.Domain.Entities;
 using MathChain.Domain.Gateways;
-using MathChain.Infrastructure.Ipfs;
+using MathChain.Domain.Interfaces;
 using MathChain.Infrastructure.ResponseHandling;
 using System;
 using System.Collections.Generic;
@@ -395,10 +395,10 @@ namespace MathChain.Application.Contexts
 
                 var jsonString = JsonSerializer.Serialize(payload, new JsonSerializerOptions { WriteIndented = true });
                 var bytes = System.Text.Encoding.UTF8.GetBytes(jsonString);
-                var uploadRes = await _ipfsStorageService.SaveFileAsync(bytes);
-                if (uploadRes.Success && !string.IsNullOrWhiteSpace(uploadRes.Data))
+                var ipfsHash = await _ipfsStorageService.SaveFileAsync(bytes);
+                if (!string.IsNullOrWhiteSpace(ipfsHash))
                 {
-                    chapter.IpfsHash = uploadRes.Data;
+                    chapter.IpfsHash = ipfsHash;
                 }
             }
             catch (Exception ex)

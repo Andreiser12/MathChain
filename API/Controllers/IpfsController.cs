@@ -1,4 +1,4 @@
-using MathChain.Infrastructure.Ipfs;
+using MathChain.Domain.Interfaces;
 using MathChain.Infrastructure.ResponseHandling;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,9 +37,9 @@ namespace MathChain.API.Controllers
 
             byte[] fileBytes = memoryStream.ToArray();
 
-            var result = await _ipfsService.SaveFileAsync(fileBytes);
+            var ipfsHash = await _ipfsService.SaveFileAsync(fileBytes);
 
-            return StatusCode(result.StatusCode, result);
+            return Ok(EnvelopeExtensions.Success(ipfsHash, "File stored successfully on IPFS node."));
         }
 
         [HttpGet("download/{hash}")]

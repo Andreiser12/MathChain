@@ -21,6 +21,40 @@ namespace MathChain.Gateway.Repositories
                 .ToListAsync();
         }
 
+        public async Task<List<Submission>> GetAllAsync()
+        {
+            return await _context.Submissions
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<List<Submission>> GetByAssignmentIdsAsync(List<Guid> assignmentIds)
+        {
+            return await _context.Submissions
+                .AsNoTracking()
+                .Where(s => assignmentIds.Contains(s.AssignmentId))
+                .ToListAsync();
+        }
+
+        public async Task<List<Submission>> GetPracticeSubmissionsAsync(string studentWallet, string formulaId)
+        {
+            var wallet = studentWallet.Trim().ToLower();
+            var formulaMarker = $"Formula {formulaId}";
+
+            return await _context.Submissions
+                .AsNoTracking()
+                .Where(s => s.StudentWallet.ToLower() == wallet && s.Content.Contains(formulaMarker))
+                .ToListAsync();
+        }
+
+        public async Task<int> CountByStudentWalletAsync(string studentWallet)
+        {
+            var wallet = studentWallet.Trim().ToLower();
+
+            return await _context.Submissions
+                .CountAsync(s => s.StudentWallet.ToLower() == wallet);
+        }
+
         public async Task<Submission?> GetByIdAsync(Guid id)
         {
             return await _context.Submissions

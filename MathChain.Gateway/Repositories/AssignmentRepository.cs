@@ -48,6 +48,15 @@ namespace MathChain.Gateway.Repositories
 
         }
 
+        public async Task<List<Guid>> GetAllIdsByClassRoomIdAsync(Guid classRoomId)
+        {
+            return await _context.Assignments
+                .AsNoTracking()
+                .Where(a => a.ClassRoomId == classRoomId)
+                .Select(a => a.Id)
+                .ToListAsync();
+        }
+
         public async Task<List<Assignment>> GetByClassRoomIdAsync(Guid classRoomId)
         {
             return await _context.Assignments

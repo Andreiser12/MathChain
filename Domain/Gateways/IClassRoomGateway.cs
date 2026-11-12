@@ -14,5 +14,9 @@ namespace MathChain.Domain.Gateways
         Task<ClassRoom> CreateAsync(ClassRoom classRoom);
         Task EnrollStudentAsync(Enrollment enrollment);
         Task DeleteAsync(Guid id);
+        Task<List<Enrollment>> GetEnrollmentsAsync(Guid classRoomId);
+        Task<Enrollment?> GetEnrollmentAsync(Guid classRoomId, string studentWallet);
+        Task UpdateEnrollmentAsync(Enrollment enrollment);
+        Task RemoveEnrollmentAsync(Enrollment enrollment);
     }
 }

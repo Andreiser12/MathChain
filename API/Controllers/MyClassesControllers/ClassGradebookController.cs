@@ -1,8 +1,6 @@
-using MathChain.Domain.Exceptions;
-using MathChain.Persistence.Context;
+using MathChain.Application.Contexts;
 using MathChain.Application.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace MathChain.API.Controllers.MyClassesControllers
 {
@@ -10,79 +8,25 @@ namespace MathChain.API.Controllers.MyClassesControllers
     [Route("api/classroom")]
     public class ClassGradebookController : ControllerBase
     {
-        private readonly MathChainDbContext _context;
+        private readonly IGradebookContext _gradebookContext;
 
-        public ClassGradebookController(MathChainDbContext context)
+        public ClassGradebookController(IGradebookContext gradebookContext)
         {
-            _context = context;
+            _gradebookContext = gradebookContext;
         }
 
         [HttpGet("{classRoomId}/gradebook")]
         public async Task<IActionResult> GetGradebook(Guid classRoomId)
         {
-            var enrollments = await _context.Enrollments
-                .Where(e => e.ClassRoomId == classRoomId)
-                .ToListAsync();
+            var gradebook = await _gradebookContext.GetGradebookAsync(classRoomId);
 
-            var assignmentIds = await _context.Assignments
-                .Where(a => a.ClassRoomId == classRoomId)
-                .Select(a => a.Id)
-                .ToListAsync();
-
-            var submissions = await _context.Submissions
-                .Where(s => assignmentIds.Contains(s.AssignmentId))
-                .ToListAsync();
-
-            var submissionIds = submissions.Select(s => s.Id).ToList();
-
-            var grades = await _context.Grades
-                .Where(g => submissionIds.Contains(g.SubmissionId))
-                .ToListAsync();
-
-            var result = enrollments.Select(e =>
-            {
-                var studentSubmissions = submissions.Where(s => s.StudentWallet == e.StudentWallet)
-                .Select(s => s.Id).ToList();
-
-                var studentGrades = grades
-                .Where(g => studentSubmissions.Contains(g.SubmissionId))
-                .OrderBy(g => g.GradedAt)
-                .Select(g => new StudentGradeEntryDto
-                {
-
-                    GradedAt = g.GradedAt,
-                    Score = g.Score
-                })
-                .ToList();
-
-                return new StudentGradebookDto
-                {
-                    StudentWallet = e.StudentWallet,
-                    StudentName = e.StudentWallet.Length > 10 ?
-                    $"{e.StudentWallet.Substring(0, 6)}...{e.StudentWallet.Substring(e.StudentWallet.Length - 4)}"
-                        : e.StudentWallet,
-                    FinalGrade = e.FinalGrade,
-                    Grades = studentGrades
-                };
-            })
-            .ToList();
-
-            return Ok(result);
+            return Ok(gradebook);
         }
 
         [HttpPost("{classRoomId}/students/{studentWallet}/final-grade")]
         public async Task<IActionResult> SetFinalGrade(Guid classRoomId, string studentWallet, [FromBody] SetFinalGradeDto request)
         {
-            var enrollment = await _context.Enrollments
-                .FirstOrDefaultAsync(e => e.ClassRoomId == classRoomId && e.StudentWallet == studentWallet);
-
-            if (enrollment == null)
-            {
-                throw new NotFoundException("Student enrollment not found!");
-            }
-
-            enrollment.FinalGrade = request.FinalGrade;
-            await _context.SaveChangesAsync();
+            await _gradebookContext.SetFinalGradeAsync(classRoomId, studentWallet, request.FinalGrade);
 
             return Ok();
         }
@@ -90,16 +34,7 @@ namespace MathChain.API.Controllers.MyClassesControllers
         [HttpDelete("{classRoomId}/students/{studentWallet}")]
         public async Task<IActionResult> RemoveStudent(Guid classRoomId, string studentWallet)
         {
-            var enrollment = await _context.Enrollments
-                .FirstOrDefaultAsync(e => e.ClassRoomId == classRoomId && e.StudentWallet == studentWallet);
-
-            if (enrollment == null)
-            {
-                throw new NotFoundException("Student enrollment not found!");
-            }
-
-            _context.Enrollments.Remove(enrollment);
-            await _context.SaveChangesAsync();
+            await _gradebookContext.RemoveStudentAsync(classRoomId, studentWallet);
 
             return Ok();
         }

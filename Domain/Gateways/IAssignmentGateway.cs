@@ -8,5 +8,6 @@ namespace MathChain.Domain.Gateways
         Task<Assignment?> GetByIdAsync(Guid id);
         Task<Assignment> CreateAsync(Assignment assignment);
         Task DeleteAsync(Guid id);
+        Task<List<Guid>> GetAllIdsByClassRoomIdAsync(Guid classRoomId);
     }
 }

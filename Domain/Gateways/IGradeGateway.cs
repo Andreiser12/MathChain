@@ -7,5 +7,6 @@ namespace MathChain.Domain.Gateways
         Task<Grade?> GetBySubmissionIdAsync(Guid submissionId);
         Task<List<Grade>> GetBySubmissionIdsAsync(List<Guid> submissionIds);
         Task<Grade> SaveAsync(Grade grade);
+        Task<List<Grade>> GetAllAsync();
     }
 }

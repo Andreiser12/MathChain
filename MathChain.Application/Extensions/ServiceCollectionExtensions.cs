@@ -12,6 +12,9 @@ namespace MathChain.Application.Extensions
             services.AddScoped<IClassRoomContext, ClassRoomContext>();
             services.AddScoped<IClassContentContext, ClassContentContext>();
             services.AddScoped<IAssignmentContext, AssignmentContext>();
+            services.AddScoped<IDashboardContext, DashboardContext>();
+            services.AddScoped<IGradebookContext, GradebookContext>();
+            services.AddScoped<IClassStatisticsContext, ClassStatisticsContext>();
 
             return services;
         }

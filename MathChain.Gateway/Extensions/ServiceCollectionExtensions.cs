@@ -15,6 +15,7 @@ namespace MathChain.Gateway.Extensions
             services.AddScoped<IGradeGateway, GradeRepository>();
             services.AddScoped<IClassContentGateway, ClassContentRepository>();
             services.AddScoped<IUserGateway, UserRepository>();
+            services.AddScoped<IPracticeGateway, PracticeRepository>();
 
             return services;
         }

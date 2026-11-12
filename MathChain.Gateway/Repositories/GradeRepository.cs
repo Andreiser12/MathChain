@@ -19,6 +19,13 @@ namespace MathChain.Gateway.Repositories
                 .FirstOrDefaultAsync(g => g.SubmissionId == submissionId);
         }
 
+        public async Task<List<Grade>> GetAllAsync()
+        {
+            return await _context.Grades
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
         public async Task<List<Grade>> GetBySubmissionIdsAsync(List<Guid> submissionIds)
         {
             if(submissionIds == null || !submissionIds.Any())

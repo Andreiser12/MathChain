@@ -61,5 +61,26 @@ namespace MathChain.Tests.Fakes
             ClassRooms.RemoveAll(c => c.Id == id);
             return Task.CompletedTask;
         }
+
+        public Task<List<Enrollment>> GetEnrollmentsAsync(Guid classRoomId)
+        {
+            return Task.FromResult(Enrollments.Where(e => e.ClassRoomId == classRoomId).ToList());
+        }
+
+        public Task<Enrollment?> GetEnrollmentAsync(Guid classRoomId, string studentWallet)
+        {
+            return Task.FromResult(Enrollments.FirstOrDefault(e => e.ClassRoomId == classRoomId && e.StudentWallet == studentWallet));
+        }
+
+        public Task UpdateEnrollmentAsync(Enrollment enrollment)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task RemoveEnrollmentAsync(Enrollment enrollment)
+        {
+            Enrollments.Remove(enrollment);
+            return Task.CompletedTask;
+        }
     }
 }

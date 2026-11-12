@@ -39,6 +39,32 @@ namespace MathChain.Gateway.Repositories
             }
         }
 
+        public async Task<List<Enrollment>> GetEnrollmentsAsync(Guid classRoomId)
+        {
+            return await _context.Enrollments
+                .AsNoTracking()
+                .Where(e => e.ClassRoomId == classRoomId)
+                .ToListAsync();
+        }
+
+        public async Task<Enrollment?> GetEnrollmentAsync(Guid classRoomId, string studentWallet)
+        {
+            return await _context.Enrollments
+                .FirstOrDefaultAsync(e => e.ClassRoomId == classRoomId && e.StudentWallet == studentWallet);
+        }
+
+        public async Task UpdateEnrollmentAsync(Enrollment enrollment)
+        {
+            _context.Enrollments.Update(enrollment);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveEnrollmentAsync(Enrollment enrollment)
+        {
+            _context.Enrollments.Remove(enrollment);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task EnrollStudentAsync(Enrollment enrollment)
         {
             _context.Enrollments.Add(enrollment);

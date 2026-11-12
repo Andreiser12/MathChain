@@ -36,6 +36,11 @@ namespace MathChain.Application.DTOs
         public int? ExerciseIndex { get; set; }
     }
 
+    public class RecordSolvedProblemResultDto
+    {
+        public int TotalSolved { get; set; }
+    }
+
     public class PracticeProgressDto
     {
         public string FormulaId { get; set; } = string.Empty;

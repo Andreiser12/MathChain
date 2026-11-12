@@ -90,13 +90,9 @@
 			}
 
 			var userExists = await Api.CheckUserExistsAsync(_address);
-			UserDto? user = null;
+			string? chosenRole = null;
 
-			if (userExists)
-			{
-				user = await Api.LoginAsync(_address, null);
-			}
-			else
+			if (!userExists)
 			{
 				var dialog = await DialogService.ShowAsync<ChooseRoleDialog>("Welcome to MathChain!");
 				var result = await dialog.Result;
@@ -107,17 +103,40 @@
 					return;
 				}
 
-				var chosenRole = result.Data.ToString();
-				user = await Api.LoginAsync(_address, chosenRole);
+				chosenRole = result.Data.ToString();
 			}
 
-			if (user == null)
+			var challenge = await Api.RequestLoginChallengeAsync(_address);
+
+			if (challenge == null)
+			{
+				_errorMessage = "Could not start the login. Please try again.";
+				return;
+			}
+
+			string signature;
+
+			try
+			{
+				signature = await JS.InvokeAsync<string>("signLoginMessage", _address, challenge.Message);
+			}
+			catch (JSException)
+			{
+				_errorMessage = "The login message was not signed. Approve the signature request in your wallet to continue.";
+				return;
+			}
+
+			var auth = await Api.VerifyLoginAsync(_address, signature, chosenRole);
+
+			if (auth == null)
 			{
 				_errorMessage = "Nu s-a putut finaliza autentificarea. Te rugăm să încerci din nou.";
 				return;
 			}
 
-			await Session.SetSessionAsync(_address, user.Role);
+			var user = auth.User;
+
+			await Session.SetSessionAsync(_address, user.Role, auth.Token, auth.ExpiresAt);
 
 			if (user.Role == UserRole.Teacher)
 			{

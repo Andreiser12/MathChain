@@ -33,7 +33,9 @@ window.connectMetaMask = async function() {
         });
 
         console.log("[MetaMask] Conturi primite:", accounts);
-        return accounts && accounts.length > 0 ? accounts[0] : null;
+        if (!accounts || accounts.length === 0) return null;
+        window.mathchainProvider = provider;
+        return accounts[0];
     } catch (err) {
         console.error("[MetaMask] Eroare connectMetaMask:", err);
         return null;
@@ -42,53 +44,39 @@ window.connectMetaMask = async function() {
 
 window.connectPhantom = async function() {
     try {
-        console.log("[Phantom] Inițiere conectare Phantom...");
-
-        const hasPhantom = (typeof window.phantom !== "undefined") || 
-                           (typeof window.solana !== "undefined" && window.solana.isPhantom);
-
-        if (!hasPhantom) {
-            alert("Extensia Phantom nu a fost găsită în browser! Asigură-te că extensia Phantom este instalată din Chrome Web Store.");
-            return null;
-        }
-
-        const solanaProvider = window.phantom?.solana || (window.solana?.isPhantom ? window.solana : null);
-        if (solanaProvider) {
-            try {
-                console.log("[Phantom] Apelăm solanaProvider.connect()...");
-                const resp = await solanaProvider.connect();
-                if (resp && resp.publicKey) {
-                    const address = resp.publicKey.toString();
-                    console.log("[Phantom] Conectat cu succes (Solana):", address);
-                    return address;
-                }
-            } catch (solErr) {
-                console.warn("[Phantom] Solana connect nu a reușit sau a fost anulat:", solErr);
-            }
-        }
-
-        const evmProvider = window.phantom?.ethereum || 
+        const evmProvider = window.phantom?.ethereum ||
             (window.ethereum?.isPhantom ? window.ethereum : null) ||
             (window.ethereum?.providers ? window.ethereum.providers.find(p => p.isPhantom) : null);
 
-        if (evmProvider) {
-            try {
-                console.log("[Phantom] Apelăm evmProvider eth_requestAccounts...");
-                const accounts = await evmProvider.request({
-                    method: 'eth_requestAccounts'
-                });
-                if (accounts && accounts.length > 0) {
-                    console.log("[Phantom] Conectat cu succes (EVM):", accounts[0]);
-                    return accounts[0];
-                }
-            } catch (evmErr) {
-                console.error("[Phantom] EVM connect nu a reușit:", evmErr);
-            }
+        if (!evmProvider) {
+            alert("Phantom was not found or its Ethereum support is disabled. Install Phantom and enable Ethereum in its settings.");
+            return null;
         }
 
-        return null;
+        const accounts = await evmProvider.request({ method: 'eth_requestAccounts' });
+        if (!accounts || accounts.length === 0) return null;
+
+        window.mathchainProvider = evmProvider;
+        return accounts[0];
     } catch (err) {
-        console.error("[Phantom] Eroare connectPhantom:", err);
+        console.error("[Phantom] connect failed:", err);
         return null;
     }
+};
+
+window.mathchainProvider = null;
+
+window.signLoginMessage = async function(address, message) {
+    const provider = window.mathchainProvider;
+    if (!provider) {
+        throw new Error("No wallet is connected.");
+    }
+
+    const bytes = new TextEncoder().encode(message);
+    const hexMessage = "0x" + Array.from(bytes, b => b.toString(16).padStart(2, "0")).join("");
+
+    return await provider.request({
+        method: 'personal_sign',
+        params: [hexMessage, address]
+    });
 };

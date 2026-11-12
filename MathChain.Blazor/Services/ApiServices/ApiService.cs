@@ -171,24 +171,23 @@ namespace MathChain.Blazor.Services
             }
         }
 
-        public async Task<UserDto?> LoginAsync(string walletAddress, string? role = null)
+        public async Task<LoginChallengeDto?> RequestLoginChallengeAsync(string walletAddress)
         {
-            var json = JsonSerializer.Serialize(new
+            var response = await _httpClient.PostAsJsonAsync($"{_baseUrl}/auth/challenge", new { WalletAddress = walletAddress });
+
+            return await ReadEnvelopeDataAsync<LoginChallengeDto>(response);
+        }
+
+        public async Task<AuthResultDto?> VerifyLoginAsync(string walletAddress, string signature, string? role)
+        {
+            var response = await _httpClient.PostAsJsonAsync($"{_baseUrl}/auth/verify", new
             {
                 WalletAddress = walletAddress,
+                Signature = signature,
                 Role = role
             });
 
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var response = await _httpClient.PostAsync($"{_baseUrl}/user/login", content);
-
-            if (string.IsNullOrEmpty(role) && !response.IsSuccessStatusCode)
-            {
-                return null;
-            }
-
-            return await ReadEnvelopeDataAsync<UserDto>(response);
+            return await ReadEnvelopeDataAsync<AuthResultDto>(response);
         }
 
         public async Task<List<CurriculumChapterDto>> GetRootChaptersAsync(bool forceRefresh = false)

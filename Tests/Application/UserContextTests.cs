@@ -1,5 +1,4 @@
 using MathChain.Application.Contexts;
-using MathChain.Application.DTOs;
 using MathChain.Domain.Entities;
 using MathChain.Domain.Enums;
 using MathChain.Domain.Exceptions;
@@ -40,52 +39,6 @@ namespace MathChain.Tests.Application
             var exists = await _context.CheckUserExistsAsync("0xABC");
 
             Assert.True(exists);
-        }
-
-        [Fact]
-        public async Task LoginOrRegisterAsync_ExistingWallet_ReturnsExistingUser()
-        {
-            var existing = AddUser("0xabc", UserRole.Teacher);
-
-            var result = await _context.LoginOrRegisterAsync(new LoginRequest { WalletAddress = "0xABC" });
-
-            Assert.False(result.IsNewUser);
-            Assert.Same(existing, result.User);
-            Assert.Single(_gateway.Users);
-        }
-
-        [Fact]
-        public async Task LoginOrRegisterAsync_NewWalletWithRole_RegistersUser()
-        {
-            var result = await _context.LoginOrRegisterAsync(new LoginRequest { WalletAddress = "0xNew", Role = "Student" });
-
-            Assert.True(result.IsNewUser);
-            Assert.Equal("0xnew", result.User.WalletAddress);
-            Assert.Equal(UserRole.Student, result.User.Role);
-            Assert.Contains(result.User, _gateway.Users);
-        }
-
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("null")]
-        [InlineData("undefined")]
-        public async Task LoginOrRegisterAsync_NewWalletWithoutRole_ThrowsNotFoundException(string? role)
-        {
-            var request = new LoginRequest { WalletAddress = "0xnew", Role = role };
-
-            await Assert.ThrowsAsync<NotFoundException>(() => _context.LoginOrRegisterAsync(request));
-            Assert.Empty(_gateway.Users);
-        }
-
-        [Theory]
-        [InlineData("")]
-        [InlineData("   ")]
-        public async Task LoginOrRegisterAsync_MissingWallet_ThrowsBusinessRuleException(string wallet)
-        {
-            var request = new LoginRequest { WalletAddress = wallet, Role = "Student" };
-
-            await Assert.ThrowsAsync<BusinessRuleException>(() => _context.LoginOrRegisterAsync(request));
         }
 
         [Fact]

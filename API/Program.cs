@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using MathChain.Application.DTOs;
 using MathChain.Application.Extensions;
 using MathChain.Persistence.Extentions;
 using MathChain.Gateway.Extensions;
@@ -35,6 +36,8 @@ var connectionString = builder.Configuration.GetConnectionString("MathchainDB") 
 builder.Services.AddPersistenceLayer(connectionString);
 builder.Services.AddGatewayLayer();
 builder.Services.AddInfrastructureLayer();
+builder.Services.AddWalletAuthentication(builder.Configuration);
+builder.Services.AddSingleton(builder.Configuration.GetSection("SignIn").Get<SignInSettings>() ?? new SignInSettings());
 builder.Services.AddApplicationLayer();
 
 var app = builder.Build();
@@ -49,6 +52,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("AllowBlazor");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

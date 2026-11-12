@@ -15,6 +15,7 @@ namespace MathChain.Application.Extensions
             services.AddScoped<IDashboardContext, DashboardContext>();
             services.AddScoped<IGradebookContext, GradebookContext>();
             services.AddScoped<IClassStatisticsContext, ClassStatisticsContext>();
+            services.AddScoped<IAuthenticationContext, AuthenticationContext>();
 
             return services;
         }

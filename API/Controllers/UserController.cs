@@ -1,5 +1,4 @@
 using MathChain.Application.Contexts;
-using MathChain.Application.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MathChain.API.Controllers
@@ -12,19 +11,6 @@ namespace MathChain.API.Controllers
         public UserController(IUserContext userContext)
         {
             _userContext = userContext;
-        }
-
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest request)
-        {
-            var result = await _userContext.LoginOrRegisterAsync(request);
-
-            if (result.IsNewUser)
-            {
-                return Success(result.User, "User registered successfully.", StatusCodes.Status201Created);
-            }
-
-            return Success(result.User, "User logged in successfully.");
         }
 
         [HttpGet("exists/{walletAddress}")]

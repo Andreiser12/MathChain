@@ -1,12 +1,10 @@
 using System.Net;
 using System.Text;
 using System.Text.Json;
-using MathChain.API.Controllers;
-using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace MathChain.Tests.Api
 {
-    public class ErrorResponseTests : IClassFixture<ErrorResponseTests.ApiFactory>
+    public class ErrorResponseTests : IClassFixture<ApiFactory>
     {
         private readonly HttpClient _client;
 
@@ -27,7 +25,7 @@ namespace MathChain.Tests.Api
         {
             var content = new StringContent("{ this is not json", Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync("/api/user/login", content);
+            var response = await _client.PostAsync("/api/auth/challenge", content);
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
             var envelope = await ReadEnvelopeAsync(response);
@@ -51,21 +49,12 @@ namespace MathChain.Tests.Api
         [Fact]
         public async Task Patch_UnsupportedMethod_ReturnsMethodNotAllowedEnvelope()
         {
-            var response = await _client.SendAsync(new HttpRequestMessage(HttpMethod.Patch, "/api/user/login"));
+            var response = await _client.SendAsync(new HttpRequestMessage(HttpMethod.Patch, "/api/auth/challenge"));
 
             Assert.Equal(HttpStatusCode.MethodNotAllowed, response.StatusCode);
             var envelope = await ReadEnvelopeAsync(response);
             Assert.Equal("Method Not Allowed", envelope.GetProperty("message").GetString());
             Assert.Equal(405, envelope.GetProperty("statusCode").GetInt32());
-        }
-
-        public class ApiFactory : WebApplicationFactory<UserController>
-        {
-            public ApiFactory()
-            {
-                Environment.SetEnvironmentVariable("ConnectionStrings__MathchainDB",
-                    "Host=localhost;Database=tests;Username=tests;Password=tests");
-            }
         }
     }
 }

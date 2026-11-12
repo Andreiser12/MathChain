@@ -13,6 +13,10 @@
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
     <PackageReference Include="FluentAssertions" Version="8.8.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="xunit.v3" Version="3.2.2" />
   </ItemGroup>
 
@@ -21,6 +25,7 @@
     <ProjectReference Include="..\MathChain.Persistence\MathChain.Persistence.csproj" />
     <ProjectReference Include="..\MathChain.Gateway\MathChain.Gateway.csproj" />
     <ProjectReference Include="..\MathChain.Application\MathChain.Application.csproj" />
+    <ProjectReference Include="..\MathChain.Infrastructure\MathChain.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

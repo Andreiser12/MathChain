@@ -2,7 +2,7 @@ using MathChain.Application.DTOs;
 using MathChain.Domain.Entities;
 using MathChain.Domain.Enums;
 using MathChain.Domain.Gateways;
-using MathChain.Infrastructure.ResponseHandling;
+using MathChain.Domain.Exceptions;
 
 namespace MathChain.Application.Contexts
 {
@@ -14,11 +14,11 @@ namespace MathChain.Application.Contexts
             _userGateway = userGateway;
         }
 
-        public async Task<Envelope<User>> LoginOrRegisterAsync(LoginRequest request)
+        public async Task<LoginResult> LoginOrRegisterAsync(LoginRequest request)
         {
             if (request == null || string.IsNullOrWhiteSpace(request.WalletAddress))
             {
-                return EnvelopeExtensions.Failure<User>("Wallet address is required.", 400);
+                throw new BusinessRuleException("Wallet address is required.");
             }
 
             var wallet = NormalizeWalletAddress(request.WalletAddress);
@@ -27,7 +27,7 @@ namespace MathChain.Application.Contexts
 
             if (existingUser != null)
             {
-                return EnvelopeExtensions.Success(existingUser, "User logged in successfully.");
+                return new LoginResult { User = existingUser, IsNewUser = false };
             }
 
             var isRoleProvided = !string.IsNullOrWhiteSpace(request.Role)
@@ -36,7 +36,7 @@ namespace MathChain.Application.Contexts
 
             if (!isRoleProvided)
             {
-                return EnvelopeExtensions.Failure<User>("User does not exist. A valid role is required for registration.", 404);
+                throw new NotFoundException("User does not exist. A valid role is required for registration.");
             }
 
             var parsedRole = UserRole.Teacher;
@@ -56,14 +56,14 @@ namespace MathChain.Application.Contexts
 
             var createdUser = await _userGateway.CreateOrUpdateAsync(newUser);
 
-            return EnvelopeExtensions.Success(createdUser, "User registered successfully.", 201);
+            return new LoginResult { User = createdUser, IsNewUser = true };
         }
 
-        public async Task<Envelope<User>> GetByWalletAddressAsync(string walletAddress)
+        public async Task<User> GetByWalletAddressAsync(string walletAddress)
         {
             if (string.IsNullOrWhiteSpace(walletAddress))
             {
-                return EnvelopeExtensions.Failure<User>("Wallet address is required.", 400);
+                throw new BusinessRuleException("Wallet address is required.");
             }
 
             var wallet = NormalizeWalletAddress(walletAddress);
@@ -72,31 +72,31 @@ namespace MathChain.Application.Contexts
 
             if (user == null)
             {
-                return EnvelopeExtensions.Failure<User>($"User with wallet '{wallet}' was not found.", 404);
+                throw new NotFoundException($"User with wallet '{wallet}' was not found.");
             }
 
-            return EnvelopeExtensions.Success(user);
+            return user;
         }
 
-        public async Task<Envelope<bool>> CheckUserExistsAsync(string walletAddress)
+        public async Task<bool> CheckUserExistsAsync(string walletAddress)
         {
             if (string.IsNullOrWhiteSpace(walletAddress))
             {
-                return EnvelopeExtensions.Success(false);
+                return false;
             }
 
             var wallet = NormalizeWalletAddress(walletAddress);
 
             var user = await _userGateway.GetByWalletAddressAsync(wallet);
 
-            return EnvelopeExtensions.Success(user != null);
+            return user != null;
         }
 
-        public async Task<Envelope<List<User>>> GetAllUsersAsync()
+        public async Task<List<User>> GetAllUsersAsync()
         {
             var users = await _userGateway.GetAllAsync();
 
-            return EnvelopeExtensions.Success(users);
+            return users;
         }
 
         private static string NormalizeWalletAddress(string walletAddress)

@@ -6,7 +6,7 @@ namespace MathChain.API.Controllers.MyClassesControllers
 {
     [ApiController]
     [Route("api/classroom")]
-    public class ClassMessagesController : ControllerBase
+    public class ClassMessagesController : ApiControllerBase
     {
         private readonly IClassContentContext _contentContext;
         public ClassMessagesController(IClassContentContext contentContext)
@@ -17,25 +17,25 @@ namespace MathChain.API.Controllers.MyClassesControllers
         [HttpGet("{classRoomId}/messages")]
         public async Task<IActionResult> GetMessages(Guid classRoomId)
         {
-            var result = await _contentContext.GetAnnouncementsAsync(classRoomId);
+            var announcements = await _contentContext.GetAnnouncementsAsync(classRoomId);
 
-            return StatusCode(result.StatusCode, result);
+            return Success(announcements);
         }
 
         [HttpPost("{classRoomId}/messages")]
         public async Task<IActionResult> CreateMessage(Guid classRoomId, [FromBody] CreateAnnouncementRequest request)
         {
-            var result = await _contentContext.CreateAnnouncementAsync(classRoomId, request);
+            var announcement = await _contentContext.CreateAnnouncementAsync(classRoomId, request);
 
-            return StatusCode(result.StatusCode, result);
+            return Success(announcement, "Announcement posted successfully.", StatusCodes.Status201Created);
         }
 
         [HttpPost("messages/{messageId:guid}/comments")]
         public async Task<IActionResult> AddComment(Guid messageId, [FromBody] AddCommentRequest request)
         {
-            var result = await _contentContext.AddCommentAsync(messageId, request);
+            var comment = await _contentContext.AddCommentAsync(messageId, request);
 
-            return StatusCode(result.StatusCode, result);
+            return Success(comment, "Comment added successfully.", StatusCodes.Status201Created);
         }
     }
 }

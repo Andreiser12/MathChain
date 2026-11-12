@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\MathChain.Domain.csproj" />
-    <ProjectReference Include="..\MathChain.Infrastructure\MathChain.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

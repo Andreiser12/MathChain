@@ -1,7 +1,7 @@
 ﻿using MathChain.Application.DTOs;
 using MathChain.Domain.Entities;
 using MathChain.Domain.Gateways;
-using MathChain.Infrastructure.ResponseHandling;
+using MathChain.Domain.Exceptions;
 
 namespace MathChain.Application.Contexts
 {
@@ -20,7 +20,7 @@ namespace MathChain.Application.Contexts
             _classRoomGateway = classRoomGateway;
         }
 
-        public async Task<Envelope<List<AssignmentResponseDto>>> GetAssignmentsByClassRoomAsync(Guid classRoomId)
+        public async Task<List<AssignmentResponseDto>> GetAssignmentsByClassRoomAsync(Guid classRoomId)
         {
             var assignments = await _assignmentGateway.GetByClassRoomIdAsync(classRoomId);
 
@@ -45,33 +45,33 @@ namespace MathChain.Application.Contexts
                 });
             }
 
-            return EnvelopeExtensions.Success(dtos);
+            return dtos;
         }
 
-        public async Task<Envelope<Assignment>> GetAssignmentByIdAsync(Guid id)
+        public async Task<Assignment> GetAssignmentByIdAsync(Guid id)
         {
             var assignment = await _assignmentGateway.GetByIdAsync(id);
 
             if (assignment == null)
             {
-                return EnvelopeExtensions.Failure<Assignment>("Assignment not found.", 404);
+                throw new NotFoundException("Assignment not found.");
             }
 
-            return EnvelopeExtensions.Success(assignment);
+            return assignment;
         }
 
-        public async Task<Envelope<Assignment>> CreateAssignmentAsync(Guid classRoomId, CreateAssignmentRequest request)
+        public async Task<Assignment> CreateAssignmentAsync(Guid classRoomId, CreateAssignmentRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.Title))
             {
-                return EnvelopeExtensions.Failure<Assignment>("Assignment title is required.", 400);
+                throw new BusinessRuleException("Assignment title is required.");
             }
 
             var classRoom = await _classRoomGateway.GetByIdAsync(classRoomId);
 
             if (classRoom == null)
             {
-                return EnvelopeExtensions.Failure<Assignment>("Classroom not found.", 404);
+                throw new NotFoundException("Classroom not found.");
             }
 
             var assignment = new Assignment
@@ -89,24 +89,22 @@ namespace MathChain.Application.Contexts
 
             var created = await _assignmentGateway.CreateAsync(assignment);
 
-            return EnvelopeExtensions.Success(created, "Assignment created successfully.", 201);
+            return created;
         }
 
-        public async Task<Envelope<object>> DeleteAssignmentAsync(Guid id)
+        public async Task DeleteAssignmentAsync(Guid id)
         {
             var assignment = await _assignmentGateway.GetByIdAsync(id);
 
             if (assignment == null)
             {
-                return EnvelopeExtensions.Failure("Assignment not found.", 404);
+                throw new NotFoundException("Assignment not found.");
             }
 
             await _assignmentGateway.DeleteAsync(id);
-
-            return EnvelopeExtensions.Success("Assignment deleted successfully.", 200);
         }
 
-        public async Task<Envelope<List<SubmissionResponseDto>>> GetSubmissionsAsync(Guid assignmentId)
+        public async Task<List<SubmissionResponseDto>> GetSubmissionsAsync(Guid assignmentId)
         {
             var submissions = await _submissionGateway.GetByAssignmentIdAsync(assignmentId);
             var submissionIds = submissions.Select(s => s.Id).ToList();
@@ -130,21 +128,21 @@ namespace MathChain.Application.Contexts
                 };
             }).ToList();
 
-            return EnvelopeExtensions.Success(dtos);
+            return dtos;
         }
 
-        public async Task<Envelope<Submission>> SubmitAssignmentAsync(Guid assignmentId, SubmitAssignmentRequest request)
+        public async Task<Submission> SubmitAssignmentAsync(Guid assignmentId, SubmitAssignmentRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.StudentWallet))
             {
-                return EnvelopeExtensions.Failure<Submission>("Student wallet address is required.", 400);
+                throw new BusinessRuleException("Student wallet address is required.");
             }
 
             var assignment = await _assignmentGateway.GetByIdAsync(assignmentId);
 
             if (assignment == null)
             {
-                return EnvelopeExtensions.Failure<Submission>("Assignment not found.", 404);
+                throw new NotFoundException("Assignment not found.");
             }
 
             var studentWallet = request.StudentWallet.Trim().ToLower();
@@ -177,21 +175,21 @@ namespace MathChain.Application.Contexts
 
             var saved = await _submissionGateway.SaveAsync(submissionToSave);
 
-            return EnvelopeExtensions.Success(saved, "Assignment submitted successfully.");
+            return saved;
         }
 
-        public async Task<Envelope<Grade>> GradeSubmissionAsync(Guid submissionId, GradeSubmissionRequest request)
+        public async Task<Grade> GradeSubmissionAsync(Guid submissionId, GradeSubmissionRequest request)
         {
             if (request.Score < 0 || request.Score > 100)
             {
-                return EnvelopeExtensions.Failure<Grade>("Grade score must be between 0 and 100.", 400);
+                throw new BusinessRuleException("Grade score must be between 0 and 100.");
             }
 
             var submission = await _submissionGateway.GetByIdAsync(submissionId);
 
             if (submission == null)
             {
-                return EnvelopeExtensions.Failure<Grade>("Submission not found.", 404);
+                throw new NotFoundException("Submission not found.");
             }
 
             var existingGrade = await _gradeGateway.GetBySubmissionIdAsync(submissionId);
@@ -219,7 +217,7 @@ namespace MathChain.Application.Contexts
 
             var saved = await _gradeGateway.SaveAsync(gradeToSave);
 
-            return EnvelopeExtensions.Success(saved, "Submission graded successfully.");
+            return saved;
         }
 
         private static string FormatWallet(string wallet)

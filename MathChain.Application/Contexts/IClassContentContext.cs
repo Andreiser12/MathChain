@@ -1,21 +1,20 @@
 ﻿using MathChain.Application.DTOs;
 using MathChain.Domain.Entities;
-using MathChain.Infrastructure.ResponseHandling;
 
 namespace MathChain.Application.Contexts
 {
     public interface IClassContentContext
     {
-        Task<Envelope<List<AnnouncementResponseDto>>> GetAnnouncementsAsync(Guid classRoomId);
-        Task<Envelope<ClassAnnouncement>> CreateAnnouncementAsync(Guid classRoomId, CreateAnnouncementRequest request);
-        Task<Envelope<MessageComment>> AddCommentAsync(Guid messageId, AddCommentRequest request);
+        Task<List<AnnouncementResponseDto>> GetAnnouncementsAsync(Guid classRoomId);
+        Task<ClassAnnouncement> CreateAnnouncementAsync(Guid classRoomId, CreateAnnouncementRequest request);
+        Task<MessageComment> AddCommentAsync(Guid messageId, AddCommentRequest request);
 
-        Task<Envelope<List<ClassMedia>>> GetMediaAsync(Guid classRoomId);
-        Task<Envelope<ClassMedia>> AddMediaAsync(Guid classRoomId, CreateClassMediaRequest request);
-        Task<Envelope<object>> DeleteMediaAsync(Guid mediaId);
+        Task<List<ClassMedia>> GetMediaAsync(Guid classRoomId);
+        Task<ClassMedia> AddMediaAsync(Guid classRoomId, CreateClassMediaRequest request);
+        Task DeleteMediaAsync(Guid mediaId);
 
-        Task<Envelope<List<ClassResource>>> GetResourcesAsync(Guid classRoomId);
-        Task<Envelope<ClassResource>> AddResourceAsync(Guid classRoomId, CreateResourceRequest request);
-        Task<Envelope<object>> DeleteResourceAsync(Guid resourceId);
+        Task<List<ClassResource>> GetResourcesAsync(Guid classRoomId);
+        Task<ClassResource> AddResourceAsync(Guid classRoomId, CreateResourceRequest request);
+        Task DeleteResourceAsync(Guid resourceId);
     }
 }

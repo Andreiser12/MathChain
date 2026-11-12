@@ -6,7 +6,7 @@ namespace MathChain.API.Controllers.MyClassesControllers
 {
     [ApiController]
     [Route("api/classroom")]
-    public class ClassMediaController : ControllerBase
+    public class ClassMediaController : ApiControllerBase
     {
         private readonly IClassContentContext _contentContext;
         public ClassMediaController(IClassContentContext contentContext)
@@ -17,25 +17,25 @@ namespace MathChain.API.Controllers.MyClassesControllers
         [HttpGet("{classRoomId}/media")]
         public async Task<IActionResult> GetClassMedia(Guid classRoomId)
         {
-            var result = await _contentContext.GetMediaAsync(classRoomId);
+            var media = await _contentContext.GetMediaAsync(classRoomId);
 
-            return StatusCode(result.StatusCode, result);
+            return Success(media);
         }
 
         [HttpPost("{classRoomId}/media")]
         public async Task<IActionResult> AddClassMedia(Guid classRoomId, [FromBody] CreateClassMediaRequest request)
         {
-            var result = await _contentContext.AddMediaAsync(classRoomId, request);
+            var media = await _contentContext.AddMediaAsync(classRoomId, request);
 
-            return StatusCode(result.StatusCode, result);
+            return Success(media, "Class media uploaded successfully.", StatusCodes.Status201Created);
         }
 
         [HttpDelete("media/{mediaId:guid}")]
         public async Task<IActionResult> DeleteClassMedia(Guid mediaId)
         {
-            var result = await _contentContext.DeleteMediaAsync(mediaId);
+            await _contentContext.DeleteMediaAsync(mediaId);
 
-            return StatusCode(result.StatusCode, result);
+            return SuccessMessage("Media deleted successfully.");
         }
     }
 }

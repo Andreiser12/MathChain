@@ -1,7 +1,7 @@
 ﻿using MathChain.Application.DTOs;
 using MathChain.Domain.Entities;
 using MathChain.Domain.Gateways;
-using MathChain.Infrastructure.ResponseHandling;
+using MathChain.Domain.Exceptions;
 
 namespace MathChain.Application.Contexts
 {
@@ -31,11 +31,11 @@ namespace MathChain.Application.Contexts
             return code;
         }
 
-        public async Task<Envelope<ClassRoom>> CreateClassRoomAsync(CreateClassRoomRequest request)
+        public async Task<ClassRoom> CreateClassRoomAsync(CreateClassRoomRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.Name) || string.IsNullOrWhiteSpace(request.TeacherWallet))
             {
-                return EnvelopeExtensions.Failure<ClassRoom>("Classroom name and teacher wallet are required.", 400);
+                throw new BusinessRuleException("Classroom name and teacher wallet are required.");
             }
 
             var classRoom = new ClassRoom
@@ -49,14 +49,14 @@ namespace MathChain.Application.Contexts
 
             var created = await _classRoomGateway.CreateAsync(classRoom);
 
-            return EnvelopeExtensions.Success(created, "Classroom created successfully.", 201);
+            return created;
         }
 
-        public async Task<Envelope<ClassRoom>> JoinClassRoomAsync(JoinClassRoomRequest request)
+        public async Task<ClassRoom> JoinClassRoomAsync(JoinClassRoomRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.JoinCode) || string.IsNullOrWhiteSpace(request.StudentWallet))
             {
-                return EnvelopeExtensions.Failure<ClassRoom>("Join code and student wallet are required.", 400);
+                throw new BusinessRuleException("Join code and student wallet are required.");
             }
 
             var joinCode = request.JoinCode.Trim().ToUpper();
@@ -65,14 +65,14 @@ namespace MathChain.Application.Contexts
 
             if (classRoom == null)
             {
-                return EnvelopeExtensions.Failure<ClassRoom>("Classroom not found for the provided join code.", 404);
+                throw new NotFoundException("Classroom not found for the provided join code.");
             }
 
             var alreadyEnrolled = await _classRoomGateway.IsStudentEnrolledAsync(classRoom.Id, studentWallet);
 
             if (alreadyEnrolled)
             {
-                return EnvelopeExtensions.Failure<ClassRoom>("Student is already enrolled in this classroom.", 400);
+                throw new BusinessRuleException("Student is already enrolled in this classroom.");
             }
 
             var enrollment = new Enrollment
@@ -85,62 +85,61 @@ namespace MathChain.Application.Contexts
 
             await _classRoomGateway.EnrollStudentAsync(enrollment);
 
-            return EnvelopeExtensions.Success(classRoom, "Enrolled in classroom successfully.");
+            return classRoom;
         }
 
-        public async Task<Envelope<ClassRoom>> GetClassRoomByIdAsync(Guid id)
+        public async Task<ClassRoom> GetClassRoomByIdAsync(Guid id)
         {
             var classRoom = await _classRoomGateway.GetByIdAsync(id);
 
             if (classRoom == null)
             {
-                return EnvelopeExtensions.Failure<ClassRoom>("Classroom not found.", 404);
+                throw new NotFoundException("Classroom not found.");
             }
 
-            return EnvelopeExtensions.Success(classRoom);
+            return classRoom;
         }
 
-        public async Task<Envelope<List<ClassRoom>>> GetByTeacherWalletAsync(string teacherWallet)
+        public async Task<List<ClassRoom>> GetByTeacherWalletAsync(string teacherWallet)
         {
             if (string.IsNullOrWhiteSpace(teacherWallet))
             {
-                return EnvelopeExtensions.Failure<List<ClassRoom>>("Teacher wallet address is required.", 400);
+                throw new BusinessRuleException("Teacher wallet address is required.");
             }
 
             var classRooms = await _classRoomGateway.GetByTeacherWalletAsync(teacherWallet.Trim().ToLower());
 
-            return EnvelopeExtensions.Success(classRooms);
+            return classRooms;
         }
 
-        public async Task<Envelope<List<ClassRoom>>> GetByStudentWalletAsync(string studentWallet)
+        public async Task<List<ClassRoom>> GetByStudentWalletAsync(string studentWallet)
         {
             if (string.IsNullOrWhiteSpace(studentWallet))
             {
-                return EnvelopeExtensions.Failure<List<ClassRoom>>("Student wallet address is required.", 400);
+                throw new BusinessRuleException("Student wallet address is required.");
             }
 
             var classRooms = await _classRoomGateway.GetEnrolledByStudentWalletAsync(studentWallet.Trim().ToLower());
 
-            return EnvelopeExtensions.Success(classRooms);
+            return classRooms;
         }
 
-        public async Task<Envelope<List<string>>> GetEnrolledStudentsAsync(Guid classRoomId)
+        public async Task<List<string>> GetEnrolledStudentsAsync(Guid classRoomId)
         {
             var students = await _classRoomGateway.GetEnrolledStudentsWalletsAsync(classRoomId);
 
-            return EnvelopeExtensions.Success(students);
+            return students;
         }
 
-        public async Task<Envelope<object>> DeleteClassRoomAsync(Guid id)
+        public async Task DeleteClassRoomAsync(Guid id)
         {
             var classRoom = await _classRoomGateway.GetByIdAsync(id);
 
             if (classRoom == null)
             {
-                return EnvelopeExtensions.Failure("Classroom not found.", 404);
+                throw new NotFoundException("Classroom not found.");
             }
             await _classRoomGateway.DeleteAsync(id);
-            return EnvelopeExtensions.Success("Classroom deleted successfully.", 200);
         }
     }
 }

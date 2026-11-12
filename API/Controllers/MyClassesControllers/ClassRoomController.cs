@@ -6,7 +6,7 @@ namespace MathChain.API.Controllers.MyClassesControllers
 {
     [ApiController]
     [Route("api/classroom")]
-    public class ClassRoomController : ControllerBase
+    public class ClassRoomController : ApiControllerBase
     {
         private readonly IClassRoomContext _classRoomContext;
         public ClassRoomController(IClassRoomContext classRoomContext)
@@ -17,57 +17,57 @@ namespace MathChain.API.Controllers.MyClassesControllers
         [HttpPost("create")]
         public async Task<IActionResult> CreateClassRoom([FromBody] CreateClassRoomRequest request)
         {
-            var result = await _classRoomContext.CreateClassRoomAsync(request);
+            var classRoom = await _classRoomContext.CreateClassRoomAsync(request);
 
-            return StatusCode(result.StatusCode, result);
+            return Success(classRoom, "Classroom created successfully.", StatusCodes.Status201Created);
         }
 
         [HttpPost("join")]
         public async Task<IActionResult> JoinClassRoom([FromBody] JoinClassRoomRequest request)
         {
-            var result = await _classRoomContext.JoinClassRoomAsync(request);
+            var classRoom = await _classRoomContext.JoinClassRoomAsync(request);
 
-            return StatusCode(result.StatusCode, result);
+            return Success(classRoom, "Enrolled in classroom successfully.");
         }
 
         [HttpGet("by-teacher/{teacherWallet}")]
         public async Task<IActionResult> GetClassRoomByTeacher(string teacherWallet)
         {
-            var result = await _classRoomContext.GetByTeacherWalletAsync(teacherWallet);
+            var classRooms = await _classRoomContext.GetByTeacherWalletAsync(teacherWallet);
 
-            return StatusCode(result.StatusCode, result);
+            return Success(classRooms);
         }
 
         [HttpGet("by-student/{studentWallet}")]
         public async Task<IActionResult> GetClassRoomByStudent(string studentWallet)
         {
-            var result = await _classRoomContext.GetByStudentWalletAsync(studentWallet);
+            var classRooms = await _classRoomContext.GetByStudentWalletAsync(studentWallet);
 
-            return StatusCode(result.StatusCode, result);
+            return Success(classRooms);
         }
 
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetClassRoomById(Guid id)
         {
-            var result = await _classRoomContext.GetClassRoomByIdAsync(id);
+            var classRoom = await _classRoomContext.GetClassRoomByIdAsync(id);
 
-            return StatusCode(result.StatusCode, result);
+            return Success(classRoom);
         }
 
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteClassRoom(Guid id)
         {
-            var result = await _classRoomContext.DeleteClassRoomAsync(id);
+            await _classRoomContext.DeleteClassRoomAsync(id);
 
-            return StatusCode(result.StatusCode, result);
+            return SuccessMessage("Classroom deleted successfully.");
         }
 
         [HttpGet("{classRoomId}/students")]
         public async Task<IActionResult> GetEnrolledStudents(Guid classRoomId)
         {
-            var result = await _classRoomContext.GetEnrolledStudentsAsync(classRoomId);
+            var students = await _classRoomContext.GetEnrolledStudentsAsync(classRoomId);
 
-            return StatusCode(result.StatusCode, result);
+            return Success(students);
         }
     }
 }

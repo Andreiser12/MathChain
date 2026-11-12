@@ -2,7 +2,7 @@ using MathChain.Application.DTOs;
 using MathChain.Domain.Entities;
 using MathChain.Domain.Gateways;
 using MathChain.Domain.Interfaces;
-using MathChain.Infrastructure.ResponseHandling;
+using MathChain.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,30 +23,30 @@ namespace MathChain.Application.Contexts
             _ipfsStorageService = ipfsStorageService;
         }
 
-        public async Task<Envelope<List<CurriculumChapterResponseDto>>> GetAllChaptersAsync()
+        public async Task<List<CurriculumChapterResponseDto>> GetAllChaptersAsync()
         {
             var chapters = await _curriculumGateway.GetAllAsync();
             var childrenLookup = chapters.ToLookup(c => c.ParentId);
 
             var dtos = chapters.Select(c => MapToResponseDto(c, childrenLookup)).ToList();
-            return EnvelopeExtensions.Success(dtos, "Chapters loaded successfully.");
+            return dtos;
         }
 
-        public async Task<Envelope<List<CurriculumChapterResponseDto>>> GetRootChaptersAsync()
+        public async Task<List<CurriculumChapterResponseDto>> GetRootChaptersAsync()
         {
             var all = await _curriculumGateway.GetAllAsync();
             var roots = all.Where(c => c.ParentId == null).OrderBy(c => c.Order).ThenBy(c => c.Title).ToList();
             var childrenLookup = all.ToLookup(c => c.ParentId);
 
             var dtos = roots.Select(c => MapToResponseDto(c, childrenLookup)).ToList();
-            return EnvelopeExtensions.Success(dtos, "Root chapters loaded successfully.");
+            return dtos;
         }
 
-        public async Task<Envelope<ChapterDetailResponseDto>> GetChapterDetailAsync(string idOrSlug)
+        public async Task<ChapterDetailResponseDto> GetChapterDetailAsync(string idOrSlug)
         {
             if (string.IsNullOrWhiteSpace(idOrSlug))
             {
-                return EnvelopeExtensions.Failure<ChapterDetailResponseDto>("Chapter identifier is required.", 400);
+                throw new BusinessRuleException("Chapter identifier is required.");
             }
 
             var allChapters = await _curriculumGateway.GetAllAsync();
@@ -65,7 +65,7 @@ namespace MathChain.Application.Contexts
 
             if (chapter == null)
             {
-                return EnvelopeExtensions.Failure<ChapterDetailResponseDto>($"Chapter '{idOrSlug}' was not found.", 404);
+                throw new NotFoundException($"Chapter '{idOrSlug}' was not found.");
             }
 
             var subChapters = allChapters
@@ -97,14 +97,14 @@ namespace MathChain.Application.Contexts
                 }).ToList()
             };
 
-            return EnvelopeExtensions.Success(detail, "Chapter details loaded successfully.");
+            return detail;
         }
 
-        public async Task<Envelope<CurriculumChapterResponseDto>> CreateChapterAsync(CreateChapterRequest request)
+        public async Task<CurriculumChapterResponseDto> CreateChapterAsync(CreateChapterRequest request)
         {
             if (request == null || string.IsNullOrWhiteSpace(request.Title))
             {
-                return EnvelopeExtensions.Failure<CurriculumChapterResponseDto>("Title is required.", 400);
+                throw new BusinessRuleException("Title is required.");
             }
 
             string slug;
@@ -154,20 +154,20 @@ namespace MathChain.Application.Contexts
             var all = await _curriculumGateway.GetAllAsync();
             var childrenLookup = all.ToLookup(c => c.ParentId);
 
-            return EnvelopeExtensions.Success(MapToResponseDto(created, childrenLookup), "Chapter created successfully.", 201);
+            return MapToResponseDto(created, childrenLookup);
         }
 
-        public async Task<Envelope<CurriculumChapterResponseDto>> UpdateChapterAsync(Guid id, UpdateChapterRequest request)
+        public async Task<CurriculumChapterResponseDto> UpdateChapterAsync(Guid id, UpdateChapterRequest request)
         {
             if (request == null || string.IsNullOrWhiteSpace(request.Title))
             {
-                return EnvelopeExtensions.Failure<CurriculumChapterResponseDto>("Title is required.", 400);
+                throw new BusinessRuleException("Title is required.");
             }
 
             var chapter = await _curriculumGateway.GetByIdAsync(id);
             if (chapter == null)
             {
-                return EnvelopeExtensions.Failure<CurriculumChapterResponseDto>($"Chapter with ID '{id}' was not found.", 404);
+                throw new NotFoundException($"Chapter with ID '{id}' was not found.");
             }
 
             string slug = !string.IsNullOrWhiteSpace(request.ChapterSlug)
@@ -199,46 +199,46 @@ namespace MathChain.Application.Contexts
             var all = await _curriculumGateway.GetAllAsync();
             var childrenLookup = all.ToLookup(c => c.ParentId);
 
-            return EnvelopeExtensions.Success(MapToResponseDto(updated, childrenLookup), "Chapter updated successfully.");
+            return MapToResponseDto(updated, childrenLookup);
         }
 
-        public async Task<Envelope<bool>> DeleteChapterAsync(Guid id)
+        public async Task<bool> DeleteChapterAsync(Guid id)
         {
             var chapter = await _curriculumGateway.GetByIdAsync(id);
             if (chapter == null)
             {
-                return EnvelopeExtensions.Failure<bool>($"Chapter with ID '{id}' was not found.", 404);
+                throw new NotFoundException($"Chapter with ID '{id}' was not found.");
             }
 
             var deleted = await _curriculumGateway.DeleteAsync(id);
-            return EnvelopeExtensions.Success(deleted, "Chapter and any nested subchapters deleted successfully.");
+            return deleted;
         }
 
-        public async Task<Envelope<CurriculumChapter>> UpdateIpfsHashAsync(string slug, string newIpfsHash)
+        public async Task<CurriculumChapter> UpdateIpfsHashAsync(string slug, string newIpfsHash)
         {
             if (string.IsNullOrWhiteSpace(slug) || string.IsNullOrWhiteSpace(newIpfsHash))
             {
-                return EnvelopeExtensions.Failure<CurriculumChapter>("The slug and new IPFS hash are required.", 400);
+                throw new BusinessRuleException("The slug and new IPFS hash are required.");
             }
 
             var chapter = await _curriculumGateway.GetBySlugAsync(slug);
             if (chapter == null)
             {
-                return EnvelopeExtensions.Failure<CurriculumChapter>($"Chapter '{slug}' was not found.", 404);
+                throw new NotFoundException($"Chapter '{slug}' was not found.");
             }
 
             await _curriculumGateway.UpdateIpfsHashAsync(slug, newIpfsHash);
             var updated = await _curriculumGateway.GetBySlugAsync(slug);
-            return EnvelopeExtensions.Success(updated!, "The IPFS hash was successfully updated.");
+            return updated!;
         }
 
         #region Formulas CRUD & Hybrid Sync
 
-        public async Task<Envelope<List<CurriculumFormulaResponseDto>>> GetFormulasByChapterAsync(string idOrSlug)
+        public async Task<List<CurriculumFormulaResponseDto>> GetFormulasByChapterAsync(string idOrSlug)
         {
             if (string.IsNullOrWhiteSpace(idOrSlug))
             {
-                return EnvelopeExtensions.Failure<List<CurriculumFormulaResponseDto>>("Chapter identifier is required.", 400);
+                throw new BusinessRuleException("Chapter identifier is required.");
             }
 
             CurriculumChapter? chapter;
@@ -253,25 +253,25 @@ namespace MathChain.Application.Contexts
 
             if (chapter == null)
             {
-                return EnvelopeExtensions.Failure<List<CurriculumFormulaResponseDto>>($"Chapter '{idOrSlug}' was not found.", 404);
+                throw new NotFoundException($"Chapter '{idOrSlug}' was not found.");
             }
 
             var formulas = await _curriculumGateway.GetFormulasByChapterIdAsync(chapter.Id);
             var dtos = formulas.Select(MapFormulaToDto).ToList();
-            return EnvelopeExtensions.Success(dtos, "Formulas retrieved successfully.");
+            return dtos;
         }
 
-        public async Task<Envelope<CurriculumFormulaResponseDto>> CreateFormulaAsync(Guid chapterId, CreateFormulaRequest request)
+        public async Task<CurriculumFormulaResponseDto> CreateFormulaAsync(Guid chapterId, CreateFormulaRequest request)
         {
             if (request == null || string.IsNullOrWhiteSpace(request.Title) || string.IsNullOrWhiteSpace(request.Latex))
             {
-                return EnvelopeExtensions.Failure<CurriculumFormulaResponseDto>("Title and LaTeX formula are required.", 400);
+                throw new BusinessRuleException("Title and LaTeX formula are required.");
             }
 
             var chapter = await _curriculumGateway.GetByIdAsync(chapterId);
             if (chapter == null)
             {
-                return EnvelopeExtensions.Failure<CurriculumFormulaResponseDto>($"Chapter with ID '{chapterId}' was not found.", 404);
+                throw new NotFoundException($"Chapter with ID '{chapterId}' was not found.");
             }
 
             var existingFormulas = await _curriculumGateway.GetFormulasByChapterIdAsync(chapterId);
@@ -302,20 +302,20 @@ namespace MathChain.Application.Contexts
             await SyncChapterToIpfsAsync(chapter, existingFormulas);
             await _curriculumGateway.UpdateAsync(chapter);
 
-            return EnvelopeExtensions.Success(MapFormulaToDto(created), "Formula created successfully.", 201);
+            return MapFormulaToDto(created);
         }
 
-        public async Task<Envelope<CurriculumFormulaResponseDto>> UpdateFormulaAsync(Guid id, UpdateFormulaRequest request)
+        public async Task<CurriculumFormulaResponseDto> UpdateFormulaAsync(Guid id, UpdateFormulaRequest request)
         {
             if (request == null || string.IsNullOrWhiteSpace(request.Title) || string.IsNullOrWhiteSpace(request.Latex))
             {
-                return EnvelopeExtensions.Failure<CurriculumFormulaResponseDto>("Title and LaTeX formula are required.", 400);
+                throw new BusinessRuleException("Title and LaTeX formula are required.");
             }
 
             var formula = await _curriculumGateway.GetFormulaByIdAsync(id);
             if (formula == null)
             {
-                return EnvelopeExtensions.Failure<CurriculumFormulaResponseDto>($"Formula with ID '{id}' was not found.", 404);
+                throw new NotFoundException($"Formula with ID '{id}' was not found.");
             }
 
             formula.Title = request.Title.Trim();
@@ -338,15 +338,15 @@ namespace MathChain.Application.Contexts
                 await _curriculumGateway.UpdateAsync(chapter);
             }
 
-            return EnvelopeExtensions.Success(MapFormulaToDto(updated), "Formula updated successfully.");
+            return MapFormulaToDto(updated);
         }
 
-        public async Task<Envelope<bool>> DeleteFormulaAsync(Guid id)
+        public async Task<bool> DeleteFormulaAsync(Guid id)
         {
             var formula = await _curriculumGateway.GetFormulaByIdAsync(id);
             if (formula == null)
             {
-                return EnvelopeExtensions.Failure<bool>($"Formula with ID '{id}' was not found.", 404);
+                throw new NotFoundException($"Formula with ID '{id}' was not found.");
             }
 
             var chapterId = formula.ChapterId;
@@ -364,7 +364,7 @@ namespace MathChain.Application.Contexts
                 }
             }
 
-            return EnvelopeExtensions.Success(deleted, "Formula deleted successfully.");
+            return deleted;
         }
 
         private async Task SyncChapterToIpfsAsync(CurriculumChapter chapter, List<CurriculumFormula> formulas)

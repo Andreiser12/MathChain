@@ -6,7 +6,7 @@ namespace MathChain.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class UserController : ApiControllerBase
     {
         private readonly IUserContext _userContext;
         public UserController(IUserContext userContext)
@@ -19,31 +19,36 @@ namespace MathChain.API.Controllers
         {
             var result = await _userContext.LoginOrRegisterAsync(request);
 
-            return StatusCode(result.StatusCode, result);
+            if (result.IsNewUser)
+            {
+                return Success(result.User, "User registered successfully.", StatusCodes.Status201Created);
+            }
+
+            return Success(result.User, "User logged in successfully.");
         }
 
         [HttpGet("exists/{walletAddress}")]
         public async Task<IActionResult> UserExists(string walletAddress)
         {
-            var result = await _userContext.CheckUserExistsAsync(walletAddress);
+            var exists = await _userContext.CheckUserExistsAsync(walletAddress);
 
-            return StatusCode(result.StatusCode, result);
+            return Success(exists);
         }
 
         [HttpGet("{walletAddress}")]
         public async Task<IActionResult> GetByWallet(string walletAddress)
         {
-            var result = await _userContext.GetByWalletAddressAsync(walletAddress);
+            var user = await _userContext.GetByWalletAddressAsync(walletAddress);
 
-            return StatusCode(result.StatusCode, result);
+            return Success(user);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
-            var result = await _userContext.GetAllUsersAsync();
+            var users = await _userContext.GetAllUsersAsync();
 
-            return StatusCode(result.StatusCode, result);
+            return Success(users);
         }
     }
 }

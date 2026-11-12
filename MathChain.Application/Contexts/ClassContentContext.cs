@@ -1,7 +1,7 @@
 ﻿using MathChain.Application.DTOs;
 using MathChain.Domain.Entities;
 using MathChain.Domain.Gateways;
-using MathChain.Infrastructure.ResponseHandling;
+using MathChain.Domain.Exceptions;
 
 namespace MathChain.Application.Contexts
 {
@@ -15,7 +15,7 @@ namespace MathChain.Application.Contexts
             _classRoomGateway = classRoomGateway;
         }
 
-        public async Task<Envelope<List<AnnouncementResponseDto>>> GetAnnouncementsAsync(Guid classRoomId)
+        public async Task<List<AnnouncementResponseDto>> GetAnnouncementsAsync(Guid classRoomId)
         {
             var announcements = await _contentGateway.GetAnnouncementByClassRoomIdAsync(classRoomId);
 
@@ -30,21 +30,21 @@ namespace MathChain.Application.Contexts
                 CreatedAt = a.CreatedAt
             }).ToList();
 
-            return EnvelopeExtensions.Success(dtos);
+            return dtos;
         }
 
-        public async Task<Envelope<ClassAnnouncement>> CreateAnnouncementAsync(Guid classRoomId, CreateAnnouncementRequest request)
+        public async Task<ClassAnnouncement> CreateAnnouncementAsync(Guid classRoomId, CreateAnnouncementRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.Title) || string.IsNullOrWhiteSpace(request.AuthorWallet))
             {
-                return EnvelopeExtensions.Failure<ClassAnnouncement>("Title and author wallet are required.", 400);
+                throw new BusinessRuleException("Title and author wallet are required.");
             }
 
             var classRoom = await _classRoomGateway.GetByIdAsync(classRoomId);
 
             if (classRoom == null)
             {
-                return EnvelopeExtensions.Failure<ClassAnnouncement>("Classroom not found.", 404);
+                throw new NotFoundException("Classroom not found.");
             }
 
             var announcement = new ClassAnnouncement
@@ -59,14 +59,14 @@ namespace MathChain.Application.Contexts
 
             var created = await _contentGateway.AddAnnouncementAsync(announcement);
 
-            return EnvelopeExtensions.Success(created, "Announcement posted successfully.", 201);
+            return created;
         }
 
-        public async Task<Envelope<MessageComment>> AddCommentAsync(Guid messageId, AddCommentRequest request)
+        public async Task<MessageComment> AddCommentAsync(Guid messageId, AddCommentRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.Content) || string.IsNullOrWhiteSpace(request.AuthorWallet))
             {
-                return EnvelopeExtensions.Failure<MessageComment>("Comment content and author wallet are required.", 400);
+                throw new BusinessRuleException("Comment content and author wallet are required.");
             }
 
             var comment = new MessageComment
@@ -80,20 +80,20 @@ namespace MathChain.Application.Contexts
 
             var created = await _contentGateway.AddCommentAsync(comment);
 
-            return EnvelopeExtensions.Success(created, "Comment added successfully.", 201);
+            return created;
         }
 
-        public async Task<Envelope<List<ClassMedia>>> GetMediaAsync(Guid classRoomId)
+        public async Task<List<ClassMedia>> GetMediaAsync(Guid classRoomId)
         {
             var mediaList = await _contentGateway.GetMediaByClassRoomIdAsync(classRoomId);
-            return EnvelopeExtensions.Success(mediaList);
+            return mediaList;
         }
 
-        public async Task<Envelope<ClassMedia>> AddMediaAsync(Guid classRoomId, CreateClassMediaRequest request)
+        public async Task<ClassMedia> AddMediaAsync(Guid classRoomId, CreateClassMediaRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.FileName) || string.IsNullOrWhiteSpace(request.IpfsHash))
             {
-                return EnvelopeExtensions.Failure<ClassMedia>("File name and IPFS hash are required.", 400);
+                throw new BusinessRuleException("File name and IPFS hash are required.");
             }
 
             var media = new ClassMedia
@@ -108,28 +108,26 @@ namespace MathChain.Application.Contexts
 
             var created = await _contentGateway.AddMediaAsync(media);
 
-            return EnvelopeExtensions.Success(created, "Class media uploaded successfully.", 201);
+            return created;
         }
 
-        public async Task<Envelope<object>> DeleteMediaAsync(Guid mediaId)
+        public async Task DeleteMediaAsync(Guid mediaId)
         {
             await _contentGateway.DeleteMediaAsync(mediaId);
-
-            return EnvelopeExtensions.Success("Media deleted successfully.", 200);
         }
 
-        public async Task<Envelope<List<ClassResource>>> GetResourcesAsync(Guid classRoomId)
+        public async Task<List<ClassResource>> GetResourcesAsync(Guid classRoomId)
         {
             var resources = await _contentGateway.GetResourcesByClassRoomIdAsync(classRoomId);
 
-            return EnvelopeExtensions.Success(resources);
+            return resources;
         }
 
-        public async Task<Envelope<ClassResource>> AddResourceAsync(Guid classRoomId, CreateResourceRequest request)
+        public async Task<ClassResource> AddResourceAsync(Guid classRoomId, CreateResourceRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.Title) || string.IsNullOrWhiteSpace(request.IpfsHash))
             {
-                return EnvelopeExtensions.Failure<ClassResource>("Title and IPFS hash are required.", 400);
+                throw new BusinessRuleException("Title and IPFS hash are required.");
             }
 
             var resource = new ClassResource
@@ -146,14 +144,12 @@ namespace MathChain.Application.Contexts
 
             var created = await _contentGateway.AddResourceAsync(resource);
 
-            return EnvelopeExtensions.Success(created, "Resource material added successfully.", 201);
+            return created;
         }
 
-        public async Task<Envelope<object>> DeleteResourceAsync(Guid resourceId)
+        public async Task DeleteResourceAsync(Guid resourceId)
         {
             await _contentGateway.DeleteResourceAsync(resourceId);
-
-            return EnvelopeExtensions.Success("Resource deleted successfully.", 200);
         }
 
         private static string FormatWallet(string wallet)

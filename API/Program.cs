@@ -4,6 +4,7 @@ using MathChain.Application.Extensions;
 using MathChain.Persistence.Extentions;
 using MathChain.Gateway.Extensions;
 using MathChain.Infrastructure.Extensions;
+using MathChain.Infrastructure.ExceptionHandling;
 
 DotNetEnv.Env.Load();
 
@@ -37,6 +38,8 @@ builder.Services.AddInfrastructureLayer();
 builder.Services.AddApplicationLayer();
 
 var app = builder.Build();
+
+app.UseMiddleware<GlobalExceptionHandler>();
 
 if (app.Environment.IsDevelopment())
 {

@@ -171,9 +171,9 @@ namespace MathChain.Blazor.Services
             }
         }
 
-        public async Task<LoginChallengeDto?> RequestLoginChallengeAsync(string walletAddress)
+        public async Task<LoginChallengeDto?> RequestLoginChallengeAsync(string walletAddress, long chainId)
         {
-            var response = await _httpClient.PostAsJsonAsync($"{_baseUrl}/auth/challenge", new { WalletAddress = walletAddress });
+            var response = await _httpClient.PostAsJsonAsync($"{_baseUrl}/auth/challenge", new { WalletAddress = walletAddress, ChainId = chainId });
 
             return await ReadEnvelopeDataAsync<LoginChallengeDto>(response);
         }

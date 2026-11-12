@@ -61,6 +61,37 @@ namespace MathChain.Tests.Application
             Assert.Equal(_time.Now.AddMinutes(_signInSettings.ChallengeLifetimeMinutes), challenge.ExpiresAt);
         }
 
+        [Theory]
+        [InlineData(1L)]
+        [InlineData(8453L)]
+        public async Task CreateChallengeAsync_WalletChainId_IsUsedInMessage(long chainId)
+        {
+            var challenge = await _context.CreateChallengeAsync(new LoginChallengeRequest { WalletAddress = Address, ChainId = chainId });
+
+            Assert.Contains($"\nChain ID: {chainId}\n", challenge.Message);
+        }
+
+        [Theory]
+        [InlineData(0L)]
+        [InlineData(-5L)]
+        public async Task CreateChallengeAsync_InvalidChainId_ThrowsBusinessRuleException(long chainId)
+        {
+            await Assert.ThrowsAsync<BusinessRuleException>(() =>
+                _context.CreateChallengeAsync(new LoginChallengeRequest { WalletAddress = Address, ChainId = chainId }));
+        }
+
+        [Fact]
+        public async Task CreateChallengeAsync_ChainOutsideAllowedList_ThrowsBusinessRuleException()
+        {
+            _signInSettings.AllowedChainIds.AddRange(new[] { 1L, 11155111L });
+
+            await Assert.ThrowsAsync<BusinessRuleException>(() =>
+                _context.CreateChallengeAsync(new LoginChallengeRequest { WalletAddress = Address, ChainId = 137 }));
+
+            var allowed = await _context.CreateChallengeAsync(new LoginChallengeRequest { WalletAddress = Address, ChainId = 1 });
+            Assert.Contains("\nChain ID: 1\n", allowed.Message);
+        }
+
         [Fact]
         public async Task CreateChallengeAsync_TwoRequests_UseDifferentNonces()
         {

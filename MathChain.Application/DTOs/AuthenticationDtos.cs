@@ -5,6 +5,7 @@ namespace MathChain.Application.DTOs
     public class LoginChallengeRequest
     {
         public string WalletAddress { get; set; } = string.Empty;
+        public long? ChainId { get; set; }
     }
 
     public class LoginChallengeDto
@@ -39,6 +40,7 @@ namespace MathChain.Application.DTOs
         public string Domain { get; set; } = "localhost:7087";
         public string Uri { get; set; } = "https://localhost:7087";
         public long ChainId { get; set; } = 11155111;
+        public List<long> AllowedChainIds { get; set; } = new();
         public int ChallengeLifetimeMinutes { get; set; } = 5;
     }
 }

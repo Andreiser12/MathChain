@@ -36,6 +36,7 @@ namespace MathChain.Application.Contexts
         public Task<LoginChallengeDto> CreateChallengeAsync(LoginChallengeRequest request)
         {
             var wallet = NormalizeWallet(request?.WalletAddress);
+            var chainId = ResolveChainId(request!.ChainId);
 
             var issuedAt = _timeProvider.GetUtcNow();
             var expiresAt = issuedAt.AddMinutes(_settings.ChallengeLifetimeMinutes);
@@ -49,7 +50,7 @@ namespace MathChain.Application.Contexts
                 "\n" +
                 $"URI: {_settings.Uri}\n" +
                 "Version: 1\n" +
-                $"Chain ID: {_settings.ChainId}\n" +
+                $"Chain ID: {chainId}\n" +
                 $"Nonce: {nonce}\n" +
                 $"Issued At: {FormatTimestamp(issuedAt)}\n" +
                 $"Expiration Time: {FormatTimestamp(expiresAt)}";
@@ -138,6 +139,23 @@ namespace MathChain.Application.Contexts
             }
 
             return wallet;
+        }
+
+        private long ResolveChainId(long? requestedChainId)
+        {
+            var chainId = requestedChainId ?? _settings.ChainId;
+
+            if (chainId <= 0)
+            {
+                throw new BusinessRuleException("Chain ID must be a positive number.");
+            }
+
+            if (_settings.AllowedChainIds.Count > 0 && !_settings.AllowedChainIds.Contains(chainId))
+            {
+                throw new BusinessRuleException($"Chain ID {chainId} is not supported. Switch your wallet to a supported network.");
+            }
+
+            return chainId;
         }
 
         private static UserRole? ParseRegistrationRole(string? role)

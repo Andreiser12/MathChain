@@ -106,7 +106,20 @@
 				chosenRole = result.Data.ToString();
 			}
 
-			var challenge = await Api.RequestLoginChallengeAsync(_address);
+			long chainId;
+
+			try
+			{
+				chainId = await JS.InvokeAsync<long>("getWalletChainId");
+			}
+			catch (JSException chainError)
+			{
+				Console.WriteLine($"[Login] Reading the wallet network failed: {chainError.Message}");
+				_errorMessage = $"Could not read the wallet network: {chainError.Message}";
+				return;
+			}
+
+			var challenge = await Api.RequestLoginChallengeAsync(_address, chainId);
 
 			if (challenge == null)
 			{

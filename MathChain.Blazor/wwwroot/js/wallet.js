@@ -66,6 +66,16 @@ window.connectPhantom = async function() {
 
 window.mathchainProvider = null;
 
+window.getWalletChainId = async function() {
+    const provider = window.mathchainProvider;
+    if (!provider) {
+        throw new Error("No wallet is connected.");
+    }
+
+    const chainIdHex = await provider.request({ method: 'eth_chainId' });
+    return parseInt(chainIdHex, 16);
+};
+
 window.signLoginMessage = async function(address, message) {
     const provider = window.mathchainProvider;
     if (!provider) {

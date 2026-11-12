@@ -120,9 +120,10 @@
 			{
 				signature = await JS.InvokeAsync<string>("signLoginMessage", _address, challenge.Message);
 			}
-			catch (JSException)
+			catch (JSException signError)
 			{
-				_errorMessage = "The login message was not signed. Approve the signature request in your wallet to continue.";
+				Console.WriteLine($"[Login] Signing the login message failed: {signError.Message}");
+				_errorMessage = $"The login message was not signed: {signError.Message}";
 				return;
 			}
 

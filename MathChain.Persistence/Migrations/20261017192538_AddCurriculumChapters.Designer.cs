@@ -59,64 +59,6 @@ namespace MathChain.Persistence.Migrations
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("MathChain.Domain.Entities.ClassAnnouncement", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("AuthorWallet")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("ClassRoomId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ClassAnnouncements");
-                });
-
-            modelBuilder.Entity("MathChain.Domain.Entities.ClassMedia", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ClassRoomId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("IpfsHash")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("UploaderWallet")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ClassMedia");
-                });
-
             modelBuilder.Entity("MathChain.Domain.Entities.ClassResource", b =>
                 {
                     b.Property<Guid>("Id")
@@ -230,9 +172,6 @@ namespace MathChain.Persistence.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("FinalGrade")
-                        .HasColumnType("integer");
-
                     b.Property<string>("StudentWallet")
                         .IsRequired()
                         .HasColumnType("text");
@@ -264,31 +203,6 @@ namespace MathChain.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Grades");
-                });
-
-            modelBuilder.Entity("MathChain.Domain.Entities.MessageComment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("AuthorWallet")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("MessageId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MessagesComments");
                 });
 
             modelBuilder.Entity("MathChain.Domain.Entities.Submission", b =>

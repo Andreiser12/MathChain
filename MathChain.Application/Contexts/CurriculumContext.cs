@@ -112,14 +112,16 @@ namespace MathChain.Application.Contexts
                 throw new BusinessRuleException("Title is required.");
             }
 
-            string slug;
-            if (!string.IsNullOrWhiteSpace(request.ChapterSlug))
+            var slug = BuildSlug(!string.IsNullOrWhiteSpace(request.ChapterSlug) ? request.ChapterSlug : request.Title);
+
+            CurriculumChapter? parent = null;
+            if (request.ParentId.HasValue)
             {
-                slug = Slugify(request.ChapterSlug);
-            }
-            else
-            {
-                slug = Slugify(request.Title);
+                parent = await _curriculumGateway.GetByIdAsync(request.ParentId.Value);
+                if (parent == null)
+                {
+                    throw new NotFoundException($"Parent chapter with ID '{request.ParentId.Value}' was not found.");
+                }
             }
 
             // Ensure uniqueness
@@ -130,13 +132,9 @@ namespace MathChain.Application.Contexts
             }
 
             string category = request.Category ?? string.Empty;
-            if (string.IsNullOrWhiteSpace(category) && request.ParentId.HasValue)
+            if (string.IsNullOrWhiteSpace(category) && parent != null)
             {
-                var parent = await _curriculumGateway.GetByIdAsync(request.ParentId.Value);
-                if (parent != null)
-                {
-                    category = !string.IsNullOrWhiteSpace(parent.Category) ? parent.Category : parent.Title;
-                }
+                category = !string.IsNullOrWhiteSpace(parent.Category) ? parent.Category : parent.Title;
             }
 
             var newChapter = new CurriculumChapter
@@ -178,7 +176,7 @@ namespace MathChain.Application.Contexts
             }
 
             string slug = !string.IsNullOrWhiteSpace(request.ChapterSlug)
-                ? Slugify(request.ChapterSlug)
+                ? BuildSlug(request.ChapterSlug)
                 : chapter.ChapterSlug;
 
             if (slug != chapter.ChapterSlug)
@@ -289,7 +287,7 @@ namespace MathChain.Application.Contexts
 
             var existingFormulas = await _curriculumGateway.GetFormulasByChapterIdAsync(chapterId);
             string code = !string.IsNullOrWhiteSpace(request.FormulaCode)
-                ? request.FormulaCode
+                ? request.FormulaCode.Trim()
                 : $"{chapter.ChapterSlug}-f{existingFormulas.Count + 1}";
 
             var formula = new CurriculumFormula
@@ -489,13 +487,31 @@ namespace MathChain.Application.Contexts
             };
         }
 
+        private static string BuildSlug(string text)
+        {
+            var slug = Slugify(text);
+            if (string.IsNullOrEmpty(slug))
+            {
+                throw new BusinessRuleException("The chapter slug must contain at least one letter or digit.");
+            }
+
+            return slug;
+        }
+
         private static string Slugify(string text)
         {
             if (string.IsNullOrWhiteSpace(text)) return string.Empty;
-            var str = text.ToLowerInvariant().Trim();
+            var str = RemoveDiacritics(text.ToLowerInvariant().Trim());
             str = Regex.Replace(str, @"[^a-z0-9\s-_]", "");
             str = Regex.Replace(str, @"[\s-]+", "_").Trim('_');
             return str;
+        }
+
+        private static string RemoveDiacritics(string text)
+        {
+            var decomposed = text.Normalize(System.Text.NormalizationForm.FormD);
+            var letters = decomposed.Where(c => System.Globalization.CharUnicodeInfo.GetUnicodeCategory(c) != System.Globalization.UnicodeCategory.NonSpacingMark);
+            return new string(letters.ToArray()).Normalize(System.Text.NormalizationForm.FormC);
         }
     }
 }

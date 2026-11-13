@@ -20,12 +20,12 @@ namespace MathChain.Tests.Fakes
 
         public Task<List<ClassRoom>> GetByTeacherWalletAsync(string teacherWallet)
         {
-            return Task.FromResult(ClassRooms.Where(c => c.TeacherWallet == teacherWallet).ToList());
+            return Task.FromResult(ClassRooms.Where(c => c.TeacherWallet.ToLower() == teacherWallet.Trim().ToLower()).ToList());
         }
 
         public Task<List<ClassRoom>> GetEnrolledByStudentWalletAsync(string studentWallet)
         {
-            var classRoomIds = Enrollments.Where(e => e.StudentWallet == studentWallet).Select(e => e.ClassRoomId).ToHashSet();
+            var classRoomIds = Enrollments.Where(e => e.StudentWallet.ToLower() == studentWallet.Trim().ToLower()).Select(e => e.ClassRoomId).ToHashSet();
             return Task.FromResult(ClassRooms.Where(c => classRoomIds.Contains(c.Id)).ToList());
         }
 
@@ -41,7 +41,7 @@ namespace MathChain.Tests.Fakes
 
         public Task<bool> IsStudentEnrolledAsync(Guid classRoomId, string studentWallet)
         {
-            return Task.FromResult(Enrollments.Any(e => e.ClassRoomId == classRoomId && e.StudentWallet == studentWallet));
+            return Task.FromResult(Enrollments.Any(e => e.ClassRoomId == classRoomId && e.StudentWallet.ToLower() == studentWallet.Trim().ToLower()));
         }
 
         public Task<ClassRoom> CreateAsync(ClassRoom classRoom)

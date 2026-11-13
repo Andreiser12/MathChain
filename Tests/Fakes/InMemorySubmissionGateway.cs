@@ -9,21 +9,32 @@ namespace MathChain.Tests.Fakes
 
         public Task<List<Submission>> GetByAssignmentIdAsync(Guid assignmentId)
         {
-            return Task.FromResult(Submissions.Where(s => s.AssignmentId == assignmentId).OrderBy(s => s.SubmittedAt).ToList());
+            return Task.FromResult(Submissions.Where(s => s.AssignmentId == assignmentId).OrderBy(s => s.SubmittedAt).Select(s => EntityCopy.Detached(s)!).ToList());
         }
 
         public Task<Submission?> GetByIdAsync(Guid id)
         {
-            return Task.FromResult(Submissions.FirstOrDefault(s => s.Id == id));
+            return Task.FromResult(EntityCopy.Detached(Submissions.FirstOrDefault(s => s.Id == id)));
         }
 
         public Task<Submission?> GetByStudentAndAssignmentAsync(Guid assignmentId, string studentWallet)
         {
-            return Task.FromResult(Submissions.FirstOrDefault(s => s.AssignmentId == assignmentId && s.StudentWallet == studentWallet));
+            return Task.FromResult(EntityCopy.Detached(Submissions.FirstOrDefault(s => s.AssignmentId == assignmentId && s.StudentWallet == studentWallet)));
         }
 
         public Task<Submission> SaveAsync(Submission submission)
         {
+            var existing = Submissions.FirstOrDefault(s => s.AssignmentId == submission.AssignmentId && s.StudentWallet == submission.StudentWallet);
+
+            if (existing != null)
+            {
+                existing.FileName = submission.FileName;
+                existing.IpfsHash = submission.IpfsHash;
+                existing.Content = submission.Content;
+                existing.SubmittedAt = DateTime.UtcNow;
+                return Task.FromResult(existing);
+            }
+
             Submissions.Add(submission);
             return Task.FromResult(submission);
         }

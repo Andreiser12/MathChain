@@ -31,6 +31,15 @@ namespace MathChain.Gateway.Repositories
             return comment;
         }
 
+        public async Task<List<MessageComment>> GetCommentsByMessageIdsAsync(List<Guid> messageIds)
+        {
+            return await _context.MessagesComments
+                .AsNoTracking()
+                .Where(c => messageIds.Contains(c.MessageId))
+                .OrderBy(c => c.CreatedAt)
+                .ToListAsync();
+        }
+
         public async Task<ClassMedia> AddMediaAsync(ClassMedia media)
         {
             _context.ClassMedia.Add(media);

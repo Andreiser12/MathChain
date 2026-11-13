@@ -116,6 +116,7 @@ namespace MathChain.Gateway.Repositories
             existing.IpfsHash = chapter.IpfsHash;
             existing.Order = chapter.Order;
             existing.ParentId = chapter.ParentId;
+            existing.FormulasCount = chapter.FormulasCount;
             existing.Version += 1;
             existing.UpdatedAt = DateTime.UtcNow;
 

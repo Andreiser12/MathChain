@@ -21,6 +21,8 @@ namespace MathChain.Application.Contexts
             await _access.RequireMemberAsync(classRoomId);
 
             var announcements = await _contentGateway.GetAnnouncementByClassRoomIdAsync(classRoomId);
+            var comments = await _contentGateway.GetCommentsByMessageIdsAsync(announcements.Select(a => a.Id).ToList());
+            var commentsByMessage = comments.ToLookup(c => c.MessageId);
 
             var dtos = announcements.Select(a => new AnnouncementResponseDto
             {
@@ -30,7 +32,16 @@ namespace MathChain.Application.Contexts
                 Content = a.Content,
                 AuthorWallet = a.AuthorWallet,
                 AuthorName = FormatWallet(a.AuthorWallet),
-                CreatedAt = a.CreatedAt
+                CreatedAt = a.CreatedAt,
+                Comments = commentsByMessage[a.Id].Select(c => new CommentResponseDto
+                {
+                    Id = c.Id,
+                    MessageId = c.MessageId,
+                    AuthorWallet = c.AuthorWallet,
+                    AuthorName = FormatWallet(c.AuthorWallet),
+                    Content = c.Content,
+                    CreatedAt = c.CreatedAt
+                }).ToList()
             }).ToList();
 
             return dtos;

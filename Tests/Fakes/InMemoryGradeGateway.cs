@@ -9,7 +9,7 @@ namespace MathChain.Tests.Fakes
 
         public Task<Grade?> GetBySubmissionIdAsync(Guid submissionId)
         {
-            return Task.FromResult(Grades.FirstOrDefault(g => g.SubmissionId == submissionId));
+            return Task.FromResult(EntityCopy.Detached(Grades.FirstOrDefault(g => g.SubmissionId == submissionId)));
         }
 
         public Task<List<Grade>> GetBySubmissionIdsAsync(List<Guid> submissionIds)
@@ -19,6 +19,16 @@ namespace MathChain.Tests.Fakes
 
         public Task<Grade> SaveAsync(Grade grade)
         {
+            var existing = Grades.FirstOrDefault(g => g.SubmissionId == grade.SubmissionId);
+
+            if (existing != null)
+            {
+                existing.Score = grade.Score;
+                existing.Feedback = grade.Feedback;
+                existing.GradedAt = DateTime.UtcNow;
+                return Task.FromResult(existing);
+            }
+
             Grades.Add(grade);
             return Task.FromResult(grade);
         }

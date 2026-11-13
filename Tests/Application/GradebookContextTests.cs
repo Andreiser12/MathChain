@@ -1,5 +1,6 @@
 using MathChain.Application.Contexts;
 using MathChain.Domain.Entities;
+using MathChain.Domain.Enums;
 using MathChain.Domain.Exceptions;
 using MathChain.Tests.Fakes;
 
@@ -14,11 +15,14 @@ namespace MathChain.Tests.Application
         private readonly InMemoryAssignmentGateway _assignments = new();
         private readonly InMemorySubmissionGateway _submissions = new();
         private readonly InMemoryGradeGateway _grades = new();
+        private readonly FakeCurrentUser _currentUser = new();
         private readonly GradebookContext _context;
 
         public GradebookContextTests()
         {
-            _context = new GradebookContext(_classRooms, _assignments, _submissions, _grades);
+            _context = new GradebookContext(_classRooms, _assignments, _submissions, _grades, new AccessGuard(_currentUser, _classRooms));
+            _classRooms.ClassRooms.Add(new ClassRoom { Id = _classRoomId, TeacherWallet = "0xteacher" });
+            _currentUser.As("0xteacher", UserRole.Teacher);
             _classRooms.Enrollments.Add(new Enrollment { Id = Guid.NewGuid(), ClassRoomId = _classRoomId, StudentWallet = StudentWallet });
         }
 
@@ -65,6 +69,23 @@ namespace MathChain.Tests.Application
             await _context.RemoveStudentAsync(_classRoomId, StudentWallet);
 
             Assert.Empty(_classRooms.Enrollments);
+        }
+
+        [Fact]
+        public async Task GetGradebookAsync_AnotherTeacher_ThrowsForbiddenException()
+        {
+            _currentUser.As("0xotherteacher", UserRole.Teacher);
+
+            await Assert.ThrowsAsync<ForbiddenException>(() => _context.GetGradebookAsync(_classRoomId));
+        }
+
+        [Fact]
+        public async Task SetFinalGradeAsync_EnrolledStudent_ThrowsForbiddenException()
+        {
+            _currentUser.As(StudentWallet, UserRole.Student);
+
+            await Assert.ThrowsAsync<ForbiddenException>(() => _context.SetFinalGradeAsync(_classRoomId, StudentWallet, 10));
+            Assert.Null(_classRooms.Enrollments.Single().FinalGrade);
         }
 
         [Fact]

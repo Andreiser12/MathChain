@@ -1,5 +1,6 @@
 ﻿using MathChain.Application.DTOs;
 using MathChain.Domain.Entities;
+using MathChain.Domain.Enums;
 using MathChain.Domain.Gateways;
 using MathChain.Domain.Exceptions;
 
@@ -8,9 +9,12 @@ namespace MathChain.Application.Contexts
     public class ClassRoomContext : IClassRoomContext
     {
         private readonly IClassRoomGateway _classRoomGateway;
-        public ClassRoomContext(IClassRoomGateway classRoomGateway)
+        private readonly AccessGuard _access;
+
+        public ClassRoomContext(IClassRoomGateway classRoomGateway, AccessGuard access)
         {
             _classRoomGateway = classRoomGateway;
+            _access = access;
         }
 
         private async Task<string> GenerateUniqueJoinCodeAsync()
@@ -33,16 +37,18 @@ namespace MathChain.Application.Contexts
 
         public async Task<ClassRoom> CreateClassRoomAsync(CreateClassRoomRequest request)
         {
-            if (string.IsNullOrWhiteSpace(request.Name) || string.IsNullOrWhiteSpace(request.TeacherWallet))
+            var teacherWallet = _access.RequireRole(UserRole.Teacher);
+
+            if (string.IsNullOrWhiteSpace(request.Name))
             {
-                throw new BusinessRuleException("Classroom name and teacher wallet are required.");
+                throw new BusinessRuleException("Classroom name is required.");
             }
 
             var classRoom = new ClassRoom
             {
                 Id = Guid.NewGuid(),
                 Name = request.Name.Trim(),
-                TeacherWallet = request.TeacherWallet.Trim().ToLower(),
+                TeacherWallet = teacherWallet,
                 JoinCode = await GenerateUniqueJoinCodeAsync(),
                 CreatedAt = DateTime.UtcNow
             };
@@ -54,13 +60,14 @@ namespace MathChain.Application.Contexts
 
         public async Task<ClassRoom> JoinClassRoomAsync(JoinClassRoomRequest request)
         {
-            if (string.IsNullOrWhiteSpace(request.JoinCode) || string.IsNullOrWhiteSpace(request.StudentWallet))
+            var studentWallet = _access.RequireRole(UserRole.Student);
+
+            if (string.IsNullOrWhiteSpace(request.JoinCode))
             {
-                throw new BusinessRuleException("Join code and student wallet are required.");
+                throw new BusinessRuleException("Join code is required.");
             }
 
             var joinCode = request.JoinCode.Trim().ToUpper();
-            var studentWallet = request.StudentWallet.Trim().ToLower();
             var classRoom = await _classRoomGateway.GetByJoinCodeAsync(joinCode);
 
             if (classRoom == null)
@@ -90,14 +97,7 @@ namespace MathChain.Application.Contexts
 
         public async Task<ClassRoom> GetClassRoomByIdAsync(Guid id)
         {
-            var classRoom = await _classRoomGateway.GetByIdAsync(id);
-
-            if (classRoom == null)
-            {
-                throw new NotFoundException("Classroom not found.");
-            }
-
-            return classRoom;
+            return await _access.RequireMemberAsync(id);
         }
 
         public async Task<List<ClassRoom>> GetByTeacherWalletAsync(string teacherWallet)
@@ -106,6 +106,8 @@ namespace MathChain.Application.Contexts
             {
                 throw new BusinessRuleException("Teacher wallet address is required.");
             }
+
+            _access.RequireSelfOrAdmin(teacherWallet);
 
             var classRooms = await _classRoomGateway.GetByTeacherWalletAsync(teacherWallet.Trim().ToLower());
 
@@ -119,6 +121,8 @@ namespace MathChain.Application.Contexts
                 throw new BusinessRuleException("Student wallet address is required.");
             }
 
+            _access.RequireSelfOrAdmin(studentWallet);
+
             var classRooms = await _classRoomGateway.GetEnrolledByStudentWalletAsync(studentWallet.Trim().ToLower());
 
             return classRooms;
@@ -126,6 +130,8 @@ namespace MathChain.Application.Contexts
 
         public async Task<List<string>> GetEnrolledStudentsAsync(Guid classRoomId)
         {
+            await _access.RequireOwnerAsync(classRoomId);
+
             var students = await _classRoomGateway.GetEnrolledStudentsWalletsAsync(classRoomId);
 
             return students;
@@ -133,12 +139,8 @@ namespace MathChain.Application.Contexts
 
         public async Task DeleteClassRoomAsync(Guid id)
         {
-            var classRoom = await _classRoomGateway.GetByIdAsync(id);
+            await _access.RequireOwnerAsync(id);
 
-            if (classRoom == null)
-            {
-                throw new NotFoundException("Classroom not found.");
-            }
             await _classRoomGateway.DeleteAsync(id);
         }
     }

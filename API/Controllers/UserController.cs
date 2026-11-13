@@ -1,4 +1,5 @@
 using MathChain.Application.Contexts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MathChain.API.Controllers
@@ -13,6 +14,7 @@ namespace MathChain.API.Controllers
             _userContext = userContext;
         }
 
+        [AllowAnonymous]
         [HttpGet("exists/{walletAddress}")]
         public async Task<IActionResult> UserExists(string walletAddress)
         {

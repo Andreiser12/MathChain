@@ -7,6 +7,7 @@ namespace MathChain.Application.Extensions
     {
         public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
         {
+            services.AddScoped<AccessGuard>();
             services.AddScoped<ICurriculumContext, CurriculumContext>();
             services.AddScoped<IUserContext, UserContext>();
             services.AddScoped<IClassRoomContext, ClassRoomContext>();

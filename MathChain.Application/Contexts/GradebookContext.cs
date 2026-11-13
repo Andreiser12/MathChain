@@ -13,18 +13,22 @@ namespace MathChain.Application.Contexts
         private readonly IAssignmentGateway _assignmentGateway;
         private readonly ISubmissionGateway _submissionGateway;
         private readonly IGradeGateway _gradeGateway;
+        private readonly AccessGuard _access;
 
         public GradebookContext(IClassRoomGateway classRoomGateway, IAssignmentGateway assignmentGateway,
-            ISubmissionGateway submissionGateway, IGradeGateway gradeGateway)
+            ISubmissionGateway submissionGateway, IGradeGateway gradeGateway, AccessGuard access)
         {
             _classRoomGateway = classRoomGateway;
             _assignmentGateway = assignmentGateway;
             _submissionGateway = submissionGateway;
             _gradeGateway = gradeGateway;
+            _access = access;
         }
 
         public async Task<List<StudentGradebookDto>> GetGradebookAsync(Guid classRoomId)
         {
+            await _access.RequireOwnerAsync(classRoomId);
+
             var enrollments = await _classRoomGateway.GetEnrollmentsAsync(classRoomId);
             var assignmentIds = await _assignmentGateway.GetAllIdsByClassRoomIdAsync(classRoomId);
             var submissions = await _submissionGateway.GetByAssignmentIdsAsync(assignmentIds);
@@ -75,6 +79,8 @@ namespace MathChain.Application.Contexts
 
         private async Task<Enrollment> GetEnrollmentOrThrowAsync(Guid classRoomId, string studentWallet)
         {
+            await _access.RequireOwnerAsync(classRoomId);
+
             var enrollment = await _classRoomGateway.GetEnrollmentAsync(classRoomId, studentWallet);
 
             if (enrollment == null)

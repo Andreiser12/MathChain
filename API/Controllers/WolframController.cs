@@ -1,9 +1,11 @@
 ﻿using MathChain.Infrastructure.ResponseHandling;
 using MathChain.Infrastructure.Wolfram;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MathChain.API.Controllers
 {
+    [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]")]
     public class WolframController : ControllerBase

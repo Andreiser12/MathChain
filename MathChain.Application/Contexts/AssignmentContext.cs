@@ -10,18 +10,20 @@ namespace MathChain.Application.Contexts
         private readonly IAssignmentGateway _assignmentGateway;
         private readonly ISubmissionGateway _submissionGateway;
         private readonly IGradeGateway _gradeGateway;
-        private readonly IClassRoomGateway _classRoomGateway;
+        private readonly AccessGuard _access;
         public AssignmentContext(IAssignmentGateway assignmentGateway, ISubmissionGateway submissionGateway,
-            IGradeGateway gradeGateway, IClassRoomGateway classRoomGateway)
+            IGradeGateway gradeGateway, AccessGuard access)
         {
             _assignmentGateway = assignmentGateway;
             _submissionGateway = submissionGateway;
             _gradeGateway = gradeGateway;
-            _classRoomGateway = classRoomGateway;
+            _access = access;
         }
 
         public async Task<List<AssignmentResponseDto>> GetAssignmentsByClassRoomAsync(Guid classRoomId)
         {
+            await _access.RequireMemberAsync(classRoomId);
+
             var assignments = await _assignmentGateway.GetByClassRoomIdAsync(classRoomId);
 
             var dtos = new List<AssignmentResponseDto>();
@@ -57,21 +59,18 @@ namespace MathChain.Application.Contexts
                 throw new NotFoundException("Assignment not found.");
             }
 
+            await _access.RequireMemberAsync(assignment.ClassRoomId);
+
             return assignment;
         }
 
         public async Task<Assignment> CreateAssignmentAsync(Guid classRoomId, CreateAssignmentRequest request)
         {
+            await _access.RequireOwnerAsync(classRoomId);
+
             if (string.IsNullOrWhiteSpace(request.Title))
             {
                 throw new BusinessRuleException("Assignment title is required.");
-            }
-
-            var classRoom = await _classRoomGateway.GetByIdAsync(classRoomId);
-
-            if (classRoom == null)
-            {
-                throw new NotFoundException("Classroom not found.");
             }
 
             var assignment = new Assignment
@@ -101,12 +100,27 @@ namespace MathChain.Application.Contexts
                 throw new NotFoundException("Assignment not found.");
             }
 
+            await _access.RequireOwnerAsync(assignment.ClassRoomId);
+
             await _assignmentGateway.DeleteAsync(id);
         }
 
         public async Task<List<SubmissionResponseDto>> GetSubmissionsAsync(Guid assignmentId)
         {
-            var submissions = await _submissionGateway.GetByAssignmentIdAsync(assignmentId);
+            var assignment = await _assignmentGateway.GetByIdAsync(assignmentId);
+
+            if (assignment == null)
+            {
+                throw new NotFoundException("Assignment not found.");
+            }
+
+            var classRoom = await _access.RequireMemberAsync(assignment.ClassRoomId);
+            var currentWallet = _access.RequireWallet();
+            var canSeeAllSubmissions = _access.IsOwnerOrAdmin(classRoom);
+
+            var submissions = (await _submissionGateway.GetByAssignmentIdAsync(assignmentId))
+                .Where(s => canSeeAllSubmissions || string.Equals(s.StudentWallet, currentWallet, StringComparison.OrdinalIgnoreCase))
+                .ToList();
             var submissionIds = submissions.Select(s => s.Id).ToList();
             var grades = await _gradeGateway.GetBySubmissionIdsAsync(submissionIds);
 
@@ -133,11 +147,6 @@ namespace MathChain.Application.Contexts
 
         public async Task<Submission> SubmitAssignmentAsync(Guid assignmentId, SubmitAssignmentRequest request)
         {
-            if (string.IsNullOrWhiteSpace(request.StudentWallet))
-            {
-                throw new BusinessRuleException("Student wallet address is required.");
-            }
-
             var assignment = await _assignmentGateway.GetByIdAsync(assignmentId);
 
             if (assignment == null)
@@ -145,7 +154,7 @@ namespace MathChain.Application.Contexts
                 throw new NotFoundException("Assignment not found.");
             }
 
-            var studentWallet = request.StudentWallet.Trim().ToLower();
+            var studentWallet = await _access.RequireEnrolledStudentAsync(assignment.ClassRoomId);
 
             var existingSubmission = await _submissionGateway.GetByStudentAndAssignmentAsync(assignmentId, studentWallet);
 
@@ -191,6 +200,15 @@ namespace MathChain.Application.Contexts
             {
                 throw new NotFoundException("Submission not found.");
             }
+
+            var gradedAssignment = await _assignmentGateway.GetByIdAsync(submission.AssignmentId);
+
+            if (gradedAssignment == null)
+            {
+                throw new NotFoundException("Assignment not found.");
+            }
+
+            await _access.RequireOwnerAsync(gradedAssignment.ClassRoomId);
 
             var existingGrade = await _gradeGateway.GetBySubmissionIdAsync(submissionId);
 

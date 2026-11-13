@@ -93,5 +93,26 @@ namespace MathChain.Gateway.Repositories
                 .OrderByDescending(r => r.CreatedAt)
                 .ToListAsync();
         }
+
+        public async Task<ClassAnnouncement?> GetAnnouncementByIdAsync(Guid id)
+        {
+            return await _context.ClassAnnouncements
+                .AsNoTracking()
+                .FirstOrDefaultAsync(a => a.Id == id);
+        }
+
+        public async Task<ClassMedia?> GetMediaByIdAsync(Guid id)
+        {
+            return await _context.ClassMedia
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public async Task<ClassResource?> GetResourceByIdAsync(Guid id)
+        {
+            return await _context.ClassResources
+                .AsNoTracking()
+                .FirstOrDefaultAsync(r => r.Id == id);
+        }
     }
 }

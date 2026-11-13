@@ -1,6 +1,7 @@
 using MathChain.Domain.Exceptions;
 using MathChain.Domain.Interfaces;
 using MathChain.Infrastructure.ResponseHandling;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MathChain.API.Controllers
@@ -43,6 +44,7 @@ namespace MathChain.API.Controllers
             return Ok(EnvelopeExtensions.Success(ipfsHash, "File stored successfully on IPFS node."));
         }
 
+        [AllowAnonymous]
         [HttpGet("download/{hash}")]
         [HttpGet("{hash}")]
         public async Task<IActionResult> Download(string hash, [FromQuery] string? fileName)

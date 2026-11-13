@@ -2,6 +2,7 @@ using System.Text;
 using MathChain.Domain.Interfaces;
 using MathChain.Infrastructure.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -30,6 +31,15 @@ namespace MathChain.Infrastructure.Extensions
             services.AddSingleton<ILoginChallengeStore, MemoryLoginChallengeStore>();
             services.AddSingleton<IWalletSignatureVerifier, EthereumSignatureVerifier>();
             services.AddSingleton<IAccessTokenService, JwtAccessTokenService>();
+            services.AddHttpContextAccessor();
+            services.AddScoped<ICurrentUser, HttpContextCurrentUser>();
+
+            services.AddAuthorization(options =>
+            {
+                options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+            });
 
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

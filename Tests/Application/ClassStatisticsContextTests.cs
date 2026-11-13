@@ -1,5 +1,7 @@
 using MathChain.Application.Contexts;
 using MathChain.Domain.Entities;
+using MathChain.Domain.Enums;
+using MathChain.Domain.Exceptions;
 using MathChain.Tests.Fakes;
 
 namespace MathChain.Tests.Application
@@ -11,11 +13,14 @@ namespace MathChain.Tests.Application
         private readonly InMemoryAssignmentGateway _assignments = new();
         private readonly InMemorySubmissionGateway _submissions = new();
         private readonly InMemoryGradeGateway _grades = new();
+        private readonly FakeCurrentUser _currentUser = new();
         private readonly ClassStatisticsContext _context;
 
         public ClassStatisticsContextTests()
         {
-            _context = new ClassStatisticsContext(_classRooms, _assignments, _submissions, _grades);
+            _context = new ClassStatisticsContext(_classRooms, _assignments, _submissions, _grades, new AccessGuard(_currentUser, _classRooms));
+            _classRooms.ClassRooms.Add(new ClassRoom { Id = _classRoomId, TeacherWallet = "0xteacher" });
+            _currentUser.As("0xteacher", UserRole.Teacher);
         }
 
         private void Enroll(string wallet)
@@ -73,13 +78,28 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetClassStatisticsAsync_UnknownClassRoom_ReturnsEmptyStatistics()
+        public async Task GetClassStatisticsAsync_EmptyClassRoom_ReturnsEmptyStatistics()
         {
-            var stats = await _context.GetClassStatisticsAsync(Guid.NewGuid());
+            var stats = await _context.GetClassStatisticsAsync(_classRoomId);
 
             Assert.Equal(0, stats.TotalEnrolledStudents);
             Assert.Equal(0, stats.SubmissionRate);
             Assert.Empty(stats.WeeklyLabels);
+        }
+
+        [Fact]
+        public async Task GetClassStatisticsAsync_UnknownClassRoom_ThrowsNotFoundException()
+        {
+            await Assert.ThrowsAsync<NotFoundException>(() => _context.GetClassStatisticsAsync(Guid.NewGuid()));
+        }
+
+        [Fact]
+        public async Task GetClassStatisticsAsync_EnrolledStudent_ThrowsForbiddenException()
+        {
+            Enroll("0xa");
+            _currentUser.As("0xa", UserRole.Student);
+
+            await Assert.ThrowsAsync<ForbiddenException>(() => _context.GetClassStatisticsAsync(_classRoomId));
         }
     }
 }

@@ -12,18 +12,22 @@ namespace MathChain.Application.Contexts
         private readonly IAssignmentGateway _assignmentGateway;
         private readonly ISubmissionGateway _submissionGateway;
         private readonly IGradeGateway _gradeGateway;
+        private readonly AccessGuard _access;
 
         public ClassStatisticsContext(IClassRoomGateway classRoomGateway, IAssignmentGateway assignmentGateway,
-            ISubmissionGateway submissionGateway, IGradeGateway gradeGateway)
+            ISubmissionGateway submissionGateway, IGradeGateway gradeGateway, AccessGuard access)
         {
             _classRoomGateway = classRoomGateway;
             _assignmentGateway = assignmentGateway;
             _submissionGateway = submissionGateway;
             _gradeGateway = gradeGateway;
+            _access = access;
         }
 
         public async Task<ClassStatisticsDto> GetClassStatisticsAsync(Guid classRoomId)
         {
+            await _access.RequireOwnerAsync(classRoomId);
+
             var enrollments = await _classRoomGateway.GetEnrollmentsAsync(classRoomId);
             var assignments = await _assignmentGateway.GetByClassRoomIdAsync(classRoomId);
             var assignmentIds = assignments.Select(a => a.Id).ToList();

@@ -17,6 +17,7 @@ namespace MathChain.API.Controllers
             _authenticationContext = authenticationContext;
         }
 
+        [AllowAnonymous]
         [HttpPost("challenge")]
         public async Task<IActionResult> CreateChallenge([FromBody] LoginChallengeRequest request)
         {
@@ -25,6 +26,7 @@ namespace MathChain.API.Controllers
             return Success(challenge, "Sign this message with your wallet to log in.");
         }
 
+        [AllowAnonymous]
         [HttpPost("verify")]
         public async Task<IActionResult> Verify([FromBody] VerifyLoginRequest request)
         {

@@ -10,7 +10,7 @@ namespace MathChain.Blazor.Services
         {
             try
             {
-                var response = await _httpClient.GetAsync($"{_baseUrl}/classroom/{classRoomId}/materials");
+                var response = await _httpClient.GetAsync($"{_baseUrl}/classroom/{classRoomId}/resources");
 
                 return await ReadEnvelopeListAsync<ClassResourceDto>(response);
             }
@@ -36,7 +36,7 @@ namespace MathChain.Blazor.Services
 
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PostAsync($"{_baseUrl}/classroom/{classRoomId}/materials", content);
+                var response = await _httpClient.PostAsync($"{_baseUrl}/classroom/{classRoomId}/resources", content);
 
                 return await ReadEnvelopeDataAsync<ClassResourceDto>(response);
             }

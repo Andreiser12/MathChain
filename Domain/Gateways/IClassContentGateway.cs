@@ -15,5 +15,8 @@ namespace MathChain.Domain.Gateways
         Task<List<ClassAnnouncement>> GetAnnouncementByClassRoomIdAsync(Guid classRoomId);
         Task<ClassAnnouncement> AddAnnouncementAsync(ClassAnnouncement announcement);
         Task<MessageComment> AddCommentAsync(MessageComment comment);
+        Task<ClassAnnouncement?> GetAnnouncementByIdAsync(Guid id);
+        Task<ClassMedia?> GetMediaByIdAsync(Guid id);
+        Task<ClassResource?> GetResourceByIdAsync(Guid id);
     }
 }

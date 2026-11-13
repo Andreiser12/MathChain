@@ -1,16 +1,19 @@
 using System.Net;
 using System.Text;
 using System.Text.Json;
+using MathChain.Domain.Enums;
 
 namespace MathChain.Tests.Api
 {
     public class ErrorResponseTests : IClassFixture<ApiFactory>
     {
         private readonly HttpClient _client;
+        private readonly HttpClient _signedInClient;
 
         public ErrorResponseTests(ApiFactory factory)
         {
             _client = factory.CreateClient();
+            _signedInClient = factory.CreateClientAs("0x52908400098527886e0f7030069857d2e4169ee7", UserRole.Student);
         }
 
         private static async Task<JsonElement> ReadEnvelopeAsync(HttpResponseMessage response)
@@ -38,7 +41,7 @@ namespace MathChain.Tests.Api
         [Fact]
         public async Task Get_UnknownRoute_ReturnsNotFoundEnvelope()
         {
-            var response = await _client.GetAsync("/api/classroom/not-a-guid", TestContext.Current.CancellationToken);
+            var response = await _signedInClient.GetAsync("/api/classroom/not-a-guid", TestContext.Current.CancellationToken);
 
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
             var envelope = await ReadEnvelopeAsync(response);
@@ -49,7 +52,7 @@ namespace MathChain.Tests.Api
         [Fact]
         public async Task Patch_UnsupportedMethod_ReturnsMethodNotAllowedEnvelope()
         {
-            var response = await _client.SendAsync(new HttpRequestMessage(HttpMethod.Patch, "/api/auth/challenge"), TestContext.Current.CancellationToken);
+            var response = await _signedInClient.SendAsync(new HttpRequestMessage(HttpMethod.Patch, "/api/auth/challenge"), TestContext.Current.CancellationToken);
 
             Assert.Equal(HttpStatusCode.MethodNotAllowed, response.StatusCode);
             var envelope = await ReadEnvelopeAsync(response);

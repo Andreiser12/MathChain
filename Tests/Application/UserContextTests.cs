@@ -9,11 +9,12 @@ namespace MathChain.Tests.Application
     public class UserContextTests
     {
         private readonly InMemoryUserGateway _gateway = new();
+        private readonly FakeCurrentUser _currentUser = new();
         private readonly UserContext _context;
 
         public UserContextTests()
         {
-            _context = new UserContext(_gateway);
+            _context = new UserContext(_gateway, new AccessGuard(_currentUser, new InMemoryClassRoomGateway()));
         }
 
         private User AddUser(string wallet, UserRole role = UserRole.Student)
@@ -42,9 +43,37 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetByWalletAddressAsync_UnknownWallet_ThrowsNotFoundException()
+        public async Task GetByWalletAddressAsync_OwnUnknownWallet_ThrowsNotFoundException()
         {
+            _currentUser.As("0xmissing", UserRole.Student);
+
             await Assert.ThrowsAsync<NotFoundException>(() => _context.GetByWalletAddressAsync("0xmissing"));
+        }
+
+        [Fact]
+        public async Task GetByWalletAddressAsync_AnotherUsersWallet_ThrowsForbiddenException()
+        {
+            AddUser("0xabc");
+            _currentUser.As("0xother", UserRole.Teacher);
+
+            await Assert.ThrowsAsync<ForbiddenException>(() => _context.GetByWalletAddressAsync("0xabc"));
+        }
+
+        [Fact]
+        public async Task GetByWalletAddressAsync_Admin_ReturnsAnyUser()
+        {
+            var user = AddUser("0xabc");
+            _currentUser.As("0xadmin", UserRole.Admin);
+
+            Assert.Same(user, await _context.GetByWalletAddressAsync("0xABC"));
+        }
+
+        [Fact]
+        public async Task GetAllUsersAsync_NonAdmin_ThrowsForbiddenException()
+        {
+            _currentUser.As("0xteacher", UserRole.Teacher);
+
+            await Assert.ThrowsAsync<ForbiddenException>(() => _context.GetAllUsersAsync());
         }
     }
 }

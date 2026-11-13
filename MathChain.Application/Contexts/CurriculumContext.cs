@@ -1,5 +1,6 @@
 using MathChain.Application.DTOs;
 using MathChain.Domain.Entities;
+using MathChain.Domain.Enums;
 using MathChain.Domain.Gateways;
 using MathChain.Domain.Interfaces;
 using MathChain.Domain.Exceptions;
@@ -16,11 +17,13 @@ namespace MathChain.Application.Contexts
     {
         private readonly ICurriculumGateway _curriculumGateway;
         private readonly IIpfsStorageService? _ipfsStorageService;
+        private readonly AccessGuard _access;
 
-        public CurriculumContext(ICurriculumGateway curriculumGateway, IIpfsStorageService? ipfsStorageService = null)
+        public CurriculumContext(ICurriculumGateway curriculumGateway, AccessGuard access, IIpfsStorageService? ipfsStorageService = null)
         {
             _curriculumGateway = curriculumGateway;
             _ipfsStorageService = ipfsStorageService;
+            _access = access;
         }
 
         public async Task<List<CurriculumChapterResponseDto>> GetAllChaptersAsync()
@@ -102,6 +105,8 @@ namespace MathChain.Application.Contexts
 
         public async Task<CurriculumChapterResponseDto> CreateChapterAsync(CreateChapterRequest request)
         {
+            _access.RequireRole(UserRole.Admin);
+
             if (request == null || string.IsNullOrWhiteSpace(request.Title))
             {
                 throw new BusinessRuleException("Title is required.");
@@ -159,6 +164,8 @@ namespace MathChain.Application.Contexts
 
         public async Task<CurriculumChapterResponseDto> UpdateChapterAsync(Guid id, UpdateChapterRequest request)
         {
+            _access.RequireRole(UserRole.Admin);
+
             if (request == null || string.IsNullOrWhiteSpace(request.Title))
             {
                 throw new BusinessRuleException("Title is required.");
@@ -204,6 +211,8 @@ namespace MathChain.Application.Contexts
 
         public async Task<bool> DeleteChapterAsync(Guid id)
         {
+            _access.RequireRole(UserRole.Admin);
+
             var chapter = await _curriculumGateway.GetByIdAsync(id);
             if (chapter == null)
             {
@@ -216,6 +225,8 @@ namespace MathChain.Application.Contexts
 
         public async Task<CurriculumChapter> UpdateIpfsHashAsync(string slug, string newIpfsHash)
         {
+            _access.RequireRole(UserRole.Admin);
+
             if (string.IsNullOrWhiteSpace(slug) || string.IsNullOrWhiteSpace(newIpfsHash))
             {
                 throw new BusinessRuleException("The slug and new IPFS hash are required.");
@@ -263,6 +274,8 @@ namespace MathChain.Application.Contexts
 
         public async Task<CurriculumFormulaResponseDto> CreateFormulaAsync(Guid chapterId, CreateFormulaRequest request)
         {
+            _access.RequireRole(UserRole.Admin);
+
             if (request == null || string.IsNullOrWhiteSpace(request.Title) || string.IsNullOrWhiteSpace(request.Latex))
             {
                 throw new BusinessRuleException("Title and LaTeX formula are required.");
@@ -307,6 +320,8 @@ namespace MathChain.Application.Contexts
 
         public async Task<CurriculumFormulaResponseDto> UpdateFormulaAsync(Guid id, UpdateFormulaRequest request)
         {
+            _access.RequireRole(UserRole.Admin);
+
             if (request == null || string.IsNullOrWhiteSpace(request.Title) || string.IsNullOrWhiteSpace(request.Latex))
             {
                 throw new BusinessRuleException("Title and LaTeX formula are required.");
@@ -343,6 +358,8 @@ namespace MathChain.Application.Contexts
 
         public async Task<bool> DeleteFormulaAsync(Guid id)
         {
+            _access.RequireRole(UserRole.Admin);
+
             var formula = await _curriculumGateway.GetFormulaByIdAsync(id);
             if (formula == null)
             {

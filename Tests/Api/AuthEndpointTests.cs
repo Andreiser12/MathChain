@@ -3,6 +3,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
+using MathChain.Domain.Enums;
 using Nethereum.Signer;
 
 namespace MathChain.Tests.Api
@@ -10,9 +11,11 @@ namespace MathChain.Tests.Api
     public class AuthEndpointTests : IClassFixture<ApiFactory>
     {
         private readonly HttpClient _client;
+        private readonly ApiFactory _factory;
 
         public AuthEndpointTests(ApiFactory factory)
         {
+            _factory = factory;
             _client = factory.CreateClient();
         }
 
@@ -116,7 +119,7 @@ namespace MathChain.Tests.Api
         [Fact]
         public async Task OldLoginEndpoint_IsRemoved()
         {
-            var response = await _client.PostAsJsonAsync("/api/user/login", new { walletAddress = "0x52908400098527886e0f7030069857d2e4169ee7", role = "Admin" }, TestContext.Current.CancellationToken);
+            var response = await _factory.CreateClientAs("0x52908400098527886e0f7030069857d2e4169ee7", UserRole.Student).PostAsJsonAsync("/api/user/login", new { walletAddress = "0x52908400098527886e0f7030069857d2e4169ee7", role = "Admin" }, TestContext.Current.CancellationToken);
 
             Assert.Equal(HttpStatusCode.MethodNotAllowed, response.StatusCode);
         }

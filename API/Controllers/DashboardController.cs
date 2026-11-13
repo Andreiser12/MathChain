@@ -16,9 +16,9 @@ namespace MathChain.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetDashboardStats([FromQuery] string? walletAddress)
+        public async Task<IActionResult> GetDashboardStats()
         {
-            var stats = await _dashboardContext.GetDashboardStatsAsync(walletAddress);
+            var stats = await _dashboardContext.GetDashboardStatsAsync();
 
             return Success(stats);
         }
@@ -32,9 +32,9 @@ namespace MathChain.API.Controllers
         }
 
         [HttpGet("practice-progress")]
-        public async Task<IActionResult> GetPracticeProgress([FromQuery] string walletAddress, [FromQuery] string formulaId)
+        public async Task<IActionResult> GetPracticeProgress([FromQuery] string formulaId)
         {
-            var progress = await _dashboardContext.GetPracticeProgressAsync(walletAddress, formulaId);
+            var progress = await _dashboardContext.GetPracticeProgressAsync(formulaId);
 
             return Success(progress);
         }

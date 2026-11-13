@@ -8,15 +8,18 @@ namespace MathChain.Application.Contexts
     public class ClassContentContext : IClassContentContext
     {
         private readonly IClassContentGateway _contentGateway;
-        private readonly IClassRoomGateway _classRoomGateway;
-        public ClassContentContext(IClassContentGateway contentGateway, IClassRoomGateway classRoomGateway)
+        private readonly AccessGuard _access;
+
+        public ClassContentContext(IClassContentGateway contentGateway, AccessGuard access)
         {
             _contentGateway = contentGateway;
-            _classRoomGateway = classRoomGateway;
+            _access = access;
         }
 
         public async Task<List<AnnouncementResponseDto>> GetAnnouncementsAsync(Guid classRoomId)
         {
+            await _access.RequireMemberAsync(classRoomId);
+
             var announcements = await _contentGateway.GetAnnouncementByClassRoomIdAsync(classRoomId);
 
             var dtos = announcements.Select(a => new AnnouncementResponseDto
@@ -35,16 +38,12 @@ namespace MathChain.Application.Contexts
 
         public async Task<ClassAnnouncement> CreateAnnouncementAsync(Guid classRoomId, CreateAnnouncementRequest request)
         {
-            if (string.IsNullOrWhiteSpace(request.Title) || string.IsNullOrWhiteSpace(request.AuthorWallet))
-            {
-                throw new BusinessRuleException("Title and author wallet are required.");
-            }
+            await _access.RequireOwnerAsync(classRoomId);
+            var authorWallet = _access.RequireWallet();
 
-            var classRoom = await _classRoomGateway.GetByIdAsync(classRoomId);
-
-            if (classRoom == null)
+            if (string.IsNullOrWhiteSpace(request.Title))
             {
-                throw new NotFoundException("Classroom not found.");
+                throw new BusinessRuleException("Title is required.");
             }
 
             var announcement = new ClassAnnouncement
@@ -53,7 +52,7 @@ namespace MathChain.Application.Contexts
                 ClassRoomId = classRoomId,
                 Title = request.Title.Trim(),
                 Content = request.Content?.Trim() ?? string.Empty,
-                AuthorWallet = request.AuthorWallet.Trim().ToLower(),
+                AuthorWallet = authorWallet,
                 CreatedAt = DateTime.UtcNow
             };
 
@@ -64,16 +63,26 @@ namespace MathChain.Application.Contexts
 
         public async Task<MessageComment> AddCommentAsync(Guid messageId, AddCommentRequest request)
         {
-            if (string.IsNullOrWhiteSpace(request.Content) || string.IsNullOrWhiteSpace(request.AuthorWallet))
+            var announcement = await _contentGateway.GetAnnouncementByIdAsync(messageId);
+
+            if (announcement == null)
             {
-                throw new BusinessRuleException("Comment content and author wallet are required.");
+                throw new NotFoundException("Message not found.");
+            }
+
+            await _access.RequireMemberAsync(announcement.ClassRoomId);
+            var authorWallet = _access.RequireWallet();
+
+            if (string.IsNullOrWhiteSpace(request.Content))
+            {
+                throw new BusinessRuleException("Comment content is required.");
             }
 
             var comment = new MessageComment
             {
                 Id = Guid.NewGuid(),
                 MessageId = messageId,
-                AuthorWallet = request.AuthorWallet.Trim().ToLower(),
+                AuthorWallet = authorWallet,
                 Content = request.Content.Trim(),
                 CreatedAt = DateTime.UtcNow
             };
@@ -85,12 +94,17 @@ namespace MathChain.Application.Contexts
 
         public async Task<List<ClassMedia>> GetMediaAsync(Guid classRoomId)
         {
+            await _access.RequireMemberAsync(classRoomId);
+
             var mediaList = await _contentGateway.GetMediaByClassRoomIdAsync(classRoomId);
             return mediaList;
         }
 
         public async Task<ClassMedia> AddMediaAsync(Guid classRoomId, CreateClassMediaRequest request)
         {
+            await _access.RequireMemberAsync(classRoomId);
+            var uploaderWallet = _access.RequireWallet();
+
             if (string.IsNullOrWhiteSpace(request.FileName) || string.IsNullOrWhiteSpace(request.IpfsHash))
             {
                 throw new BusinessRuleException("File name and IPFS hash are required.");
@@ -102,7 +116,7 @@ namespace MathChain.Application.Contexts
                 ClassRoomId = classRoomId,
                 FileName = request.FileName.Trim(),
                 IpfsHash = request.IpfsHash.Trim(),
-                UploaderWallet = request.UploaderWallet?.Trim().ToLower() ?? string.Empty,
+                UploaderWallet = uploaderWallet,
                 CreatedAt = DateTime.UtcNow
             };
 
@@ -113,11 +127,28 @@ namespace MathChain.Application.Contexts
 
         public async Task DeleteMediaAsync(Guid mediaId)
         {
+            var media = await _contentGateway.GetMediaByIdAsync(mediaId);
+
+            if (media == null)
+            {
+                throw new NotFoundException("Media not found.");
+            }
+
+            var classRoom = await _access.RequireMemberAsync(media.ClassRoomId);
+            var isUploader = string.Equals(media.UploaderWallet, _access.RequireWallet(), StringComparison.OrdinalIgnoreCase);
+
+            if (!_access.IsOwnerOrAdmin(classRoom) && !isUploader)
+            {
+                throw new ForbiddenException("Only the teacher or the person who uploaded this media can delete it.");
+            }
+
             await _contentGateway.DeleteMediaAsync(mediaId);
         }
 
         public async Task<List<ClassResource>> GetResourcesAsync(Guid classRoomId)
         {
+            await _access.RequireMemberAsync(classRoomId);
+
             var resources = await _contentGateway.GetResourcesByClassRoomIdAsync(classRoomId);
 
             return resources;
@@ -125,6 +156,8 @@ namespace MathChain.Application.Contexts
 
         public async Task<ClassResource> AddResourceAsync(Guid classRoomId, CreateResourceRequest request)
         {
+            await _access.RequireOwnerAsync(classRoomId);
+
             if (string.IsNullOrWhiteSpace(request.Title) || string.IsNullOrWhiteSpace(request.IpfsHash))
             {
                 throw new BusinessRuleException("Title and IPFS hash are required.");
@@ -149,6 +182,15 @@ namespace MathChain.Application.Contexts
 
         public async Task DeleteResourceAsync(Guid resourceId)
         {
+            var resource = await _contentGateway.GetResourceByIdAsync(resourceId);
+
+            if (resource == null)
+            {
+                throw new NotFoundException("Resource not found.");
+            }
+
+            await _access.RequireOwnerAsync(resource.ClassRoomId);
+
             await _contentGateway.DeleteResourceAsync(resourceId);
         }
 

@@ -1,4 +1,5 @@
 using MathChain.Domain.Entities;
+using MathChain.Domain.Enums;
 using MathChain.Domain.Gateways;
 using MathChain.Domain.Exceptions;
 
@@ -7,9 +8,12 @@ namespace MathChain.Application.Contexts
     public class UserContext : IUserContext
     {
         private readonly IUserGateway _userGateway;
-        public UserContext(IUserGateway userGateway)
+        private readonly AccessGuard _access;
+
+        public UserContext(IUserGateway userGateway, AccessGuard access)
         {
             _userGateway = userGateway;
+            _access = access;
         }
 
         public async Task<User> GetByWalletAddressAsync(string walletAddress)
@@ -20,6 +24,8 @@ namespace MathChain.Application.Contexts
             }
 
             var wallet = NormalizeWalletAddress(walletAddress);
+
+            _access.RequireSelfOrAdmin(wallet);
 
             var user = await _userGateway.GetByWalletAddressAsync(wallet);
 
@@ -47,6 +53,8 @@ namespace MathChain.Application.Contexts
 
         public async Task<List<User>> GetAllUsersAsync()
         {
+            _access.RequireRole(UserRole.Admin);
+
             var users = await _userGateway.GetAllAsync();
 
             return users;

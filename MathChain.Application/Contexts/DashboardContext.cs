@@ -2,7 +2,6 @@ using System.Text.RegularExpressions;
 using MathChain.Application.DTOs;
 using MathChain.Domain.Entities;
 using MathChain.Domain.Enums;
-using MathChain.Domain.Exceptions;
 using MathChain.Domain.Gateways;
 
 namespace MathChain.Application.Contexts
@@ -15,19 +14,21 @@ namespace MathChain.Application.Contexts
         private readonly ISubmissionGateway _submissionGateway;
         private readonly IGradeGateway _gradeGateway;
         private readonly IPracticeGateway _practiceGateway;
+        private readonly AccessGuard _access;
 
         public DashboardContext(IUserGateway userGateway, ISubmissionGateway submissionGateway,
-            IGradeGateway gradeGateway, IPracticeGateway practiceGateway)
+            IGradeGateway gradeGateway, IPracticeGateway practiceGateway, AccessGuard access)
         {
             _userGateway = userGateway;
             _submissionGateway = submissionGateway;
             _gradeGateway = gradeGateway;
             _practiceGateway = practiceGateway;
+            _access = access;
         }
 
-        public async Task<DashboardStatsDto> GetDashboardStatsAsync(string? walletAddress)
+        public async Task<DashboardStatsDto> GetDashboardStatsAsync()
         {
-            var normalizedWallet = (walletAddress ?? "").Trim().ToLowerInvariant();
+            var normalizedWallet = _access.RequireWallet();
 
             var users = await _userGateway.GetAllAsync();
             var submissions = await _submissionGateway.GetAllAsync();
@@ -49,7 +50,7 @@ namespace MathChain.Application.Contexts
 
             if (!string.IsNullOrEmpty(normalizedWallet) && !solvers.Any(s => s.Wallet.Trim().ToLowerInvariant() == normalizedWallet))
             {
-                solvers.Add(BuildSolverStats(walletAddress!, normalizedWallet, submissionsByWallet, gradesBySubmissionId));
+                solvers.Add(BuildSolverStats(normalizedWallet, normalizedWallet, submissionsByWallet, gradesBySubmissionId));
             }
 
             var ranked = solvers
@@ -95,12 +96,7 @@ namespace MathChain.Application.Contexts
 
         public async Task<RecordSolvedProblemResultDto> RecordSolvedProblemAsync(RecordSolvedProblemRequest request)
         {
-            if (string.IsNullOrWhiteSpace(request.WalletAddress))
-            {
-                throw new BusinessRuleException("Wallet address is required.");
-            }
-
-            var cleanWallet = request.WalletAddress.Trim();
+            var cleanWallet = _access.RequireWallet();
 
             var existingUser = await _userGateway.GetByWalletAddressAsync(cleanWallet);
             User? newUser = null;
@@ -141,9 +137,11 @@ namespace MathChain.Application.Contexts
             return new RecordSolvedProblemResultDto { TotalSolved = totalSolved };
         }
 
-        public async Task<PracticeProgressDto> GetPracticeProgressAsync(string walletAddress, string formulaId)
+        public async Task<PracticeProgressDto> GetPracticeProgressAsync(string formulaId)
         {
-            if (string.IsNullOrWhiteSpace(walletAddress) || string.IsNullOrWhiteSpace(formulaId))
+            var walletAddress = _access.RequireWallet();
+
+            if (string.IsNullOrWhiteSpace(formulaId))
             {
                 return new PracticeProgressDto { FormulaId = formulaId ?? "" };
             }

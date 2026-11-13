@@ -1,5 +1,6 @@
 using MathChain.Application.Contexts;
 using MathChain.Application.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace MathChain.API.Controllers
             _curriculumContext = curriculumContext;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAllChapters([FromQuery] bool rootsOnly = false)
         {
@@ -29,6 +31,7 @@ namespace MathChain.API.Controllers
             return Success(chapters, "Chapters loaded successfully.");
         }
 
+        [AllowAnonymous]
         [HttpGet("roots")]
         public async Task<IActionResult> GetRootChapters()
         {
@@ -36,6 +39,7 @@ namespace MathChain.API.Controllers
             return Success(roots, "Root chapters loaded successfully.");
         }
 
+        [AllowAnonymous]
         [HttpGet("{idOrSlug}")]
         public async Task<IActionResult> GetChapterDetail(string idOrSlug)
         {
@@ -71,6 +75,7 @@ namespace MathChain.API.Controllers
             return Success(chapter, "The IPFS hash was successfully updated.");
         }
 
+        [AllowAnonymous]
         [HttpGet("{idOrSlug}/formulas")]
         public async Task<IActionResult> GetChapterFormulas(string idOrSlug)
         {

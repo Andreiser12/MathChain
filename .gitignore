@@ -489,3 +489,8 @@ $RECYCLE.BIN/
 
 # graphify knowledge graph output (generated, rebuild with /graphify .)
 graphify-out/
+
+# Smart contract tooling
+SmartContracts/node_modules/
+SmartContracts/artifacts/
+SmartContracts/cache/

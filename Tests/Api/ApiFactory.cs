@@ -20,6 +20,8 @@ namespace MathChain.Tests.Api
         public InMemoryClassRoomGateway ClassRooms { get; } = new();
         public InMemoryExternalLoginGateway ExternalLogins { get; }
         public GoogleTokenFactory Google { get; } = new();
+        public InMemoryCertificateGateway Certificates { get; } = new();
+        public FakeCertificateRegistry CertificateRegistry { get; } = new();
 
         public ApiFactory()
         {
@@ -47,6 +49,8 @@ namespace MathChain.Tests.Api
                 services.AddSingleton<IUserGateway>(Users);
                 services.AddSingleton<IClassRoomGateway>(ClassRooms);
                 services.AddSingleton<IExternalLoginGateway>(ExternalLogins);
+                services.AddSingleton<ICertificateGateway>(Certificates);
+                services.AddSingleton<ICertificateRegistry>(CertificateRegistry);
                 services.AddSingleton<IConfigurationManager<OpenIdConnectConfiguration>>(
                     new StaticConfigurationManager<OpenIdConnectConfiguration>(Google.CreateConfiguration()));
             });

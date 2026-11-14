@@ -1,0 +1,113 @@
+@page "/certificates"
+@using MathChain.Domain.Enums
+@inject ApiService Api
+@inject AppSession Session
+@inject NavigationManager Nav
+@inject IJSRuntime JS
+@inject ISnackbar Snackbar
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-8">
+	<MudText Typo="Typo.h4" Style="color: #ffffff; font-weight: 600;" Class="mb-2">My certificates</MudText>
+	<MudText Typo="Typo.body2" Style="color: rgba(255, 255, 255, 0.6);" Class="mb-6">
+		Each certificate is recorded on the blockchain. Your grade stays private: only people who receive your verification link can see it.
+	</MudText>
+
+	@if (_loading)
+	{
+		<MudProgressCircular Indeterminate="true" Color="Color.Primary" />
+	}
+	else if (!_certificates.Any())
+	{
+		<MudText Style="color: rgba(255, 255, 255, 0.6);">You do not have any certificates yet.</MudText>
+	}
+	else
+	{
+		<MudStack Spacing="3">
+			@foreach (var certificate in _certificates)
+			{
+				<MudPaper Elevation="2" Class="pa-4 certificate-card" Style="background-color: #16213e; color: #ffffff;">
+					<MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween">
+						<div>
+							<MudText Typo="Typo.h6" Style="font-weight: 600;">@certificate.SubjectTitle</MudText>
+							<MudText Typo="Typo.body2" Style="color: rgba(255, 255, 255, 0.7);">
+								@(certificate.Kind == CertificateKind.Class ? "Class certificate" : "Chapter certificate")
+								· Certificate #@certificate.TokenId
+								@if (certificate.IssuedAt.HasValue)
+								{
+									<span> · @certificate.IssuedAt.Value.ToLocalTime().ToString("dd.MM.yyyy")</span>
+								}
+							</MudText>
+							@if (certificate.Kind == CertificateKind.Class)
+							{
+								<MudText Typo="Typo.body1" Class="mt-1">Final grade: <b>@certificate.Grade</b></MudText>
+							}
+						</div>
+
+						<MudStack AlignItems="AlignItems.End" Spacing="2">
+							@if (certificate.Status == CertificateStatus.Revoked)
+							{
+								<MudChip T="string" Color="Color.Error" Variant="Variant.Filled">Revoked</MudChip>
+							}
+							else
+							{
+								<MudChip T="string" Color="Color.Success" Variant="Variant.Filled">Valid</MudChip>
+							}
+							<MudStack Row="true" Spacing="2">
+								<MudButton Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Small" Style="text-transform: none;"
+										   OnClick="() => CopyVerificationLink(certificate)">
+									Copy verification link
+								</MudButton>
+								<MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" Style="text-transform: none;"
+										   Href="@VerificationPath(certificate)">
+									Open
+								</MudButton>
+							</MudStack>
+						</MudStack>
+					</MudStack>
+				</MudPaper>
+			}
+		</MudStack>
+	}
+</MudContainer>
+
+@code {
+	private List<MyCertificateDto> _certificates = new();
+	private bool _loading = true;
+
+	protected override async Task OnInitializedAsync()
+	{
+		if (!Session.IsConnected)
+		{
+			await Session.RestoreSessionAsync();
+		}
+
+		if (!Session.IsConnected)
+		{
+			Nav.NavigateTo("/login");
+			return;
+		}
+
+		_certificates = await Api.GetMyCertificatesAsync();
+		_loading = false;
+	}
+
+	private static string VerificationPath(MyCertificateDto certificate)
+	{
+		return $"verify/{certificate.TokenId}?key={Uri.EscapeDataString(certificate.VerificationKey)}";
+	}
+
+	private async Task CopyVerificationLink(MyCertificateDto certificate)
+	{
+		var link = Nav.ToAbsoluteUri(VerificationPath(certificate)).ToString();
+
+		try
+		{
+			await JS.InvokeVoidAsync("navigator.clipboard.writeText", link);
+			Snackbar.Add("Verification link copied. Anyone with this link can see your grade.", Severity.Success);
+		}
+		catch (JSException)
+		{
+			Snackbar.Add(link, Severity.Info);
+		}
+	}
+}

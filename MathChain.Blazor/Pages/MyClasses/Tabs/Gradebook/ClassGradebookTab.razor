@@ -2,6 +2,7 @@
 @inject ISnackbar Snackbar
 @inject ApiService ApiService
 @inject AppSession Session
+@using MathChain.Domain.Enums
 
 <style>
     .student-grade-card {
@@ -146,6 +147,15 @@
                     Reopen for Retakes / Improvements
                 </MudButton>
             }
+
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Success"
+                       Style="border-radius: 0px; text-transform: none; font-weight: 600;"
+                       StartIcon="@Icons.Material.Filled.WorkspacePremium"
+                       Disabled="@(!CanIssueCertificates || _certificateActionRunning)"
+                       OnClick="ConfirmIssueCertificates">
+                @(_certificateActionRunning ? "Working..." : "Issue certificates")
+            </MudButton>
         </MudStack>
     </MudStack>
 
@@ -175,7 +185,20 @@
                             </MudText>
                         </MudStack>
 
-                        <div @onclick:stopPropagation="true">
+                        <div @onclick:stopPropagation="true" class="d-flex align-center">
+                            @if (ActiveCertificate(student) is { } certificate)
+                            {
+                                <MudChip T="string" Color="Color.Success" Variant="Variant.Filled" Icon="@Icons.Material.Filled.WorkspacePremium"
+                                         Style="border-radius: 0px; font-weight: 500;">
+                                    Certificate #@certificate.TokenId
+                                </MudChip>
+                                <MudIconButton Icon="@Icons.Material.Filled.Block"
+                                               Style="color: #ffffff;"
+                                               Size="Size.Medium"
+                                               title="Revoke certificate"
+                                               Disabled="_certificateActionRunning"
+                                               OnClick="() => ConfirmRevokeCertificate(student, certificate)" />
+                            }
                             <MudIconButton Icon="@Icons.Material.Filled.PersonRemove"
                                            Class="btn-kick-student"
                                            Size="Size.Medium"
@@ -325,7 +348,93 @@ else
     }
 
     private List<StudentGradebookUiItem> _students = new();
+    private List<ClassCertificateDto> _certificates = new();
     private bool _isFinalized = false;
+    private bool _certificateActionRunning;
+
+    private Guid? CurrentClassId =>
+        ClassRoom?.Id ?? (Guid.TryParse(ClassId, out var parsedId) ? parsedId : null);
+
+    private bool CanIssueCertificates =>
+        _students.Any(s => s.Dto.FinalGrade.HasValue && ActiveCertificate(s) == null);
+
+    private ClassCertificateDto? ActiveCertificate(StudentGradebookUiItem student)
+    {
+        return _certificates.FirstOrDefault(c => c.Status == CertificateStatus.Issued
+            && c.StudentWallet.Equals(student.Dto.StudentWallet, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private async Task LoadCertificates()
+    {
+        if (CurrentClassId.HasValue && Session.Role != UserRole.Student)
+        {
+            _certificates = await ApiService.GetClassCertificatesAsync(CurrentClassId.Value);
+        }
+    }
+
+    private async Task ConfirmIssueCertificates()
+    {
+        if (!CurrentClassId.HasValue) return;
+
+        var eligible = _students.Count(s => s.Dto.FinalGrade.HasValue && ActiveCertificate(s) == null);
+
+        bool? confirmed = await DialogService.ShowMessageBoxAsync(
+            "Issue certificates",
+            $"Issue blockchain certificates for {eligible} student(s) with a final grade? A certificate cannot be edited afterwards, only revoked.",
+            yesText: "Issue",
+            cancelText: "Cancel");
+
+        if (confirmed != true) return;
+
+        _certificateActionRunning = true;
+        StateHasChanged();
+
+        var result = await ApiService.IssueClassCertificatesAsync(CurrentClassId.Value);
+
+        _certificateActionRunning = false;
+
+        if (result.Success)
+        {
+            Snackbar.Add($"{result.Data?.Count ?? 0} certificate(s) issued on the blockchain.", Severity.Success);
+        }
+        else
+        {
+            Snackbar.Add(result.Error ?? "The request failed.", Severity.Error);
+        }
+
+        await LoadCertificates();
+        StateHasChanged();
+    }
+
+    private async Task ConfirmRevokeCertificate(StudentGradebookUiItem student, ClassCertificateDto certificate)
+    {
+        bool? confirmed = await DialogService.ShowMessageBoxAsync(
+            "Revoke certificate",
+            $"Revoke certificate #{certificate.TokenId} of {student.Dto.StudentName}? It will be marked as revoked on the blockchain. You can issue a corrected one afterwards.",
+            yesText: "Revoke",
+            cancelText: "Cancel");
+
+        if (confirmed != true) return;
+
+        _certificateActionRunning = true;
+        StateHasChanged();
+
+        var result = await ApiService.RevokeCertificateAsync(certificate.Id);
+
+        _certificateActionRunning = false;
+
+        if (result.Success)
+        {
+            Snackbar.Add($"Certificate #{certificate.TokenId} was revoked.", Severity.Info);
+        }
+        else
+        {
+            Snackbar.Add(result.Error ?? "The request failed.", Severity.Error);
+        }
+
+        await LoadCertificates();
+        StateHasChanged();
+    }
 
     private StudentGradebookUiItem? MyStudent => 
         _students.FirstOrDefault(s => s.Dto.StudentWallet.Equals(Session.WalletAddress, StringComparison.OrdinalIgnoreCase));
@@ -353,6 +462,7 @@ else
             Dto = d,
             IsExpanded = false
         }).ToList();
+        await LoadCertificates();
         StateHasChanged();
     }
 

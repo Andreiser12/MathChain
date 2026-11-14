@@ -1,0 +1,191 @@
+@page "/blockchain"
+@using MathChain.Domain.Enums
+@inject ApiService Api
+@inject AppSession Session
+@inject NavigationManager Nav
+@inject IJSRuntime JS
+@inject ISnackbar Snackbar
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-8">
+	<MudText Typo="Typo.h4" Style="color: #ffffff; font-weight: 600;" Class="mb-6">Blockchain setup</MudText>
+
+	@if (_loading)
+	{
+		<MudProgressCircular Indeterminate="true" Color="Color.Primary" />
+	}
+	else if (_setup == null)
+	{
+		<MudAlert Severity="Severity.Error">@_error</MudAlert>
+	}
+	else
+	{
+		<MudPaper Elevation="2" Class="pa-6" Style="background-color: #16213e; color: #ffffff;">
+			<MudStack Spacing="3">
+				<div>
+					<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Network</MudText>
+					<MudText Typo="Typo.body1">@_setup.NetworkName (chain @_setup.ChainId)</MudText>
+				</div>
+				<div>
+					<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Certificates contract</MudText>
+					<MudText Typo="Typo.body1" Style="word-break: break-all;">@_setup.ContractAddress</MudText>
+				</div>
+
+				@if (!_setup.CanIssue)
+				{
+					<MudAlert Severity="Severity.Warning" id="setup-status">
+						The issuer key is not configured. Set Blockchain:IssuerPrivateKey with dotnet user-secrets and restart the API.
+					</MudAlert>
+				}
+				else
+				{
+					<div>
+						<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Platform issuer account</MudText>
+						<MudText Typo="Typo.body1" Style="word-break: break-all;" id="issuer-address">@_setup.IssuerAddress</MudText>
+					</div>
+					<div>
+						<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Issuer balance</MudText>
+						<MudText Typo="Typo.body1" id="issuer-balance">@_setup.IssuerBalance.ToString("0.000000") ETH</MudText>
+					</div>
+
+					@if (_setup.HasIssuerRole && _setup.IssuerBalance > 0)
+					{
+						<MudAlert Severity="Severity.Success" id="setup-status">The platform can issue certificates.</MudAlert>
+					}
+					else
+					{
+						<MudAlert Severity="Severity.Warning" id="setup-status">
+							@(_setup.HasIssuerRole
+								? "The issuer account has the issuer role but no funds to pay for transactions."
+								: "The issuer account does not have the issuer role yet.")
+						</MudAlert>
+					}
+
+					<MudText Typo="Typo.body2" Style="color: rgba(255, 255, 255, 0.7);">
+						Both actions below open your wallet. Sign them with the account that is the admin of the contract.
+					</MudText>
+
+					<MudStack Row="true" Spacing="3">
+						<MudButton Variant="Variant.Filled" Color="Color.Primary" Style="text-transform: none;"
+								   Disabled="@(_setup.HasIssuerRole || _busy)" OnClick="GrantIssuerRole">
+							Grant issuer role
+						</MudButton>
+						<MudButton Variant="Variant.Outlined" Color="Color.Primary" Style="text-transform: none;"
+								   Disabled="_busy" OnClick="FundIssuer">
+							Send @FundingAmountText ETH to the issuer
+						</MudButton>
+						<MudButton Variant="Variant.Text" Color="Color.Primary" Style="text-transform: none;"
+								   Disabled="_busy" OnClick="Reload">
+							Refresh
+						</MudButton>
+					</MudStack>
+				}
+
+				@if (!string.IsNullOrEmpty(_lastTransaction))
+				{
+					<MudText Typo="Typo.body2" Style="word-break: break-all;" id="last-transaction">Transaction sent: @_lastTransaction</MudText>
+				}
+
+				@if (!string.IsNullOrEmpty(_actionError))
+				{
+					<MudAlert Severity="Severity.Error" id="action-error">@_actionError</MudAlert>
+				}
+			</MudStack>
+		</MudPaper>
+	}
+</MudContainer>
+
+@code {
+	private const string FundingAmountText = "0.005";
+	private const string FundingAmountHex = "0x11c37937e08000";
+	private const int RefreshAttempts = 10;
+	private const int RefreshDelayMilliseconds = 3000;
+
+	private CertificateSetupDto? _setup;
+	private string? _error;
+	private string? _actionError;
+	private string? _lastTransaction;
+	private bool _loading = true;
+	private bool _busy;
+
+	protected override async Task OnInitializedAsync()
+	{
+		if (!Session.IsConnected)
+		{
+			await Session.RestoreSessionAsync();
+		}
+
+		if (!Session.IsConnected)
+		{
+			Nav.NavigateTo("/login");
+			return;
+		}
+
+		if (Session.Role != UserRole.Admin)
+		{
+			Nav.NavigateTo("/chapters");
+			return;
+		}
+
+		await Reload();
+	}
+
+	private async Task Reload()
+	{
+		var result = await Api.GetCertificateSetupAsync();
+
+		_setup = result.Data;
+		_error = result.Error;
+		_loading = false;
+	}
+
+	private Task GrantIssuerRole()
+	{
+		return SendAsync(_setup!.ContractAddress, _setup.GrantIssuerRoleCallData!, "0x0", setup => setup.HasIssuerRole);
+	}
+
+	private Task FundIssuer()
+	{
+		var balanceBefore = _setup!.IssuerBalance;
+
+		return SendAsync(_setup.IssuerAddress!, "0x", FundingAmountHex, setup => setup.IssuerBalance > balanceBefore);
+	}
+
+	private async Task SendAsync(string to, string data, string valueHex, Func<CertificateSetupDto, bool> isDone)
+	{
+		_busy = true;
+		_actionError = null;
+		_lastTransaction = null;
+		StateHasChanged();
+
+		try
+		{
+			_lastTransaction = await JS.InvokeAsync<string>("sendWalletTransaction", new
+			{
+				chainId = _setup!.ChainId,
+				networkName = _setup.NetworkName,
+				rpcUrl = _setup.RpcUrl,
+				explorerUrl = _setup.ExplorerUrl
+			}, to, data, valueHex);
+			StateHasChanged();
+
+			for (var attempt = 0; attempt < RefreshAttempts; attempt++)
+			{
+				await Task.Delay(RefreshDelayMilliseconds);
+				await Reload();
+
+				if (_setup != null && isDone(_setup))
+				{
+					Snackbar.Add("The transaction was confirmed.", Severity.Success);
+					break;
+				}
+			}
+		}
+		catch (JSException walletError)
+		{
+			_actionError = $"The wallet did not send the transaction: {walletError.Message}";
+		}
+
+		_busy = false;
+		StateHasChanged();
+	}
+}

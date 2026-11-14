@@ -57,6 +57,79 @@ namespace MathChain.Persistence.Migrations
                     b.UseTphMappingStrategy();
                 });
 
+            modelBuilder.Entity("MathChain.Domain.Entities.Certificate", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DataHash")
+                        .IsRequired()
+                        .HasMaxLength(66)
+                        .HasColumnType("character varying(66)");
+
+                    b.Property<int>("Grade")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("IssuedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Kind")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("RevokedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasMaxLength(66)
+                        .HasColumnType("character varying(66)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("StudentWallet")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<Guid>("SubjectId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("SubjectTitle")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("TeacherWallet")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<long?>("TokenId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("TransactionHash")
+                        .HasMaxLength(66)
+                        .HasColumnType("character varying(66)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentWallet");
+
+                    b.HasIndex("TokenId")
+                        .IsUnique();
+
+                    b.HasIndex("Kind", "SubjectId", "StudentWallet")
+                        .IsUnique()
+                        .HasFilter("\"Status\" <> 2");
+
+                    b.ToTable("Certificates", (string)null);
+                });
+
             modelBuilder.Entity("MathChain.Domain.Entities.ClassAnnouncement", b =>
                 {
                     b.Property<Guid>("Id")

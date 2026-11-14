@@ -35,7 +35,7 @@ var connectionString = builder.Configuration.GetConnectionString("MathchainDB") 
 
 builder.Services.AddPersistenceLayer(connectionString);
 builder.Services.AddGatewayLayer();
-builder.Services.AddInfrastructureLayer();
+builder.Services.AddInfrastructureLayer(builder.Configuration);
 builder.Services.AddWalletAuthentication(builder.Configuration);
 builder.Services.AddSingleton(builder.Configuration.GetSection("SignIn").Get<SignInSettings>() ?? new SignInSettings());
 builder.Services.AddApplicationLayer();

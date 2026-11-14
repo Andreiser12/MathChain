@@ -90,3 +90,42 @@ window.signLoginMessage = async function(address, message) {
         params: [hexMessage, address]
     });
 };
+
+window.sendWalletTransaction = async function(network, to, data, valueHex) {
+    const provider = window.mathchainProvider || window.getMetaMaskProvider();
+    if (!provider) {
+        throw new Error("No wallet extension was found.");
+    }
+
+    const accounts = await provider.request({ method: 'eth_requestAccounts' });
+    if (!accounts || accounts.length === 0) {
+        throw new Error("No wallet account is connected.");
+    }
+
+    const chainIdHex = "0x" + Number(network.chainId).toString(16);
+
+    try {
+        await provider.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: chainIdHex }] });
+    } catch (switchError) {
+        const isUnknownChain = switchError.code === 4902 || switchError?.data?.originalError?.code === 4902;
+        if (!isUnknownChain) {
+            throw switchError;
+        }
+
+        await provider.request({
+            method: 'wallet_addEthereumChain',
+            params: [{
+                chainId: chainIdHex,
+                chainName: network.networkName,
+                rpcUrls: [network.rpcUrl],
+                blockExplorerUrls: network.explorerUrl ? [network.explorerUrl] : [],
+                nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 }
+            }]
+        });
+    }
+
+    return await provider.request({
+        method: 'eth_sendTransaction',
+        params: [{ from: accounts[0], to: to, data: data || '0x', value: valueHex || '0x0' }]
+    });
+};

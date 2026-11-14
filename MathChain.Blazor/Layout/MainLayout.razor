@@ -41,6 +41,16 @@
 					<MudDivider />
 					<MudNavLink Href="/my-classes" Icon="@Icons.Material.Filled.Class">My Classes</MudNavLink>
 				}
+				@if (Session.Role == UserRole.Student)
+				{
+					<MudDivider />
+					<MudNavLink Href="/certificates" Icon="@Icons.Material.Filled.WorkspacePremium">Certificates</MudNavLink>
+				}
+				@if (Session.Role == UserRole.Admin)
+				{
+					<MudDivider />
+					<MudNavLink Href="/blockchain" Icon="@Icons.Material.Filled.Link">Blockchain</MudNavLink>
+				}
 				<MudDivider />
 				<MudNavLink Href="/settings" Icon="@Icons.Material.Filled.Settings">Settings</MudNavLink>
 				<MudDivider />

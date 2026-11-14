@@ -1,0 +1,132 @@
+@page "/verify/{TokenId:long}"
+@using MathChain.Domain.Enums
+@inject ApiService Api
+
+<MudContainer MaxWidth="MaxWidth.Small" Class="mt-12">
+	<MudPaper Elevation="4" Class="pa-8" Style="background-color: #16213e; color: #ffffff; border-radius: 8px;">
+		<MudText Typo="Typo.h4" Style="font-weight: 600;" Class="mb-1">MathChain certificate</MudText>
+		<MudText Typo="Typo.body2" Style="color: rgba(255, 255, 255, 0.6);" Class="mb-6">Certificate #@TokenId</MudText>
+
+		@if (_loading)
+		{
+			<MudProgressCircular Indeterminate="true" Color="Color.Primary" />
+		}
+		else if (_verification == null)
+		{
+			<MudAlert Severity="Severity.Error" id="verification-result">@_error</MudAlert>
+		}
+		else
+		{
+			<MudAlert Severity="@ResultSeverity" Class="mb-6" id="verification-result">@ResultMessage</MudAlert>
+
+			@if (_verification.DetailsRevealed)
+			{
+				<MudStack Spacing="1" Class="mb-6">
+					<MudText Typo="Typo.h5" Style="font-weight: 600;">@_verification.SubjectTitle</MudText>
+					<MudText Typo="Typo.body1">
+						@(_verification.Kind == CertificateKind.Class ? "Class certificate" : "Chapter certificate")
+					</MudText>
+					@if (_verification.Kind == CertificateKind.Class)
+					{
+						<MudText Typo="Typo.h6" id="verification-grade">Final grade: @_verification.Grade</MudText>
+					}
+				</MudStack>
+			}
+			else
+			{
+				<MudText Typo="Typo.body2" Style="color: rgba(255, 255, 255, 0.7);" Class="mb-6">
+					The grade and the class are private. Ask the student for the full verification link to see them.
+				</MudText>
+			}
+
+			<MudDivider Class="mb-4" />
+
+			<MudStack Spacing="2">
+				<div>
+					<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Student account</MudText>
+					<MudText Typo="Typo.body2" Style="word-break: break-all;">@_verification.StudentAddress</MudText>
+				</div>
+				@if (_verification.DetailsRevealed)
+				{
+					<div>
+						<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Teacher account</MudText>
+						<MudText Typo="Typo.body2" Style="word-break: break-all;">@_verification.TeacherAddress</MudText>
+					</div>
+				}
+				<div>
+					<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Issued by (on the blockchain)</MudText>
+					<MudText Typo="Typo.body2" Style="word-break: break-all;">@_verification.IssuerAddress</MudText>
+				</div>
+				<div>
+					<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Issued at</MudText>
+					<MudText Typo="Typo.body2">@_verification.IssuedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</MudText>
+				</div>
+				<div>
+					<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Network and contract</MudText>
+					<MudText Typo="Typo.body2" Style="word-break: break-all;">
+						@_verification.NetworkName (chain @_verification.ChainId) ·
+						@if (!string.IsNullOrEmpty(_verification.ExplorerUrl))
+						{
+							<MudLink Href="@($"{_verification.ExplorerUrl}/address/{_verification.ContractAddress}")" Target="_blank">@_verification.ContractAddress</MudLink>
+						}
+						else
+						{
+							<span>@_verification.ContractAddress</span>
+						}
+					</MudText>
+				</div>
+				@if (!string.IsNullOrEmpty(_verification.TransactionHash) && !string.IsNullOrEmpty(_verification.ExplorerUrl))
+				{
+					<div>
+						<MudLink Href="@($"{_verification.ExplorerUrl}/tx/{_verification.TransactionHash}")" Target="_blank">View the transaction</MudLink>
+					</div>
+				}
+			</MudStack>
+		}
+	</MudPaper>
+</MudContainer>
+
+@code {
+	[Parameter]
+	public long TokenId { get; set; }
+
+	[SupplyParameterFromQuery(Name = "key")]
+	public string? Key { get; set; }
+
+	private CertificateVerificationDto? _verification;
+	private string? _error;
+	private bool _loading = true;
+
+	private Severity ResultSeverity => _verification!.IsValid ? Severity.Success : Severity.Error;
+
+	private string ResultMessage
+	{
+		get
+		{
+			if (_verification!.Revoked)
+			{
+				return "This certificate was revoked by its issuer.";
+			}
+
+			if (_verification.DataMatchesBlockchain == false)
+			{
+				return "The certificate data does not match the blockchain record. It may have been changed after it was issued.";
+			}
+
+			return _verification.DetailsRevealed
+				? "Valid certificate. The data below matches the blockchain record."
+				: "This certificate exists on the blockchain and has not been revoked.";
+		}
+	}
+
+	protected override async Task OnParametersSetAsync()
+	{
+		_loading = true;
+
+		var result = await Api.VerifyCertificateAsync(TokenId, Key);
+
+		_verification = result.Data;
+		_error = result.Error;
+		_loading = false;
+	}
+}

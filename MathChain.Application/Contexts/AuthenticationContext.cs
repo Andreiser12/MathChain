@@ -20,10 +20,14 @@ namespace MathChain.Application.Contexts
         private readonly IAccessTokenService _tokenService;
         private readonly SignInSettings _settings;
         private readonly TimeProvider _timeProvider;
+        private readonly IGoogleTokenVerifier _googleTokenVerifier;
+        private readonly IExternalLoginGateway _externalLoginGateway;
+        private readonly ICustodialAddressProvider _custodialAddressProvider;
 
         public AuthenticationContext(IUserGateway userGateway, ILoginChallengeStore challengeStore,
             IWalletSignatureVerifier signatureVerifier, IAccessTokenService tokenService,
-            SignInSettings settings, TimeProvider timeProvider)
+            SignInSettings settings, TimeProvider timeProvider, IGoogleTokenVerifier googleTokenVerifier,
+            IExternalLoginGateway externalLoginGateway, ICustodialAddressProvider custodialAddressProvider)
         {
             _userGateway = userGateway;
             _challengeStore = challengeStore;
@@ -31,6 +35,9 @@ namespace MathChain.Application.Contexts
             _tokenService = tokenService;
             _settings = settings;
             _timeProvider = timeProvider;
+            _googleTokenVerifier = googleTokenVerifier;
+            _externalLoginGateway = externalLoginGateway;
+            _custodialAddressProvider = custodialAddressProvider;
         }
 
         public Task<LoginChallengeDto> CreateChallengeAsync(LoginChallengeRequest request)
@@ -113,6 +120,78 @@ namespace MathChain.Application.Contexts
                 isNewUser = true;
             }
 
+            return CreateAuthResult(user, isNewUser);
+        }
+
+        public async Task<AuthResultDto> SignInWithGoogleAsync(GoogleSignInRequest request)
+        {
+            if (string.IsNullOrWhiteSpace(request?.IdToken))
+            {
+                throw new BusinessRuleException("Google ID token is required.");
+            }
+
+            var identity = await _googleTokenVerifier.VerifyAsync(request.IdToken.Trim());
+            var existingUser = await FindGoogleUserAsync(identity.Subject);
+
+            if (existingUser != null)
+            {
+                return CreateAuthResult(existingUser, false);
+            }
+
+            var role = ParseRegistrationRole(request.Role);
+
+            if (role == null)
+            {
+                throw new NotFoundException("User does not exist. A valid role is required for registration.");
+            }
+
+            var createdAt = _timeProvider.GetUtcNow().UtcDateTime;
+            var userId = Guid.NewGuid();
+            var user = new User
+            {
+                Id = userId,
+                WalletAddress = _custodialAddressProvider.GetOwnerAddress(userId),
+                Role = role.Value,
+                CreatedAt = createdAt
+            };
+            var login = new ExternalLogin
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                Provider = ExternalLogin.GoogleProvider,
+                Subject = identity.Subject,
+                CreatedAt = createdAt
+            };
+
+            if (await _externalLoginGateway.TryCreateUserWithLoginAsync(user, login))
+            {
+                return CreateAuthResult(user, true);
+            }
+
+            var registeredUser = await FindGoogleUserAsync(identity.Subject);
+
+            if (registeredUser == null)
+            {
+                throw new UnauthorizedException("Google sign-in could not be completed. Try again.");
+            }
+
+            return CreateAuthResult(registeredUser, false);
+        }
+
+        public SignInProvidersDto GetSignInProviders()
+        {
+            return new SignInProvidersDto { GoogleClientId = _googleTokenVerifier.ClientId };
+        }
+
+        private async Task<User?> FindGoogleUserAsync(string subject)
+        {
+            var login = await _externalLoginGateway.GetAsync(ExternalLogin.GoogleProvider, subject);
+
+            return login == null ? null : await _userGateway.GetByIdAsync(login.UserId);
+        }
+
+        private AuthResultDto CreateAuthResult(User user, bool isNewUser)
+        {
             var token = _tokenService.CreateToken(user);
 
             return new AuthResultDto

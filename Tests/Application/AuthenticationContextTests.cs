@@ -29,7 +29,10 @@ namespace MathChain.Tests.Application
                 new EthereumSignatureVerifier(),
                 new JwtAccessTokenService(jwtSettings, _time),
                 _signInSettings,
-                _time);
+                _time,
+                new FakeGoogleTokenVerifier(),
+                new InMemoryExternalLoginGateway(_users),
+                new FakeCustodialAddressProvider());
         }
 
         private string Address => _wallet.GetPublicAddress();

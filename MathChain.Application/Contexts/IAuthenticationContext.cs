@@ -6,5 +6,7 @@ namespace MathChain.Application.Contexts
     {
         Task<LoginChallengeDto> CreateChallengeAsync(LoginChallengeRequest request);
         Task<AuthResultDto> VerifyAsync(VerifyLoginRequest request);
+        Task<AuthResultDto> SignInWithGoogleAsync(GoogleSignInRequest request);
+        SignInProvidersDto GetSignInProviders();
     }
 }

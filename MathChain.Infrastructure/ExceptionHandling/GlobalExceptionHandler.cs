@@ -37,6 +37,7 @@ namespace MathChain.Infrastructure.ExceptionHandling
                 NotFoundException => StatusCodes.Status404NotFound,
                 UnauthorizedException => StatusCodes.Status401Unauthorized,
                 ForbiddenException => StatusCodes.Status403Forbidden,
+                ServiceUnavailableException => StatusCodes.Status503ServiceUnavailable,
                 BusinessRuleException => StatusCodes.Status400BadRequest,
                 DomainException => StatusCodes.Status400BadRequest,
                 _ => StatusCodes.Status500InternalServerError

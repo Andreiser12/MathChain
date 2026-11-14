@@ -36,7 +36,8 @@ namespace MathChain.Tests.Infrastructure
             { new NotFoundException("Classroom not found."), StatusCodes.Status404NotFound },
             { new UnauthorizedException("Invalid wallet signature."), StatusCodes.Status401Unauthorized },
             { new ForbiddenException("Only the teacher can delete this classroom."), StatusCodes.Status403Forbidden },
-            { new BusinessRuleException("Student is already enrolled in this classroom."), StatusCodes.Status400BadRequest }
+            { new BusinessRuleException("Student is already enrolled in this classroom."), StatusCodes.Status400BadRequest },
+            { new ServiceUnavailableException("Google sign-in is temporarily unavailable. Try again later."), StatusCodes.Status503ServiceUnavailable }
         };
 
         [Theory]

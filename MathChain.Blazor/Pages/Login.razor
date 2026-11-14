@@ -6,6 +6,7 @@
 @inject NavigationManager Nav
 @inject ApiService Api
 @inject IDialogService DialogService
+@implements IDisposable
 
 <MudContainer MaxWidth="MaxWidth.Small" Class="mt-16">
 	<MudPaper Elevation="4" Class="pa-8 d-flex flex-column align-center gap-4" Style="background-color: #16213e; color: #ffffff; border-radius: 8px;">
@@ -34,6 +35,13 @@
 			</MudButton>
 		</MudStack>
 
+		@if (_googleAvailable)
+		{
+			<MudText Typo="Typo.body2" Style="color: rgba(255, 255, 255, 0.6);">or</MudText>
+		}
+
+		<div id="@GoogleButtonId"></div>
+
 		@if (!string.IsNullOrEmpty(_address))
 		{
 			<MudText Typo="Typo.body1"
@@ -50,8 +58,97 @@
 </MudContainer>
 
 @code {
+	const string GoogleButtonId = "google-signin-button";
+
 	string _address = string.Empty;
 	string _errorMessage = string.Empty;
+	bool _googleAvailable;
+	DotNetObjectReference<Login>? _dotNetReference;
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (!firstRender)
+		{
+			return;
+		}
+
+		var providers = await Api.GetSignInProvidersAsync();
+
+		if (string.IsNullOrWhiteSpace(providers.GoogleClientId))
+		{
+			return;
+		}
+
+		_dotNetReference = DotNetObjectReference.Create(this);
+
+		try
+		{
+			_googleAvailable = await JS.InvokeAsync<bool>("renderGoogleSignInButton", GoogleButtonId, providers.GoogleClientId, _dotNetReference);
+		}
+		catch (JSException renderError)
+		{
+			Console.WriteLine($"[Login] Rendering the Google button failed: {renderError.Message}");
+		}
+
+		StateHasChanged();
+	}
+
+	[JSInvokable]
+	public async Task OnGoogleCredential(string idToken)
+	{
+		_errorMessage = string.Empty;
+
+		try
+		{
+			var result = await Api.SignInWithGoogleAsync(idToken, null);
+
+			if (result.RegistrationRequired)
+			{
+				var dialog = await DialogService.ShowAsync<ChooseRoleDialog>("Welcome to MathChain!");
+				var dialogResult = await dialog.Result;
+
+				if (dialogResult == null || dialogResult.Canceled || dialogResult.Data == null)
+				{
+					_errorMessage = "You must choose a role to continue.";
+					StateHasChanged();
+					return;
+				}
+
+				result = await Api.SignInWithGoogleAsync(idToken, dialogResult.Data.ToString());
+			}
+
+			if (result.Auth == null)
+			{
+				_errorMessage = result.Error ?? "Google sign-in could not be completed. Please try again.";
+				StateHasChanged();
+				return;
+			}
+
+			var user = result.Auth.User;
+			_address = user.WalletAddress;
+
+			await Session.SetSessionAsync(user.WalletAddress, user.Role, result.Auth.Token, result.Auth.ExpiresAt);
+
+			Nav.NavigateTo(user.Role == UserRole.Teacher ? "/my-classes" : "/chapters");
+		}
+		catch (HttpRequestException httpError)
+		{
+			Console.WriteLine($"[Login] Google sign-in request failed: {httpError.Message}");
+			_errorMessage = "The server could not be reached. Make sure the API is running.";
+			StateHasChanged();
+		}
+		catch (Exception error)
+		{
+			Console.WriteLine($"[Login] Google sign-in failed: {error.Message}");
+			_errorMessage = $"Google sign-in failed: {error.Message}";
+			StateHasChanged();
+		}
+	}
+
+	public void Dispose()
+	{
+		_dotNetReference?.Dispose();
+	}
 
 	protected override async Task OnInitializedAsync()
 	{

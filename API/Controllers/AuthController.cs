@@ -40,6 +40,27 @@ namespace MathChain.API.Controllers
             return Success(result, "User logged in successfully.");
         }
 
+        [AllowAnonymous]
+        [HttpGet("providers")]
+        public IActionResult GetProviders()
+        {
+            return Success(_authenticationContext.GetSignInProviders());
+        }
+
+        [AllowAnonymous]
+        [HttpPost("google")]
+        public async Task<IActionResult> SignInWithGoogle([FromBody] GoogleSignInRequest request)
+        {
+            var result = await _authenticationContext.SignInWithGoogleAsync(request);
+
+            if (result.IsNewUser)
+            {
+                return Success(result, "User registered successfully.", StatusCodes.Status201Created);
+            }
+
+            return Success(result, "User logged in successfully.");
+        }
+
         [Authorize]
         [HttpGet("me")]
         public IActionResult Me()

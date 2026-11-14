@@ -6,6 +6,18 @@ namespace MathChain.Blazor.DTOs
         public DateTimeOffset ExpiresAt { get; set; }
     }
 
+    public class SignInProvidersDto
+    {
+        public string? GoogleClientId { get; set; }
+    }
+
+    public class GoogleSignInResult
+    {
+        public AuthResultDto? Auth { get; set; }
+        public bool RegistrationRequired { get; set; }
+        public string? Error { get; set; }
+    }
+
     public class AuthResultDto
     {
         public string Token { get; set; } = string.Empty;

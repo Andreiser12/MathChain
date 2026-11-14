@@ -12,6 +12,11 @@ namespace MathChain.Tests.Fakes
             return Task.FromResult(Users.FirstOrDefault(u => u.WalletAddress == walletAddress));
         }
 
+        public Task<User?> GetByIdAsync(Guid id)
+        {
+            return Task.FromResult(EntityCopy.Detached(Users.FirstOrDefault(u => u.Id == id)));
+        }
+
         public Task<List<User>> GetAllAsync()
         {
             return Task.FromResult(Users.ToList());

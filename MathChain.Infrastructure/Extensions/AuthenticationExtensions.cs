@@ -1,4 +1,5 @@
 using System.Text;
+using MathChain.Blockchain.Custody;
 using MathChain.Domain.Interfaces;
 using MathChain.Infrastructure.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -6,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.IdentityModel.Protocols;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 
 namespace MathChain.Infrastructure.Extensions
@@ -33,6 +36,7 @@ namespace MathChain.Infrastructure.Extensions
             services.AddSingleton<IAccessTokenService, JwtAccessTokenService>();
             services.AddHttpContextAccessor();
             services.AddScoped<ICurrentUser, HttpContextCurrentUser>();
+            services.AddGoogleSignIn(configuration);
 
             services.AddAuthorization(options =>
             {
@@ -62,6 +66,29 @@ namespace MathChain.Infrastructure.Extensions
                 });
 
             return services;
+        }
+
+        private static void AddGoogleSignIn(this IServiceCollection services, IConfiguration configuration)
+        {
+            var googleSettings = configuration.GetSection("Google").Get<GoogleAuthSettings>() ?? new GoogleAuthSettings();
+            var custodySettings = configuration.GetSection("Custody").Get<CustodySettings>() ?? new CustodySettings();
+            var keyDeriver = new CustodialKeyDeriver(custodySettings);
+
+            if (!string.IsNullOrWhiteSpace(googleSettings.ClientId) && !keyDeriver.IsConfigured)
+            {
+                throw new InvalidOperationException(
+                    $"Custody:MasterSecret must be configured with at least {CustodySettings.MinimumSecretSizeInBytes} bytes when Google:ClientId is set. " +
+                    "Set it with: dotnet user-secrets set \"Custody:MasterSecret\" \"<random value>\" --project API");
+            }
+
+            services.AddSingleton(googleSettings);
+            services.AddSingleton<ICustodialAddressProvider>(keyDeriver);
+            services.AddSingleton<IConfigurationManager<OpenIdConnectConfiguration>>(_ =>
+                new ConfigurationManager<OpenIdConnectConfiguration>(
+                    $"{googleSettings.Authority.TrimEnd('/')}/.well-known/openid-configuration",
+                    new OpenIdConnectConfigurationRetriever(),
+                    new HttpDocumentRetriever { RequireHttps = true }));
+            services.AddSingleton<IGoogleTokenVerifier, GoogleTokenVerifier>();
         }
     }
 }

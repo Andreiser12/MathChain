@@ -22,6 +22,7 @@ namespace MathChain.Persistence.Context
         public DbSet<ClassMedia> ClassMedia { get; set; }
         public DbSet<CurriculumChapter> CurriculumChapters { get; set; }
         public DbSet<CurriculumFormula> CurriculumFormulas { get; set; }
+        public DbSet<ExternalLogin> ExternalLogins { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

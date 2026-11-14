@@ -21,6 +21,17 @@ namespace MathChain.Application.DTOs
         public string? Role { get; set; }
     }
 
+    public class GoogleSignInRequest
+    {
+        public string IdToken { get; set; } = string.Empty;
+        public string? Role { get; set; }
+    }
+
+    public class SignInProvidersDto
+    {
+        public string? GoogleClientId { get; set; }
+    }
+
     public class AuthResultDto
     {
         public string Token { get; set; } = string.Empty;

@@ -1,5 +1,4 @@
-﻿
-window.math3D_instances = {};
+﻿window.math3D_instances = {};
 
 window.math3D = {
     loadModel: function (canvasId, modelPath) {
@@ -44,8 +43,10 @@ window.math3D = {
                 }
             });
 
-            const box = new THREE.Box3().setFromObject(loadedModel);
-            const size = box.getSize(new THREE.Vector3());
+            loadedModel.rotation.x = Math.PI / 2;
+            loadedModel.updateMatrixWorld(true);
+
+            const size = new THREE.Box3().setFromObject(loadedModel).getSize(new THREE.Vector3());
 
             const vFOV = camera.fov * Math.PI / 180;
             const visibleHeight = 2 * Math.tan(vFOV / 2) * camera.position.z;
@@ -53,18 +54,15 @@ window.math3D = {
 
             const margin = 0.85;
 
-            const scaleX = (visibleWidth * margin) / size.x;
-            const scaleY = (visibleHeight * margin) / size.y;
-            const scale = Math.min(scaleX, scaleY); 
+            const scale = Math.min(
+                (visibleWidth * margin) / size.x,
+                (visibleHeight * margin) / size.y);
 
             loadedModel.scale.setScalar(scale);
+            loadedModel.updateMatrixWorld(true);
 
-            const center = box.getCenter(new THREE.Vector3());
-            loadedModel.position.x -= center.x;
-            loadedModel.position.y -= center.y;
-            loadedModel.position.z -= center.z;
-
-            loadedModel.rotation.x = Math.PI / 2;
+            const center = new THREE.Box3().setFromObject(loadedModel).getCenter(new THREE.Vector3());
+            loadedModel.position.sub(center);
 
             scene.add(loadedModel);
         }, undefined, function (error) {
@@ -99,4 +97,3 @@ window.math3D = {
         }
     }
 };
-

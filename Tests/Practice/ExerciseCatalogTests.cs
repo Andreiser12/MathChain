@@ -88,6 +88,9 @@ namespace MathChain.Tests.Practice
                     {
                         withOwnExercises++;
 
+                        Assert.Equal(new[] { "Easy", "Easy", "Easy", "Medium", "Medium", "Medium", "Hard", "Hard", "Hard" },
+                            catalog.Exercises.Select(e => e.Difficulty).ToArray());
+
                         foreach (var definition in catalog.Exercises)
                         {
                             for (var seed = 0; seed < 5; seed++)
@@ -101,7 +104,7 @@ namespace MathChain.Tests.Practice
                 }
             }
 
-            Assert.Equal(10, withOwnExercises);
+            Assert.Equal(19, withOwnExercises);
         }
 
         private static string FindRepositoryRoot()

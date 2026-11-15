@@ -83,11 +83,6 @@ namespace MathChain.Application.Practice
 
             var latex = Substitute(template.LatexTemplate ?? string.Empty, values);
 
-            if (latex.Contains('='))
-            {
-                latex = latex.Split('=')[0].Trim();
-            }
-
             var hint = string.IsNullOrWhiteSpace(template.Hint) ? null : Substitute(template.Hint, values);
 
             return new GeneratedExercise(BuildRequirement(template.Requirement, form), latex, hint, form, expectedAnswer);

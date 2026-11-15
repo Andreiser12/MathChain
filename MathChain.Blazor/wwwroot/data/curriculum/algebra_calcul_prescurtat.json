@@ -1321,12 +1321,12 @@
           "order": 9,
           "variables": {
             "a": [
-              1,
-              1
+              6,
+              9
             ]
           },
-          "latexTemplate": "x^n - 1",
-          "wolframQuery": "factor x^n - 1",
+          "latexTemplate": "x^{{a}} - 1",
+          "wolframQuery": "factor x^{a} - 1",
           "hint": "Suma unei progresii geometrice: 1 + x + x^2 + ... + x^{n-1} = (x^n - 1)/(x - 1).",
           "solutionIpfs": "QmHardStepByStepExplanation3PuteriN"
         }

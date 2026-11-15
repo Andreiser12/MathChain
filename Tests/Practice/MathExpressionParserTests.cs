@@ -22,6 +22,15 @@ namespace MathChain.Tests.Practice
         [InlineData("2**3", 8)]
         [InlineData("3² − 1", 8)]
         [InlineData("[1+2]*3", 9)]
+        [InlineData("ln(e^3)", 3)]
+        [InlineData("2e - e", Math.E)]
+        [InlineData("E", Math.E)]
+        [InlineData("4arctan(1)", Math.PI)]
+        [InlineData("2arcsin(1)", Math.PI)]
+        [InlineData("arccos(-1)", Math.PI)]
+        [InlineData("exp(1)", Math.E)]
+        [InlineData("3pi/3", Math.PI)]
+        [InlineData("4e/2", 2 * Math.E)]
         public void Parse_Arithmetic_EvaluatesWithUsualPrecedence(string input, double expected)
         {
             Assert.Equal(expected, Evaluate(input), 10);
@@ -57,6 +66,7 @@ namespace MathChain.Tests.Practice
         [InlineData("\\frac{1}{2}")]
         [InlineData("sqrt 4")]
         [InlineData("1.2.3")]
+        [InlineData("2 pi 3")]
         public void Parse_InvalidInput_Throws(string input)
         {
             Assert.Throws<MathExpressionParseException>(() => MathExpressionParser.Parse(input, AnswerChecker.Variables));

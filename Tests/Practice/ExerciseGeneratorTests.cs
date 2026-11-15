@@ -49,6 +49,18 @@ namespace MathChain.Tests.Practice
         }
 
         [Fact]
+        public void Generate_EquationLatex_KeepsBothSides()
+        {
+            var template = Template("{a}", @"2^{x} = 2^{{a}}", ("a", 3, 3));
+
+            var exercise = ExerciseGenerator.Generate(template, new SequenceRandom(3));
+
+            Assert.Equal(AnswerForm.Number, exercise.Form);
+            Assert.Equal("3", exercise.ExpectedAnswer);
+            Assert.Equal(@"2^{x} = 2^{3}", exercise.Latex);
+        }
+
+        [Fact]
         public void Generate_ComputedPlaceholders_AreEvaluated()
         {
             var template = Template("factor x^4 - {a**4} + {a*a*a}", @"x^4 - {a**4} + {a*a*a}", ("a", 2, 3));

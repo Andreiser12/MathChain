@@ -15,7 +15,7 @@ namespace MathChain.Application.Practice
         public const int MaximumLength = 300;
         private const int MaximumDepth = 64;
 
-        private static readonly string[] FunctionNames = { "sqrt", "cbrt", "abs", "sin", "cos", "tan", "exp", "ln" };
+        private static readonly string[] FunctionNames = { "sqrt", "cbrt", "abs", "arcsin", "arccos", "arctan", "sin", "cos", "tan", "exp", "ln" };
 
         private readonly ISet<char> _allowedVariables;
         private List<Token> _tokens = new();
@@ -133,7 +133,7 @@ namespace MathChain.Application.Practice
                     _position++;
                     expression = new BinaryExpression(op, expression, ParseUnary());
                 }
-                else if (Current.Kind is TokenKind.Variable or TokenKind.Function or TokenKind.OpenParenthesis)
+                else if (Current.Kind is TokenKind.Variable or TokenKind.Function or TokenKind.OpenParenthesis || IsNamedConstant(Current))
                 {
                     expression = new BinaryExpression(BinaryOperator.Multiply, expression, ParsePower());
                 }
@@ -142,6 +142,11 @@ namespace MathChain.Application.Practice
                     return expression;
                 }
             }
+        }
+
+        private static bool IsNamedConstant(Token token)
+        {
+            return token.Kind == TokenKind.Number && (token.Text == "pi" || token.Text == "e");
         }
 
         private MathExpression ParseUnary()
@@ -279,6 +284,11 @@ namespace MathChain.Application.Practice
                     {
                         tokens.Add(new Token(TokenKind.Number, "pi", Math.PI));
                         index += 2;
+                    }
+                    else if (character == 'e' && !_allowedVariables.Contains('e'))
+                    {
+                        tokens.Add(new Token(TokenKind.Number, "e", Math.E));
+                        index++;
                     }
                     else if (_allowedVariables.Contains(character))
                     {

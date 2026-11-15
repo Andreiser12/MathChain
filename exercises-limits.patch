@@ -1,0 +1,1982 @@
+diff --git a/MathChain.Application/Practice/ExerciseGenerator.cs b/MathChain.Application/Practice/ExerciseGenerator.cs
+index 8305017..daa99d6 100644
+--- a/MathChain.Application/Practice/ExerciseGenerator.cs
++++ b/MathChain.Application/Practice/ExerciseGenerator.cs
+@@ -83,11 +83,6 @@ namespace MathChain.Application.Practice
+ 
+             var latex = Substitute(template.LatexTemplate ?? string.Empty, values);
+ 
+-            if (latex.Contains('='))
+-            {
+-                latex = latex.Split('=')[0].Trim();
+-            }
+-
+             var hint = string.IsNullOrWhiteSpace(template.Hint) ? null : Substitute(template.Hint, values);
+ 
+             return new GeneratedExercise(BuildRequirement(template.Requirement, form), latex, hint, form, expectedAnswer);
+diff --git a/MathChain.Application/Practice/MathExpression.cs b/MathChain.Application/Practice/MathExpression.cs
+index 861c382..ede3eef 100644
+--- a/MathChain.Application/Practice/MathExpression.cs
++++ b/MathChain.Application/Practice/MathExpression.cs
+@@ -123,6 +123,9 @@ namespace MathChain.Application.Practice
+                 "sqrt" => Math.Sqrt(value),
+                 "cbrt" => Math.Cbrt(value),
+                 "abs" => Math.Abs(value),
++                "arcsin" => Math.Asin(value),
++                "arccos" => Math.Acos(value),
++                "arctan" => Math.Atan(value),
+                 "sin" => Math.Sin(value),
+                 "cos" => Math.Cos(value),
+                 "tan" => Math.Tan(value),
+diff --git a/MathChain.Application/Practice/MathExpressionParser.cs b/MathChain.Application/Practice/MathExpressionParser.cs
+index 66cbca8..6fcf182 100644
+--- a/MathChain.Application/Practice/MathExpressionParser.cs
++++ b/MathChain.Application/Practice/MathExpressionParser.cs
+@@ -15,7 +15,7 @@ namespace MathChain.Application.Practice
+         public const int MaximumLength = 300;
+         private const int MaximumDepth = 64;
+ 
+-        private static readonly string[] FunctionNames = { "sqrt", "cbrt", "abs", "sin", "cos", "tan", "exp", "ln" };
++        private static readonly string[] FunctionNames = { "sqrt", "cbrt", "abs", "arcsin", "arccos", "arctan", "sin", "cos", "tan", "exp", "ln" };
+ 
+         private readonly ISet<char> _allowedVariables;
+         private List<Token> _tokens = new();
+@@ -133,7 +133,7 @@ namespace MathChain.Application.Practice
+                     _position++;
+                     expression = new BinaryExpression(op, expression, ParseUnary());
+                 }
+-                else if (Current.Kind is TokenKind.Variable or TokenKind.Function or TokenKind.OpenParenthesis)
++                else if (Current.Kind is TokenKind.Variable or TokenKind.Function or TokenKind.OpenParenthesis || IsNamedConstant(Current))
+                 {
+                     expression = new BinaryExpression(BinaryOperator.Multiply, expression, ParsePower());
+                 }
+@@ -144,6 +144,11 @@ namespace MathChain.Application.Practice
+             }
+         }
+ 
++        private static bool IsNamedConstant(Token token)
++        {
++            return token.Kind == TokenKind.Number && (token.Text == "pi" || token.Text == "e");
++        }
++
+         private MathExpression ParseUnary()
+         {
+             if (Current.Kind == TokenKind.Operator && (Current.Text == "-" || Current.Text == "+"))
+@@ -280,6 +285,11 @@ namespace MathChain.Application.Practice
+                         tokens.Add(new Token(TokenKind.Number, "pi", Math.PI));
+                         index += 2;
+                     }
++                    else if (character == 'e' && !_allowedVariables.Contains('e'))
++                    {
++                        tokens.Add(new Token(TokenKind.Number, "e", Math.E));
++                        index++;
++                    }
+                     else if (_allowedVariables.Contains(character))
+                     {
+                         tokens.Add(new Token(TokenKind.Variable, character.ToString()));
+diff --git a/MathChain.Blazor/wwwroot/data/curriculum/algebra_calcul_prescurtat.json b/MathChain.Blazor/wwwroot/data/curriculum/algebra_calcul_prescurtat.json
+index ab98cc5..493fdb0 100644
+--- a/MathChain.Blazor/wwwroot/data/curriculum/algebra_calcul_prescurtat.json
++++ b/MathChain.Blazor/wwwroot/data/curriculum/algebra_calcul_prescurtat.json
+@@ -1321,12 +1321,12 @@
+           "order": 9,
+           "variables": {
+             "a": [
+-              1,
+-              1
++              6,
++              9
+             ]
+           },
+-          "latexTemplate": "x^n - 1",
+-          "wolframQuery": "factor x^n - 1",
++          "latexTemplate": "x^{{a}} - 1",
++          "wolframQuery": "factor x^{a} - 1",
+           "hint": "Suma unei progresii geometrice: 1 + x + x^2 + ... + x^{n-1} = (x^n - 1)/(x - 1).",
+           "solutionIpfs": "QmHardStepByStepExplanation3PuteriN"
+         }
+diff --git a/MathChain.Blazor/wwwroot/data/curriculum/calculus_remarcablelimits.json b/MathChain.Blazor/wwwroot/data/curriculum/calculus_remarcablelimits.json
+index d56ebc5..ad03d50 100644
+--- a/MathChain.Blazor/wwwroot/data/curriculum/calculus_remarcablelimits.json
++++ b/MathChain.Blazor/wwwroot/data/curriculum/calculus_remarcablelimits.json
+@@ -16,532 +16,1574 @@
+         {
+           "difficulty": "Easy",
+           "order": 1,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+               5
+             ]
+           },
+-          "latexTemplate": "\\lim_{n\\to\\infty}\\left( 1 + \\frac{1}{n}\\right)^n=e",
+-          "wolframQuery": "simplify \\lim_{n\\to\\infty}\\left( 1 + \\frac{1}{n}\\right)^n=e",
+-          "hint": "Aplica direct formula fundamentala.",
++          "latexTemplate": "\\lim_{n\\to\\infty}\\left(1+\\frac{1}{n}\\right)^{{a}n}",
++          "wolframQuery": "e^{a}",
++          "hint": "Write the power as ((1 + 1/n)^n)^{a}.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Easy",
++          "order": 2,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              6
++            ]
++          },
++          "latexTemplate": "\\lim_{n\\to\\infty}\\left(1+\\frac{{a}}{n}\\right)^{n}",
++          "wolframQuery": "e^{a}",
++          "hint": "Write it as ((1 + {a}/n)^(n/{a}))^{a}.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Easy",
++          "order": 3,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              5
++            ]
++          },
++          "latexTemplate": "\\lim_{n\\to\\infty}\\left(1+\\frac{1}{{a}n}\\right)^{n}",
++          "wolframQuery": "e^(1/{a})",
++          "hint": "Write it as ((1 + 1/({a}n))^({a}n))^(1/{a}).",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Medium",
++          "order": 4,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              1,
++              3
++            ],
++            "b": [
++              2,
++              3
++            ]
++          },
++          "latexTemplate": "\\lim_{n\\to\\infty}\\left(1+\\frac{{a}}{n}\\right)^{{b}n}",
++          "wolframQuery": "e^({a}*{b})",
++          "hint": "Write the base as 1 + {a}/n and group the exponent as (n/{a}) * {a} * {b}.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Medium",
++          "order": 5,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              6
++            ]
++          },
++          "latexTemplate": "\\lim_{n\\to\\infty}\\left(\\frac{n+{a}}{n}\\right)^{n}",
++          "wolframQuery": "e^{a}",
++          "hint": "Split the fraction: (n + {a})/n = 1 + {a}/n.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Medium",
++          "order": 6,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              1,
++              4
++            ]
++          },
++          "latexTemplate": "\\lim_{n\\to\\infty}\\left(1-\\frac{{a}}{n}\\right)^{-n}",
++          "wolframQuery": "e^{a}",
++          "hint": "Write it as (1 + (-{a})/n)^(-n).",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Hard",
++          "order": 7,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              1,
++              4
++            ],
++            "b": [
++              1,
++              3
++            ]
++          },
++          "latexTemplate": "\\lim_{n\\to\\infty}\\left(\\frac{n+{a+b}}{n+{b}}\\right)^{n}",
++          "wolframQuery": "e^{a}",
++          "hint": "Write the base as 1 + {a}/(n + {b}).",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Hard",
++          "order": 8,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              1,
++              3
++            ],
++            "b": [
++              2,
++              3
++            ],
++            "c": [
++              1,
++              5
++            ]
++          },
++          "latexTemplate": "\\lim_{n\\to\\infty}\\left(1+\\frac{{a}}{n}\\right)^{{b}n+{c}}",
++          "wolframQuery": "e^({a}*{b})",
++          "hint": "Split the power: the factor (1 + {a}/n)^{c} tends to 1.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Hard",
++          "order": 9,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              1,
++              3
++            ],
++            "b": [
++              1,
++              3
++            ]
++          },
++          "latexTemplate": "\\lim_{n\\to\\infty}\\left(\\frac{n+{a}}{n-{b}}\\right)^{n}",
++          "wolframQuery": "e^({a}+{b})",
++          "hint": "Write the base as 1 + {a+b}/(n - {b}).",
++          "solutionIpfs": null
++        }
++      ]
++    },
++    {
++      "id": "calculus_remarcablelimits-f2",
++      "title": "Basic Formulas - Formula 2",
++      "latex": "\\lim_{n\\to 0}\\left( 1 + n\\right)^\\frac{1}{n}=e",
++      "model3D": "Assets/3DModels/LR2.glb",
++      "description": "",
++      "requirement": "Calculate the limit",
++      "exercises": [
++        {
++          "difficulty": "Easy",
++          "order": 1,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              5
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\left(1+{a}x\\right)^{\\frac{1}{x}}",
++          "wolframQuery": "e^{a}",
++          "hint": "Write it as ((1 + {a}x)^(1/({a}x)))^{a}.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Easy",
++          "order": 2,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              5
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\left(1+x\\right)^{\\frac{{a}}{x}}",
++          "wolframQuery": "e^{a}",
++          "hint": "Write it as ((1 + x)^(1/x))^{a}.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Easy",
++          "order": 3,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              5
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\left(1+\\frac{x}{{a}}\\right)^{\\frac{1}{x}}",
++          "wolframQuery": "e^(1/{a})",
++          "hint": "Substitute t = x/{a}.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Medium",
++          "order": 4,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              3
++            ],
++            "b": [
++              2,
++              3
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\left(1+{a}x\\right)^{\\frac{{b}}{x}}",
++          "wolframQuery": "e^({a}*{b})",
++          "hint": "Group the exponent as (1/({a}x)) * {a} * {b}.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Medium",
++          "order": 5,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              5
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\left(1-x\\right)^{-\\frac{{a}}{x}}",
++          "wolframQuery": "e^{a}",
++          "hint": "Substitute t = -x.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Medium",
++          "order": 6,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              6
++            ],
++            "b": [
++              2,
++              3
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\left(1+{a}x\\right)^{\\frac{1}{{b}x}}",
++          "wolframQuery": "e^({a}/{b})",
++          "hint": "Group the exponent as (1/({a}x)) * ({a}/{b}).",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Hard",
++          "order": 7,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              6
++            ],
++            "b": [
++              2,
++              3
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\left(1+{a}x\\right)^{\\frac{1}{\\sin {b}x}}",
++          "wolframQuery": "e^({a}/{b})",
++          "hint": "Use sin({b}x) ~ {b}x when x -> 0.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Hard",
++          "order": 8,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              3
++            ],
++            "b": [
++              1,
++              3
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\left(1+\\tan {a}x\\right)^{\\frac{{b}}{x}}",
++          "wolframQuery": "e^({a}*{b})",
++          "hint": "Use tan({a}x)/x -> {a}.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Hard",
++          "order": 9,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              3
++            ],
++            "b": [
++              1,
++              2
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\left(\\cos {a}x\\right)^{-\\frac{{b}}{x^2}}",
++          "wolframQuery": "e^({a}^2*{b}/2)",
++          "hint": "Write cos({a}x) = 1 + (cos({a}x) - 1) and use 1 - cos({a}x) ~ ({a}x)^2/2.",
++          "solutionIpfs": null
++        }
++      ]
++    },
++    {
++      "id": "calculus_remarcablelimits-f3",
++      "title": "Basic Formulas - Formula 3",
++      "latex": "\\lim_{x\\to 0}\\frac{\\ln{\\left(1+x\\right)}}{x}=1",
++      "model3D": "Assets/3DModels/LR3.glb",
++      "description": "",
++      "requirement": "Calculate the limit",
++      "exercises": [
++        {
++          "difficulty": "Easy",
++          "order": 1,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\ln\\left(1+{a}x\\right)}{x}",
++          "wolframQuery": "{a}",
++          "hint": "Multiply and divide by {a}.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Easy",
++          "order": 2,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\ln\\left(1+x\\right)}{{a}x}",
++          "wolframQuery": "1/{a}",
++          "hint": "Take the constant 1/{a} out of the limit.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Easy",
++          "order": 3,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              7
++            ],
++            "b": [
++              1,
++              3
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\ln\\left(1+{a}x\\right)}{{a+b}x}",
++          "wolframQuery": "{a}/({a}+{b})",
++          "hint": "Multiply and divide by {a}.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Medium",
++          "order": 4,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              5
++            ],
++            "b": [
++              1,
++              4
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\ln\\left(1+{a+b}x\\right)}{\\ln\\left(1+{a}x\\right)}",
++          "wolframQuery": "({a}+{b})/{a}",
++          "hint": "Divide the numerator and the denominator by x.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Medium",
++          "order": 5,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ],
++            "b": [
++              2,
++              4
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\ln\\left(1+{a}x\\right)}{\\sin {b}x}",
++          "wolframQuery": "{a}/{b}",
++          "hint": "Use ln(1 + {a}x) ~ {a}x and sin({b}x) ~ {b}x.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Medium",
++          "order": 6,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ],
++            "b": [
++              2,
++              5
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\ln\\left(1+{a}x+{b}x^2\\right)}{x}",
++          "wolframQuery": "{a}",
++          "hint": "Let t = {a}x + {b}x^2; then t/x -> {a}.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Hard",
++          "order": 7,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to\\infty}x\\ln\\left(1+\\frac{{a}}{x}\\right)",
++          "wolframQuery": "{a}",
++          "hint": "Substitute t = {a}/x, so t -> 0.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Hard",
++          "order": 8,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              6
++            ],
++            "b": [
++              2,
++              6
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\ln\\left(1+{a}x\\right)-\\ln\\left(1-{b}x\\right)}{x}",
++          "wolframQuery": "{a}+{b}",
++          "hint": "Split into two limits of the form ln(1 + t)/t.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Hard",
++          "order": 9,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ],
++            "b": [
++              2,
++              5
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\ln\\left(1+{a}x\\right)}{e^{{b}x}-1}",
++          "wolframQuery": "{a}/{b}",
++          "hint": "Use ln(1 + {a}x) ~ {a}x and e^({b}x) - 1 ~ {b}x.",
++          "solutionIpfs": null
++        }
++      ]
++    },
++    {
++      "id": "calculus_remarcablelimits-f4",
++      "title": "Basic Formulas - Formula 4",
++      "latex": "\\lim_{x\\to 0}\\frac{a^x-1}{x}=\\ln{a}",
++      "model3D": "Assets/3DModels/LR4.glb",
++      "description": "",
++      "requirement": "Calculate the limit",
++      "exercises": [
++        {
++          "difficulty": "Easy",
++          "order": 1,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{{a}^x-1}{x}",
++          "wolframQuery": "ln({a})",
++          "hint": "Apply the formula directly: the result is ln {a}.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Easy",
++          "order": 2,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{e^{{a}x}-1}{x}",
++          "wolframQuery": "{a}",
++          "hint": "Multiply and divide by {a}; remember that ln e = 1.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Easy",
++          "order": 3,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ],
++            "b": [
++              2,
++              4
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{{a}^x-1}{{b}x}",
++          "wolframQuery": "ln({a})/{b}",
++          "hint": "Take 1/{b} out of the limit.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Medium",
++          "order": 4,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              5
++            ],
++            "b": [
++              2,
++              4
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{{a}^{{b}x}-1}{x}",
++          "wolframQuery": "{b}*ln({a})",
++          "hint": "Multiply and divide by {b}.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Medium",
++          "order": 5,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              6,
++              9
++            ],
++            "b": [
++              2,
++              5
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{{a}^x-{b}^x}{x}",
++          "wolframQuery": "ln({a})-ln({b})",
++          "hint": "Add and subtract 1 in the numerator.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Medium",
++          "order": 6,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              5,
++              9
++            ],
++            "b": [
++              2,
++              4
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{e^{{a}x}-e^{{b}x}}{x}",
++          "wolframQuery": "{a}-{b}",
++          "hint": "Add and subtract 1 in the numerator.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Hard",
++          "order": 7,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              6
++            ],
++            "b": [
++              1,
++              3
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{{a}^x-1}{{a+b}^x-1}",
++          "wolframQuery": "ln({a})/ln({a}+{b})",
++          "hint": "Divide the numerator and the denominator by x.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Hard",
++          "order": 8,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ],
++            "b": [
++              2,
++              5
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{e^{{a}x}-1}{\\sin {b}x}",
++          "wolframQuery": "{a}/{b}",
++          "hint": "Use e^({a}x) - 1 ~ {a}x and sin({b}x) ~ {b}x.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Hard",
++          "order": 9,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to\\infty}x\\left({a}^{\\frac{1}{x}}-1\\right)",
++          "wolframQuery": "ln({a})",
++          "hint": "Substitute t = 1/x, so t -> 0.",
++          "solutionIpfs": null
++        }
++      ]
++    },
++    {
++      "id": "calculus_remarcablelimits-f5",
++      "title": "Basic Formulas - Formula 5",
++      "latex": "\\lim_{x\\to 0}\\frac{\\left(1+x\\right)^r - 1}{x}=r",
++      "model3D": "Assets/3DModels/LR5.glb",
++      "description": "",
++      "requirement": "Calculate the limit",
++      "exercises": [
++        {
++          "difficulty": "Easy",
++          "order": 1,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\left(1+x\\right)^{{a}}-1}{x}",
++          "wolframQuery": "{a}",
++          "hint": "Apply the formula with r = {a}.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Easy",
++          "order": 2,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\sqrt{1+{a}x}-1}{x}",
++          "wolframQuery": "{a}/2",
++          "hint": "The square root is the power r = 1/2.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Easy",
++          "order": 3,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              5
++            ],
++            "b": [
++              2,
++              4
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\left(1+{a}x\\right)^{{b}}-1}{x}",
++          "wolframQuery": "{a}*{b}",
++          "hint": "Multiply and divide by {a}.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Medium",
++          "order": 4,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\sqrt[3]{1+{a}x}-1}{x}",
++          "wolframQuery": "{a}/3",
++          "hint": "The cube root is the power r = 1/3.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Medium",
++          "order": 5,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              5
++            ],
++            "b": [
++              1,
++              4
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\left(1+x\\right)^{{a+b}}-1}{\\left(1+x\\right)^{{a}}-1}",
++          "wolframQuery": "({a}+{b})/{a}",
++          "hint": "Divide the numerator and the denominator by x.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Medium",
++          "order": 6,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ],
++            "b": [
++              2,
++              3
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\sqrt{1+{a}x}-1}{\\sin {b}x}",
++          "wolframQuery": "{a}/(2*{b})",
++          "hint": "Use sqrt(1 + {a}x) - 1 ~ {a}x/2 and sin({b}x) ~ {b}x.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Hard",
++          "order": 7,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              6
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\sqrt{{a*a}+x}-{a}}{x}",
++          "wolframQuery": "1/(2*{a})",
++          "hint": "Factor {a} out of the root: sqrt({a*a} + x) = {a}*sqrt(1 + x/{a*a}).",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Hard",
++          "order": 8,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ],
++            "b": [
++              3,
++              5
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\sqrt[{b}]{1+{a}x}-1}{x}",
++          "wolframQuery": "{a}/{b}",
++          "hint": "The root of order {b} is the power r = 1/{b}.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Hard",
++          "order": 9,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              3
++            ],
++            "b": [
++              2,
++              4
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\left(1+{a}x\\right)^{{b}}-1}{\\sqrt{1+x}-1}",
++          "wolframQuery": "2*{a}*{b}",
++          "hint": "The numerator behaves like {a*b}x and the denominator like x/2.",
++          "solutionIpfs": null
++        }
++      ]
++    },
++    {
++      "id": "calculus_remarcablelimits-f6",
++      "title": "Basic Formulas - Formula 6",
++      "latex": "\\lim_{x\\to 0}\\frac{\\sin{x}}{x}=1",
++      "model3D": "Assets/3DModels/LR6.glb",
++      "description": "",
++      "requirement": "Calculate the limit",
++      "exercises": [
++        {
++          "difficulty": "Easy",
++          "order": 1,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\sin {a}x}{x}",
++          "wolframQuery": "{a}",
++          "hint": "Multiply and divide by {a}.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Easy",
++          "order": 2,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              7
++            ],
++            "b": [
++              1,
++              3
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\sin {a}x}{{a+b}x}",
++          "wolframQuery": "{a}/({a}+{b})",
++          "hint": "Multiply and divide by {a}.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Easy",
++          "order": 3,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{x}{\\sin {a}x}",
++          "wolframQuery": "1/{a}",
++          "hint": "This is the inverse of sin({a}x)/x.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Medium",
++          "order": 4,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              5
++            ],
++            "b": [
++              1,
++              4
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\sin {a+b}x}{\\sin {a}x}",
++          "wolframQuery": "({a}+{b})/{a}",
++          "hint": "Divide the numerator and the denominator by x.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Medium",
++          "order": 5,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              6
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{1-\\cos {a}x}{x^2}",
++          "wolframQuery": "{a}^2/2",
++          "hint": "Use 1 - cos({a}x) = 2 sin^2({a}x/2).",
+           "solutionIpfs": null
+         },
+         {
+           "difficulty": "Medium",
+-          "order": 2,
++          "order": 6,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+               6
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\sin^2 {a}x}{x^2}",
++          "wolframQuery": "{a}^2",
++          "hint": "Square the limit of sin({a}x)/x.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Hard",
++          "order": 7,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to\\infty}x\\sin\\frac{{a}}{x}",
++          "wolframQuery": "{a}",
++          "hint": "Substitute t = {a}/x, so t -> 0.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Hard",
++          "order": 8,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              4
+             ],
+             "b": [
+               1,
+-              4
++              3
+             ]
+           },
+-          "latexTemplate": "\\lim_{n\\to\\infty}\\left( 1 + \\frac{1}{n}\\right)^n=e",
+-          "wolframQuery": "simplify \\lim_{n\\to\\infty}\\left( 1 + \\frac{1}{n}\\right)^n=e",
+-          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{1-\\cos {a+b}x}{1-\\cos {a}x}",
++          "wolframQuery": "({a}+{b})^2/{a}^2",
++          "hint": "Use 1 - cos(kx) ~ (kx)^2/2 for both terms.",
+           "solutionIpfs": null
+         },
+         {
+           "difficulty": "Hard",
+-          "order": 3,
++          "order": 9,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              8
++              3
+             ],
+             "b": [
++              1,
++              2
++            ],
++            "c": [
+               2,
+-              5
++              3
+             ]
+           },
+-          "latexTemplate": "\\lim_{n\\to\\infty}\\left( 1 + \\frac{1}{n}\\right)^n=e",
+-          "wolframQuery": "simplify \\lim_{n\\to\\infty}\\left( 1 + \\frac{1}{n}\\right)^n=e",
+-          "hint": "Combina proprietatile specifice capitolului.",
+-          "solutionIpfs": "QmHardSol_calculus_remarcablelimits_f1"
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\sin {a}x\\,\\sin {a+b}x}{x\\sin {c}x}",
++          "wolframQuery": "{a}*({a}+{b})/{c}",
++          "hint": "Replace each sine by its argument.",
++          "solutionIpfs": null
+         }
+       ]
+     },
+     {
+-      "id": "calculus_remarcablelimits-f2",
+-      "title": "Basic Formulas - Formula 2",
+-      "latex": "\\lim_{n\\to 0}\\left( 1 + n\\right)^\\frac{1}{n}=e",
+-      "model3D": "Assets/3DModels/LR2.glb",
++      "id": "calculus_remarcablelimits-f7",
++      "title": "Basic Formulas - Formula 7",
++      "latex": "\\lim_{x\\to 0}\\frac{\\tan{x}}{x}=1",
++      "model3D": "Assets/3DModels/LR7.glb",
+       "description": "",
+       "requirement": "Calculate the limit",
+       "exercises": [
+         {
+           "difficulty": "Easy",
+           "order": 1,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              5
++              9
+             ]
+           },
+-          "latexTemplate": "\\lim_{n\\to 0}\\left( 1 + n\\right)^\\frac{1}{n}=e",
+-          "wolframQuery": "simplify \\lim_{n\\to 0}\\left( 1 + n\\right)^\\frac{1}{n}=e",
+-          "hint": "Aplica direct formula fundamentala.",
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\tan {a}x}{x}",
++          "wolframQuery": "{a}",
++          "hint": "Multiply and divide by {a}.",
+           "solutionIpfs": null
+         },
+         {
+-          "difficulty": "Medium",
++          "difficulty": "Easy",
+           "order": 2,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              6
++              7
+             ],
+             "b": [
+               1,
+-              4
++              3
+             ]
+           },
+-          "latexTemplate": "\\lim_{n\\to 0}\\left( 1 + n\\right)^\\frac{1}{n}=e",
+-          "wolframQuery": "simplify \\lim_{n\\to 0}\\left( 1 + n\\right)^\\frac{1}{n}=e",
+-          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\tan {a}x}{{a+b}x}",
++          "wolframQuery": "{a}/({a}+{b})",
++          "hint": "Multiply and divide by {a}.",
+           "solutionIpfs": null
+         },
+         {
+-          "difficulty": "Hard",
++          "difficulty": "Easy",
+           "order": 3,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              8
+-            ],
+-            "b": [
+-              2,
+-              5
++              9
+             ]
+           },
+-          "latexTemplate": "\\lim_{n\\to 0}\\left( 1 + n\\right)^\\frac{1}{n}=e",
+-          "wolframQuery": "simplify \\lim_{n\\to 0}\\left( 1 + n\\right)^\\frac{1}{n}=e",
+-          "hint": "Combina proprietatile specifice capitolului.",
+-          "solutionIpfs": "QmHardSol_calculus_remarcablelimits_f2"
+-        }
+-      ]
+-    },
+-    {
+-      "id": "calculus_remarcablelimits-f3",
+-      "title": "Basic Formulas - Formula 3",
+-      "latex": "\\lim_{x\\to 0}\\frac{\\ln{\\left(1+x\\right)}}{x}=1",
+-      "model3D": "Assets/3DModels/LR3.glb",
+-      "description": "",
+-      "requirement": "Calculate the limit",
+-      "exercises": [
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{x}{\\tan {a}x}",
++          "wolframQuery": "1/{a}",
++          "hint": "This is the inverse of tan({a}x)/x.",
++          "solutionIpfs": null
++        },
+         {
+-          "difficulty": "Easy",
+-          "order": 1,
++          "difficulty": "Medium",
++          "order": 4,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+               5
++            ],
++            "b": [
++              1,
++              4
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\ln{\\left(1+x\\right)}}{x}=1",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\ln{\\left(1+x\\right)}}{x}=1",
+-          "hint": "Aplica direct formula fundamentala.",
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\tan {a+b}x}{\\sin {a}x}",
++          "wolframQuery": "({a}+{b})/{a}",
++          "hint": "Divide the numerator and the denominator by x.",
+           "solutionIpfs": null
+         },
+         {
+           "difficulty": "Medium",
+-          "order": 2,
++          "order": 5,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              6
++              5
+             ],
+             "b": [
+               1,
+               4
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\ln{\\left(1+x\\right)}}{x}=1",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\ln{\\left(1+x\\right)}}{x}=1",
+-          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\tan {a}x}{\\tan {a+b}x}",
++          "wolframQuery": "{a}/({a}+{b})",
++          "hint": "Divide the numerator and the denominator by x.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Medium",
++          "order": 6,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              6
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\tan^2 {a}x}{x^2}",
++          "wolframQuery": "{a}^2",
++          "hint": "Square the limit of tan({a}x)/x.",
+           "solutionIpfs": null
+         },
+         {
+           "difficulty": "Hard",
+-          "order": 3,
++          "order": 7,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              4
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\tan {a}x-\\sin {a}x}{x^3}",
++          "wolframQuery": "{a}^3/2",
++          "hint": "Write tan({a}x) - sin({a}x) = tan({a}x)(1 - cos({a}x)).",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Hard",
++          "order": 8,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
++          "variables": {
++            "a": [
++              2,
++              9
++            ]
++          },
++          "latexTemplate": "\\lim_{x\\to\\infty}x\\tan\\frac{{a}}{x}",
++          "wolframQuery": "{a}",
++          "hint": "Substitute t = {a}/x, so t -> 0.",
++          "solutionIpfs": null
++        },
++        {
++          "difficulty": "Hard",
++          "order": 9,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              8
++              5
+             ],
+             "b": [
+               2,
+               5
++            ],
++            "c": [
++              2,
++              4
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\ln{\\left(1+x\\right)}}{x}=1",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\ln{\\left(1+x\\right)}}{x}=1",
+-          "hint": "Combina proprietatile specifice capitolului.",
+-          "solutionIpfs": "QmHardSol_calculus_remarcablelimits_f3"
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\tan {a}x+\\tan {b}x}{\\sin {c}x}",
++          "wolframQuery": "({a}+{b})/{c}",
++          "hint": "Split the fraction into two limits.",
++          "solutionIpfs": null
+         }
+       ]
+     },
+     {
+-      "id": "calculus_remarcablelimits-f4",
+-      "title": "Basic Formulas - Formula 4",
+-      "latex": "\\lim_{x\\to 0}\\frac{a^x-1}{x}=\\ln{a}",
+-      "model3D": "Assets/3DModels/LR4.glb",
++      "id": "calculus_remarcablelimits-f8",
++      "title": "Basic Formulas - Formula 8",
++      "latex": "\\lim_{x\\to 0}\\frac{\\arcsin{x}}{x}=1",
++      "model3D": "Assets/3DModels/LR8.glb",
+       "description": "",
+       "requirement": "Calculate the limit",
+       "exercises": [
+         {
+           "difficulty": "Easy",
+           "order": 1,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              5
++              9
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{a^x-1}{x}=\\ln{a}",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{a^x-1}{x}=\\ln{a}",
+-          "hint": "Aplica direct formula fundamentala.",
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arcsin {a}x}{x}",
++          "wolframQuery": "{a}",
++          "hint": "Multiply and divide by {a}.",
+           "solutionIpfs": null
+         },
+         {
+-          "difficulty": "Medium",
++          "difficulty": "Easy",
+           "order": 2,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              6
++              7
+             ],
+             "b": [
+               1,
+-              4
++              3
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{a^x-1}{x}=\\ln{a}",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{a^x-1}{x}=\\ln{a}",
+-          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arcsin {a}x}{{a+b}x}",
++          "wolframQuery": "{a}/({a}+{b})",
++          "hint": "Multiply and divide by {a}.",
+           "solutionIpfs": null
+         },
+         {
+-          "difficulty": "Hard",
++          "difficulty": "Easy",
+           "order": 3,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              8
+-            ],
+-            "b": [
+-              2,
+-              5
++              9
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{a^x-1}{x}=\\ln{a}",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{a^x-1}{x}=\\ln{a}",
+-          "hint": "Combina proprietatile specifice capitolului.",
+-          "solutionIpfs": "QmHardSol_calculus_remarcablelimits_f4"
+-        }
+-      ]
+-    },
+-    {
+-      "id": "calculus_remarcablelimits-f5",
+-      "title": "Basic Formulas - Formula 5",
+-      "latex": "\\lim_{x\\to 0}\\frac{\\left(1+x\\right)^r - 1}{x}=r",
+-      "model3D": "Assets/3DModels/LR5.glb",
+-      "description": "",
+-      "requirement": "Calculate the limit",
+-      "exercises": [
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{x}{\\arcsin {a}x}",
++          "wolframQuery": "1/{a}",
++          "hint": "This is the inverse of arcsin({a}x)/x.",
++          "solutionIpfs": null
++        },
+         {
+-          "difficulty": "Easy",
+-          "order": 1,
++          "difficulty": "Medium",
++          "order": 4,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+               5
++            ],
++            "b": [
++              1,
++              4
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\left(1+x\\right)^r - 1}{x}=r",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\left(1+x\\right)^r - 1}{x}=r",
+-          "hint": "Aplica direct formula fundamentala.",
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arcsin {a+b}x}{\\sin {a}x}",
++          "wolframQuery": "({a}+{b})/{a}",
++          "hint": "Divide the numerator and the denominator by x.",
+           "solutionIpfs": null
+         },
+         {
+           "difficulty": "Medium",
+-          "order": 2,
++          "order": 5,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              6
++              5
+             ],
+             "b": [
+               1,
+               4
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\left(1+x\\right)^r - 1}{x}=r",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\left(1+x\\right)^r - 1}{x}=r",
+-          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arcsin {a}x}{\\arcsin {a+b}x}",
++          "wolframQuery": "{a}/({a}+{b})",
++          "hint": "Divide the numerator and the denominator by x.",
+           "solutionIpfs": null
+         },
+         {
+-          "difficulty": "Hard",
+-          "order": 3,
++          "difficulty": "Medium",
++          "order": 6,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              8
++              9
+             ],
+             "b": [
+               2,
+               5
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\left(1+x\\right)^r - 1}{x}=r",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\left(1+x\\right)^r - 1}{x}=r",
+-          "hint": "Combina proprietatile specifice capitolului.",
+-          "solutionIpfs": "QmHardSol_calculus_remarcablelimits_f5"
+-        }
+-      ]
+-    },
+-    {
+-      "id": "calculus_remarcablelimits-f6",
+-      "title": "Basic Formulas - Formula 6",
+-      "latex": "\\lim_{x\\to 0}\\frac{\\sin{x}}{x}=1",
+-      "model3D": "Assets/3DModels/LR6.glb",
+-      "description": "",
+-      "requirement": "Calculate the limit",
+-      "exercises": [
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arcsin {a}x}{\\ln\\left(1+{b}x\\right)}",
++          "wolframQuery": "{a}/{b}",
++          "hint": "Use arcsin({a}x) ~ {a}x and ln(1 + {b}x) ~ {b}x.",
++          "solutionIpfs": null
++        },
+         {
+-          "difficulty": "Easy",
+-          "order": 1,
++          "difficulty": "Hard",
++          "order": 7,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              5
++              9
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\sin{x}}{x}=1",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\sin{x}}{x}=1",
+-          "hint": "Aplica direct formula fundamentala.",
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arcsin {a}x}{\\sqrt{1+x}-1}",
++          "wolframQuery": "2*{a}",
++          "hint": "The numerator behaves like {a}x and the denominator like x/2.",
+           "solutionIpfs": null
+         },
+         {
+-          "difficulty": "Medium",
+-          "order": 2,
++          "difficulty": "Hard",
++          "order": 8,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+-              2,
+-              6
++              5,
++              9
+             ],
+             "b": [
+-              1,
++              2,
+               4
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\sin{x}}{x}=1",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\sin{x}}{x}=1",
+-          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arcsin {a}x-\\arcsin {b}x}{x}",
++          "wolframQuery": "{a}-{b}",
++          "hint": "Split the fraction into two limits.",
+           "solutionIpfs": null
+         },
+         {
+           "difficulty": "Hard",
+-          "order": 3,
++          "order": 9,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              8
++              9
+             ],
+             "b": [
+               2,
+               5
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\sin{x}}{x}=1",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\sin{x}}{x}=1",
+-          "hint": "Combina proprietatile specifice capitolului.",
+-          "solutionIpfs": "QmHardSol_calculus_remarcablelimits_f6"
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arcsin {a}x}{e^{{b}x}-1}",
++          "wolframQuery": "{a}/{b}",
++          "hint": "Use arcsin({a}x) ~ {a}x and e^({b}x) - 1 ~ {b}x.",
++          "solutionIpfs": null
+         }
+       ]
+     },
+     {
+-      "id": "calculus_remarcablelimits-f7",
+-      "title": "Basic Formulas - Formula 7",
+-      "latex": "\\lim_{x\\to 0}\\frac{\\tan{x}}{x}=1",
+-      "model3D": "Assets/3DModels/LR7.glb",
++      "id": "calculus_remarcablelimits-f9",
++      "title": "Basic Formulas - Formula 9",
++      "latex": "\\lim_{x\\to 0}\\frac{\\arctan{x}}{x}=1",
++      "model3D": "Assets/3DModels/LR9.glb",
+       "description": "",
+       "requirement": "Calculate the limit",
+       "exercises": [
+         {
+           "difficulty": "Easy",
+           "order": 1,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              5
++              9
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\tan{x}}{x}=1",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\tan{x}}{x}=1",
+-          "hint": "Aplica direct formula fundamentala.",
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arctan {a}x}{x}",
++          "wolframQuery": "{a}",
++          "hint": "Multiply and divide by {a}.",
+           "solutionIpfs": null
+         },
+         {
+-          "difficulty": "Medium",
++          "difficulty": "Easy",
+           "order": 2,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              6
++              7
+             ],
+             "b": [
+               1,
+-              4
++              3
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\tan{x}}{x}=1",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\tan{x}}{x}=1",
+-          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arctan {a}x}{{a+b}x}",
++          "wolframQuery": "{a}/({a}+{b})",
++          "hint": "Multiply and divide by {a}.",
+           "solutionIpfs": null
+         },
+         {
+-          "difficulty": "Hard",
++          "difficulty": "Easy",
+           "order": 3,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              8
+-            ],
+-            "b": [
+-              2,
+-              5
++              9
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\tan{x}}{x}=1",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\tan{x}}{x}=1",
+-          "hint": "Combina proprietatile specifice capitolului.",
+-          "solutionIpfs": "QmHardSol_calculus_remarcablelimits_f7"
+-        }
+-      ]
+-    },
+-    {
+-      "id": "calculus_remarcablelimits-f8",
+-      "title": "Basic Formulas - Formula 8",
+-      "latex": "\\lim_{x\\to 0}\\frac{\\arcsin{x}}{x}=1",
+-      "model3D": "Assets/3DModels/LR8.glb",
+-      "description": "",
+-      "requirement": "Calculate the limit",
+-      "exercises": [
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{x}{\\arctan {a}x}",
++          "wolframQuery": "1/{a}",
++          "hint": "This is the inverse of arctan({a}x)/x.",
++          "solutionIpfs": null
++        },
+         {
+-          "difficulty": "Easy",
+-          "order": 1,
++          "difficulty": "Medium",
++          "order": 4,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+               5
++            ],
++            "b": [
++              1,
++              4
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arcsin{x}}{x}=1",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\arcsin{x}}{x}=1",
+-          "hint": "Aplica direct formula fundamentala.",
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arctan {a+b}x}{\\arctan {a}x}",
++          "wolframQuery": "({a}+{b})/{a}",
++          "hint": "Divide the numerator and the denominator by x.",
+           "solutionIpfs": null
+         },
+         {
+           "difficulty": "Medium",
+-          "order": 2,
++          "order": 5,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              6
++              5
+             ],
+             "b": [
+               1,
+               4
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arcsin{x}}{x}=1",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\arcsin{x}}{x}=1",
+-          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arctan {a}x}{\\sin {a+b}x}",
++          "wolframQuery": "{a}/({a}+{b})",
++          "hint": "Divide the numerator and the denominator by x.",
+           "solutionIpfs": null
+         },
+         {
+-          "difficulty": "Hard",
+-          "order": 3,
++          "difficulty": "Medium",
++          "order": 6,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              8
++              9
+             ],
+             "b": [
+               2,
+               5
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arcsin{x}}{x}=1",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\arcsin{x}}{x}=1",
+-          "hint": "Combina proprietatile specifice capitolului.",
+-          "solutionIpfs": "QmHardSol_calculus_remarcablelimits_f8"
+-        }
+-      ]
+-    },
+-    {
+-      "id": "calculus_remarcablelimits-f9",
+-      "title": "Basic Formulas - Formula 9",
+-      "latex": "\\lim_{x\\to 0}\\frac{\\arctan{x}}{x}=1",
+-      "model3D": "Assets/3DModels/LR9.glb",
+-      "description": "",
+-      "requirement": "Calculate the limit",
+-      "exercises": [
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arctan {a}x}{\\ln\\left(1+{b}x\\right)}",
++          "wolframQuery": "{a}/{b}",
++          "hint": "Use arctan({a}x) ~ {a}x and ln(1 + {b}x) ~ {b}x.",
++          "solutionIpfs": null
++        },
+         {
+-          "difficulty": "Easy",
+-          "order": 1,
++          "difficulty": "Hard",
++          "order": 7,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              5
++              9
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arctan{x}}{x}=1",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\arctan{x}}{x}=1",
+-          "hint": "Aplica direct formula fundamentala.",
++          "latexTemplate": "\\lim_{x\\to\\infty}x\\arctan\\frac{{a}}{x}",
++          "wolframQuery": "{a}",
++          "hint": "Substitute t = {a}/x, so t -> 0.",
+           "solutionIpfs": null
+         },
+         {
+-          "difficulty": "Medium",
+-          "order": 2,
++          "difficulty": "Hard",
++          "order": 8,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+               6
+             ],
+             "b": [
+-              1,
+-              4
++              2,
++              6
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arctan{x}}{x}=1",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\arctan{x}}{x}=1",
+-          "hint": "Fii atent la coeficienti si la ordinea operatiilor.",
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arctan {a}x+\\arcsin {b}x}{x}",
++          "wolframQuery": "{a}+{b}",
++          "hint": "Split the fraction into two limits.",
+           "solutionIpfs": null
+         },
+         {
+           "difficulty": "Hard",
+-          "order": 3,
++          "order": 9,
++          "requirement": "Calculate the limit. You can type e^2, ln(3), 3/4 or a decimal number.",
++          "isRandom": true,
+           "variables": {
+             "a": [
+               2,
+-              8
++              9
+             ],
+             "b": [
+               2,
+-              5
++              4
+             ]
+           },
+-          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arctan{x}}{x}=1",
+-          "wolframQuery": "simplify \\lim_{x\\to 0}\\frac{\\arctan{x}}{x}=1",
+-          "hint": "Combina proprietatile specifice capitolului.",
+-          "solutionIpfs": "QmHardSol_calculus_remarcablelimits_f9"
++          "latexTemplate": "\\lim_{x\\to 0}\\frac{\\arctan {a}x}{\\sqrt{1+{b}x}-1}",
++          "wolframQuery": "2*{a}/{b}",
++          "hint": "The numerator behaves like {a}x and the denominator like {b}x/2.",
++          "solutionIpfs": null
+         }
+       ]
+     }
+diff --git a/Tests/Practice/ExerciseCatalogTests.cs b/Tests/Practice/ExerciseCatalogTests.cs
+index 1571eaa..f5a54d1 100644
+--- a/Tests/Practice/ExerciseCatalogTests.cs
++++ b/Tests/Practice/ExerciseCatalogTests.cs
+@@ -88,6 +88,9 @@ namespace MathChain.Tests.Practice
+                     {
+                         withOwnExercises++;
+ 
++                        Assert.Equal(new[] { "Easy", "Easy", "Easy", "Medium", "Medium", "Medium", "Hard", "Hard", "Hard" },
++                            catalog.Exercises.Select(e => e.Difficulty).ToArray());
++
+                         foreach (var definition in catalog.Exercises)
+                         {
+                             for (var seed = 0; seed < 5; seed++)
+@@ -101,7 +104,7 @@ namespace MathChain.Tests.Practice
+                 }
+             }
+ 
+-            Assert.Equal(10, withOwnExercises);
++            Assert.Equal(19, withOwnExercises);
+         }
+ 
+         private static string FindRepositoryRoot()
+diff --git a/Tests/Practice/ExerciseGeneratorTests.cs b/Tests/Practice/ExerciseGeneratorTests.cs
+index 596155b..9e8cc4d 100644
+--- a/Tests/Practice/ExerciseGeneratorTests.cs
++++ b/Tests/Practice/ExerciseGeneratorTests.cs
+@@ -48,6 +48,18 @@ namespace MathChain.Tests.Practice
+             Assert.Equal("Expand the expression:", exercise.Requirement);
+         }
+ 
++        [Fact]
++        public void Generate_EquationLatex_KeepsBothSides()
++        {
++            var template = Template("{a}", @"2^{x} = 2^{{a}}", ("a", 3, 3));
++
++            var exercise = ExerciseGenerator.Generate(template, new SequenceRandom(3));
++
++            Assert.Equal(AnswerForm.Number, exercise.Form);
++            Assert.Equal("3", exercise.ExpectedAnswer);
++            Assert.Equal(@"2^{x} = 2^{3}", exercise.Latex);
++        }
++
+         [Fact]
+         public void Generate_ComputedPlaceholders_AreEvaluated()
+         {
+diff --git a/Tests/Practice/MathExpressionParserTests.cs b/Tests/Practice/MathExpressionParserTests.cs
+index 5d78c2d..aaf74cc 100644
+--- a/Tests/Practice/MathExpressionParserTests.cs
++++ b/Tests/Practice/MathExpressionParserTests.cs
+@@ -22,6 +22,15 @@ namespace MathChain.Tests.Practice
+         [InlineData("2**3", 8)]
+         [InlineData("3² − 1", 8)]
+         [InlineData("[1+2]*3", 9)]
++        [InlineData("ln(e^3)", 3)]
++        [InlineData("2e - e", Math.E)]
++        [InlineData("E", Math.E)]
++        [InlineData("4arctan(1)", Math.PI)]
++        [InlineData("2arcsin(1)", Math.PI)]
++        [InlineData("arccos(-1)", Math.PI)]
++        [InlineData("exp(1)", Math.E)]
++        [InlineData("3pi/3", Math.PI)]
++        [InlineData("4e/2", 2 * Math.E)]
+         public void Parse_Arithmetic_EvaluatesWithUsualPrecedence(string input, double expected)
+         {
+             Assert.Equal(expected, Evaluate(input), 10);
+@@ -57,6 +66,7 @@ namespace MathChain.Tests.Practice
+         [InlineData("\\frac{1}{2}")]
+         [InlineData("sqrt 4")]
+         [InlineData("1.2.3")]
++        [InlineData("2 pi 3")]
+         public void Parse_InvalidInput_Throws(string input)
+         {
+             Assert.Throws<MathExpressionParseException>(() => MathExpressionParser.Parse(input, AnswerChecker.Variables));

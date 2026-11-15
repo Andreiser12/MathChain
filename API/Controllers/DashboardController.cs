@@ -22,21 +22,5 @@ namespace MathChain.API.Controllers
 
             return Success(stats);
         }
-
-        [HttpPost("record-solved")]
-        public async Task<IActionResult> RecordSolvedProblem([FromBody] RecordSolvedProblemRequest request)
-        {
-            var result = await _dashboardContext.RecordSolvedProblemAsync(request);
-
-            return Success(result);
-        }
-
-        [HttpGet("practice-progress")]
-        public async Task<IActionResult> GetPracticeProgress([FromQuery] string formulaId)
-        {
-            var progress = await _dashboardContext.GetPracticeProgressAsync(formulaId);
-
-            return Success(progress);
-        }
     }
 }

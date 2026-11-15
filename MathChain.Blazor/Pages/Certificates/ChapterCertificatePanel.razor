@@ -1,0 +1,106 @@
+@inject ApiService Api
+@inject ISnackbar Snackbar
+
+@if (_progress != null && _progress.TotalExercises > 0)
+{
+	<MudPaper Elevation="2" Class="pa-4 mb-6 chapter-certificate-panel" Style="background-color: #16213e; color: #ffffff; border-radius: 0px;">
+		@if (!_progress.CertificatesAvailable)
+		{
+			<MudText Typo="Typo.body2" Style="color: rgba(255, 255, 255, 0.6);">
+				Chapter certificates are available only for chapters in which every formula has its own exercises.
+			</MudText>
+		}
+		else
+		{
+			<MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Wrap="Wrap.Wrap" Spacing="3">
+				<div style="flex: 1; min-width: 240px;">
+					<MudText Typo="Typo.subtitle1" Style="font-weight: 600;" id="chapter-progress-text">
+						Chapter progress: @_progress.SolvedExercises / @_progress.TotalExercises exercises
+					</MudText>
+					<MudProgressLinear Color="Color.Success" Value="@Percent" Class="mt-2" Style="height: 8px;" />
+				</div>
+
+				@if (_progress.Certificate is { } certificate)
+				{
+					<MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+						<MudChip T="string" Color="Color.Success" Variant="Variant.Filled" Icon="@Icons.Material.Filled.WorkspacePremium" Style="border-radius: 0px;">
+							Certificate #@certificate.TokenId
+						</MudChip>
+						<MudButton Variant="Variant.Outlined" Color="Color.Primary" Style="text-transform: none;"
+								   Href="@($"verify/{certificate.TokenId}?key={Uri.EscapeDataString(certificate.VerificationKey)}")">
+							View
+						</MudButton>
+					</MudStack>
+				}
+				else
+				{
+					<MudButton Variant="Variant.Filled" Color="Color.Success" Style="text-transform: none; font-weight: 600;"
+							   StartIcon="@Icons.Material.Filled.WorkspacePremium"
+							   Disabled="@(!_progress.Completed || _claiming)"
+							   OnClick="ClaimAsync">
+						@(_claiming ? "Issuing..." : "Get certificate")
+					</MudButton>
+				}
+			</MudStack>
+
+			@if (!_progress.Completed && _progress.Certificate == null)
+			{
+				<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);" Class="mt-2">
+					Solve every exercise of every formula in this chapter to get a certificate on the blockchain.
+				</MudText>
+			}
+		}
+	</MudPaper>
+}
+
+@code {
+	[Parameter]
+	public Guid ChapterId { get; set; }
+
+	private ChapterCertificateProgressDto? _progress;
+	private Guid _loadedChapterId;
+	private bool _claiming;
+
+	private double Percent => _progress == null || _progress.TotalExercises == 0
+		? 0
+		: 100.0 * _progress.SolvedExercises / _progress.TotalExercises;
+
+	protected override async Task OnParametersSetAsync()
+	{
+		if (ChapterId == _loadedChapterId)
+		{
+			return;
+		}
+
+		_loadedChapterId = ChapterId;
+		await LoadAsync();
+	}
+
+	private async Task LoadAsync()
+	{
+		var result = await Api.GetChapterCertificateProgressAsync(ChapterId);
+		_progress = result.Data;
+	}
+
+	private async Task ClaimAsync()
+	{
+		_claiming = true;
+		StateHasChanged();
+
+		var result = await Api.ClaimChapterCertificateAsync(ChapterId);
+
+		_claiming = false;
+
+		if (result.Success)
+		{
+			Snackbar.Add($"Certificate #{result.Data?.TokenId} was issued on the blockchain.", Severity.Success);
+		}
+		else
+		{
+			Snackbar.Add(result.Error ?? "The certificate could not be issued.", Severity.Error);
+		}
+
+		await LoadAsync();
+		StateHasChanged();
+	}
+}

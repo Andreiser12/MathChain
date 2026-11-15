@@ -1,6 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using MathChain.Application.DTOs;
+using MathChain.Application.Practice;
 using MathChain.Domain.Entities;
 using MathChain.Domain.Enums;
 using MathChain.Domain.Exceptions;
@@ -14,19 +15,25 @@ namespace MathChain.Application.Contexts
         private const int MaximumCertificatesPerTransaction = 50;
         private const int MaximumTitleLength = 200;
         private const string NotConfiguredMessage = "Certificates are not configured on this server.";
+        private const string NoTeacherAddress = "0x0000000000000000000000000000000000000000";
 
         private readonly ICertificateGateway _certificateGateway;
         private readonly ICertificateRegistry _registry;
         private readonly IClassRoomGateway _classRoomGateway;
+        private readonly ICurriculumGateway _curriculumGateway;
+        private readonly IPracticeExerciseGateway _practiceGateway;
         private readonly AccessGuard _access;
         private readonly TimeProvider _timeProvider;
 
         public CertificateContext(ICertificateGateway certificateGateway, ICertificateRegistry registry,
-            IClassRoomGateway classRoomGateway, AccessGuard access, TimeProvider timeProvider)
+            IClassRoomGateway classRoomGateway, ICurriculumGateway curriculumGateway, IPracticeExerciseGateway practiceGateway,
+            AccessGuard access, TimeProvider timeProvider)
         {
             _certificateGateway = certificateGateway;
             _registry = registry;
             _classRoomGateway = classRoomGateway;
+            _curriculumGateway = curriculumGateway;
+            _practiceGateway = practiceGateway;
             _access = access;
             _timeProvider = timeProvider;
         }
@@ -47,19 +54,65 @@ namespace MathChain.Application.Contexts
                 throw new BusinessRuleException("No students are eligible for a certificate. Set their final grades first.");
             }
 
+            var issued = await IssueAsync(CertificateKind.Class, classRoomId, classRoom.Name, Normalize(classRoom.TeacherWallet),
+                targets.Select(e => new CertificateTarget(Normalize(e.StudentWallet), e.FinalGrade!.Value)).ToList(), openCertificates);
+
+            return issued.Select(ToClassDto).ToList();
+        }
+
+        public async Task<ChapterCertificateProgressDto> GetChapterProgressAsync(Guid chapterId)
+        {
+            var wallet = _access.RequireWallet();
+
+            return await BuildChapterProgressAsync(chapterId, wallet);
+        }
+
+        public async Task<MyCertificateDto> ClaimChapterCertificateAsync(Guid chapterId)
+        {
+            var wallet = _access.RequireRole(UserRole.Student);
+            var progress = await BuildChapterProgressAsync(chapterId, wallet);
+
+            if (!progress.CertificatesAvailable)
+            {
+                throw new BusinessRuleException("Certificates are available only for chapters in which every formula has its own exercises.");
+            }
+
+            if (progress.Certificate != null)
+            {
+                throw new BusinessRuleException("You already have a certificate for this chapter.");
+            }
+
+            if (!progress.Completed)
+            {
+                throw new BusinessRuleException($"Solve every exercise in this chapter first ({progress.SolvedExercises}/{progress.TotalExercises}).");
+            }
+
+            EnsureCanIssue();
+
+            var openCertificates = (await _certificateGateway.GetBySubjectAsync(CertificateKind.Chapter, chapterId))
+                .Where(c => c.StudentWallet == wallet && c.Status != CertificateStatus.Revoked)
+                .ToList();
+            var issued = await IssueAsync(CertificateKind.Chapter, chapterId, progress.Title, NoTeacherAddress,
+                new List<CertificateTarget> { new(wallet, progress.TotalExercises) }, openCertificates);
+
+            return ToMyDto(issued.Single());
+        }
+
+        private async Task<List<Certificate>> IssueAsync(CertificateKind kind, Guid subjectId, string subjectTitle, string teacherWallet,
+            List<CertificateTarget> targets, List<Certificate> openCertificates)
+        {
             var now = _timeProvider.GetUtcNow().UtcDateTime;
-            var teacherWallet = Normalize(classRoom.TeacherWallet);
             var newCertificates = new List<Certificate>();
             var changedCertificates = new List<Certificate>();
             var toIssue = new List<Certificate>();
             var alreadyOnChain = new List<Certificate>();
 
-            foreach (var enrollment in targets)
+            foreach (var target in targets)
             {
-                var studentWallet = Normalize(enrollment.StudentWallet);
-                var grade = enrollment.FinalGrade!.Value;
+                var studentWallet = target.StudentWallet;
+                var grade = target.Grade;
                 var certificate = openCertificates.FirstOrDefault(c => c.StudentWallet == studentWallet);
-                var activeTokenId = await _registry.FindActiveAsync(studentWallet, CertificateKind.Class, classRoomId);
+                var activeTokenId = await _registry.FindActiveAsync(studentWallet, kind, subjectId);
 
                 if (activeTokenId != 0)
                 {
@@ -83,8 +136,8 @@ namespace MathChain.Application.Contexts
                     certificate = new Certificate
                     {
                         Id = Guid.NewGuid(),
-                        Kind = CertificateKind.Class,
-                        SubjectId = classRoomId,
+                        Kind = kind,
+                        SubjectId = subjectId,
                         StudentWallet = studentWallet,
                         Status = CertificateStatus.Pending,
                         CreatedAt = now
@@ -96,7 +149,7 @@ namespace MathChain.Application.Contexts
                     changedCertificates.Add(certificate);
                 }
 
-                certificate.SubjectTitle = Truncate(classRoom.Name, MaximumTitleLength);
+                certificate.SubjectTitle = Truncate(subjectTitle, MaximumTitleLength);
 
                 if (string.IsNullOrEmpty(certificate.Salt) || certificate.Grade != grade || certificate.TeacherWallet != teacherWallet)
                 {
@@ -124,7 +177,7 @@ namespace MathChain.Application.Contexts
                 var items = batch
                     .Select(c => new CertificateIssueItem { StudentAddress = c.StudentWallet, DataHash = c.DataHash })
                     .ToList();
-                var result = await _registry.IssueBatchAsync(CertificateKind.Class, classRoomId, items);
+                var result = await _registry.IssueBatchAsync(kind, subjectId, items);
 
                 foreach (var certificate in batch)
                 {
@@ -139,7 +192,7 @@ namespace MathChain.Application.Contexts
                 await _certificateGateway.UpdateRangeAsync(batch);
             }
 
-            return alreadyOnChain.Concat(toIssue).Select(ToClassDto).ToList();
+            return alreadyOnChain.Concat(toIssue).ToList();
         }
 
         public async Task<List<ClassCertificateDto>> GetClassCertificatesAsync(Guid classRoomId)
@@ -198,19 +251,7 @@ namespace MathChain.Application.Contexts
 
             return certificates
                 .Where(c => c.Status != CertificateStatus.Pending)
-                .Select(c => new MyCertificateDto
-                {
-                    Id = c.Id,
-                    Kind = c.Kind,
-                    SubjectId = c.SubjectId,
-                    SubjectTitle = c.SubjectTitle,
-                    Grade = c.Grade,
-                    Status = c.Status,
-                    TokenId = c.TokenId,
-                    VerificationKey = c.Salt,
-                    TransactionHash = c.TransactionHash,
-                    IssuedAt = c.IssuedAt
-                })
+                .Select(ToMyDto)
                 .ToList();
         }
 
@@ -315,6 +356,72 @@ namespace MathChain.Application.Contexts
             return await _registry.GetBalanceAsync(Normalize(walletAddress));
         }
 
+        private async Task<ChapterCertificateProgressDto> BuildChapterProgressAsync(Guid chapterId, string wallet)
+        {
+            var chapter = await _curriculumGateway.GetByIdAsync(chapterId);
+
+            if (chapter == null)
+            {
+                throw new NotFoundException("Chapter not found.");
+            }
+
+            var formulas = await _curriculumGateway.GetFormulasByChapterIdAsync(chapterId);
+            var solved = formulas.Count == 0
+                ? new List<SolvedPracticeExercise>()
+                : await _practiceGateway.GetSolvedAsync(wallet, formulas.Select(f => f.Id).ToList());
+
+            var items = formulas.Select(formula =>
+            {
+                var exercises = ExerciseCatalog.ForFormula(formula.ExercisesJson);
+
+                return new ChapterFormulaProgressDto
+                {
+                    FormulaId = formula.Id,
+                    Title = formula.Title,
+                    UsesGenericExercises = exercises.UsesGenericExercises,
+                    TotalExercises = exercises.Exercises.Count,
+                    SolvedExercises = solved
+                        .Where(s => s.FormulaId == formula.Id && s.ExerciseIndex < exercises.Exercises.Count)
+                        .Select(s => s.ExerciseIndex)
+                        .Distinct()
+                        .Count()
+                };
+            }).ToList();
+
+            var available = items.Count > 0 && items.All(i => !i.UsesGenericExercises);
+            var certificate = (await _certificateGateway.GetByStudentAsync(wallet))
+                .FirstOrDefault(c => c.Kind == CertificateKind.Chapter && c.SubjectId == chapterId && c.Status == CertificateStatus.Issued);
+
+            return new ChapterCertificateProgressDto
+            {
+                ChapterId = chapterId,
+                Title = chapter.Title,
+                CertificatesAvailable = available,
+                TotalExercises = items.Sum(i => i.TotalExercises),
+                SolvedExercises = items.Sum(i => i.SolvedExercises),
+                Completed = available && items.All(i => i.SolvedExercises >= i.TotalExercises),
+                Formulas = items,
+                Certificate = certificate == null ? null : ToMyDto(certificate)
+            };
+        }
+
+        private static MyCertificateDto ToMyDto(Certificate certificate)
+        {
+            return new MyCertificateDto
+            {
+                Id = certificate.Id,
+                Kind = certificate.Kind,
+                SubjectId = certificate.SubjectId,
+                SubjectTitle = certificate.SubjectTitle,
+                Grade = certificate.Grade,
+                Status = certificate.Status,
+                TokenId = certificate.TokenId,
+                VerificationKey = certificate.Salt,
+                TransactionHash = certificate.TransactionHash,
+                IssuedAt = certificate.IssuedAt
+            };
+        }
+
         private static List<Enrollment> SelectTargets(List<Enrollment> enrollments, List<Certificate> openCertificates, List<string>? requestedWallets)
         {
             bool HasIssuedCertificate(string wallet) =>
@@ -414,6 +521,8 @@ namespace MathChain.Application.Contexts
         {
             return string.Equals(first, second, StringComparison.OrdinalIgnoreCase);
         }
+
+        private sealed record CertificateTarget(string StudentWallet, int Grade);
 
         private static bool SameSecret(string expected, string provided)
         {

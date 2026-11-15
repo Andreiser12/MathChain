@@ -80,41 +80,6 @@ namespace MathChain.Blazor.Services
             }
         }
 
-        public async Task<bool> RecordSolvedProblemAsync(string walletAddress, string? formulaId, string? difficulty, string? solution, int? exerciseIndex = null)
-        {
-            try
-            {
-                var request = new RecordSolvedProblemRequest
-                {
-                    WalletAddress = walletAddress,
-                    FormulaId = formulaId,
-                    Difficulty = difficulty,
-                    Solution = solution,
-                    ExerciseIndex = exerciseIndex
-                };
-                var response = await _httpClient.PostAsJsonAsync($"{_baseUrl}/dashboard/record-solved", request);
-                return response.IsSuccessStatusCode;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public async Task<PracticeProgressDto?> GetPracticeProgressAsync(string walletAddress, string formulaId)
-        {
-            try
-            {
-                var url = $"{_baseUrl}/dashboard/practice-progress?walletAddress={Uri.EscapeDataString(walletAddress)}&formulaId={Uri.EscapeDataString(formulaId)}";
-                var response = await _httpClient.GetAsync(url);
-                return await ReadEnvelopeDataAsync<PracticeProgressDto>(response);
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
         public async Task<LoginChallengeDto?> RequestLoginChallengeAsync(string walletAddress, long chainId)
         {
             var response = await _httpClient.PostAsJsonAsync($"{_baseUrl}/auth/challenge", new { WalletAddress = walletAddress, ChainId = chainId });

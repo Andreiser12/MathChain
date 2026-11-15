@@ -32,6 +32,27 @@ namespace MathChain.Application.DTOs
         public DateTime? IssuedAt { get; set; }
     }
 
+    public class ChapterCertificateProgressDto
+    {
+        public Guid ChapterId { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public bool CertificatesAvailable { get; set; }
+        public bool Completed { get; set; }
+        public int TotalExercises { get; set; }
+        public int SolvedExercises { get; set; }
+        public List<ChapterFormulaProgressDto> Formulas { get; set; } = new();
+        public MyCertificateDto? Certificate { get; set; }
+    }
+
+    public class ChapterFormulaProgressDto
+    {
+        public Guid FormulaId { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public bool UsesGenericExercises { get; set; }
+        public int TotalExercises { get; set; }
+        public int SolvedExercises { get; set; }
+    }
+
     public class CertificateVerificationDto
     {
         public long TokenId { get; set; }

@@ -5,6 +5,7 @@
 @using MathChain.Blazor.DTOs
 @using MudBlazor
 @inject IJSRuntime JS
+@using MathChain.Blazor.Pages.Certificates
 @inject AppSession Session
 @inject NavigationManager Nav
 @inject ApiService Api
@@ -358,6 +359,11 @@ else
 
 		@if (HasFormulas)
 		{
+			@if (Session.Role == UserRole.Student && _currentDetail != null)
+			{
+				<ChapterCertificatePanel ChapterId="_currentDetail.Chapter.Id" />
+			}
+
 			@if (HasSubChapters)
 			{
 				<MudText Typo="Typo.h5" Style="font-weight: 600; color: #ffffff;" Class="mb-3">

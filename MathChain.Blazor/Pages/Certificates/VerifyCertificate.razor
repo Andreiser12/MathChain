@@ -30,6 +30,10 @@
 					{
 						<MudText Typo="Typo.h6" id="verification-grade">Final grade: @_verification.Grade</MudText>
 					}
+					else
+					{
+						<MudText Typo="Typo.h6" id="verification-grade">Exercises solved: @_verification.Grade</MudText>
+					}
 				</MudStack>
 			}
 			else
@@ -46,7 +50,7 @@
 					<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Student account</MudText>
 					<MudText Typo="Typo.body2" Style="word-break: break-all;">@_verification.StudentAddress</MudText>
 				</div>
-				@if (_verification.DetailsRevealed)
+				@if (_verification.DetailsRevealed && _verification.Kind == CertificateKind.Class)
 				{
 					<div>
 						<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Teacher account</MudText>

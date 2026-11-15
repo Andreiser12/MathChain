@@ -482,6 +482,69 @@ namespace MathChain.Persistence.Migrations
                     b.ToTable("MessagesComments", (string)null);
                 });
 
+            modelBuilder.Entity("MathChain.Domain.Entities.PracticeExercise", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Attempts")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Difficulty")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<int>("ExerciseIndex")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ExpectedAnswer")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Form")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("FormulaId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Hint")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.Property<string>("Latex")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
+
+                    b.Property<string>("Requirement")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.Property<DateTime?>("SolvedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("StudentWallet")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentWallet", "FormulaId", "ExerciseIndex");
+
+                    b.ToTable("PracticeExercises", (string)null);
+                });
+
             modelBuilder.Entity("MathChain.Domain.Entities.Submission", b =>
                 {
                     b.Property<Guid>("Id")

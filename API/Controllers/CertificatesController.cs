@@ -40,6 +40,22 @@ namespace MathChain.API.Controllers
             return SuccessMessage("Certificate revoked successfully.");
         }
 
+        [HttpGet("certificates/chapters/{chapterId:guid}/progress")]
+        public async Task<IActionResult> GetChapterProgress(Guid chapterId)
+        {
+            var progress = await _certificateContext.GetChapterProgressAsync(chapterId);
+
+            return Success(progress);
+        }
+
+        [HttpPost("certificates/chapters/{chapterId:guid}")]
+        public async Task<IActionResult> ClaimChapterCertificate(Guid chapterId)
+        {
+            var certificate = await _certificateContext.ClaimChapterCertificateAsync(chapterId);
+
+            return Success(certificate, "Chapter certificate issued successfully.", StatusCodes.Status201Created);
+        }
+
         [HttpGet("certificates/mine")]
         public async Task<IActionResult> GetMine()
         {

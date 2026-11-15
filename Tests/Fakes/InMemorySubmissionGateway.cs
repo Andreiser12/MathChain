@@ -49,14 +49,6 @@ namespace MathChain.Tests.Fakes
             return Task.FromResult(Submissions.Where(s => assignmentIds.Contains(s.AssignmentId)).ToList());
         }
 
-        public Task<List<Submission>> GetPracticeSubmissionsAsync(string studentWallet, string formulaId)
-        {
-            var wallet = studentWallet.Trim().ToLower();
-            return Task.FromResult(Submissions
-                .Where(s => s.StudentWallet.ToLower() == wallet && s.Content.Contains($"Formula {formulaId}"))
-                .ToList());
-        }
-
         public Task<int> CountByStudentWalletAsync(string studentWallet)
         {
             var wallet = studentWallet.Trim().ToLower();

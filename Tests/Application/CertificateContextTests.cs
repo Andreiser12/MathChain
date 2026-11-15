@@ -19,6 +19,8 @@ namespace MathChain.Tests.Application
 
         private readonly InMemoryClassRoomGateway _classRooms = new();
         private readonly InMemoryCertificateGateway _certificates = new();
+        private readonly InMemoryCurriculumGateway _curriculum = new();
+        private readonly InMemoryPracticeExerciseGateway _practice = new();
         private readonly FakeCertificateRegistry _registry = new();
         private readonly FakeCurrentUser _currentUser = new();
         private readonly ManualTimeProvider _time = new();
@@ -27,7 +29,7 @@ namespace MathChain.Tests.Application
 
         public CertificateContextTests()
         {
-            _context = new CertificateContext(_certificates, _registry, _classRooms, new AccessGuard(_currentUser, _classRooms), _time);
+            _context = new CertificateContext(_certificates, _registry, _classRooms, _curriculum, _practice, new AccessGuard(_currentUser, _classRooms), _time);
 
             _classRoom = new ClassRoom { Id = Guid.NewGuid(), Name = "Algebra XI A", TeacherWallet = Teacher, JoinCode = "ABC234" };
             _classRooms.ClassRooms.Add(_classRoom);

@@ -1,4 +1,5 @@
 ﻿using MathChain.Application.Contexts;
+using MathChain.Application.Practice;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MathChain.Application.Extensions
@@ -18,6 +19,8 @@ namespace MathChain.Application.Extensions
             services.AddScoped<IClassStatisticsContext, ClassStatisticsContext>();
             services.AddScoped<IAuthenticationContext, AuthenticationContext>();
             services.AddScoped<ICertificateContext, CertificateContext>();
+            services.AddScoped<IPracticeContext, PracticeContext>();
+            services.AddSingleton<PracticeRandom>();
 
             return services;
         }

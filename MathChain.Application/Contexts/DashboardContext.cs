@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using MathChain.Application.DTOs;
 using MathChain.Domain.Entities;
 using MathChain.Domain.Enums;
@@ -13,16 +12,14 @@ namespace MathChain.Application.Contexts
         private readonly IUserGateway _userGateway;
         private readonly ISubmissionGateway _submissionGateway;
         private readonly IGradeGateway _gradeGateway;
-        private readonly IPracticeGateway _practiceGateway;
         private readonly AccessGuard _access;
 
         public DashboardContext(IUserGateway userGateway, ISubmissionGateway submissionGateway,
-            IGradeGateway gradeGateway, IPracticeGateway practiceGateway, AccessGuard access)
+            IGradeGateway gradeGateway, AccessGuard access)
         {
             _userGateway = userGateway;
             _submissionGateway = submissionGateway;
             _gradeGateway = gradeGateway;
-            _practiceGateway = practiceGateway;
             _access = access;
         }
 
@@ -91,80 +88,6 @@ namespace MathChain.Application.Contexts
                 UserAccuracy = currentUser != default ? currentUser.Accuracy : 0,
                 UserRank = userRank,
                 Leaderboard = leaderboard
-            };
-        }
-
-        public async Task<RecordSolvedProblemResultDto> RecordSolvedProblemAsync(RecordSolvedProblemRequest request)
-        {
-            var cleanWallet = _access.RequireWallet();
-
-            var existingUser = await _userGateway.GetByWalletAddressAsync(cleanWallet);
-            User? newUser = null;
-
-            if (existingUser == null)
-            {
-                newUser = new User
-                {
-                    Id = Guid.NewGuid(),
-                    WalletAddress = cleanWallet,
-                    Role = UserRole.Student,
-                    CreatedAt = DateTime.UtcNow
-                };
-            }
-
-            var submission = new Submission
-            {
-                Id = Guid.NewGuid(),
-                AssignmentId = Guid.Empty,
-                StudentWallet = cleanWallet,
-                Content = $"Practice: Formula {request.FormulaId ?? "General"}, ExerciseIndex {request.ExerciseIndex ?? 0}, Difficulty {request.Difficulty ?? "Easy"}, Solution {request.Solution ?? ""}",
-                SubmittedAt = DateTime.UtcNow
-            };
-
-            var grade = new Grade
-            {
-                Id = Guid.NewGuid(),
-                SubmissionId = submission.Id,
-                Score = 10.0,
-                Feedback = "Verified correct in Practice Arena",
-                GradedAt = DateTime.UtcNow
-            };
-
-            await _practiceGateway.RecordAttemptAsync(newUser, submission, grade);
-
-            var totalSolved = await _submissionGateway.CountByStudentWalletAsync(cleanWallet);
-
-            return new RecordSolvedProblemResultDto { TotalSolved = totalSolved };
-        }
-
-        public async Task<PracticeProgressDto> GetPracticeProgressAsync(string formulaId)
-        {
-            var walletAddress = _access.RequireWallet();
-
-            if (string.IsNullOrWhiteSpace(formulaId))
-            {
-                return new PracticeProgressDto { FormulaId = formulaId ?? "" };
-            }
-
-            var submissions = await _submissionGateway.GetPracticeSubmissionsAsync(walletAddress, formulaId);
-
-            var solvedIndices = new HashSet<int>();
-            foreach (var submission in submissions)
-            {
-                var match = Regex.Match(submission.Content, @"ExerciseIndex\s+(\d+)");
-                if (match.Success && int.TryParse(match.Groups[1].Value, out int index))
-                {
-                    solvedIndices.Add(index);
-                }
-            }
-
-            int lastIndex = solvedIndices.Any() ? solvedIndices.Max() + 1 : 0;
-
-            return new PracticeProgressDto
-            {
-                FormulaId = formulaId,
-                LastExerciseIndex = lastIndex,
-                SolvedIndices = solvedIndices.OrderBy(i => i).ToList()
             };
         }
 

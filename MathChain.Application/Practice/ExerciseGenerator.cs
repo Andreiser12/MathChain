@@ -4,7 +4,8 @@ using MathChain.Domain.Enums;
 
 namespace MathChain.Application.Practice
 {
-    public sealed record GeneratedExercise(string Requirement, string Latex, string? Hint, AnswerForm Form, string ExpectedAnswer);
+    public sealed record GeneratedExercise(string Requirement, string Latex, string? Hint, AnswerForm Form, string ExpectedAnswer,
+        IReadOnlyDictionary<string, int> Values);
 
     public class PracticeRandom
     {
@@ -85,7 +86,7 @@ namespace MathChain.Application.Practice
 
             var hint = string.IsNullOrWhiteSpace(template.Hint) ? null : Substitute(template.Hint, values);
 
-            return new GeneratedExercise(BuildRequirement(template.Requirement, form), latex, hint, form, expectedAnswer);
+            return new GeneratedExercise(BuildRequirement(template.Requirement, form), latex, hint, form, expectedAnswer, values);
         }
 
         public static Dictionary<string, int> SampleValues(ExerciseTemplate template, PracticeRandom random)

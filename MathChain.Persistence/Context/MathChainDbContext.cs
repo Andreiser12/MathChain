@@ -25,6 +25,7 @@ namespace MathChain.Persistence.Context
         public DbSet<ExternalLogin> ExternalLogins { get; set; }
         public DbSet<Certificate> Certificates { get; set; }
         public DbSet<PracticeExercise> PracticeExercises { get; set; }
+        public DbSet<SolutionPurchase> SolutionPurchases { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

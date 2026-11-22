@@ -36,6 +36,9 @@ namespace MathChain.Persistence.Configurations
             builder.Property(e => e.ExpectedAnswer)
                 .IsRequired()
                 .HasMaxLength(1000);
+
+            builder.Property(e => e.VariableValues)
+                .HasMaxLength(500);
         }
     }
 }

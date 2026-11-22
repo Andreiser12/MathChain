@@ -14,6 +14,7 @@ namespace MathChain.Domain.Entities
         public string? Hint { get; set; }
         public AnswerForm Form { get; set; }
         public string ExpectedAnswer { get; set; } = string.Empty;
+        public string? VariableValues { get; set; }
         public int Attempts { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime ExpiresAt { get; set; }

@@ -78,6 +78,7 @@ namespace MathChain.Tests.Application
             Assert.DoesNotContain(typeof(PracticeExerciseDto).GetProperties(), p => p.Name.Contains("Answer"));
             var stored = Assert.Single(_practice.Exercises);
             Assert.Equal(Student, stored.StudentWallet);
+            Assert.Equal("{\"a\":2}", stored.VariableValues);
             Assert.Equal("(x + 2)^2", stored.ExpectedAnswer);
         }
 

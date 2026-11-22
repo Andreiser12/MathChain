@@ -25,4 +25,8 @@
     <ProjectReference Include="..\Domain\MathChain.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Solutions\Data\*.json" />
+  </ItemGroup>
+
 </Project>

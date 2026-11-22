@@ -92,6 +92,89 @@
 			</MudStack>
 		</MudPaper>
 	}
+
+	@if (!_loading)
+	{
+		<MudText Typo="Typo.h5" Style="color: #ffffff; font-weight: 600;" Class="mt-8 mb-4">Paid solutions</MudText>
+
+		<MudPaper Elevation="2" Class="pa-6" Style="background-color: #16213e; color: #ffffff;" id="solution-setup">
+			@if (_solutionSetup == null)
+			{
+				<MudAlert Severity="Severity.Error">@_solutionError</MudAlert>
+			}
+			else if (!_solutionSetup.CanRead)
+			{
+				<MudAlert Severity="Severity.Warning" id="solution-setup-status">
+					Paid solutions are not configured. Set Blockchain:SolutionsAddress and Blockchain:PaymentTokenAddress and restart the API.
+				</MudAlert>
+			}
+			else
+			{
+				<MudStack Spacing="3">
+					<div>
+						<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Solutions contract</MudText>
+						<MudText Typo="Typo.body1" Style="word-break: break-all;">@_solutionSetup.ContractAddress</MudText>
+					</div>
+					<div>
+						<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Payment token</MudText>
+						<MudText Typo="Typo.body1" Style="word-break: break-all;">@_solutionSetup.TokenSymbol (@_solutionSetup.TokenAddress)</MudText>
+					</div>
+
+					@if (!_solutionSetup.CanRelay)
+					{
+						<MudAlert Severity="Severity.Warning" id="solution-setup-status">
+							The platform key is not configured, so payments cannot be sent. Set Blockchain:IssuerPrivateKey and restart the API.
+						</MudAlert>
+					}
+					else
+					{
+						<div>
+							<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Platform account that pays the network fees</MudText>
+							<MudText Typo="Typo.body1" Style="word-break: break-all;">
+								@_solutionSetup.RelayerAddress (@(_solutionSetup.RelayerBalance?.ToString("0.000000")) ETH)
+							</MudText>
+						</div>
+					}
+
+					<MudText Typo="Typo.body2" Style="color: rgba(255, 255, 255, 0.7);">
+						Prices are stored in the contract. Saving a price opens your wallet; sign it with the admin account of the contract.
+					</MudText>
+
+					@foreach (var difficulty in Difficulties)
+					{
+						var current = CurrentPrice(difficulty);
+						<MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3">
+							<MudText Typo="Typo.body1" Style="width: 90px;">@difficulty</MudText>
+							<div style="width: 200px; flex-shrink: 0;">
+								<MudNumericField T="decimal" Value="@_prices[difficulty]" ValueChanged="@(value => _prices[difficulty] = value)"
+												 Min="0" Step="0.5m" Format="0.######" Variant="Variant.Outlined" Margin="Margin.Dense"
+												 Adornment="Adornment.End" AdornmentText="@_solutionSetup.TokenSymbol"
+												 id="@($"price-{difficulty.ToLowerInvariant()}")" />
+							</div>
+							<MudButton Variant="Variant.Filled" Color="Color.Primary" Style="text-transform: none;"
+									   Disabled="@(_busy || current == _prices[difficulty])" OnClick="@(() => SavePriceAsync(difficulty))"
+									   id="@($"save-price-{difficulty.ToLowerInvariant()}")">
+								Save
+							</MudButton>
+							<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">
+								Current: @(current?.ToString("0.######")) @_solutionSetup.TokenSymbol
+							</MudText>
+						</MudStack>
+					}
+
+					@if (!string.IsNullOrEmpty(_priceTransaction))
+					{
+						<MudText Typo="Typo.body2" Style="word-break: break-all;" id="price-transaction">Transaction sent: @_priceTransaction</MudText>
+					}
+
+					@if (!string.IsNullOrEmpty(_priceError))
+					{
+						<MudAlert Severity="Severity.Error" id="price-error">@_priceError</MudAlert>
+					}
+				</MudStack>
+			}
+		</MudPaper>
+	}
 </MudContainer>
 
 @code {
@@ -100,7 +183,14 @@
 	private const int RefreshAttempts = 10;
 	private const int RefreshDelayMilliseconds = 3000;
 
+	private static readonly string[] Difficulties = { "Easy", "Medium", "Hard" };
+
 	private CertificateSetupDto? _setup;
+	private SolutionPaymentSetupDto? _solutionSetup;
+	private string? _solutionError;
+	private string? _priceError;
+	private string? _priceTransaction;
+	private readonly Dictionary<string, decimal> _prices = new() { ["Easy"] = 0, ["Medium"] = 0, ["Hard"] = 0 };
 	private string? _error;
 	private string? _actionError;
 	private string? _lastTransaction;
@@ -135,7 +225,88 @@
 
 		_setup = result.Data;
 		_error = result.Error;
+		await ReloadSolutionSetupAsync();
 		_loading = false;
+	}
+
+	private async Task ReloadSolutionSetupAsync()
+	{
+		var result = await Api.GetSolutionSetupAsync();
+
+		_solutionSetup = result.Data;
+		_solutionError = result.Error ?? "The paid solutions setup could not be loaded.";
+
+		if (_solutionSetup != null)
+		{
+			foreach (var difficulty in Difficulties)
+			{
+				_prices[difficulty] = CurrentPrice(difficulty) ?? 0;
+			}
+		}
+	}
+
+	private decimal? CurrentPrice(string difficulty)
+	{
+		return difficulty switch
+		{
+			"Easy" => _solutionSetup?.EasyPrice,
+			"Medium" => _solutionSetup?.MediumPrice,
+			_ => _solutionSetup?.HardPrice
+		};
+	}
+
+	private async Task SavePriceAsync(string difficulty)
+	{
+		var price = _prices[difficulty];
+		_busy = true;
+		_priceError = null;
+		_priceTransaction = null;
+		StateHasChanged();
+
+		var change = await Api.BuildSolutionPriceChangeAsync(difficulty, price);
+
+		if (!change.Success || change.Data == null)
+		{
+			_priceError = change.Error ?? "The price change could not be prepared.";
+			_busy = false;
+			return;
+		}
+
+		try
+		{
+			_priceTransaction = await JS.InvokeAsync<string>("sendWalletTransaction", new
+			{
+				chainId = _solutionSetup!.ChainId,
+				networkName = _solutionSetup.NetworkName,
+				rpcUrl = _solutionSetup.RpcUrl,
+				explorerUrl = _solutionSetup.ExplorerUrl
+			}, change.Data.To, change.Data.Data, "0x0");
+			StateHasChanged();
+
+			for (var attempt = 0; attempt < RefreshAttempts; attempt++)
+			{
+				await Task.Delay(RefreshDelayMilliseconds);
+				var refreshed = await Api.GetSolutionSetupAsync();
+
+				if (refreshed.Data != null)
+				{
+					_solutionSetup = refreshed.Data;
+				}
+
+				if (CurrentPrice(difficulty) == price)
+				{
+					Snackbar.Add($"The {difficulty.ToLowerInvariant()} price is now {price:0.######} {_solutionSetup.TokenSymbol}.", Severity.Success);
+					break;
+				}
+			}
+		}
+		catch (JSException walletError)
+		{
+			_priceError = $"The wallet did not send the transaction: {walletError.Message}";
+		}
+
+		_busy = false;
+		StateHasChanged();
 	}
 
 	private Task GrantIssuerRole()

@@ -7,6 +7,12 @@ namespace MathChain.Blockchain.Certificates
         public long ChainId { get; set; }
         public string ExplorerUrl { get; set; } = string.Empty;
         public string CertificatesAddress { get; set; } = string.Empty;
+        public string SolutionsAddress { get; set; } = string.Empty;
+        public string PaymentTokenAddress { get; set; } = string.Empty;
+        public string PaymentTokenName { get; set; } = "USDC";
+        public string PaymentTokenVersion { get; set; } = "2";
+        public string PaymentTokenSymbol { get; set; } = "USDC";
+        public int PaymentTokenDecimals { get; set; } = 6;
         public string IssuerPrivateKey { get; set; } = string.Empty;
         public int ReceiptTimeoutSeconds { get; set; } = 90;
         public int GasPriceMultiplierPercent { get; set; } = 200;

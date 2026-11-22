@@ -4,8 +4,10 @@
 @inject ApiService Api
 @inject IJSRuntime JS
 @inject ISnackbar Snackbar
+@inject IDialogService DialogService
 @using MathChain.Blazor.DTOs
 @using MathChain.Domain.Enums
+@using MathChain.Blazor.Pages.Solutions
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge"
               Style="display: flex; flex-direction: column; height: 100vh; padding: 8px 16px; overflow: hidden; box-sizing: border-box;">
@@ -90,7 +92,8 @@
             Previous
         </MudButton>
         <MudButton Variant="Variant.Filled" Style="background-color: #FF8F00; border-radius: 0px;" OnClick="ShowHint">Hint</MudButton>
-        <MudButton Variant="Variant.Filled" Style="background-color: #7C4DFF; border-radius: 0px;" Disabled="true">View Solution</MudButton>
+        <MudButton Variant="Variant.Filled" Style="background-color: #7C4DFF; border-radius: 0px; text-transform: none;" id="view-solution"
+                   Disabled="@(!CanOpenSolution || _busy)" OnClick="ViewSolutionAsync">@SolutionButtonText</MudButton>
         <MudButton Variant="Variant.Filled" Style="background-color: #76FF03; color: #000; font-weight: bold; border-radius: 0px;" Disabled="@(_busy || _exercise == null)" OnClick="VerifyAnswer">Verify Answer</MudButton>
         <MudButton Variant="Variant.Filled" Style="background-color: #005ea6; border-radius: 0px;"
                    OnClick="NextExercise"
@@ -105,6 +108,7 @@
 @code {
     private PracticeFormulaDto? _formula;
     private PracticeExerciseDto? _exercise;
+    private SolutionOfferDto? _offer;
     private HashSet<int> _solved = new();
     private int _currentIndex;
     private string _userAnswer = "";
@@ -113,6 +117,31 @@
     private bool _busy;
 
     private int ExerciseCount => _formula?.Exercises.Count ?? 0;
+
+    private SolutionOfferItemDto? CurrentOffer => _offer?.Exercises.FirstOrDefault(e => e.Index == _currentIndex);
+
+    private bool SolutionUnlocked => _offer != null && CurrentOffer != null && (_offer.FreeAccess || CurrentOffer.Purchased);
+
+    private bool CanOpenSolution => _exercise != null && CurrentOffer != null && CurrentOffer.HasSolution
+        && (SolutionUnlocked || (_offer!.CanPurchase && CurrentOffer.Price != null));
+
+    private string SolutionButtonText
+    {
+        get
+        {
+            if (CurrentOffer == null || !CurrentOffer.HasSolution)
+            {
+                return "No solution yet";
+            }
+
+            if (SolutionUnlocked || CurrentOffer.Price == null)
+            {
+                return "View Solution";
+            }
+
+            return $"View Solution · {CurrentOffer.Price.Value.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)} {_offer!.TokenSymbol}";
+        }
+    }
 
     private string _currentDifficulty => _exercise?.Difficulty ?? "Easy";
 
@@ -175,6 +204,7 @@
 
         _formula = result.Data;
         _solved = new HashSet<int>(_formula.SolvedIndices);
+        await LoadOfferAsync();
         _currentIndex = Enumerable.Range(0, ExerciseCount).FirstOrDefault(i => !_solved.Contains(i), 0);
 
         await LoadExerciseAsync();
@@ -247,6 +277,52 @@
         {
             Snackbar.Add("Remember: \\int a dx = a*x + C. The coefficient of x is the constant term.", Severity.Info);
         }
+    }
+
+    private async Task LoadOfferAsync()
+    {
+        if (_formula == null)
+        {
+            return;
+        }
+
+        var offer = await Api.GetSolutionOfferAsync(_formula.FormulaId);
+        _offer = offer.Success ? offer.Data : null;
+    }
+
+    private async Task ViewSolutionAsync()
+    {
+        if (_formula == null || _exercise == null || CurrentOffer == null)
+        {
+            return;
+        }
+
+        if (!SolutionUnlocked)
+        {
+            var payment = await DialogService.ShowAsync<SolutionPaymentDialog>("Step-by-step solution", new DialogParameters<SolutionPaymentDialog>
+            {
+                { x => x.FormulaId, _formula.FormulaId },
+                { x => x.Index, _currentIndex },
+                { x => x.Difficulty, CurrentOffer.Difficulty },
+                { x => x.Price, CurrentOffer.Price ?? 0 },
+                { x => x.TokenSymbol, _offer!.TokenSymbol }
+            }, new DialogOptions { MaxWidth = MaxWidth.Small, FullWidth = true, BackdropClick = false });
+
+            var paid = await payment.Result;
+            await LoadOfferAsync();
+            StateHasChanged();
+
+            if (paid == null || paid.Canceled || !SolutionUnlocked)
+            {
+                return;
+            }
+        }
+
+        await DialogService.ShowAsync<SolutionDialog>("Step-by-step solution", new DialogParameters<SolutionDialog>
+        {
+            { x => x.ExerciseId, _exercise.ExerciseId },
+            { x => x.ExerciseLatex, _exercise.Latex }
+        }, new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseOnEscapeKey = true });
     }
 
     void ExitPractice()

@@ -538,11 +538,93 @@ namespace MathChain.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<string>("VariableValues")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("StudentWallet", "FormulaId", "ExerciseIndex");
 
                     b.ToTable("PracticeExercises", (string)null);
+                });
+
+            modelBuilder.Entity("MathChain.Domain.Entities.SolutionPurchase", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("AccountWallet")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("ExerciseIndex")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("FailureReason")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<Guid>("FormulaId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Nonce")
+                        .IsRequired()
+                        .HasMaxLength(66)
+                        .HasColumnType("character varying(66)");
+
+                    b.Property<string>("PayerAddress")
+                        .IsRequired()
+                        .HasMaxLength(42)
+                        .HasColumnType("character varying(42)");
+
+                    b.Property<long>("PriceUnits")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasMaxLength(66)
+                        .HasColumnType("character varying(66)");
+
+                    b.Property<string>("SolutionId")
+                        .IsRequired()
+                        .HasMaxLength(66)
+                        .HasColumnType("character varying(66)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Tier")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("TransactionHash")
+                        .HasMaxLength(66)
+                        .HasColumnType("character varying(66)");
+
+                    b.Property<DateTime>("ValidBefore")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TransactionHash")
+                        .IsUnique()
+                        .HasFilter("\"TransactionHash\" IS NOT NULL");
+
+                    b.HasIndex(new[] { "AccountWallet", "FormulaId", "ExerciseIndex" }, "IX_SolutionPurchases_Account");
+
+                    b.HasIndex(new[] { "AccountWallet", "FormulaId", "ExerciseIndex" }, "IX_SolutionPurchases_Completed")
+                        .IsUnique()
+                        .HasFilter("\"Status\" = 3");
+
+                    b.ToTable("SolutionPurchases", (string)null);
                 });
 
             modelBuilder.Entity("MathChain.Domain.Entities.Submission", b =>

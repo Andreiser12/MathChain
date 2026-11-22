@@ -18,6 +18,7 @@ namespace MathChain.Gateway.Extensions
             services.AddScoped<IExternalLoginGateway, ExternalLoginRepository>();
             services.AddScoped<ICertificateGateway, CertificateRepository>();
             services.AddScoped<IPracticeExerciseGateway, PracticeExerciseRepository>();
+            services.AddScoped<ISolutionPurchaseGateway, SolutionPurchaseRepository>();
 
             return services;
         }

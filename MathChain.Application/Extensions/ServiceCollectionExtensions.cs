@@ -20,6 +20,8 @@ namespace MathChain.Application.Extensions
             services.AddScoped<IAuthenticationContext, AuthenticationContext>();
             services.AddScoped<ICertificateContext, CertificateContext>();
             services.AddScoped<IPracticeContext, PracticeContext>();
+            services.AddScoped<ISolutionContext, SolutionContext>();
+            services.AddSingleton(new SolutionPaymentOptions());
             services.AddSingleton<PracticeRandom>();
 
             return services;

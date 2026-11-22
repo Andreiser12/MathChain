@@ -1,0 +1,265 @@
+@using MathChain.Blazor.DTOs
+@inject ApiService Api
+@inject IJSRuntime JS
+
+<MudDialog Style="background-color: #16213e; color: #ffffff;">
+	<TitleContent>
+		<MudText Typo="Typo.h6" Style="color: #ffffff;">Step-by-step solution</MudText>
+	</TitleContent>
+	<DialogContent>
+		<MudStack Spacing="3" id="solution-payment">
+			@if (_state == PaymentState.Intro)
+			{
+				<MudText Typo="Typo.body1">
+					The solution of this @Difficulty.ToLowerInvariant() exercise costs
+					<b id="solution-price">@FormatAmount(Price) @TokenSymbol</b>.
+				</MudText>
+				<MudText Typo="Typo.body2" Style="color: rgba(255, 255, 255, 0.7);">
+					You pay with your Web3 wallet (for example MetaMask). The wallet only asks you to sign the payment;
+					MathChain pays the network fee. After the payment, the solution stays unlocked for your account.
+				</MudText>
+			}
+			else if (_state == PaymentState.NoWallet)
+			{
+				<MudAlert Severity="Severity.Info" id="payment-no-wallet">
+					A Web3 wallet such as MetaMask is needed to pay for solutions. Install a wallet extension and try again, or press Cancel.
+				</MudAlert>
+			}
+			else if (_state == PaymentState.NotEnoughFunds && _quote != null)
+			{
+				<MudAlert Severity="Severity.Warning" id="payment-low-balance">
+					The wallet @ShortAddress(_quote.PayerAddress) has @FormatAmount(_quote.PayerBalance) @_quote.TokenSymbol,
+					but the solution costs @FormatAmount(_quote.Price) @_quote.TokenSymbol.
+				</MudAlert>
+				<MudText Typo="Typo.body2" Style="color: rgba(255, 255, 255, 0.7);">
+					On @_quote.NetworkName you can get test @_quote.TokenSymbol from faucet.circle.com.
+				</MudText>
+			}
+			else if (_state == PaymentState.Working)
+			{
+				<MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+					<MudProgressCircular Indeterminate="true" Size="Size.Small" Color="Color.Primary" />
+					<MudText Typo="Typo.body1" id="payment-progress">@_progress</MudText>
+				</MudStack>
+			}
+			else if (_state == PaymentState.Done)
+			{
+				<MudAlert Severity="Severity.Success" id="payment-done">The payment was confirmed. The solution is unlocked.</MudAlert>
+			}
+
+			@if (!string.IsNullOrEmpty(_transactionUrl))
+			{
+				<MudLink Href="@_transactionUrl" Target="_blank" Style="word-break: break-all;">View the transaction</MudLink>
+			}
+
+			@if (!string.IsNullOrEmpty(_error))
+			{
+				<MudAlert Severity="Severity.Error" id="payment-error">@_error</MudAlert>
+			}
+		</MudStack>
+	</DialogContent>
+	<DialogActions>
+		<MudButton OnClick="Cancel" Variant="Variant.Outlined" Disabled="@(_state == PaymentState.Working)" id="payment-cancel">Cancel</MudButton>
+		@if (_state == PaymentState.Intro || _state == PaymentState.NotEnoughFunds)
+		{
+			<MudButton OnClick="PayAsync" Variant="Variant.Filled" Color="Color.Primary" id="payment-confirm">
+				@(_state == PaymentState.Intro ? $"Pay {FormatAmount(Price)} {TokenSymbol}" : "Try again")
+			</MudButton>
+		}
+		else if (_state == PaymentState.Done)
+		{
+			<MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" id="payment-show-solution">Show the solution</MudButton>
+		}
+	</DialogActions>
+</MudDialog>
+
+@code {
+	private const int StatusChecks = 20;
+	private const int StatusCheckDelayMilliseconds = 3000;
+
+	private enum PaymentState
+	{
+		Intro,
+		NoWallet,
+		NotEnoughFunds,
+		Working,
+		Done
+	}
+
+	[CascadingParameter]
+	public IMudDialogInstance Dialog { get; set; } = default!;
+
+	[Parameter]
+	public Guid FormulaId { get; set; }
+
+	[Parameter]
+	public int Index { get; set; }
+
+	[Parameter]
+	public string Difficulty { get; set; } = string.Empty;
+
+	[Parameter]
+	public decimal Price { get; set; }
+
+	[Parameter]
+	public string TokenSymbol { get; set; } = string.Empty;
+
+	private PaymentState _state = PaymentState.Intro;
+	private SolutionQuoteDto? _quote;
+	private string _progress = string.Empty;
+	private string? _error;
+	private string? _transactionUrl;
+
+	private async Task PayAsync()
+	{
+		_error = null;
+		_state = PaymentState.Working;
+		_progress = "Connecting to your wallet...";
+		StateHasChanged();
+
+		string? payer;
+
+		try
+		{
+			payer = await JS.InvokeAsync<string?>("connectPaymentWallet");
+		}
+		catch (JSException walletError)
+		{
+			ShowWalletError(walletError);
+			return;
+		}
+
+		if (string.IsNullOrEmpty(payer))
+		{
+			_state = PaymentState.NoWallet;
+			return;
+		}
+
+		_progress = "Preparing the payment...";
+		StateHasChanged();
+
+		var quoteResult = await Api.CreateSolutionQuoteAsync(FormulaId, Index, payer);
+
+		if (!quoteResult.Success || quoteResult.Data == null)
+		{
+			_error = quoteResult.Error ?? "The payment could not be prepared.";
+			_state = PaymentState.Intro;
+			return;
+		}
+
+		_quote = quoteResult.Data;
+
+		if (_quote.PayerBalance < _quote.Price)
+		{
+			_state = PaymentState.NotEnoughFunds;
+			return;
+		}
+
+		_progress = "Confirm the payment in your wallet...";
+		StateHasChanged();
+
+		string signature;
+
+		try
+		{
+			signature = await JS.InvokeAsync<string>("signPaymentAuthorization", new
+			{
+				chainId = _quote.ChainId,
+				networkName = _quote.NetworkName,
+				rpcUrl = _quote.RpcUrl,
+				explorerUrl = _quote.ExplorerUrl
+			}, _quote.PayerAddress, _quote.TypedData);
+		}
+		catch (JSException walletError)
+		{
+			ShowWalletError(walletError);
+			return;
+		}
+
+		_progress = "Sending the payment to the blockchain...";
+		StateHasChanged();
+
+		var payment = await Api.SubmitSolutionPaymentAsync(_quote.PurchaseId, signature);
+
+		if (!payment.Success || payment.Data == null)
+		{
+			_error = payment.Error ?? "The payment could not be sent.";
+			_state = PaymentState.Intro;
+			return;
+		}
+
+		await FollowAsync(payment.Data);
+	}
+
+	private async Task FollowAsync(SolutionPurchaseDto purchase)
+	{
+		for (var check = 0; ; check++)
+		{
+			_transactionUrl = purchase.TransactionUrl ?? _transactionUrl;
+
+			if (purchase.Status == "Completed")
+			{
+				_state = PaymentState.Done;
+				StateHasChanged();
+				return;
+			}
+
+			if (purchase.Status == "Failed")
+			{
+				_error = purchase.Message ?? "The payment failed.";
+				_state = PaymentState.Intro;
+				StateHasChanged();
+				return;
+			}
+
+			if (check >= StatusChecks)
+			{
+				_error = "The transaction is still waiting for confirmation. Check again in a minute.";
+				_state = PaymentState.Intro;
+				StateHasChanged();
+				return;
+			}
+
+			_progress = "Waiting for the blockchain to confirm the payment...";
+			StateHasChanged();
+			await Task.Delay(StatusCheckDelayMilliseconds);
+
+			var refreshed = await Api.GetSolutionPurchaseAsync(purchase.PurchaseId);
+
+			if (refreshed.Success && refreshed.Data != null)
+			{
+				purchase = refreshed.Data;
+			}
+		}
+	}
+
+	private void ShowWalletError(JSException walletError)
+	{
+		_error = walletError.Message.Contains("4001") || walletError.Message.Contains("rejected", StringComparison.OrdinalIgnoreCase)
+			|| walletError.Message.Contains("denied", StringComparison.OrdinalIgnoreCase)
+			? "The request was cancelled in the wallet."
+			: $"The wallet returned an error: {walletError.Message}";
+		_state = PaymentState.Intro;
+		StateHasChanged();
+	}
+
+	private void Cancel()
+	{
+		Dialog.Cancel();
+	}
+
+	private void Close()
+	{
+		Dialog.Close(DialogResult.Ok(true));
+	}
+
+	private static string FormatAmount(decimal amount)
+	{
+		return amount.ToString("0.00####", System.Globalization.CultureInfo.InvariantCulture);
+	}
+
+	private static string ShortAddress(string address)
+	{
+		return address.Length > 10 ? $"{address[..6]}...{address[^4..]}" : address;
+	}
+}

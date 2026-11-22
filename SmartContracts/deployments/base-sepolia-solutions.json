@@ -1,0 +1,21 @@
+{
+  "contract": "MathChainSolutions",
+  "network": "base-sepolia",
+  "chainId": 84532,
+  "address": "0xaD11198771D47190c973f474BF5d37065300Cd2B",
+  "admin": "0x5E4A75b20050340cd2F5327a12Ad74Ae98FD4b39",
+  "treasury": "0x5E4A75b20050340cd2F5327a12Ad74Ae98FD4b39",
+  "paymentToken": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+  "prices": {
+    "easy": "1000000",
+    "medium": "2000000",
+    "hard": "3000000"
+  },
+  "transactionHash": "0x3764c80bd0bbdb3348dc9d5ad35ba773d3bfa6bf47f24ceffd2c1fd6d7ebc723",
+  "blockNumber": 62125256,
+  "compiler": {
+    "version": "0.8.30",
+    "optimizer": false,
+    "evmVersion": "prague"
+  }
+}

@@ -1,0 +1,108 @@
+@using MathChain.Blazor.DTOs
+@using MathChain.Domain.Enums
+@inject ApiService Api
+@inject IJSRuntime JS
+
+<MudDialog Style="background-color: #16213e; color: #ffffff;">
+	<TitleContent>
+		<MudText Typo="Typo.h6" Style="color: #ffffff;">Step-by-step solution</MudText>
+	</TitleContent>
+	<DialogContent>
+		@if (_solution == null && _error == null)
+		{
+			<MudProgressCircular Indeterminate="true" Color="Color.Primary" />
+		}
+		else if (_error != null)
+		{
+			<MudAlert Severity="Severity.Error" id="solution-error">@_error</MudAlert>
+		}
+		else
+		{
+			<MudStack Spacing="3" id="solution-steps">
+				<div id="solution-exercise" style="font-size: 1.4rem;"></div>
+				@for (var i = 0; i < _solution!.Steps.Count; i++)
+				{
+					var step = _solution.Steps[i];
+					var number = i + 1;
+					var elementId = StepElementId(i);
+					<div class="solution-step">
+						<MudText Typo="Typo.subtitle1" Style="color: #90caf9;">Step @number</MudText>
+						<MudText Typo="Typo.body1">@step.Text</MudText>
+						@if (!string.IsNullOrEmpty(step.Latex))
+						{
+							<div id="@elementId" style="font-size: 1.2rem; overflow-x: auto;"></div>
+						}
+					</div>
+				}
+				<MudText Typo="Typo.body1" id="solution-answer">
+					Answer: <b>@_solution.Answer</b>
+				</MudText>
+			</MudStack>
+		}
+	</DialogContent>
+	<DialogActions>
+		<MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" id="solution-close">Close</MudButton>
+	</DialogActions>
+</MudDialog>
+
+@code {
+	[CascadingParameter]
+	public IMudDialogInstance Dialog { get; set; } = default!;
+
+	[Parameter]
+	public Guid ExerciseId { get; set; }
+
+	[Parameter]
+	public string ExerciseLatex { get; set; } = string.Empty;
+
+	private ExerciseSolutionDto? _solution;
+	private string? _error;
+	private bool _rendered;
+
+	protected override async Task OnInitializedAsync()
+	{
+		var result = await Api.GetExerciseSolutionAsync(ExerciseId);
+
+		if (result.Success && result.Data != null)
+		{
+			_solution = result.Data;
+		}
+		else
+		{
+			_error = result.Error ?? "The solution could not be loaded.";
+		}
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (_solution == null || _rendered)
+		{
+			return;
+		}
+
+		_rendered = true;
+
+		if (!string.IsNullOrEmpty(ExerciseLatex))
+		{
+			await JS.InvokeVoidAsync("renderFormula", "solution-exercise", ExerciseLatex);
+		}
+
+		for (var i = 0; i < _solution.Steps.Count; i++)
+		{
+			if (!string.IsNullOrEmpty(_solution.Steps[i].Latex))
+			{
+				await JS.InvokeVoidAsync("renderFormula", StepElementId(i), _solution.Steps[i].Latex);
+			}
+		}
+	}
+
+	private static string StepElementId(int index)
+	{
+		return $"solution-step-{index}";
+	}
+
+	private void Close()
+	{
+		Dialog.Close();
+	}
+}

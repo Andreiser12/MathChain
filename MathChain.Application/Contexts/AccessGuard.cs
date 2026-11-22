@@ -19,6 +19,8 @@ namespace MathChain.Application.Contexts
 
         public bool IsAdmin => _currentUser.Role == UserRole.Admin;
 
+        public bool IsInRole(UserRole role) => _currentUser.Role == role;
+
         public string RequireWallet()
         {
             if (!_currentUser.IsAuthenticated || string.IsNullOrWhiteSpace(_currentUser.WalletAddress))

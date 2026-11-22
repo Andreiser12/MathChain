@@ -1,4 +1,5 @@
 using System.Numerics;
+using MathChain.Blockchain.Common;
 using MathChain.Domain.Entities;
 using MathChain.Domain.Enums;
 using MathChain.Domain.Exceptions;
@@ -30,11 +31,12 @@ namespace MathChain.Blockchain.Certificates
         private readonly ILogger<CertificateRegistry> _logger;
         private readonly Account? _issuer;
         private readonly Web3? _web3;
-        private readonly SemaphoreSlim _sendLock = new(1, 1);
+        private readonly SemaphoreSlim _sendLock;
 
-        public CertificateRegistry(BlockchainSettings settings, ILogger<CertificateRegistry> logger)
+        public CertificateRegistry(BlockchainSettings settings, PlatformTransactionLock transactionLock, ILogger<CertificateRegistry> logger)
         {
             _settings = settings;
+            _sendLock = transactionLock.Gate;
             _logger = logger;
 
             CanRead = Uri.TryCreate(settings.RpcUrl, UriKind.Absolute, out _)

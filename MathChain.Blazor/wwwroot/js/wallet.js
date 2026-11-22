@@ -102,6 +102,15 @@ window.sendWalletTransaction = async function(network, to, data, valueHex) {
         throw new Error("No wallet account is connected.");
     }
 
+    await window.switchWalletNetwork(provider, network);
+
+    return await provider.request({
+        method: 'eth_sendTransaction',
+        params: [{ from: accounts[0], to: to, data: data || '0x', value: valueHex || '0x0' }]
+    });
+};
+
+window.switchWalletNetwork = async function(provider, network) {
     const chainIdHex = "0x" + Number(network.chainId).toString(16);
 
     try {
@@ -123,9 +132,33 @@ window.sendWalletTransaction = async function(network, to, data, valueHex) {
             }]
         });
     }
+};
+
+window.connectPaymentWallet = async function() {
+    const provider = window.mathchainProvider || window.getMetaMaskProvider();
+    if (!provider) {
+        return null;
+    }
+
+    const accounts = await provider.request({ method: 'eth_requestAccounts' });
+    if (!accounts || accounts.length === 0) {
+        return null;
+    }
+
+    window.mathchainPaymentProvider = provider;
+    return accounts[0];
+};
+
+window.signPaymentAuthorization = async function(network, address, typedData) {
+    const provider = window.mathchainPaymentProvider || window.mathchainProvider || window.getMetaMaskProvider();
+    if (!provider) {
+        throw new Error("No wallet extension was found.");
+    }
+
+    await window.switchWalletNetwork(provider, network);
 
     return await provider.request({
-        method: 'eth_sendTransaction',
-        params: [{ from: accounts[0], to: to, data: data || '0x', value: valueHex || '0x0' }]
+        method: 'eth_signTypedData_v4',
+        params: [address, typedData]
     });
 };

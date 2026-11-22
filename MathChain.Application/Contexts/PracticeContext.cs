@@ -1,3 +1,4 @@
+using System.Text.Json;
 using MathChain.Application.DTOs;
 using MathChain.Application.Practice;
 using MathChain.Domain.Entities;
@@ -88,6 +89,7 @@ namespace MathChain.Application.Contexts
                     Hint = generated.Hint,
                     Form = generated.Form,
                     ExpectedAnswer = generated.ExpectedAnswer,
+                    VariableValues = JsonSerializer.Serialize(generated.Values),
                     Attempts = 0,
                     CreatedAt = now,
                     ExpiresAt = now + ExerciseLifetime

@@ -2,6 +2,7 @@
 @using MathChain.Domain.Enums
 @inject ApiService Api
 @inject AppSession Session
+@inject FeatureSettings Features
 @inject NavigationManager Nav
 @inject IJSRuntime JS
 @inject ISnackbar Snackbar
@@ -80,6 +81,12 @@
 
 	protected override async Task OnInitializedAsync()
 	{
+		if (!Features.Certificates)
+		{
+			Nav.NavigateTo("/chapters");
+			return;
+		}
+
 		if (!Session.IsConnected)
 		{
 			await Session.RestoreSessionAsync();

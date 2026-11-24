@@ -1,6 +1,7 @@
 @inherits LayoutComponentBase
 @implements IDisposable
 @inject AppSession Session
+@inject FeatureSettings Features
 @inject NavigationManager Nav
 @inject IJSRuntime JS
 
@@ -41,7 +42,7 @@
 					<MudDivider />
 					<MudNavLink Href="/my-classes" Icon="@Icons.Material.Filled.Class">My Classes</MudNavLink>
 				}
-				@if (Session.Role == UserRole.Student)
+				@if (Session.Role == UserRole.Student && Features.Certificates)
 				{
 					<MudDivider />
 					<MudNavLink Href="/certificates" Icon="@Icons.Material.Filled.WorkspacePremium">Certificates</MudNavLink>

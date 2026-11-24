@@ -1,6 +1,8 @@
 @page "/verify/{TokenId:long}"
 @using MathChain.Domain.Enums
 @inject ApiService Api
+@inject FeatureSettings Features
+@inject NavigationManager Nav
 
 <MudContainer MaxWidth="MaxWidth.Small" Class="mt-12">
 	<MudPaper Elevation="4" Class="pa-8" Style="background-color: #16213e; color: #ffffff; border-radius: 8px;">
@@ -125,6 +127,12 @@
 
 	protected override async Task OnParametersSetAsync()
 	{
+		if (!Features.Certificates)
+		{
+			Nav.NavigateTo("/chapters");
+			return;
+		}
+
 		_loading = true;
 
 		var result = await Api.VerifyCertificateAsync(TokenId, Key);

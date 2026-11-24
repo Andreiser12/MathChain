@@ -1,6 +1,7 @@
 @page "/blockchain"
 @using MathChain.Domain.Enums
 @inject ApiService Api
+@inject FeatureSettings Features
 @inject AppSession Session
 @inject NavigationManager Nav
 @inject IJSRuntime JS
@@ -9,88 +10,91 @@
 <MudContainer MaxWidth="MaxWidth.Medium" Class="mt-8">
 	<MudText Typo="Typo.h4" Style="color: #ffffff; font-weight: 600;" Class="mb-6">Blockchain setup</MudText>
 
-	@if (_loading)
+	@if (Features.Certificates)
 	{
-		<MudProgressCircular Indeterminate="true" Color="Color.Primary" />
-	}
-	else if (_setup == null)
-	{
-		<MudAlert Severity="Severity.Error">@_error</MudAlert>
-	}
-	else
-	{
-		<MudPaper Elevation="2" Class="pa-6" Style="background-color: #16213e; color: #ffffff;">
-			<MudStack Spacing="3">
-				<div>
-					<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Network</MudText>
-					<MudText Typo="Typo.body1">@_setup.NetworkName (chain @_setup.ChainId)</MudText>
-				</div>
-				<div>
-					<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Certificates contract</MudText>
-					<MudText Typo="Typo.body1" Style="word-break: break-all;">@_setup.ContractAddress</MudText>
-				</div>
-
-				@if (!_setup.CanIssue)
-				{
-					<MudAlert Severity="Severity.Warning" id="setup-status">
-						The issuer key is not configured. Set Blockchain:IssuerPrivateKey with dotnet user-secrets and restart the API.
-					</MudAlert>
-				}
-				else
-				{
+		@if (_loading)
+		{
+			<MudProgressCircular Indeterminate="true" Color="Color.Primary" />
+		}
+		else if (_setup == null)
+		{
+			<MudAlert Severity="Severity.Error">@_error</MudAlert>
+		}
+		else
+		{
+			<MudPaper Elevation="2" Class="pa-6" Style="background-color: #16213e; color: #ffffff;">
+				<MudStack Spacing="3">
 					<div>
-						<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Platform issuer account</MudText>
-						<MudText Typo="Typo.body1" Style="word-break: break-all;" id="issuer-address">@_setup.IssuerAddress</MudText>
+						<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Network</MudText>
+						<MudText Typo="Typo.body1">@_setup.NetworkName (chain @_setup.ChainId)</MudText>
 					</div>
 					<div>
-						<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Issuer balance</MudText>
-						<MudText Typo="Typo.body1" id="issuer-balance">@_setup.IssuerBalance.ToString("0.000000") ETH</MudText>
+						<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Certificates contract</MudText>
+						<MudText Typo="Typo.body1" Style="word-break: break-all;">@_setup.ContractAddress</MudText>
 					</div>
 
-					@if (_setup.HasIssuerRole && _setup.IssuerBalance > 0)
+					@if (!_setup.CanIssue)
 					{
-						<MudAlert Severity="Severity.Success" id="setup-status">The platform can issue certificates.</MudAlert>
+						<MudAlert Severity="Severity.Warning" id="setup-status">
+							The issuer key is not configured. Set Blockchain:IssuerPrivateKey with dotnet user-secrets and restart the API.
+						</MudAlert>
 					}
 					else
 					{
-						<MudAlert Severity="Severity.Warning" id="setup-status">
-							@(_setup.HasIssuerRole
-								? "The issuer account has the issuer role but no funds to pay for transactions."
-								: "The issuer account does not have the issuer role yet.")
-						</MudAlert>
+						<div>
+							<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Platform issuer account</MudText>
+							<MudText Typo="Typo.body1" Style="word-break: break-all;" id="issuer-address">@_setup.IssuerAddress</MudText>
+						</div>
+						<div>
+							<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Issuer balance</MudText>
+							<MudText Typo="Typo.body1" id="issuer-balance">@_setup.IssuerBalance.ToString("0.000000") ETH</MudText>
+						</div>
+
+						@if (_setup.HasIssuerRole && _setup.IssuerBalance > 0)
+						{
+							<MudAlert Severity="Severity.Success" id="setup-status">The platform can issue certificates.</MudAlert>
+						}
+						else
+						{
+							<MudAlert Severity="Severity.Warning" id="setup-status">
+								@(_setup.HasIssuerRole
+									? "The issuer account has the issuer role but no funds to pay for transactions."
+									: "The issuer account does not have the issuer role yet.")
+							</MudAlert>
+						}
+
+						<MudText Typo="Typo.body2" Style="color: rgba(255, 255, 255, 0.7);">
+							Both actions below open your wallet. Sign them with the account that is the admin of the contract.
+						</MudText>
+
+						<MudStack Row="true" Spacing="3">
+							<MudButton Variant="Variant.Filled" Color="Color.Primary" Style="text-transform: none;"
+									   Disabled="@(_setup.HasIssuerRole || _busy)" OnClick="GrantIssuerRole">
+								Grant issuer role
+							</MudButton>
+							<MudButton Variant="Variant.Outlined" Color="Color.Primary" Style="text-transform: none;"
+									   Disabled="_busy" OnClick="FundIssuer">
+								Send @FundingAmountText ETH to the issuer
+							</MudButton>
+							<MudButton Variant="Variant.Text" Color="Color.Primary" Style="text-transform: none;"
+									   Disabled="_busy" OnClick="Reload">
+								Refresh
+							</MudButton>
+						</MudStack>
 					}
 
-					<MudText Typo="Typo.body2" Style="color: rgba(255, 255, 255, 0.7);">
-						Both actions below open your wallet. Sign them with the account that is the admin of the contract.
-					</MudText>
+					@if (!string.IsNullOrEmpty(_lastTransaction))
+					{
+						<MudText Typo="Typo.body2" Style="word-break: break-all;" id="last-transaction">Transaction sent: @_lastTransaction</MudText>
+					}
 
-					<MudStack Row="true" Spacing="3">
-						<MudButton Variant="Variant.Filled" Color="Color.Primary" Style="text-transform: none;"
-								   Disabled="@(_setup.HasIssuerRole || _busy)" OnClick="GrantIssuerRole">
-							Grant issuer role
-						</MudButton>
-						<MudButton Variant="Variant.Outlined" Color="Color.Primary" Style="text-transform: none;"
-								   Disabled="_busy" OnClick="FundIssuer">
-							Send @FundingAmountText ETH to the issuer
-						</MudButton>
-						<MudButton Variant="Variant.Text" Color="Color.Primary" Style="text-transform: none;"
-								   Disabled="_busy" OnClick="Reload">
-							Refresh
-						</MudButton>
-					</MudStack>
-				}
-
-				@if (!string.IsNullOrEmpty(_lastTransaction))
-				{
-					<MudText Typo="Typo.body2" Style="word-break: break-all;" id="last-transaction">Transaction sent: @_lastTransaction</MudText>
-				}
-
-				@if (!string.IsNullOrEmpty(_actionError))
-				{
-					<MudAlert Severity="Severity.Error" id="action-error">@_actionError</MudAlert>
-				}
-			</MudStack>
-		</MudPaper>
+					@if (!string.IsNullOrEmpty(_actionError))
+					{
+						<MudAlert Severity="Severity.Error" id="action-error">@_actionError</MudAlert>
+					}
+				</MudStack>
+			</MudPaper>
+		}
 	}
 
 	@if (!_loading)
@@ -221,10 +225,14 @@
 
 	private async Task Reload()
 	{
-		var result = await Api.GetCertificateSetupAsync();
+		if (Features.Certificates)
+		{
+			var result = await Api.GetCertificateSetupAsync();
 
-		_setup = result.Data;
-		_error = result.Error;
+			_setup = result.Data;
+			_error = result.Error;
+		}
+
 		await ReloadSolutionSetupAsync();
 		_loading = false;
 	}

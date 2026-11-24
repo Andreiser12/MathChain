@@ -4,6 +4,7 @@
 @using MathChain.Blazor.DTOs
 @using MudBlazor
 @inject AppSession Session
+@inject FeatureSettings Features
 @inject ApiService Api
 @inject NavigationManager Nav
 @inject ISnackbar Snackbar
@@ -67,7 +68,7 @@
 </style>
 
 <MudContainer MaxWidth="MaxWidth.False" Class="account-container px-6">
-	<MudGrid Spacing="4" Class="account-grid">
+	<MudGrid Spacing="4" Class="account-grid" Justify="Justify.Center">
 		<!-- LEFT COLUMN: Account Profile (50% Width) -->
 		<MudItem xs="12" md="6" lg="6" Class="d-flex pa-2">
 			<MudPaper Elevation="0"
@@ -151,6 +152,8 @@
 							</div>
 						</div>
 
+						@if (Features.Certificates)
+						{
 						<!-- Chapter Badges Progress Overview -->
 						<div>
 							<div class="d-flex align-center justify-space-between">
@@ -163,6 +166,7 @@
 							</div>
 							<MudProgressLinear Value="@GetEarnedBadgesCount()" Max="@Math.Max(1, _rootChapters.Count)" Color="Color.Info" Class="my-2" Style="height: 8px; border-radius: 0px;" />
 						</div>
+						}
 					</MudStack>
 				</div>
 
@@ -178,6 +182,8 @@
 			</MudPaper>
 		</MudItem>
 
+		@if (Features.Certificates)
+		{
 		<!-- RIGHT COLUMN: Chapter Badges (50% Width) -->
 		<MudItem xs="12" md="6" lg="6" Class="d-flex pa-2">
 			<MudPaper Elevation="0"
@@ -277,6 +283,7 @@
 				}
 			</MudPaper>
 		</MudItem>
+		}
 	</MudGrid>
 </MudContainer>
 
@@ -329,6 +336,11 @@
 			{
 				_createdAt = DateTime.UtcNow;
 			}
+		}
+
+		if (!Features.Certificates)
+		{
+			return;
 		}
 
 		// 3. Fetch real root chapters dynamically from DB

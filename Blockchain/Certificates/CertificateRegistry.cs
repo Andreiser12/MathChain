@@ -19,7 +19,6 @@ namespace MathChain.Blockchain.Certificates
     {
         private const string NotConfiguredMessage = "Certificates are not configured on this server.";
         private const string NetworkUnavailableMessage = "The blockchain network could not be reached. Try again later.";
-
         private static readonly string UnauthorizedAccountSelector = SelectorHex("AccessControlUnauthorizedAccount(address,bytes32)");
         private static readonly string AlreadyIssuedSelector = SelectorHex("CertificateAlreadyIssued(uint256)");
         private static readonly string AlreadyRevokedSelector = SelectorHex("CertificateAlreadyRevoked(uint256)");

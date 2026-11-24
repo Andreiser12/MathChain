@@ -2,6 +2,7 @@
 @inject ISnackbar Snackbar
 @inject ApiService ApiService
 @inject AppSession Session
+@inject FeatureSettings Features
 @using MathChain.Domain.Enums
 
 <style>
@@ -148,14 +149,17 @@
                 </MudButton>
             }
 
-            <MudButton Variant="Variant.Filled"
-                       Color="Color.Success"
-                       Style="border-radius: 0px; text-transform: none; font-weight: 600;"
-                       StartIcon="@Icons.Material.Filled.WorkspacePremium"
-                       Disabled="@(!CanIssueCertificates || _certificateActionRunning)"
-                       OnClick="ConfirmIssueCertificates">
-                @(_certificateActionRunning ? "Working..." : "Issue certificates")
-            </MudButton>
+            @if (Features.Certificates)
+            {
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Success"
+                           Style="border-radius: 0px; text-transform: none; font-weight: 600;"
+                           StartIcon="@Icons.Material.Filled.WorkspacePremium"
+                           Disabled="@(!CanIssueCertificates || _certificateActionRunning)"
+                           OnClick="ConfirmIssueCertificates">
+                    @(_certificateActionRunning ? "Working..." : "Issue certificates")
+                </MudButton>
+            }
         </MudStack>
     </MudStack>
 
@@ -186,7 +190,7 @@
                         </MudStack>
 
                         <div @onclick:stopPropagation="true" class="d-flex align-center">
-                            @if (ActiveCertificate(student) is { } certificate)
+                            @if (Features.Certificates && ActiveCertificate(student) is { } certificate)
                             {
                                 <MudChip T="string" Color="Color.Success" Variant="Variant.Filled" Icon="@Icons.Material.Filled.WorkspacePremium"
                                          Style="border-radius: 0px; font-weight: 500;">
@@ -366,6 +370,11 @@ else
 
     private async Task LoadCertificates()
     {
+        if (!Features.Certificates)
+        {
+            return;
+        }
+
         if (CurrentClassId.HasValue && Session.Role != UserRole.Student)
         {
             _certificates = await ApiService.GetClassCertificatesAsync(CurrentClassId.Value);

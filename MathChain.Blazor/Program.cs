@@ -10,6 +10,10 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped<AppSession>();
+builder.Services.AddSingleton(new FeatureSettings
+{
+    Certificates = string.Equals(builder.Configuration["Features:Certificates"], "true", StringComparison.OrdinalIgnoreCase)
+});
 
 builder.Services.AddScoped(sp =>
 {

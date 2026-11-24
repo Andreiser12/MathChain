@@ -36,17 +36,11 @@
 					<MudText Typo="Typo.subtitle1" Align="Align.Center" Class="mb-2"></MudText>
 
 					<div class="formula-card"
-						 @onmouseenter="(() => Load3DModel(formula))"
-						 @onmouseleave="(() => Unload3DModel(formula))"
-						 @ondblclick="(() => OpenFormulaDialog(formula))">
+						 @onclick="(() => OpenFormulaDialog(formula))">
 						<div class="formula-2d">
 							<span>
 								@formula.Latex
 							</span>
-						</div>
-
-						<div class="formula-3d">
-							<canvas id="@($"{formula.Id}-canvas")"></canvas>
 						</div>
 					</div>
 				</MudCard>
@@ -107,16 +101,6 @@
 			await Task.Delay(200);
 			await JS.InvokeVoidAsync("autoScaleFormulas");
 		}
-	}
-
-	private async Task Load3DModel(Formula formula)
-	{
-		await JS.InvokeVoidAsync("math3D.loadModel", formula.Id + "-canvas", formula.ModelPath);
-	}
-
-	private async Task Unload3DModel(Formula formula)
-	{
-		await JS.InvokeVoidAsync("math3D.stopModel", formula.Id + "-canvas", formula.ModelPath);
 	}
 
 	private async Task OpenFormulaDialog(Formula formula)

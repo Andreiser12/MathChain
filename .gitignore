@@ -9,6 +9,9 @@
 # Local secrets
 appsettings.Development.json
 
+# Patch files used to apply changes
+/*.patch
+
 # User-specific filesF
 *.rsuser
 *.suo

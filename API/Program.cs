@@ -30,8 +30,14 @@ builder.Services.AddCors(options =>
     });
 });
 
-var connectionString = builder.Configuration.GetConnectionString("MathchainDB") ??
-    throw new InvalidOperationException("Connection string 'MathChainDb' was not found.");
+var connectionString = builder.Configuration.GetConnectionString("MathchainDB");
+
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    throw new InvalidOperationException(
+        "Connection string 'MathchainDB' is not configured. " +
+        "Set it with: dotnet user-secrets set \"ConnectionStrings:MathchainDB\" \"<connection string>\" --project API");
+}
 
 builder.Services.AddPersistenceLayer(connectionString);
 builder.Services.AddGatewayLayer();

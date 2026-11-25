@@ -32,6 +32,7 @@ namespace MathChain.Blazor.DTOs
         public string VerificationKey { get; set; } = string.Empty;
         public string? TransactionHash { get; set; }
         public DateTime? IssuedAt { get; set; }
+        public string? HolderAddress { get; set; }
     }
 
     public class CertificateVerificationDto
@@ -68,5 +69,22 @@ namespace MathChain.Blazor.DTOs
         public bool HasIssuerRole { get; set; }
         public decimal IssuerBalance { get; set; }
         public string? GrantIssuerRoleCallData { get; set; }
+        public bool SmartAccountsConfigured { get; set; }
+        public string? EntryPointAddress { get; set; }
+        public string? AccountFactoryAddress { get; set; }
+        public string? PaymasterAddress { get; set; }
+        public string? ClaimsAddress { get; set; }
+        public decimal PaymasterDeposit { get; set; }
+        public bool ClaimsCanIssue { get; set; }
+        public string? GrantClaimsIssuerRoleCallData { get; set; }
+        public string? PaymasterDepositCallData { get; set; }
+    }
+
+    public class SmartAccountDto
+    {
+        public bool Available { get; set; }
+        public string? Address { get; set; }
+        public bool Deployed { get; set; }
+        public string? ExplorerUrl { get; set; }
     }
 }

@@ -24,11 +24,18 @@ namespace MathChain.Application.Contexts
         private readonly IPracticeExerciseGateway _practiceGateway;
         private readonly AccessGuard _access;
         private readonly TimeProvider _timeProvider;
+        private readonly ISmartAccountService? _smartAccounts;
+        private readonly IUserGateway? _userGateway;
+        private readonly ICustodialAddressProvider? _custodialAddresses;
 
         public CertificateContext(ICertificateGateway certificateGateway, ICertificateRegistry registry,
             IClassRoomGateway classRoomGateway, ICurriculumGateway curriculumGateway, IPracticeExerciseGateway practiceGateway,
-            AccessGuard access, TimeProvider timeProvider)
+            AccessGuard access, TimeProvider timeProvider, ISmartAccountService? smartAccounts = null, IUserGateway? userGateway = null,
+            ICustodialAddressProvider? custodialAddresses = null)
         {
+            _smartAccounts = smartAccounts;
+            _userGateway = userGateway;
+            _custodialAddresses = custodialAddresses;
             _certificateGateway = certificateGateway;
             _registry = registry;
             _classRoomGateway = classRoomGateway;
@@ -87,11 +94,21 @@ namespace MathChain.Application.Contexts
                 throw new BusinessRuleException($"Solve every exercise in this chapter first ({progress.SolvedExercises}/{progress.TotalExercises}).");
             }
 
-            EnsureCanIssue();
-
             var openCertificates = (await _certificateGateway.GetBySubjectAsync(CertificateKind.Chapter, chapterId))
                 .Where(c => c.StudentWallet == wallet && c.Status != CertificateStatus.Revoked)
                 .ToList();
+            var custodialUser = await FindCustodialUserAsync(wallet);
+
+            if (custodialUser != null)
+            {
+                var claimed = await ClaimThroughSmartAccountAsync(chapterId, progress.Title, wallet, custodialUser.Id,
+                    progress.TotalExercises, openCertificates.FirstOrDefault());
+
+                return ToMyDto(claimed);
+            }
+
+            EnsureCanIssue();
+
             var issued = await IssueAsync(CertificateKind.Chapter, chapterId, progress.Title, NoTeacherAddress,
                 new List<CertificateTarget> { new(wallet, progress.TotalExercises) }, openCertificates);
 
@@ -195,6 +212,126 @@ namespace MathChain.Application.Contexts
             return alreadyOnChain.Concat(toIssue).ToList();
         }
 
+        public async Task<SmartAccountDto> GetMySmartAccountAsync()
+        {
+            var wallet = _access.RequireWallet();
+            var custodialUser = await FindCustodialUserAsync(wallet);
+
+            if (custodialUser == null)
+            {
+                return new SmartAccountDto { Available = false };
+            }
+
+            var address = await _smartAccounts!.GetAccountAddressAsync(wallet);
+            var explorer = _registry.Network.ExplorerUrl;
+
+            return new SmartAccountDto
+            {
+                Available = true,
+                Address = address,
+                Deployed = await _smartAccounts.IsDeployedAsync(address),
+                ExplorerUrl = string.IsNullOrEmpty(explorer) ? null : $"{explorer}/address/{address}"
+            };
+        }
+
+        private async Task<Certificate> ClaimThroughSmartAccountAsync(Guid chapterId, string title, string wallet, Guid userId,
+            int grade, Certificate? certificate)
+        {
+            var account = await _smartAccounts!.GetAccountAddressAsync(wallet);
+            var now = _timeProvider.GetUtcNow().UtcDateTime;
+
+            if (_registry.CanRead)
+            {
+                var activeTokenId = await _registry.FindActiveAsync(account, CertificateKind.Chapter, chapterId);
+
+                if (activeTokenId != 0)
+                {
+                    var onChain = await _registry.GetAsync(activeTokenId);
+
+                    if (certificate != null && onChain != null && certificate.HolderAddress == account
+                        && SameHex(onChain.DataHash, certificate.DataHash))
+                    {
+                        certificate.Status = CertificateStatus.Issued;
+                        certificate.TokenId = activeTokenId;
+                        certificate.IssuedAt = onChain.IssuedAt;
+                        await _certificateGateway.UpdateRangeAsync(new List<Certificate> { certificate });
+
+                        return certificate;
+                    }
+
+                    await _smartAccounts.RevokeClaimedCertificateAsync(activeTokenId);
+                }
+            }
+
+            var isNew = certificate == null;
+            certificate ??= new Certificate
+            {
+                Id = Guid.NewGuid(),
+                Kind = CertificateKind.Chapter,
+                SubjectId = chapterId,
+                StudentWallet = wallet,
+                Status = CertificateStatus.Pending,
+                CreatedAt = now
+            };
+
+            certificate.HolderAddress = account;
+            certificate.SubjectTitle = Truncate(title, MaximumTitleLength);
+            certificate.Grade = grade;
+            certificate.TeacherWallet = NoTeacherAddress;
+            certificate.Salt = _registry.CreateSalt();
+            certificate.DataHash = _registry.ComputeDataHash(ToCommitment(certificate));
+
+            if (isNew)
+            {
+                await _certificateGateway.AddRangeAsync(new List<Certificate> { certificate });
+            }
+            else
+            {
+                await _certificateGateway.UpdateRangeAsync(new List<Certificate> { certificate });
+            }
+
+            var result = await _smartAccounts.ClaimCertificateAsync(new SmartAccountClaimRequest
+            {
+                UserId = userId,
+                OwnerAddress = wallet,
+                Kind = CertificateKind.Chapter,
+                SubjectId = chapterId,
+                DataHash = certificate.DataHash
+            });
+
+            certificate.TokenId = result.TokenId;
+            certificate.TransactionHash = result.TransactionHash;
+            certificate.Status = CertificateStatus.Issued;
+            certificate.IssuedAt = now;
+            await _certificateGateway.UpdateRangeAsync(new List<Certificate> { certificate });
+
+            return certificate;
+        }
+
+        private async Task<User?> FindCustodialUserAsync(string wallet)
+        {
+            if (_smartAccounts is not { IsConfigured: true } || _userGateway == null || _custodialAddresses == null)
+            {
+                return null;
+            }
+
+            var user = await _userGateway.GetByWalletAddressAsync(wallet);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            try
+            {
+                return string.Equals(_custodialAddresses.GetOwnerAddress(user.Id), wallet, StringComparison.OrdinalIgnoreCase) ? user : null;
+            }
+            catch (InvalidOperationException)
+            {
+                return null;
+            }
+        }
+
         public async Task<List<ClassCertificateDto>> GetClassCertificatesAsync(Guid classRoomId)
         {
             await _access.RequireOwnerAsync(classRoomId);
@@ -220,11 +357,24 @@ namespace MathChain.Application.Contexts
                 throw new BusinessRuleException("This certificate is already revoked.");
             }
 
-            EnsureCanIssue();
+            var claimedBySmartAccount = certificate.HolderAddress != null;
+
+            if (claimedBySmartAccount)
+            {
+                if (_smartAccounts is not { IsConfigured: true })
+                {
+                    throw new ServiceUnavailableException("Smart account claims are not configured, so this certificate cannot be revoked.");
+                }
+            }
+            else
+            {
+                EnsureCanIssue();
+            }
 
             if (certificate.TokenId == null)
             {
-                var activeTokenId = await _registry.FindActiveAsync(certificate.StudentWallet, certificate.Kind, certificate.SubjectId);
+                var activeTokenId = await _registry.FindActiveAsync(certificate.HolderAddress ?? certificate.StudentWallet,
+                    certificate.Kind, certificate.SubjectId);
                 var onChain = activeTokenId == 0 ? null : await _registry.GetAsync(activeTokenId);
 
                 if (onChain != null && SameHex(onChain.DataHash, certificate.DataHash))
@@ -235,7 +385,14 @@ namespace MathChain.Application.Contexts
 
             if (certificate.TokenId != null)
             {
-                await _registry.RevokeAsync(certificate.TokenId.Value);
+                if (claimedBySmartAccount)
+                {
+                    await _smartAccounts!.RevokeClaimedCertificateAsync(certificate.TokenId.Value);
+                }
+                else
+                {
+                    await _registry.RevokeAsync(certificate.TokenId.Value);
+                }
             }
 
             certificate.Status = CertificateStatus.Revoked;
@@ -298,7 +455,7 @@ namespace MathChain.Application.Contexts
             }
 
             var matches = SameHex(_registry.ComputeDataHash(ToCommitment(certificate)), onChain.DataHash)
-                && Normalize(onChain.StudentAddress) == certificate.StudentWallet;
+                && Normalize(onChain.StudentAddress) == (certificate.HolderAddress ?? certificate.StudentWallet);
 
             verification.DetailsRevealed = true;
             verification.DataMatchesBlockchain = matches;
@@ -334,6 +491,21 @@ namespace MathChain.Application.Contexts
                 setup.HasIssuerRole = status.HasIssuerRole;
                 setup.IssuerBalance = status.Balance;
                 setup.GrantIssuerRoleCallData = _registry.BuildGrantIssuerRoleCallData();
+            }
+
+            if (_smartAccounts != null)
+            {
+                var accounts = await _smartAccounts.GetSetupAsync();
+
+                setup.SmartAccountsConfigured = accounts.Configured;
+                setup.EntryPointAddress = accounts.EntryPointAddress;
+                setup.AccountFactoryAddress = accounts.FactoryAddress;
+                setup.PaymasterAddress = accounts.PaymasterAddress;
+                setup.ClaimsAddress = accounts.ClaimsAddress;
+                setup.PaymasterDeposit = accounts.PaymasterDeposit;
+                setup.ClaimsCanIssue = accounts.ClaimsCanIssue;
+                setup.GrantClaimsIssuerRoleCallData = accounts.GrantClaimsIssuerRoleCallData;
+                setup.PaymasterDepositCallData = accounts.PaymasterDepositCallData;
             }
 
             return setup;
@@ -418,7 +590,8 @@ namespace MathChain.Application.Contexts
                 TokenId = certificate.TokenId,
                 VerificationKey = certificate.Salt,
                 TransactionHash = certificate.TransactionHash,
-                IssuedAt = certificate.IssuedAt
+                IssuedAt = certificate.IssuedAt,
+                HolderAddress = certificate.HolderAddress
             };
         }
 
@@ -484,7 +657,7 @@ namespace MathChain.Application.Contexts
         {
             return new CertificateCommitment
             {
-                StudentAddress = certificate.StudentWallet,
+                StudentAddress = certificate.HolderAddress ?? certificate.StudentWallet,
                 Kind = certificate.Kind,
                 SubjectId = certificate.SubjectId,
                 Grade = certificate.Grade,

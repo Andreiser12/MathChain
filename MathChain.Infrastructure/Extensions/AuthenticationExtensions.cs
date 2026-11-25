@@ -83,6 +83,7 @@ namespace MathChain.Infrastructure.Extensions
 
             services.AddSingleton(googleSettings);
             services.AddSingleton<ICustodialAddressProvider>(keyDeriver);
+            services.AddSingleton<ICustodialSigner>(keyDeriver);
             services.AddSingleton<IConfigurationManager<OpenIdConnectConfiguration>>(_ =>
                 new ConfigurationManager<OpenIdConnectConfiguration>(
                     $"{googleSettings.Authority.TrimEnd('/')}/.well-known/openid-configuration",

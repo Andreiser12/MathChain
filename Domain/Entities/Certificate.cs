@@ -9,6 +9,7 @@ namespace MathChain.Domain.Entities
         public Guid SubjectId { get; set; }
         public string SubjectTitle { get; set; } = string.Empty;
         public string StudentWallet { get; set; } = string.Empty;
+        public string? HolderAddress { get; set; }
         public string TeacherWallet { get; set; } = string.Empty;
         public int Grade { get; set; }
         public string Salt { get; set; } = string.Empty;

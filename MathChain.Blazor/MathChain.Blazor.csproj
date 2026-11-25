@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>MathChain.Blazor</RootNamespace>
     <AssemblyName>MathChain.Blazor</AssemblyName>
+    <UserSecretsId>bb8cad02-0728-4d96-8990-b9d23758061a</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

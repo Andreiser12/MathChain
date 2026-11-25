@@ -51,6 +51,11 @@ namespace MathChain.Blazor.Services
             return await SendForResultAsync<CertificateSetupDto>(() => _httpClient.GetAsync($"{_baseUrl}/certificates/setup"));
         }
 
+        public async Task<ApiResult<SmartAccountDto>> GetMySmartAccountAsync()
+        {
+            return await SendForResultAsync<SmartAccountDto>(() => _httpClient.GetAsync($"{_baseUrl}/certificates/smart-account"));
+        }
+
         public async Task<decimal> GetWalletBalanceAsync(string walletAddress)
         {
             var result = await SendForResultAsync<decimal>(() =>

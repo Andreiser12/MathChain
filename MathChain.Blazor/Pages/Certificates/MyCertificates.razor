@@ -46,6 +46,12 @@
 							{
 								<MudText Typo="Typo.body1" Class="mt-1">Exercises solved: <b>@certificate.Grade</b></MudText>
 							}
+							@if (!string.IsNullOrEmpty(certificate.HolderAddress))
+							{
+								<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6); word-break: break-all;" Class="holder-address">
+									Held by your smart account @certificate.HolderAddress
+								</MudText>
+							}
 						</div>
 
 						<MudStack AlignItems="AlignItems.End" Spacing="2">

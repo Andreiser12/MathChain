@@ -83,6 +83,63 @@
 						</MudStack>
 					}
 
+					<MudDivider Class="my-2" Style="border-color: rgba(255, 255, 255, 0.15);" />
+					<MudText Typo="Typo.h6" Style="font-weight: 600;">Sponsored claims for Google accounts</MudText>
+
+					@if (!_setup.SmartAccountsConfigured)
+					{
+						<MudAlert Severity="Severity.Info" id="smart-account-status">
+							Smart accounts are not configured. Set Blockchain:AccountFactoryAddress, Blockchain:PaymasterAddress and Blockchain:CertificateClaimsAddress and restart the API. Google students then receive their certificates from the platform issuer.
+						</MudAlert>
+					}
+					else
+					{
+						<div>
+							<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">EntryPoint</MudText>
+							<MudText Typo="Typo.body1" Style="word-break: break-all;">@_setup.EntryPointAddress</MudText>
+						</div>
+						<div>
+							<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Account factory</MudText>
+							<MudText Typo="Typo.body1" Style="word-break: break-all;">@_setup.AccountFactoryAddress</MudText>
+						</div>
+						<div>
+							<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Certificate claims contract</MudText>
+							<MudText Typo="Typo.body1" Style="word-break: break-all;">@_setup.ClaimsAddress</MudText>
+						</div>
+						<div>
+							<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Paymaster</MudText>
+							<MudText Typo="Typo.body1" Style="word-break: break-all;">@_setup.PaymasterAddress</MudText>
+						</div>
+						<div>
+							<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Paymaster deposit in the EntryPoint</MudText>
+							<MudText Typo="Typo.body1" id="paymaster-deposit">@_setup.PaymasterDeposit.ToString("0.000000") ETH</MudText>
+						</div>
+
+						@if (_setup.ClaimsCanIssue && _setup.PaymasterDeposit > 0)
+						{
+							<MudAlert Severity="Severity.Success" id="smart-account-status">Google students can claim chapter certificates from their smart accounts.</MudAlert>
+						}
+						else
+						{
+							<MudAlert Severity="Severity.Warning" id="smart-account-status">
+								@(_setup.ClaimsCanIssue
+									? "The paymaster has no deposit, so it cannot pay for the claims."
+									: "The certificate claims contract does not have the issuer role yet.")
+							</MudAlert>
+						}
+
+						<MudStack Row="true" Spacing="3">
+							<MudButton Variant="Variant.Filled" Color="Color.Primary" Style="text-transform: none;"
+									   Disabled="@(_setup.ClaimsCanIssue || _busy)" OnClick="GrantClaimsIssuerRole" id="grant-claims-role">
+								Grant issuer role to the claims contract
+							</MudButton>
+							<MudButton Variant="Variant.Outlined" Color="Color.Primary" Style="text-transform: none;"
+									   Disabled="_busy" OnClick="FundPaymaster" id="fund-paymaster">
+								Deposit @FundingAmountText ETH for the paymaster
+							</MudButton>
+						</MudStack>
+					}
+
 					@if (!string.IsNullOrEmpty(_lastTransaction))
 					{
 						<MudText Typo="Typo.body2" Style="word-break: break-all;" id="last-transaction">Transaction sent: @_lastTransaction</MudText>
@@ -327,6 +384,18 @@
 		var balanceBefore = _setup!.IssuerBalance;
 
 		return SendAsync(_setup.IssuerAddress!, "0x", FundingAmountHex, setup => setup.IssuerBalance > balanceBefore);
+	}
+
+	private Task GrantClaimsIssuerRole()
+	{
+		return SendAsync(_setup!.ContractAddress, _setup.GrantClaimsIssuerRoleCallData!, "0x0", setup => setup.ClaimsCanIssue);
+	}
+
+	private Task FundPaymaster()
+	{
+		var depositBefore = _setup!.PaymasterDeposit;
+
+		return SendAsync(_setup.PaymasterAddress!, _setup.PaymasterDepositCallData!, FundingAmountHex, setup => setup.PaymasterDeposit > depositBefore);
 	}
 
 	private async Task SendAsync(string to, string data, string valueHex, Func<CertificateSetupDto, bool> isDone)

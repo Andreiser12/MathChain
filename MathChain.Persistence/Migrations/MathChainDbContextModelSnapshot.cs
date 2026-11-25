@@ -74,6 +74,10 @@ namespace MathChain.Persistence.Migrations
                     b.Property<int>("Grade")
                         .HasColumnType("integer");
 
+                    b.Property<string>("HolderAddress")
+                        .HasMaxLength(42)
+                        .HasColumnType("character varying(42)");
+
                     b.Property<DateTime?>("IssuedAt")
                         .HasColumnType("timestamp with time zone");
 

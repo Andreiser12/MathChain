@@ -30,6 +30,9 @@ namespace MathChain.Persistence.Configurations
                 .IsRequired()
                 .HasMaxLength(100);
 
+            builder.Property(c => c.HolderAddress)
+                .HasMaxLength(42);
+
             builder.Property(c => c.TeacherWallet)
                 .IsRequired()
                 .HasMaxLength(100);

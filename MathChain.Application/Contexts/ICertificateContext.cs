@@ -13,5 +13,6 @@ namespace MathChain.Application.Contexts
         Task<CertificateVerificationDto> VerifyAsync(long tokenId, string? verificationKey);
         Task<CertificateSetupDto> GetSetupAsync();
         Task<decimal> GetBalanceAsync(string walletAddress);
+        Task<SmartAccountDto> GetMySmartAccountAsync();
     }
 }

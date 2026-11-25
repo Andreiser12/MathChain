@@ -64,6 +64,14 @@ namespace MathChain.API.Controllers
             return Success(certificates);
         }
 
+        [HttpGet("certificates/smart-account")]
+        public async Task<IActionResult> GetMySmartAccount()
+        {
+            var account = await _certificateContext.GetMySmartAccountAsync();
+
+            return Success(account);
+        }
+
         [AllowAnonymous]
         [HttpGet("certificates/verify/{tokenId:long}")]
         public async Task<IActionResult> Verify(long tokenId, [FromQuery] string? key)

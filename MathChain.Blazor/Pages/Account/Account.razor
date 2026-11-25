@@ -140,6 +140,33 @@
 							</div>
 						</div>
 
+						@if (_smartAccount is { Available: true })
+						{
+							<div id="smart-account">
+								<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.75); font-weight: 600; letter-spacing: 0.5px;">
+									SMART ACCOUNT
+								</MudText>
+								<div class="account-info-box mt-1">
+									<MudText Style="font-family: monospace; font-size: 1rem; color: #ffffff; word-break: break-all;">
+										@_smartAccount.Address
+									</MudText>
+									<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.7);">
+										@(_smartAccount.Deployed
+											? "Your certificates are kept here. The platform pays the network fees."
+											: "It is created on the blockchain when you claim your first certificate. The platform pays the network fees.")
+									</MudText>
+									@if (!string.IsNullOrEmpty(_smartAccount.ExplorerUrl) && _smartAccount.Deployed)
+									{
+										<div>
+											<a href="@_smartAccount.ExplorerUrl" target="_blank" rel="noopener noreferrer" style="color: #00e5ff; font-size: 0.75rem;">
+												View on the block explorer
+											</a>
+										</div>
+									}
+								</div>
+							</div>
+						}
+
 						<!-- Account Registration Info -->
 						<div>
 							<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.75); font-weight: 600; letter-spacing: 0.5px;">
@@ -289,6 +316,7 @@
 
 @code {
 	private decimal _walletBalance = 0.0000m;
+	private SmartAccountDto? _smartAccount;
 	private DateTime _createdAt = DateTime.UtcNow;
 	private List<CurriculumChapterDto> _rootChapters = new();
 	private bool _isLoadingChapters = true;
@@ -341,6 +369,12 @@
 		if (!Features.Certificates)
 		{
 			return;
+		}
+
+		if (Session.Role == UserRole.Student)
+		{
+			_smartAccount = (await Api.GetMySmartAccountAsync()).Data;
+			StateHasChanged();
 		}
 
 		// 3. Fetch real root chapters dynamically from DB

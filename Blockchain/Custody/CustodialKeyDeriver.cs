@@ -6,7 +6,7 @@ using Nethereum.Signer;
 
 namespace MathChain.Blockchain.Custody
 {
-    public class CustodialKeyDeriver : ICustodialAddressProvider
+    public class CustodialKeyDeriver : ICustodialAddressProvider, ICustodialSigner
     {
         private const int PrivateKeySizeInBytes = 32;
         private const string KeyPurpose = "mathchain/owner-key/v1";
@@ -29,6 +29,18 @@ namespace MathChain.Blockchain.Custody
             var key = new EthECKey(DerivePrivateKey(userId), true);
 
             return key.GetPublicAddress().ToLowerInvariant();
+        }
+
+        public string SignPersonalHash(Guid userId, byte[] hash)
+        {
+            if (hash == null || hash.Length != PrivateKeySizeInBytes)
+            {
+                throw new ArgumentException("Only 32 byte hashes can be signed.", nameof(hash));
+            }
+
+            var key = new EthECKey(DerivePrivateKey(userId), true);
+
+            return new EthereumMessageSigner().Sign(hash, key);
         }
 
         private byte[] DerivePrivateKey(Guid userId)

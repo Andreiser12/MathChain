@@ -1,105 +1,108 @@
-#  MathChain
+# MathChain
 
-![Visual Studio](https://img.shields.io/badge/Visual%20Studio-5C2D91.svg?style=for-the-badge&logo=visual-studio&logoColor=white)
-![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
+![.Net](https://img.shields.io/badge/.NET%208-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
 ![C#](https://img.shields.io/badge/C%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white)
 ![Blazor](https://img.shields.io/badge/blazor-%235C2D91.svg?style=for-the-badge&logo=blazor&logoColor=white)
-![WebAssembly](https://img.shields.io/badge/webassembly-%23654FF0.svg?style=for-the-badge&logo=webassembly&logoColor=white)
-![CSS](https://img.shields.io/badge/css-%23663399.svg?style=for-the-badge&logo=css&logoColor=white)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
-![LaTeX](https://img.shields.io/badge/latex-%23008080.svg?style=for-the-badge&logo=latex&logoColor=white)
-![Remix](https://img.shields.io/badge/remix-%23000.svg?style=for-the-badge&logo=remix&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/postgresql-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Solidity](https://img.shields.io/badge/Solidity-%23363636.svg?style=for-the-badge&logo=solidity&logoColor=white)
-![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white)
 ![Blender](https://img.shields.io/badge/blender-%23F5792A.svg?style=for-the-badge&logo=blender&logoColor=white)
 
+## Overview
+MathChain is a Web3 educational platform for high-school mathematics: algebra, calculus,
+geometry and trigonometry. Formulas are presented as interactive 3D models, students practise
+with automatically generated exercises, and teachers manage their classes and grades.
+The blockchain is used where it adds trust: soulbound certificates that anyone can verify
+and step-by-step solutions paid in USDC.
 
-##  Overview
-Mathchain is a Web3 Software as a Service hybrid educational platform, its purpose is to have a better understanding about mathematical problems in domains such as calculus, algebra, geometry, artificial intelligence, etc. The approach of learning formulas consists of transforming classic 2D formulas into interactive 3D formulas. Each learning chapter concludes with an evaluation system, using the Wolfram Alpha API to generate mathematical problems.
+## Key Features
 
-##  Key Features
-- Interaction with 3D models.
-- Generating and validating math problems.
-- A Solidity Smart Contract deployed on Ethereum Sepolia testnet for payments to unlock step-by-step solutions.
-- Decentralized authentication via Metamask/Phantom wallet.
+### Students
+- Interactive 3D formulas built in Blender and a chapter tree.
+- Practice Arena with 9 exercises per formula, from Easy to Hard, with new values every time.
+- Answers are checked automatically, including the form of the result: expanded, factored or simplified.
+- Step-by-step solutions unlocked with a USDC payment that the student only signs in the wallet. MathChain pays the network fee.
+- Soulbound certificates for finishing a class or a chapter.
+
+### Teachers
+- Classes, assignments, resources, media, messages, gradebook and statistics.
+- Class certificates issued on the blockchain.
+
+### Admin
+- Curriculum editor for chapters and formulas, stored in PostgreSQL and IPFS.
+- Blockchain setup page with the platform account and the solution prices.
+
+### Sign-in
+- MetaMask or Phantom, through a signed message and a JWT session.
+- Google sign-in for users without a wallet. MathChain derives a blockchain address for them.
 
 ## Preview
-
-### Video
-
 <div>
 <img src="Domain/Media/mathchainwebGIF.gif"/>
 </div>
 
-> [!NOTE]  
->  All formulas are rendered in Blender.
+## Architecture
+MathChain follows a layered architecture:
+- **MathChain.Blazor** is the Blazor WebAssembly client.
+- **API** exposes the REST endpoints and handles authentication.
+- **MathChain.Application** contains the business logic and the exercise engine.
+- **Domain** contains the entities, the interfaces and the domain exceptions.
+- **MathChain.Gateway** contains the repositories.
+- **MathChain.Persistence** contains the EF Core context and the migrations.
+- **MathChain.Infrastructure** and **Blockchain** integrate JWT, Google, IPFS and Nethereum.
+
+### How a solution is bought
+1. The student signs a USDC payment authorization in the wallet.
+2. MathChain checks the signature and sends the transaction to the MathChainSolutions contract.
+3. The contract moves the USDC to the treasury and records the purchase.
+4. MathChain confirms the purchase on the blockchain and unlocks the solution.
+
+## Smart Contracts on Base Sepolia
+- **MathChainCertificates**: soulbound certificates following ERC-721 and ERC-5192.
+  [0x1B09a2e38EF9bfc02Bb4837c01cff1533652a882](https://sepolia.basescan.org/address/0x1B09a2e38EF9bfc02Bb4837c01cff1533652a882)
+- **MathChainSolutions**: USDC payments for step-by-step solutions.
+  [0xaD11198771D47190c973f474BF5d37065300Cd2B](https://sepolia.basescan.org/address/0xaD11198771D47190c973f474BF5d37065300Cd2B)
 
 ## Tech Stack
+- **Frontend:** Blazor WebAssembly, MudBlazor, Three.js, KaTeX
+- **Backend:** ASP.NET Core 8, EF Core 8, PostgreSQL on Supabase, IPFS
+- **Blockchain:** Solidity, OpenZeppelin, Hardhat, Nethereum, Base Sepolia, USDC
+- **Testing:** xUnit, Hardhat
 
-### Frontend
-- **Blazor WebAssembly** — web interface
-- **MudBlazor** — UI component library
-- **Three.js** — 3D model rendering in browser
-- **KaTeX** — LaTeX formula rendering
-- **JavaScript Interop** — wallet integration
+## Getting Started
+Requirements: .NET 8 SDK, a PostgreSQL database, Node.js for the contracts,
+and MetaMask on Base Sepolia with test ETH and test USDC from faucet.circle.com.
 
-
-### Backend
-- **ASP.NET Core Web API** — REST API architecture
-- **Wolfram Alpha API** — mathematical validation
-- **xUnit** — unit testing framework
-- **C# / .NET 8**
-
-### Blockchain and Web3
-- **Solidity** — smart contract language
-- **Remix IDE** — contract development and deployment
-- **Ethereum Sepolia Testnet** — blockchain network
-- **Nethereum** — C# Web3 integration
-- **WalletConnect v2** — wallet connectivity
-
-> [!NOTE]  
->  Mathchain was initially developed as a desktop application using WPF. However, realizing that an educational application like this is much better suited for the browser, the project was moved to **Blazor WebAssembly**. The original WPF prototype was deleted on 08.05.2026.
-
-## Architecture
- A hybrid architecture is used to maximize efficiency 
-and minimize gas fees:
-
-1. **Off-Chain Validation**: Mathematical validation is handled 
-   by Wolfram Alpha..
-2. **On-Chain SaaS Logic**: Premium content unlocking is handled 
-   by a Smart Contract.
-3. **Decentralized Identity**: User identity is established through 
-   MetaMask/Phantom wallet signatures.
-
-## Prerequisites
-- **Visual Studio 2022** or above installed.
-- **.NET 8 SDK** installed.
-- **MetaMask/Phantom** browser extension installed and a wallet funded with **Sepolia Test ETH**.
-- A **Wolfram Alpha Developer AppID**.
-- An **Infura** or **Alchemy** RPC URL for the Sepolia Testnet.
-- A **WalletConnect Cloud Project ID**.
-- A `.env` file located in the root of the WPF project containing the following variables:
-  ```env
-  CONTRACT_ADDRESS=your_contract_address
-  INFURA_RPC_URL=your_rpc_url
-  WOLFRAM_API_KEY=your_wolfram_api_key
-  PROJECT_ID=your_walletconnect_project_id
-  
-## Setup
 1. Clone the repository.
-2. Create `.env` file with required variables.
-3. Set Multiple Startup Projects: API + Blazor.
-4. Run the solution.
+2. Set the secrets with `dotnet user-secrets`. They are never stored in the repository:
+   ```bash
+   dotnet user-secrets set "ConnectionStrings:MathchainDB" "<connection string>" --project API
+   dotnet user-secrets set "Jwt:Key" "<random value of at least 32 bytes>" --project API
+   dotnet user-secrets set "Custody:MasterSecret" "<random value>" --project API
+   dotnet user-secrets set "Blockchain:IssuerPrivateKey" "<platform account key>" --project API
+   ```
+3. Apply the migrations:
+   ```bash
+   dotnet ef database update --project MathChain.Persistence --startup-project API
+   ```
+4. Set API and MathChain.Blazor as startup projects and run the solution.
 
-## What's next?
-- Integrate the blockchain logic, including the step-by-step solution system.
-- Account Abstraction and Smart Contracts.
-- Custom Subgraph.
-- Soulbound Tokens.
-- Unit tests.
-- Integration tests.
-- Mobile version.
-  
-## Licence
-* This project is licensed under the MIT License.
+## Testing
+```bash
+dotnet test Tests
+cd SmartContracts
+npm install
+npx hardhat test
+```
+
+## Roadmap
+- [x] Step-by-step solutions with blockchain payments
+- [x] Soulbound certificates
+- [x] Unit tests
+- [ ] Integration tests
+- [ ] Account abstraction with smart accounts and a paymaster
+- [ ] Custom subgraph
+- [ ] Mobile version
+- [ ] Exercises and solutions for the whole curriculum
+
+## License
+This project is licensed under the MIT License.

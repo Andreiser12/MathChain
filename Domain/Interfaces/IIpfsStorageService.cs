@@ -8,5 +8,7 @@ namespace MathChain.Domain.Interfaces
         Task<string> SaveFileAsync(byte[] content);
         Task<byte[]?> GetFileAsync(string ipfsHash);
         Task<bool> FileExistsAsync(string ipfsHash);
+        byte[] ToBinaryCid(string cid);
+        string? FromBinaryCid(byte[] cid);
     }
 }

@@ -33,5 +33,15 @@ namespace MathChain.Tests.Fakes
         {
             return Task.FromResult(false);
         }
+
+        public byte[] ToBinaryCid(string cid)
+        {
+            return System.Text.Encoding.UTF8.GetBytes(cid);
+        }
+
+        public string? FromBinaryCid(byte[] cid)
+        {
+            return System.Text.Encoding.UTF8.GetString(cid);
+        }
     }
 }

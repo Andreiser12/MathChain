@@ -1,6 +1,7 @@
 ﻿using MathChain.Blockchain.Accounts;
 using MathChain.Blockchain.Certificates;
 using MathChain.Blockchain.Common;
+using MathChain.Blockchain.Curriculum;
 using MathChain.Blockchain.Solutions;
 using MathChain.Domain.Interfaces;
 using MathChain.Infrastructure.Ipfs;
@@ -24,6 +25,7 @@ namespace MathChain.Infrastructure.Extensions
             services.AddSingleton<ICertificateRegistry, CertificateRegistry>();
             services.AddSingleton<ISolutionPaymentRegistry, SolutionPaymentRegistry>();
             services.AddSingleton<ISmartAccountService, SmartAccountService>();
+            services.AddSingleton<ICurriculumRegistry, CurriculumRegistry>();
             services.AddSingleton<ISolutionCatalog, EmbeddedSolutionCatalog>();
 
             return services;

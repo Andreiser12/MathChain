@@ -97,7 +97,17 @@ namespace MathChain.Infrastructure.Ipfs
             return ContentId.TryParse(ipfsHash, out _) && await _blocks.ExistsAsync(ipfsHash);
         }
 
-        private async Task<IReadOnlyDictionary<ContentId, byte[]>> FetchAsync(IReadOnlyCollection<ContentId> cids)
+        public byte[] ToBinaryCid(string cid)
+        {
+            return ContentId.Parse(cid).ToBytes();
+        }
+
+        public string? FromBinaryCid(byte[] cid)
+        {
+            return ContentId.TryParseBinary(cid, out var parsed) ? parsed!.ToString() : null;
+        }
+
+                private async Task<IReadOnlyDictionary<ContentId, byte[]>> FetchAsync(IReadOnlyCollection<ContentId> cids)
         {
             var stored = await _blocks.GetManyAsync(cids.Select(c => c.ToString()).ToList());
 

@@ -156,6 +156,103 @@
 
 	@if (!_loading)
 	{
+		<MudText Typo="Typo.h5" Style="color: #ffffff; font-weight: 600;" Class="mt-8 mb-4">Curriculum anchoring</MudText>
+
+		<MudPaper Elevation="2" Class="pa-6" Style="background-color: #16213e; color: #ffffff;" id="curriculum-publication">
+			@if (_publication == null)
+			{
+				<MudAlert Severity="Severity.Error">@_publicationError</MudAlert>
+			}
+			else
+			{
+				<MudStack Spacing="3">
+					<MudText Typo="Typo.body2" Style="color: rgba(255, 255, 255, 0.7);">
+						The curriculum (chapters, prerequisites and formulas) is stored as a content-addressed manifest. Publishing writes its CID to the blockchain, so anyone can check that the curriculum has not been changed since.
+					</MudText>
+					<div>
+						<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Current curriculum (@_publication.ChapterCount chapters, @_publication.FormulaCount formulas)</MudText>
+						<MudText Typo="Typo.body1" Style="word-break: break-all; font-family: monospace;" id="current-cid">@_publication.CurrentCid</MudText>
+					</div>
+
+					@if (!_publication.Configured)
+					{
+						<MudAlert Severity="Severity.Info" id="publication-status">
+							Curriculum anchoring is not configured. Set Blockchain:CurriculumRegistryAddress and restart the API.
+						</MudAlert>
+					}
+					else
+					{
+						<div>
+							<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Registry contract</MudText>
+							@if (!string.IsNullOrEmpty(_publication.ContractUrl))
+							{
+								<div>
+									<a href="@_publication.ContractUrl" target="_blank" rel="noopener noreferrer" style="color: #00e5ff; word-break: break-all;">@_publication.ContractAddress</a>
+								</div>
+							}
+							else
+							{
+								<MudText Typo="Typo.body1" Style="word-break: break-all;">@_publication.ContractAddress</MudText>
+							}
+						</div>
+
+						@if (_publication.Published != null)
+						{
+							<div>
+								<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">
+									Published version @_publication.Published.Version, @_publication.Published.PublishedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")
+								</MudText>
+								<MudText Typo="Typo.body1" Style="word-break: break-all; font-family: monospace;" id="published-cid">@_publication.Published.Cid</MudText>
+								<a href="@Api.GetIpfsDownloadUrl(_publication.Published.Cid, $"curriculum-v{_publication.Published.Version}.json")" target="_blank" rel="noopener noreferrer" style="color: #00e5ff; font-size: 0.85rem;">
+									Download the published manifest
+								</a>
+							</div>
+						}
+
+						@if (!string.IsNullOrEmpty(_publication.ChainError))
+						{
+							<MudAlert Severity="Severity.Warning" id="publication-status">@_publication.ChainError</MudAlert>
+						}
+						else if (_publication.Published == null)
+						{
+							<MudAlert Severity="Severity.Info" id="publication-status">The curriculum has not been published yet.</MudAlert>
+						}
+						else if (_publication.MatchesPublished == true)
+						{
+							<MudAlert Severity="Severity.Success" id="publication-status">The curriculum matches version @_publication.Published.Version on the blockchain.</MudAlert>
+						}
+						else
+						{
+							<MudAlert Severity="Severity.Warning" id="publication-status">The curriculum has changed since version @_publication.Published.Version was published.</MudAlert>
+						}
+
+						@if (!_publication.CanPublish)
+						{
+							<MudAlert Severity="Severity.Info" Dense="true">The platform key is not configured, so the curriculum cannot be published from this server.</MudAlert>
+						}
+
+						<MudStack Row="true" Spacing="3" AlignItems="AlignItems.Center">
+							<MudButton Variant="Variant.Filled" Color="Color.Primary" Style="text-transform: none;" id="publish-curriculum"
+									   Disabled="@(_publishing || !_publication.CanPublish || _publication.MatchesPublished == true)" OnClick="PublishCurriculumAsync">
+								@(_publication.Published == null ? "Publish curriculum" : "Publish new version")
+							</MudButton>
+							@if (_publishing)
+							{
+								<MudProgressCircular Indeterminate="true" Size="Size.Small" Color="Color.Primary" />
+							}
+						</MudStack>
+
+						@if (!string.IsNullOrEmpty(_publication.Published?.TransactionUrl))
+						{
+							<a href="@_publication.Published!.TransactionUrl" target="_blank" rel="noopener noreferrer" style="color: #00e5ff; font-size: 0.85rem;" id="publication-transaction">
+								View the publication transaction
+							</a>
+						}
+					}
+				</MudStack>
+			}
+		</MudPaper>
+
 		<MudText Typo="Typo.h5" Style="color: #ffffff; font-weight: 600;" Class="mt-8 mb-4">Paid solutions</MudText>
 
 		<MudPaper Elevation="2" Class="pa-6" Style="background-color: #16213e; color: #ffffff;" id="solution-setup">
@@ -247,6 +344,9 @@
 	private static readonly string[] Difficulties = { "Easy", "Medium", "Hard" };
 
 	private CertificateSetupDto? _setup;
+	private CurriculumPublicationStatusDto? _publication;
+	private string? _publicationError;
+	private bool _publishing;
 	private SolutionPaymentSetupDto? _solutionSetup;
 	private string? _solutionError;
 	private string? _priceError;
@@ -291,7 +391,37 @@
 		}
 
 		await ReloadSolutionSetupAsync();
+		await ReloadPublicationAsync();
 		_loading = false;
+	}
+
+	private async Task ReloadPublicationAsync()
+	{
+		var result = await Api.GetCurriculumPublicationAsync();
+
+		_publication = result.Data;
+		_publicationError = result.Error ?? "The curriculum publication status could not be loaded.";
+	}
+
+	private async Task PublishCurriculumAsync()
+	{
+		_publishing = true;
+		StateHasChanged();
+
+		var result = await Api.PublishCurriculumAsync();
+
+		if (result.Data != null)
+		{
+			_publication = result.Data;
+			Snackbar.Add($"The curriculum was published as version {result.Data.Published?.Version}.", Severity.Success);
+		}
+		else
+		{
+			Snackbar.Add(result.Error ?? "The curriculum could not be published.", Severity.Error);
+			await ReloadPublicationAsync();
+		}
+
+		_publishing = false;
 	}
 
 	private async Task ReloadSolutionSetupAsync()

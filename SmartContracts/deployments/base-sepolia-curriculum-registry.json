@@ -1,0 +1,15 @@
+{
+  "contract": "CurriculumRegistry",
+  "network": "base-sepolia",
+  "chainId": 84532,
+  "address": "0xfb7586c2E3950fdb3798193fbf499FdE33bB051D",
+  "admin": "0x5E4A75b20050340cd2F5327a12Ad74Ae98FD4b39",
+  "publisher": "0xd5fed8095475492472aa68f5906ff4668f57cabe",
+  "transactionHash": "0x617b35f156996bb76ed3b84b5749b0a2111df4bd4f4d89bc095be63aba6be2b6",
+  "blockNumber": 63906611,
+  "compiler": {
+    "version": "0.8.30",
+    "optimizer": false,
+    "evmVersion": "prague"
+  }
+}

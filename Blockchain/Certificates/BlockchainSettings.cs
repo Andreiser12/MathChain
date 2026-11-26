@@ -17,6 +17,7 @@ namespace MathChain.Blockchain.Certificates
         public string AccountFactoryAddress { get; set; } = string.Empty;
         public string PaymasterAddress { get; set; } = string.Empty;
         public string CertificateClaimsAddress { get; set; } = string.Empty;
+        public string CurriculumRegistryAddress { get; set; } = string.Empty;
         public string IssuerPrivateKey { get; set; } = string.Empty;
         public int ReceiptTimeoutSeconds { get; set; } = 90;
         public int GasPriceMultiplierPercent { get; set; } = 200;

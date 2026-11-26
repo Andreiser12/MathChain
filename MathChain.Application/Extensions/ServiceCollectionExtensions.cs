@@ -23,6 +23,7 @@ namespace MathChain.Application.Extensions
             services.AddScoped<ICertificateContext, CertificateContext>();
             services.AddScoped<IPracticeContext, PracticeContext>();
             services.AddScoped<ISolutionContext, SolutionContext>();
+            services.AddScoped<ICurriculumPublicationContext, CurriculumPublicationContext>();
             services.AddSingleton(new SolutionPaymentOptions());
             services.AddSingleton<PracticeRandom>();
 

@@ -26,6 +26,7 @@ namespace MathChain.Tests.Api
         public InMemoryPracticeExerciseGateway Practice { get; } = new();
         public InMemorySolutionPurchaseGateway SolutionPurchases { get; } = new();
         public FakeSolutionPaymentRegistry SolutionRegistry { get; } = new();
+        public InMemoryContentBlockGateway ContentBlocks { get; } = new();
 
         public ApiFactory()
         {
@@ -59,6 +60,7 @@ namespace MathChain.Tests.Api
                 services.AddSingleton<IPracticeExerciseGateway>(Practice);
                 services.AddSingleton<ISolutionPurchaseGateway>(SolutionPurchases);
                 services.AddSingleton<ISolutionPaymentRegistry>(SolutionRegistry);
+                services.AddSingleton<IContentBlockGateway>(ContentBlocks);
                 services.AddSingleton<IConfigurationManager<OpenIdConnectConfiguration>>(
                     new StaticConfigurationManager<OpenIdConnectConfiguration>(Google.CreateConfiguration()));
             });

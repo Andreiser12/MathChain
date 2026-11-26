@@ -15,7 +15,8 @@ namespace MathChain.Infrastructure.Extensions
     {
         public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSingleton<IIpfsStorageService, IpfsStorageService>();
+            services.AddScoped<IIpfsStorageService, IpfsStorageService>();
+            services.AddScoped<IpfsImporter>();
             services.AddHttpClient<IWolframService, WolframService>();
 
             services.AddSingleton(configuration.GetSection("Blockchain").Get<BlockchainSettings>() ?? new BlockchainSettings());

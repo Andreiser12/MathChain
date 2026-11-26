@@ -29,9 +29,9 @@ namespace MathChain.Tests.Fakes
             return Task.FromResult<byte[]?>(null);
         }
 
-        public bool FileExists(string ipfsHash)
+        public Task<bool> FileExistsAsync(string ipfsHash)
         {
-            return false;
+            return Task.FromResult(false);
         }
     }
 }

@@ -278,6 +278,30 @@ namespace MathChain.Persistence.Migrations
                     b.ToTable("ClassRooms", (string)null);
                 });
 
+            modelBuilder.Entity("MathChain.Domain.Entities.ContentBlock", b =>
+                {
+                    b.Property<string>("Cid")
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)");
+
+                    b.Property<int>("Codec")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<byte[]>("Data")
+                        .IsRequired()
+                        .HasColumnType("bytea");
+
+                    b.Property<int>("Size")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Cid");
+
+                    b.ToTable("ContentBlocks", (string)null);
+                });
+
             modelBuilder.Entity("MathChain.Domain.Entities.CurriculumChapter", b =>
                 {
                     b.Property<Guid>("Id")

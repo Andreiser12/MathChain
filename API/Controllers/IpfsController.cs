@@ -1,8 +1,11 @@
 using MathChain.Domain.Exceptions;
 using MathChain.Domain.Interfaces;
+using MathChain.Infrastructure.Ipfs;
 using MathChain.Infrastructure.ResponseHandling;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.Net.Http.Headers;
 
 namespace MathChain.API.Controllers
 {
@@ -15,7 +18,12 @@ namespace MathChain.API.Controllers
     [Route("api/[controller]")]
     public class IpfsController : ControllerBase
     {
+        private const int MaximumRequestSize = IIpfsStorageService.MaximumFileSize + 1024 * 1024;
+        private const int MaximumFileNameLength = 200;
+        private static readonly FileExtensionContentTypeProvider ContentTypes = new();
+
         private readonly IIpfsStorageService _ipfsService;
+
         public IpfsController(IIpfsStorageService ipfsService)
         {
             _ipfsService = ipfsService;
@@ -23,7 +31,8 @@ namespace MathChain.API.Controllers
 
         [HttpPost("upload")]
         [Consumes("multipart/form-data")]
-        [RequestSizeLimit(50 * 1024 * 1024)]
+        [RequestSizeLimit(MaximumRequestSize)]
+        [RequestFormLimits(MultipartBodyLengthLimit = MaximumRequestSize)]
         public async Task<IActionResult> Upload([FromForm] FileUploadRequest request)
         {
             var file = request?.File;
@@ -33,13 +42,15 @@ namespace MathChain.API.Controllers
                 return BadRequest(EnvelopeExtensions.Failure<string>("No file uploaded.", 400));
             }
 
-            using var memoryStream = new MemoryStream();
+            if (file.Length > IIpfsStorageService.MaximumFileSize)
+            {
+                return BadRequest(EnvelopeExtensions.Failure<string>("Files can be at most 10 MB.", 400));
+            }
 
+            using var memoryStream = new MemoryStream();
             await file.CopyToAsync(memoryStream);
 
-            byte[] fileBytes = memoryStream.ToArray();
-
-            var ipfsHash = await _ipfsService.SaveFileAsync(fileBytes);
+            var ipfsHash = await _ipfsService.SaveFileAsync(memoryStream.ToArray());
 
             return Ok(EnvelopeExtensions.Success(ipfsHash, "File stored successfully on IPFS node."));
         }
@@ -49,24 +60,46 @@ namespace MathChain.API.Controllers
         [HttpGet("{hash}")]
         public async Task<IActionResult> Download(string hash, [FromQuery] string? fileName)
         {
-            if (string.IsNullOrWhiteSpace(hash))
+            if (!ContentId.TryParse(hash, out _))
             {
-                throw new BusinessRuleException("IPFS hash is required.");
+                throw new BusinessRuleException("The content identifier is not valid.");
             }
-
-            Console.WriteLine($"[IPFS] Download requested for hash: '{hash}', fileName: '{fileName}'");
 
             var fileBytes = await _ipfsService.GetFileAsync(hash);
 
             if (fileBytes == null)
             {
-                Console.WriteLine($"[IPFS] Content with hash '{hash}' not found in local node or remote gateways.");
                 throw new NotFoundException($"File not found on IPFS storage (hash: {hash}).");
             }
 
-            var downloadName = !string.IsNullOrWhiteSpace(fileName) ? fileName : hash;
+            var downloadName = SafeFileName(fileName) ?? hash;
 
-            return File(fileBytes, "application/octet-stream", downloadName);
+            if (!ContentTypes.TryGetContentType(downloadName, out var contentType))
+            {
+                contentType = "application/octet-stream";
+            }
+
+            Response.Headers[HeaderNames.CacheControl] = "public, max-age=31536000, immutable";
+            Response.Headers[HeaderNames.XContentTypeOptions] = "nosniff";
+
+            return File(fileBytes, contentType, downloadName, lastModified: null, entityTag: new EntityTagHeaderValue($"\"{hash}\""));
+        }
+
+        private static string? SafeFileName(string? fileName)
+        {
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                return null;
+            }
+
+            var name = new string(Path.GetFileName(fileName.Replace('\\', '/')).Where(c => !char.IsControl(c)).ToArray()).Trim();
+
+            if (name.Length == 0 || name == "." || name == "..")
+            {
+                return null;
+            }
+
+            return name.Length > MaximumFileNameLength ? name[..MaximumFileNameLength] : name;
         }
     }
 }

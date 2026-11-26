@@ -1,171 +1,29 @@
+using MathChain.Domain.Entities;
 using MathChain.Domain.Exceptions;
+using MathChain.Domain.Gateways;
 using MathChain.Domain.Interfaces;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace MathChain.Infrastructure.Ipfs
 {
     public class IpfsStorageService : IIpfsStorageService
     {
-        private readonly string _storagePath;
+        public const int LegacyFileCodec = 0;
 
-        public IpfsStorageService(IConfiguration? configuration = null)
+        private readonly IContentBlockGateway _blocks;
+        private readonly ILogger<IpfsStorageService> _logger;
+        private readonly TimeProvider _timeProvider;
+
+        public IpfsStorageService(IContentBlockGateway blocks, ILogger<IpfsStorageService> logger, TimeProvider? timeProvider = null)
         {
-            _storagePath = ResolveStoragePath(configuration);
-
-            if (!Directory.Exists(_storagePath))
-            {
-                Directory.CreateDirectory(_storagePath);
-            }
-
-            Console.WriteLine($"[IPFS] Local node storage path active at: {_storagePath}");
-        }
-
-        private static string ResolveStoragePath(IConfiguration? configuration)
-        {
-            var configuredPath = configuration?["IpfsStoragePath"];
-            if (!string.IsNullOrWhiteSpace(configuredPath))
-            {
-                if (Directory.Exists(configuredPath))
-                {
-                    return configuredPath;
-                }
-
-                var fullConfigured = Path.GetFullPath(configuredPath);
-                if (Directory.Exists(fullConfigured))
-                {
-                    return fullConfigured;
-                }
-            }
-
-            // Check candidate paths relative to current directory and base directory
-            var candidates = new List<string>
-            {
-                Path.Combine(Directory.GetCurrentDirectory(), "Storage", "ipfs"),
-                Path.Combine(Directory.GetCurrentDirectory(), "API", "Storage", "ipfs"),
-                Path.Combine(AppContext.BaseDirectory, "Storage", "ipfs")
-            };
-
-            foreach (var candidate in candidates)
-            {
-                if (Directory.Exists(candidate))
-                {
-                    return candidate;
-                }
-            }
-
-            // Walk up directory tree from AppContext.BaseDirectory to find API/Storage/ipfs or Storage/ipfs
-            var dir = new DirectoryInfo(AppContext.BaseDirectory);
-            while (dir != null && dir.Exists)
-            {
-                var candidate1 = Path.Combine(dir.FullName, "Storage", "ipfs");
-                if (Directory.Exists(candidate1))
-                {
-                    return candidate1;
-                }
-
-                var candidate2 = Path.Combine(dir.FullName, "API", "Storage", "ipfs");
-                if (Directory.Exists(candidate2))
-                {
-                    return candidate2;
-                }
-
-                dir = dir.Parent;
-            }
-
-            // Fallback: create in current directory
-            var fallback = Path.Combine(Directory.GetCurrentDirectory(), "Storage", "ipfs");
-            return fallback;
+            _blocks = blocks;
+            _logger = logger;
+            _timeProvider = timeProvider ?? TimeProvider.System;
         }
 
         public string ComputeHash(byte[] content)
         {
-            return IpfsHashHelper.ComputeCid(content);
-        }
-
-        public bool FileExists(string ipfsHash)
-        {
-            if (string.IsNullOrWhiteSpace(ipfsHash))
-            {
-                return false;
-            }
-
-            string filePath = Path.Combine(_storagePath, ipfsHash);
-            if (File.Exists(filePath))
-            {
-                return true;
-            }
-
-            var cleanHash = Path.GetFileNameWithoutExtension(ipfsHash);
-            return Directory.GetFiles(_storagePath, $"{cleanHash}*").Length > 0;
-        }
-
-        public async Task<byte[]?> GetFileAsync(string ipfsHash)
-        {
-            if (string.IsNullOrWhiteSpace(ipfsHash))
-            {
-                return null;
-            }
-
-            string filePath = Path.Combine(_storagePath, ipfsHash);
-
-            // 1. Check local node storage (exact match)
-            if (File.Exists(filePath))
-            {
-                return await File.ReadAllBytesAsync(filePath);
-            }
-
-            // 2. Check if file is stored with an extension (e.g. Qm...png)
-            var cleanHash = Path.GetFileNameWithoutExtension(ipfsHash);
-            var matchingFiles = Directory.GetFiles(_storagePath, $"{cleanHash}*");
-            if (matchingFiles.Length > 0)
-            {
-                return await File.ReadAllBytesAsync(matchingFiles[0]);
-            }
-
-            // 3. Fallback: Query remote IPFS gateways (Pinata, ipfs.io, Cloudflare) for files uploaded to global IPFS
-            Console.WriteLine($"[IPFS] File '{ipfsHash}' not found in local node. Querying remote IPFS gateways...");
-            try
-            {
-                using var httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
-                var gatewayUrls = new[]
-                {
-                    $"https://gateway.pinata.cloud/ipfs/{cleanHash}",
-                    $"https://ipfs.io/ipfs/{cleanHash}",
-                    $"https://cloudflare-ipfs.com/ipfs/{cleanHash}"
-                };
-
-                foreach (var url in gatewayUrls)
-                {
-                    try
-                    {
-                        var response = await httpClient.GetAsync(url);
-                        if (response.IsSuccessStatusCode)
-                        {
-                            var bytes = await response.Content.ReadAsByteArrayAsync();
-                            if (bytes != null && bytes.Length > 0)
-                            {
-                                // Cache locally in node storage for future instant retrieval
-                                await File.WriteAllBytesAsync(filePath, bytes);
-                                Console.WriteLine($"[IPFS] Retrieved '{cleanHash}' from {url} and pinned to local storage.");
-                                return bytes;
-                            }
-                        }
-                    }
-                    catch { }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"[IPFS] Gateway query error: {ex.Message}");
-            }
-
-            Console.WriteLine($"[IPFS] File '{ipfsHash}' not found locally or on IPFS gateways.");
-            return null;
+            return UnixFsDag.Build(content).Root.ToString();
         }
 
         public async Task<string> SaveFileAsync(byte[] content)
@@ -175,15 +33,75 @@ namespace MathChain.Infrastructure.Ipfs
                 throw new BusinessRuleException("File content is empty.");
             }
 
-            string ipfsHash = IpfsHashHelper.ComputeCid(content);
-            string destinationPath = Path.Combine(_storagePath, ipfsHash);
-
-            if (!File.Exists(destinationPath))
+            if (content.Length > IIpfsStorageService.MaximumFileSize)
             {
-                await File.WriteAllBytesAsync(destinationPath, content);
+                throw new BusinessRuleException("Files can be at most 10 MB.");
             }
 
-            return ipfsHash;
+            var file = UnixFsDag.Build(content);
+            var now = _timeProvider.GetUtcNow().UtcDateTime;
+
+            await _blocks.AddMissingAsync(file.Blocks.Select(block => new ContentBlock
+            {
+                Cid = block.Cid.ToString(),
+                Codec = (int)block.Cid.Codec,
+                Data = block.Bytes,
+                Size = block.Bytes.Length,
+                CreatedAt = now
+            }).ToList());
+
+            return file.Root.ToString();
+        }
+
+        public async Task<byte[]?> GetFileAsync(string ipfsHash)
+        {
+            if (!ContentId.TryParse(ipfsHash, out var root))
+            {
+                return null;
+            }
+
+            try
+            {
+                if (root!.IsVersionZero)
+                {
+                    var stored = (await _blocks.GetManyAsync(new[] { ipfsHash })).SingleOrDefault();
+
+                    if (stored == null)
+                    {
+                        return null;
+                    }
+
+                    if (stored.Codec == LegacyFileCodec)
+                    {
+                        return root.Matches(stored.Data)
+                            ? stored.Data
+                            : throw new InvalidDataException($"Block {ipfsHash} does not match its content identifier.");
+                    }
+                }
+
+                return await UnixFsDag.ReadAsync(root, FetchAsync, IIpfsStorageService.MaximumFileSize);
+            }
+            catch (KeyNotFoundException)
+            {
+                return null;
+            }
+            catch (Exception exception) when (exception is InvalidDataException or FormatException)
+            {
+                _logger.LogError(exception, "Stored content {Cid} failed verification", ipfsHash);
+                return null;
+            }
+        }
+
+        public async Task<bool> FileExistsAsync(string ipfsHash)
+        {
+            return ContentId.TryParse(ipfsHash, out _) && await _blocks.ExistsAsync(ipfsHash);
+        }
+
+        private async Task<IReadOnlyDictionary<ContentId, byte[]>> FetchAsync(IReadOnlyCollection<ContentId> cids)
+        {
+            var stored = await _blocks.GetManyAsync(cids.Select(c => c.ToString()).ToList());
+
+            return stored.ToDictionary(block => ContentId.Parse(block.Cid), block => block.Data);
         }
     }
 }

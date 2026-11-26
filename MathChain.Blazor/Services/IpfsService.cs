@@ -11,7 +11,8 @@ namespace MathChain.Blazor.Services
         private readonly HttpClient _httpClient;
         private readonly string _baseApi;
         private readonly string _primaryUrl;
-        private readonly string _fallbackUrl = "http://localhost:5065/api/ipfs/upload";
+
+        public const long MaximumFileSize = 10 * 1024 * 1024;
 
         public IpfsService(HttpClient httpClient, IConfiguration configuration)
         {
@@ -22,9 +23,15 @@ namespace MathChain.Blazor.Services
 
         public async Task<string?> UploadFileToIpfsAsync(IBrowserFile file)
         {
+            if (file.Size > MaximumFileSize)
+            {
+                Console.WriteLine($"Upload rejected: {file.Name} is larger than 10 MB.");
+                return null;
+            }
+
             try
             {
-                using var stream = file.OpenReadStream(maxAllowedSize: 20 * 1024 * 1024);
+                using var stream = file.OpenReadStream(maxAllowedSize: MaximumFileSize);
                 using var streamContent = new StreamContent(stream);
 
                 streamContent.Headers.ContentType = new MediaTypeHeaderValue(
@@ -33,25 +40,7 @@ namespace MathChain.Blazor.Services
                 using var formData = new MultipartFormDataContent();
                 formData.Add(streamContent, "file", file.Name);
 
-                HttpResponseMessage response;
-
-                try
-                {
-                    response = await _httpClient.PostAsync(_primaryUrl, formData);
-                }
-                catch
-                {
-                    using var fallbackStream = file.OpenReadStream(maxAllowedSize: 20 * 1024 * 1024);
-                    using var fallbackStreamContent = new StreamContent(fallbackStream);
-
-                    fallbackStreamContent.Headers.ContentType = new MediaTypeHeaderValue(
-                        string.IsNullOrWhiteSpace(file.ContentType) ? "application/octet-stream" : file.ContentType);
-
-                    using var fallbackFormData = new MultipartFormDataContent();
-                    fallbackFormData.Add(fallbackStreamContent, "file", file.Name);
-
-                    response = await _httpClient.PostAsync(_fallbackUrl, fallbackFormData);
-                }
+                var response = await _httpClient.PostAsync(_primaryUrl, formData);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -122,17 +111,7 @@ namespace MathChain.Blazor.Services
                     url = $"{_baseApi}/ipfs/{ipfsHashOrUrl}";
                 }
 
-                HttpResponseMessage response;
-
-                try
-                {
-                    response = await _httpClient.GetAsync(url);
-                }
-                catch
-                {
-                    url = $"http://localhost:5065/api/ipfs/{ipfsHashOrUrl}";
-                    response = await _httpClient.GetAsync(url);
-                }
+                var response = await _httpClient.GetAsync(url);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -197,16 +176,7 @@ namespace MathChain.Blazor.Services
             try
             {
                 string url = $"{_baseApi}/curriculum/{slug}";
-                HttpResponseMessage response;
-
-                try
-                {
-                    response = await _httpClient.GetAsync(url);
-                }
-                catch
-                {
-                    response = await _httpClient.GetAsync($"http://localhost:5065/api/curriculum/{slug}");
-                }
+                var response = await _httpClient.GetAsync(url);
 
                 if(response.IsSuccessStatusCode)
                 {

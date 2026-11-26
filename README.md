@@ -99,7 +99,7 @@ npx hardhat test
 - [x] Soulbound certificates
 - [x] Unit tests
 - [ ] Integration tests
-- [ ] Account abstraction with smart accounts and a paymaster
+- [x] Account abstraction with smart accounts and a paymaster
 - [ ] Custom subgraph
 - [ ] Mobile version
 - [ ] Exercises and solutions for the whole curriculum

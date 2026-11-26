@@ -96,6 +96,10 @@ namespace MathChain.Blazor.DTOs
         public int TotalSubChaptersCount { get; set; }
         public int FormulasCount { get; set; }
         public int TotalFormulasCount { get; set; }
+        public List<Guid> PrerequisiteIds { get; set; } = new();
+        public bool Locked { get; set; }
+        public bool Completed { get; set; }
+        public List<string> MissingPrerequisites { get; set; } = new();
     }
 
     public class BreadcrumbDto

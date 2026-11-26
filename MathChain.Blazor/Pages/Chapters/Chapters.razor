@@ -74,6 +74,33 @@
 		}
 	}
 
+	.chapter-locked {
+		cursor: not-allowed !important;
+	}
+
+	.chapter-locked .mud-card-media {
+		filter: grayscale(1);
+		opacity: 0.35;
+	}
+
+	.chapter-locked:hover {
+		transform: none;
+		border: 2px solid transparent;
+		box-shadow: none;
+	}
+
+	.chapter-lock-badge {
+		position: absolute;
+		top: 8px;
+		left: 8px;
+		z-index: 20;
+		background: rgba(0, 0, 0, 0.7);
+		padding: 4px 8px;
+		display: flex;
+		align-items: center;
+		gap: 4px;
+	}
+
 	.card-admin-actions {
 		position: absolute;
 		top: 8px;
@@ -275,6 +302,19 @@ else
 			}
 		</MudGrid>
 	}
+	else if (IsCurrentLocked)
+	{
+		<MudPaper Class="pa-12 mt-6 d-flex flex-column align-center" Style="background-color: #16213E; border-radius: 0px;" id="chapter-locked-panel">
+			<MudIcon Icon="@Icons.Material.Filled.Lock" Size="Size.Large" Style="font-size: 4rem; color: #ffb74d;" />
+			<MudText Typo="Typo.h5" Align="Align.Center" Class="mt-4" Style="color: #ffffff; font-weight: 600;">This chapter is locked</MudText>
+			<MudText Typo="Typo.body1" Align="Align.Center" Class="mt-2 mb-6" Style="color: rgba(255, 255, 255, 0.7);">
+				@LockReason(_currentDetail!.Chapter)
+			</MudText>
+			<MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.ArrowBack" OnClick="GoToParent">
+				Back
+			</MudButton>
+		</MudPaper>
+	}
 	else if (HasSubChapters || HasFormulas)
 	{
 		@if (HasSubChapters)
@@ -291,13 +331,32 @@ else
 				{
 					<MudItem xs="12" sm="6" md="4">
 						<MudCard Elevation="4"
-								 Class="cursor-pointer hover-effect h-100 d-flex flex-column justify-space-between"
+								 Class="@($"cursor-pointer hover-effect h-100 d-flex flex-column justify-space-between chapter-card{(chapter.Locked ? " chapter-locked" : "")}")"
 								 Style="position: relative !important; background-color: #16213E; color: #ffffff; border-radius: 0px !important;"
-								 @onclick="() => NavigateToChapter(chapter)">
+								 @onclick="() => OpenChapterCard(chapter)">
+
+							@if (chapter.Locked)
+							{
+								<div class="chapter-lock-badge">
+									<MudIcon Icon="@Icons.Material.Filled.Lock" Size="Size.Small" Style="color: #ffb74d;" />
+									<MudText Typo="Typo.caption" Style="color: #ffb74d; font-weight: 600;">Locked</MudText>
+								</div>
+							}
 
 							@if (Session.Role == UserRole.Admin)
 							{
 								<div class="card-admin-actions" @onclick:stopPropagation="true">
+									@if (!IsRootLevel)
+									{
+										<MudTooltip Text="Prerequisites" Arrow="true" Placement="Placement.Top">
+											<MudIconButton Icon="@Icons.Material.Filled.AccountTree"
+														   Size="Size.Small"
+														   Color="Color.Info"
+														   aria-label="Prerequisites"
+														   Class="edit-prerequisites"
+														   OnClick="() => OpenPrerequisitesDialog(chapter)" />
+										</MudTooltip>
+									}
 									<MudTooltip Text="Edit Chapter" Arrow="true" Placement="Placement.Top">
 										<MudIconButton Icon="@Icons.Material.Filled.Edit"
 													   Size="Size.Small"
@@ -349,7 +408,26 @@ else
 												Formulas
 											</MudChip>
 										}
+										@if (chapter.Completed)
+										{
+											<MudChip T="string" Size="Size.Small" Color="Color.Success" Variant="Variant.Filled" Icon="@Icons.Material.Filled.CheckCircle" Class="chapter-completed">
+												Completed
+											</MudChip>
+										}
 									</div>
+
+									@if (chapter.Locked)
+									{
+										<MudText Typo="Typo.caption" Class="mt-2 chapter-lock-reason" Style="color: #ffb74d;">
+											@LockReason(chapter)
+										</MudText>
+									}
+									else if (chapter.PrerequisiteIds.Any())
+									{
+										<MudText Typo="Typo.caption" Class="mt-2 chapter-prerequisites" Style="color: rgba(255, 255, 255, 0.6);">
+											After: @PrerequisiteTitles(chapter)
+										</MudText>
+									}
 								</MudCardContent>
 							</div>
 						</MudCard>
@@ -521,6 +599,7 @@ else
 		: _currentDetail?.Chapter.Description;
 
 	private bool HasSubChapters => DisplayedChapters.Any();
+	private bool IsCurrentLocked => !IsRootLevel && _currentDetail?.Chapter.Locked == true;
 	private bool HasFormulas => _formulas.Any();
 
 	private string? _lastLoadedSlug;
@@ -583,7 +662,7 @@ else
 			{
 				_hasLoadedRoot = false;
 				_lastLoadedSlug = ChapterIdOrSlug;
-				_currentDetail = await Api.GetChapterDetailAsync(ChapterIdOrSlug!);
+				_currentDetail = await Api.GetChapterDetailAsync(ChapterIdOrSlug!, forceRefresh: Session.Role == UserRole.Student);
 
 				if (_currentDetail != null)
 				{
@@ -606,7 +685,7 @@ else
 					}
 
 					// Only load formulas if this chapter has formulas or is a leaf category
-					bool shouldLoadFormulas = (_currentDetail.Chapter.FormulasCount > 0) || !DisplayedChapters.Any();
+					bool shouldLoadFormulas = !_currentDetail.Chapter.Locked && ((_currentDetail.Chapter.FormulasCount > 0) || !DisplayedChapters.Any());
 
 					if (shouldLoadFormulas)
 					{
@@ -692,6 +771,55 @@ else
 	private void NavigateToChapter(CurriculumChapterDto chapter)
 	{
 		Nav.NavigateTo($"/chapters/{chapter.ChapterSlug}");
+	}
+
+	private void OpenChapterCard(CurriculumChapterDto chapter)
+	{
+		if (chapter.Locked)
+		{
+			Snackbar.Add(LockReason(chapter), Severity.Warning);
+			return;
+		}
+
+		NavigateToChapter(chapter);
+	}
+
+	private static string LockReason(CurriculumChapterDto chapter)
+	{
+		return chapter.MissingPrerequisites.Any()
+			? $"Finish {string.Join(", ", chapter.MissingPrerequisites)} first."
+			: "This chapter is locked.";
+	}
+
+	private string PrerequisiteTitles(CurriculumChapterDto chapter)
+	{
+		return string.Join(", ", chapter.PrerequisiteIds
+			.Select(id => DisplayedChapters.FirstOrDefault(c => c.Id == id)?.Title)
+			.Where(title => title != null));
+	}
+
+	private void GoToParent()
+	{
+		var parent = _currentDetail?.Breadcrumbs.Count > 1 ? _currentDetail.Breadcrumbs[^2] : null;
+		Nav.NavigateTo(parent == null ? "/chapters" : $"/chapters/{parent.Slug}");
+	}
+
+	private async Task OpenPrerequisitesDialog(CurriculumChapterDto chapter)
+	{
+		var parameters = new DialogParameters<ChapterPrerequisitesDialog>
+		{
+			{ x => x.Chapter, chapter },
+			{ x => x.Siblings, DisplayedChapters.Where(c => c.Id != chapter.Id).OrderBy(c => c.Order).ThenBy(c => c.Title).ToList() }
+		};
+
+		var dialog = await DialogService.ShowAsync<ChapterPrerequisitesDialog>("Prerequisites", parameters, _dialogOptions);
+		var result = await dialog.Result;
+
+		if (result != null && !result.Canceled)
+		{
+			Snackbar.Add($"Prerequisites for '{chapter.Title}' saved.", Severity.Success);
+			await LoadDataAsync();
+		}
 	}
 
 	private string GetValidImageUrl(string? url)

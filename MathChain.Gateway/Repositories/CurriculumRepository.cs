@@ -154,6 +154,39 @@ namespace MathChain.Gateway.Repositories
             }
         }
 
+        public async Task<List<ChapterPrerequisite>> GetPrerequisitesAsync()
+        {
+            return await _context.ChapterPrerequisites
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task ReplacePrerequisitesAsync(Guid chapterId, IReadOnlyCollection<Guid> prerequisiteIds)
+        {
+            var existing = await _context.ChapterPrerequisites
+                .Where(p => p.ChapterId == chapterId)
+                .ToListAsync();
+
+            _context.ChapterPrerequisites.RemoveRange(existing);
+            _context.ChapterPrerequisites.AddRange(prerequisiteIds.Distinct()
+                .Select(id => new ChapterPrerequisite { ChapterId = chapterId, PrerequisiteId = id }));
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<CurriculumFormula>> GetFormulasByChapterIdsAsync(IReadOnlyCollection<Guid> chapterIds)
+        {
+            if (chapterIds.Count == 0)
+            {
+                return new List<CurriculumFormula>();
+            }
+
+            return await _context.CurriculumFormulas
+                .AsNoTracking()
+                .Where(f => chapterIds.Contains(f.ChapterId))
+                .ToListAsync();
+        }
+
         // Formulas
         public async Task<List<CurriculumFormula>> GetFormulasByChapterIdAsync(Guid chapterId)
         {

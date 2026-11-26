@@ -134,6 +134,24 @@ namespace MathChain.Persistence.Migrations
                     b.ToTable("Certificates", (string)null);
                 });
 
+            modelBuilder.Entity("MathChain.Domain.Entities.ChapterPrerequisite", b =>
+                {
+                    b.Property<Guid>("ChapterId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("PrerequisiteId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("ChapterId", "PrerequisiteId");
+
+                    b.HasIndex("PrerequisiteId");
+
+                    b.ToTable("ChapterPrerequisites", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_ChapterPrerequisites_NotSelf", "\"ChapterId\" <> \"PrerequisiteId\"");
+                        });
+                });
+
             modelBuilder.Entity("MathChain.Domain.Entities.ClassAnnouncement", b =>
                 {
                     b.Property<Guid>("Id")
@@ -721,6 +739,21 @@ namespace MathChain.Persistence.Migrations
                         .HasColumnType("interval");
 
                     b.HasDiscriminator().HasValue("Test");
+                });
+
+            modelBuilder.Entity("MathChain.Domain.Entities.ChapterPrerequisite", b =>
+                {
+                    b.HasOne("MathChain.Domain.Entities.CurriculumChapter", null)
+                        .WithMany()
+                        .HasForeignKey("ChapterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MathChain.Domain.Entities.CurriculumChapter", null)
+                        .WithMany()
+                        .HasForeignKey("PrerequisiteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MathChain.Domain.Entities.CurriculumChapter", b =>

@@ -176,6 +176,14 @@ namespace MathChain.Blazor.Services
             return await ReadEnvelopeDataAsync<CurriculumChapterDto>(response);
         }
 
+        public async Task<ApiResult<CurriculumChapterDto>> SetChapterPrerequisitesAsync(Guid chapterId, List<Guid> prerequisiteIds)
+        {
+            InvalidateCurriculumCache();
+
+            return await SendForResultAsync<CurriculumChapterDto>(() =>
+                _httpClient.PutAsJsonAsync($"{_baseUrl}/curriculum/{chapterId}/prerequisites", new { prerequisiteIds }));
+        }
+
         public async Task<bool> DeleteChapterAsync(Guid id)
         {
             InvalidateCurriculumCache();

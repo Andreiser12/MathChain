@@ -1,7 +1,9 @@
 using System.Text.Json;
+using MathChain.Application.Curriculum;
 using MathChain.Application.DTOs;
 using MathChain.Application.Practice;
 using MathChain.Domain.Entities;
+using MathChain.Domain.Enums;
 using MathChain.Domain.Exceptions;
 using MathChain.Domain.Gateways;
 
@@ -20,10 +22,12 @@ namespace MathChain.Application.Contexts
         private readonly AccessGuard _access;
         private readonly TimeProvider _timeProvider;
         private readonly PracticeRandom _random;
+        private readonly ChapterUnlockService? _unlocks;
 
         public PracticeContext(ICurriculumGateway curriculumGateway, IPracticeExerciseGateway exerciseGateway,
-            AccessGuard access, TimeProvider timeProvider, PracticeRandom random)
+            AccessGuard access, TimeProvider timeProvider, PracticeRandom random, ChapterUnlockService? unlocks = null)
         {
+            _unlocks = unlocks;
             _curriculumGateway = curriculumGateway;
             _exerciseGateway = exerciseGateway;
             _access = access;
@@ -35,6 +39,7 @@ namespace MathChain.Application.Contexts
         {
             var wallet = _access.RequireWallet();
             var formula = await _curriculumGateway.GetFormulaByIdAsync(formulaId);
+            await EnsureChapterUnlockedAsync(wallet, formula);
             var exercises = ExerciseCatalog.ForFormula(formula?.ExercisesJson);
 
             return new PracticeFormulaDto
@@ -53,6 +58,7 @@ namespace MathChain.Application.Contexts
         {
             var wallet = _access.RequireWallet();
             var formula = await _curriculumGateway.GetFormulaByIdAsync(formulaId);
+            await EnsureChapterUnlockedAsync(wallet, formula);
             var exercises = ExerciseCatalog.ForFormula(formula?.ExercisesJson);
 
             if (index < 0 || index >= exercises.Exercises.Count)
@@ -123,6 +129,8 @@ namespace MathChain.Application.Contexts
                 throw new NotFoundException(ExerciseNotFoundMessage);
             }
 
+            await EnsureChapterUnlockedAsync(wallet, await _curriculumGateway.GetFormulaByIdAsync(exercise.FormulaId));
+
             var now = _timeProvider.GetUtcNow().UtcDateTime;
             EnsureOpen(exercise, now);
 
@@ -183,6 +191,14 @@ namespace MathChain.Application.Contexts
             if (exercise.Attempts >= MaximumAttempts)
             {
                 throw new BusinessRuleException("You have used every attempt for this exercise. Load a new exercise.");
+            }
+        }
+
+        private async Task EnsureChapterUnlockedAsync(string wallet, CurriculumFormula? formula)
+        {
+            if (_unlocks != null && formula != null && _access.IsInRole(UserRole.Student))
+            {
+                await _unlocks.EnsureUnlockedAsync(wallet, formula.ChapterId);
             }
         }
 

@@ -75,6 +75,14 @@ namespace MathChain.API.Controllers
             return Success(chapter, "The IPFS hash was successfully updated.");
         }
 
+        [HttpPut("{id:guid}/prerequisites")]
+        public async Task<IActionResult> SetPrerequisites(Guid id, [FromBody] SetChapterPrerequisitesRequest request)
+        {
+            var chapter = await _curriculumContext.SetPrerequisitesAsync(id, request);
+
+            return Success(chapter, "Prerequisites saved successfully.");
+        }
+
         [AllowAnonymous]
         [HttpGet("{idOrSlug}/formulas")]
         public async Task<IActionResult> GetChapterFormulas(string idOrSlug)

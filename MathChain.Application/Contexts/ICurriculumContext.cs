@@ -15,6 +15,7 @@ namespace MathChain.Application.Contexts
         Task<CurriculumChapterResponseDto> UpdateChapterAsync(Guid id, UpdateChapterRequest request);
         Task<bool> DeleteChapterAsync(Guid id);
         Task<CurriculumChapter> UpdateIpfsHashAsync(string slug, string newIpfsHash);
+        Task<CurriculumChapterResponseDto> SetPrerequisitesAsync(Guid chapterId, SetChapterPrerequisitesRequest request);
 
         // Formulas
         Task<List<CurriculumFormulaResponseDto>> GetFormulasByChapterAsync(string idOrSlug);

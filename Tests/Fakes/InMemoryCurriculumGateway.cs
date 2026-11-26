@@ -7,6 +7,7 @@ namespace MathChain.Tests.Fakes
     {
         public List<CurriculumChapter> Chapters { get; } = new();
         public List<CurriculumFormula> Formulas { get; } = new();
+        public List<ChapterPrerequisite> Prerequisites { get; } = new();
 
         public Task<CurriculumChapter?> GetByIdAsync(Guid id)
         {
@@ -97,6 +98,7 @@ namespace MathChain.Tests.Fakes
             } while (foundMore);
 
             Chapters.RemoveAll(c => removedIds.Contains(c.Id));
+            Prerequisites.RemoveAll(p => removedIds.Contains(p.ChapterId) || removedIds.Contains(p.PrerequisiteId));
             Formulas.RemoveAll(f => removedIds.Contains(f.ChapterId));
             return Task.FromResult(true);
         }
@@ -112,6 +114,23 @@ namespace MathChain.Tests.Fakes
             }
 
             return Task.CompletedTask;
+        }
+
+        public Task<List<ChapterPrerequisite>> GetPrerequisitesAsync()
+        {
+            return Task.FromResult(Prerequisites.Select(p => new ChapterPrerequisite { ChapterId = p.ChapterId, PrerequisiteId = p.PrerequisiteId }).ToList());
+        }
+
+        public Task ReplacePrerequisitesAsync(Guid chapterId, IReadOnlyCollection<Guid> prerequisiteIds)
+        {
+            Prerequisites.RemoveAll(p => p.ChapterId == chapterId);
+            Prerequisites.AddRange(prerequisiteIds.Distinct().Select(id => new ChapterPrerequisite { ChapterId = chapterId, PrerequisiteId = id }));
+            return Task.CompletedTask;
+        }
+
+        public Task<List<CurriculumFormula>> GetFormulasByChapterIdsAsync(IReadOnlyCollection<Guid> chapterIds)
+        {
+            return Task.FromResult(Formulas.Where(f => chapterIds.Contains(f.ChapterId)).Select(f => EntityCopy.Detached(f)!).ToList());
         }
 
         public Task<List<CurriculumFormula>> GetFormulasByChapterIdAsync(Guid chapterId)

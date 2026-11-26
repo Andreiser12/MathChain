@@ -1,0 +1,99 @@
+@using MathChain.Blazor.DTOs
+@using MudBlazor
+@inject ApiService Api
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6" Style="font-weight: 600;">
+            <MudIcon Icon="@Icons.Material.Filled.AccountTree" Class="mr-2" />
+            Prerequisites for @Chapter.Title
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudStack Spacing="2" Class="pt-2">
+            <MudText Typo="Typo.body2">
+                Students unlock this chapter after they finish every exercise in the chapters you select.
+            </MudText>
+
+            @if (!Siblings.Any())
+            {
+                <MudAlert Severity="Severity.Info" Dense="true">There are no other chapters at this level.</MudAlert>
+            }
+
+            @foreach (var sibling in Siblings)
+            {
+                <MudCheckBox T="bool" Value="@_selected.Contains(sibling.Id)" ValueChanged="@(value => Toggle(sibling.Id, value))"
+                             Label="@sibling.Title" Color="Color.Primary" Class="prerequisite-option" />
+            }
+
+            @if (!string.IsNullOrEmpty(_error))
+            {
+                <MudAlert Severity="Severity.Error" Dense="true" id="prerequisites-error">@_error</MudAlert>
+            }
+        </MudStack>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel" Variant="Variant.Text" Disabled="_saving">Cancel</MudButton>
+        <MudButton OnClick="SaveAsync" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Save"
+                   Disabled="_saving" id="save-prerequisites">
+            Save prerequisites
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; } = null!;
+
+    [Parameter]
+    public CurriculumChapterDto Chapter { get; set; } = new();
+
+    [Parameter]
+    public List<CurriculumChapterDto> Siblings { get; set; } = new();
+
+    private readonly HashSet<Guid> _selected = new();
+    private string? _error;
+    private bool _saving;
+
+    protected override void OnInitialized()
+    {
+        _selected.UnionWith(Chapter.PrerequisiteIds);
+    }
+
+    private void Toggle(Guid id, bool selected)
+    {
+        if (selected)
+        {
+            _selected.Add(id);
+        }
+        else
+        {
+            _selected.Remove(id);
+        }
+
+        _error = null;
+    }
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private async Task SaveAsync()
+    {
+        _saving = true;
+        _error = null;
+
+        var result = await Api.SetChapterPrerequisitesAsync(Chapter.Id, _selected.ToList());
+
+        _saving = false;
+
+        if (!result.Success || result.Data == null)
+        {
+            _error = result.Error ?? "The prerequisites could not be saved.";
+            return;
+        }
+
+        MudDialog.Close(DialogResult.Ok(result.Data));
+    }
+}

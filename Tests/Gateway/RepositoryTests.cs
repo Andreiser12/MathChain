@@ -17,6 +17,54 @@ namespace MathChain.Tests.Gateway
         }
 
         [Fact]
+        public async Task CurriculumRepository_ReplacePrerequisitesAsync_ReplacesOnlyTheArcsOfTheChapter()
+        {
+            var first = Guid.NewGuid();
+            var second = Guid.NewGuid();
+            var third = Guid.NewGuid();
+            await using (var dbContext = CreateDbContext())
+            {
+                var repository = new CurriculumRepository(dbContext);
+                await repository.ReplacePrerequisitesAsync(third, new[] { first, second, first });
+                await repository.ReplacePrerequisitesAsync(second, new[] { first });
+            }
+
+            await using (var dbContext = CreateDbContext())
+            {
+                await new CurriculumRepository(dbContext).ReplacePrerequisitesAsync(third, new[] { second });
+            }
+
+            await using (var dbContext = CreateDbContext())
+            {
+                var stored = await new CurriculumRepository(dbContext).GetPrerequisitesAsync();
+
+                Assert.Equal(2, stored.Count);
+                Assert.Contains(stored, p => p.ChapterId == third && p.PrerequisiteId == second);
+                Assert.Contains(stored, p => p.ChapterId == second && p.PrerequisiteId == first);
+            }
+        }
+
+        [Fact]
+        public async Task CurriculumRepository_GetFormulasByChapterIdsAsync_ReturnsOnlyTheRequestedChapters()
+        {
+            var wanted = Guid.NewGuid();
+            await using (var dbContext = CreateDbContext())
+            {
+                var repository = new CurriculumRepository(dbContext);
+                await repository.CreateFormulaAsync(new CurriculumFormula { Id = Guid.NewGuid(), ChapterId = wanted, Title = "a", Latex = "a" });
+                await repository.CreateFormulaAsync(new CurriculumFormula { Id = Guid.NewGuid(), ChapterId = Guid.NewGuid(), Title = "b", Latex = "b" });
+            }
+
+            await using (var dbContext = CreateDbContext())
+            {
+                var repository = new CurriculumRepository(dbContext);
+
+                Assert.Equal("a", Assert.Single(await repository.GetFormulasByChapterIdsAsync(new[] { wanted })).Title);
+                Assert.Empty(await repository.GetFormulasByChapterIdsAsync(Array.Empty<Guid>()));
+            }
+        }
+
+        [Fact]
         public async Task CurriculumRepository_UpdateAsync_PersistsFormulasCountAndIncrementsVersion()
         {
             var chapter = new CurriculumChapter { Id = Guid.NewGuid(), Title = "Integrale", ChapterSlug = "integrale", Category = "Analiza", Version = 1 };

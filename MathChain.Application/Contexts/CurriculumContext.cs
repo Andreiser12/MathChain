@@ -1,3 +1,4 @@
+using MathChain.Application.Curriculum;
 using MathChain.Application.DTOs;
 using MathChain.Domain.Entities;
 using MathChain.Domain.Enums;
@@ -18,9 +19,12 @@ namespace MathChain.Application.Contexts
         private readonly ICurriculumGateway _curriculumGateway;
         private readonly IIpfsStorageService? _ipfsStorageService;
         private readonly AccessGuard _access;
+        private readonly ChapterUnlockService? _unlocks;
 
-        public CurriculumContext(ICurriculumGateway curriculumGateway, AccessGuard access, IIpfsStorageService? ipfsStorageService = null)
+        public CurriculumContext(ICurriculumGateway curriculumGateway, AccessGuard access, IIpfsStorageService? ipfsStorageService = null,
+            ChapterUnlockService? unlocks = null)
         {
+            _unlocks = unlocks;
             _curriculumGateway = curriculumGateway;
             _ipfsStorageService = ipfsStorageService;
             _access = access;
@@ -71,11 +75,8 @@ namespace MathChain.Application.Contexts
                 throw new NotFoundException($"Chapter '{idOrSlug}' was not found.");
             }
 
-            var subChapters = allChapters
-                .Where(c => c.ParentId == chapter.Id)
-                .OrderBy(c => c.Order)
-                .ThenBy(c => c.Title)
-                .ToList();
+            var prerequisites = await _curriculumGateway.GetPrerequisitesAsync();
+            var subChapters = OrderSiblings(allChapters.Where(c => c.ParentId == chapter.Id).ToList(), prerequisites);
 
             var childrenLookup = allChapters.ToLookup(c => c.ParentId);
 
@@ -100,7 +101,102 @@ namespace MathChain.Application.Contexts
                 }).ToList()
             };
 
+            var prerequisitesOf = prerequisites.ToLookup(p => p.ChapterId, p => p.PrerequisiteId);
+
+            foreach (var dto in detail.SubChapters.Append(detail.Chapter))
+            {
+                dto.PrerequisiteIds = prerequisitesOf[dto.Id].ToList();
+            }
+
+            if (_unlocks != null && _access.IsInRole(UserRole.Student))
+            {
+                var statuses = await _unlocks.EvaluateAsync(_access.RequireWallet(),
+                    detail.SubChapters.Select(s => s.Id).Append(chapter.Id).ToList(), allChapters, prerequisites);
+
+                foreach (var dto in detail.SubChapters.Append(detail.Chapter))
+                {
+                    var status = statuses[dto.Id];
+                    dto.Locked = status.Locked;
+                    dto.Completed = status.Completed;
+                    dto.MissingPrerequisites = status.MissingPrerequisites.Select(c => c.Title).ToList();
+                }
+            }
+
             return detail;
+        }
+
+        public async Task<CurriculumChapterResponseDto> SetPrerequisitesAsync(Guid chapterId, SetChapterPrerequisitesRequest request)
+        {
+            _access.RequireRole(UserRole.Admin);
+
+            var allChapters = await _curriculumGateway.GetAllAsync();
+            var chapter = allChapters.FirstOrDefault(c => c.Id == chapterId)
+                ?? throw new NotFoundException("Chapter not found.");
+
+            if (chapter.ParentId == null)
+            {
+                throw new BusinessRuleException("Main chapters are always unlocked, so they cannot have prerequisites.");
+            }
+
+            var requested = (request?.PrerequisiteIds ?? new List<Guid>()).Distinct().ToList();
+            var siblings = allChapters.Where(c => c.ParentId == chapter.ParentId).ToList();
+            var siblingIds = siblings.Select(c => c.Id).ToHashSet();
+
+            if (requested.Contains(chapterId))
+            {
+                throw new BusinessRuleException("A chapter cannot be its own prerequisite.");
+            }
+
+            if (requested.Any(id => !siblingIds.Contains(id)))
+            {
+                throw new BusinessRuleException("A prerequisite must be a chapter with the same parent.");
+            }
+
+            var prerequisites = (await _curriculumGateway.GetPrerequisitesAsync())
+                .Where(p => p.ChapterId != chapterId)
+                .Concat(requested.Select(id => new ChapterPrerequisite { ChapterId = chapterId, PrerequisiteId = id }))
+                .ToList();
+            var sort = SortSiblings(siblings, prerequisites);
+
+            if (sort.HasCycle)
+            {
+                var titles = allChapters.ToDictionary(c => c.Id, c => c.Title);
+                throw new BusinessRuleException($"These prerequisites would create a cycle: {string.Join(" → ", sort.Cycle!.Select(id => titles[id]))}.");
+            }
+
+            await _curriculumGateway.ReplacePrerequisitesAsync(chapterId, requested);
+
+            var dto = MapToResponseDto(chapter, allChapters.ToLookup(c => c.ParentId));
+            dto.PrerequisiteIds = requested;
+
+            return dto;
+        }
+
+        private static List<CurriculumChapter> OrderSiblings(List<CurriculumChapter> siblings, IReadOnlyCollection<ChapterPrerequisite> prerequisites)
+        {
+            var byOrder = siblings.OrderBy(c => c.Order).ThenBy(c => c.Title).ToList();
+            var sort = SortSiblings(byOrder, prerequisites);
+
+            if (sort.HasCycle)
+            {
+                return byOrder;
+            }
+
+            var byId = byOrder.ToDictionary(c => c.Id);
+
+            return sort.Order.Select(id => byId[id]).ToList();
+        }
+
+        private static TopologicalSortResult<Guid> SortSiblings(IReadOnlyCollection<CurriculumChapter> siblings, IReadOnlyCollection<ChapterPrerequisite> prerequisites)
+        {
+            var reversed = siblings.OrderByDescending(c => c.Order).ThenByDescending(c => c.Title).Select(c => c.Id).ToList();
+            var position = reversed.Select((id, index) => (id, index)).ToDictionary(p => p.id, p => p.index);
+            var dependents = prerequisites
+                .Where(p => position.ContainsKey(p.ChapterId) && position.ContainsKey(p.PrerequisiteId))
+                .ToLookup(p => p.PrerequisiteId, p => p.ChapterId);
+
+            return TopologicalSorter.TopologicalSort<Guid>(reversed,
+                id => dependents[id].Distinct().OrderBy(dependent => position[dependent]).ToList());
         }
 
         public async Task<CurriculumChapterResponseDto> CreateChapterAsync(CreateChapterRequest request)

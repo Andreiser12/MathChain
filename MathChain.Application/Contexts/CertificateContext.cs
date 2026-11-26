@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
+using MathChain.Application.Curriculum;
 using MathChain.Application.DTOs;
 using MathChain.Application.Practice;
 using MathChain.Domain.Entities;
@@ -27,12 +28,14 @@ namespace MathChain.Application.Contexts
         private readonly ISmartAccountService? _smartAccounts;
         private readonly IUserGateway? _userGateway;
         private readonly ICustodialAddressProvider? _custodialAddresses;
+        private readonly ChapterUnlockService? _unlocks;
 
         public CertificateContext(ICertificateGateway certificateGateway, ICertificateRegistry registry,
             IClassRoomGateway classRoomGateway, ICurriculumGateway curriculumGateway, IPracticeExerciseGateway practiceGateway,
             AccessGuard access, TimeProvider timeProvider, ISmartAccountService? smartAccounts = null, IUserGateway? userGateway = null,
-            ICustodialAddressProvider? custodialAddresses = null)
+            ICustodialAddressProvider? custodialAddresses = null, ChapterUnlockService? unlocks = null)
         {
+            _unlocks = unlocks;
             _smartAccounts = smartAccounts;
             _userGateway = userGateway;
             _custodialAddresses = custodialAddresses;
@@ -78,6 +81,11 @@ namespace MathChain.Application.Contexts
         {
             var wallet = _access.RequireRole(UserRole.Student);
             var progress = await BuildChapterProgressAsync(chapterId, wallet);
+
+            if (_unlocks != null && _access.IsInRole(UserRole.Student))
+            {
+                await _unlocks.EnsureUnlockedAsync(wallet, chapterId);
+            }
 
             if (!progress.CertificatesAvailable)
             {

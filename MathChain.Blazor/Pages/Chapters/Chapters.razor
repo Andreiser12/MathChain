@@ -329,7 +329,7 @@ else
 			<MudGrid Class="@(HasFormulas ? "mb-8" : "")">
 				@foreach (var chapter in DisplayedChapters)
 				{
-					<MudItem xs="12" sm="6" md="4">
+					<MudItem @key="chapter.Id" xs="12" sm="6" md="4">
 						<MudCard Elevation="4"
 								 Class="@($"cursor-pointer hover-effect h-100 d-flex flex-column justify-space-between chapter-card{(chapter.Locked ? " chapter-locked" : "")}")"
 								 Style="position: relative !important; background-color: #16213E; color: #ffffff; border-radius: 0px !important;"
@@ -453,7 +453,7 @@ else
 			<MudGrid>
 				@foreach (var formula in _formulas)
 				{
-					<MudItem xs="12" sm="6" md="4">
+					<MudItem @key="@($"{formula.Id}|{formula.Latex}")" xs="12" sm="6" md="4">
 						<MudCard Elevation="4" Class="pa-4 h-100" Style="position: relative !important; background-color: #222222; border-radius: 0px !important;">
 							@if (Session.Role == UserRole.Admin)
 							{
@@ -1084,13 +1084,15 @@ else
 
 	private async Task ConfirmDeleteFormula(Formula formula)
 	{
-		bool? confirmed = await DialogService.ShowMessageBoxAsync(
-			"Delete Formula",
-			$"Are you sure you want to delete formula '{formula.Title}'?",
-			yesText: "Delete",
-			cancelText: "Cancel");
+		var parameters = new DialogParameters<DeleteFormulaDialog>
+		{
+			{ x => x.Latex, formula.Latex.Trim().Trim('$').Trim() },
+			{ x => x.Title, formula.Title }
+		};
+		var dialog = await DialogService.ShowAsync<DeleteFormulaDialog>("Delete Formula", parameters, _dialogOptions);
+		var choice = await dialog.Result;
 
-		if (confirmed == true)
+		if (choice != null && !choice.Canceled)
 		{
 			var success = await Api.DeleteFormulaAsync(formula.Id);
 			if (success)

@@ -41,7 +41,9 @@ namespace MathChain.Gateway.IntegrationTests
                 var references = await new ContentBlockRepository(dbContext).GetReferencesAsync();
 
                 var reference = Assert.Single(references);
-                Assert.Equal(("CurriculumChapters", chapterId, "QmChapter"), (reference.Source, reference.OwnerId, reference.Cid));
+                Assert.Equal("CurriculumChapters", reference.Source);
+                Assert.Equal(chapterId, reference.OwnerId);
+                Assert.Equal("QmChapter", reference.Cid);
             }
         }
     }

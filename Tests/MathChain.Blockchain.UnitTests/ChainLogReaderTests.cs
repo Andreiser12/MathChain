@@ -93,7 +93,9 @@ namespace MathChain.Blockchain.UnitTests
             Assert.Equal(CertificateKind.Chapter, decoded.Kind);
             Assert.Equal("0x" + new string('1', 64), decoded.SubjectId);
             Assert.Equal("0x" + new string('2', 64), decoded.DataHash);
-            Assert.Equal((63000000L, 2, Certificates), (decoded.BlockNumber, decoded.LogIndex, decoded.Contract));
+            Assert.Equal(63000000L, decoded.BlockNumber);
+            Assert.Equal(2, decoded.LogIndex);
+            Assert.Equal(Certificates, decoded.Contract);
         }
 
         [Fact]
@@ -104,7 +106,8 @@ namespace MathChain.Blockchain.UnitTests
 
             var decoded = Assert.IsType<PriceChangedLog>(_reader.Decode(log));
 
-            Assert.Equal((2, 3000000m), (decoded.Tier, decoded.Price));
+            Assert.Equal(2, decoded.Tier);
+            Assert.Equal(3000000m, decoded.Price);
         }
 
         [Fact]

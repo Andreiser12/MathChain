@@ -604,7 +604,9 @@ namespace MathChain.Application.UnitTests
             var setup = await _context.GetPaymentSetupAsync();
 
             Assert.True(setup.CanRelay);
-            Assert.Equal((1m, 2m, 3m), (setup.EasyPrice, setup.MediumPrice, setup.HardPrice));
+            Assert.Equal(1m, setup.EasyPrice);
+            Assert.Equal(2m, setup.MediumPrice);
+            Assert.Equal(3m, setup.HardPrice);
             Assert.Equal(FakeSolutionPaymentRegistry.RelayerAddress, setup.RelayerAddress);
             Assert.Equal(FakeSolutionPaymentRegistry.ContractAddress, setup.ContractAddress);
         }

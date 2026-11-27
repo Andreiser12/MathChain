@@ -207,7 +207,12 @@ namespace MathChain.Infrastructure.IntegrationTests
 
             await using var context = Context();
             var stats = await new ChainIndexRepository(context).GetStatsAsync();
-            Assert.Equal((2, 1, 1, 2, 4000000m), (stats.Certificates, stats.ActiveCertificates, stats.RevokedCertificates, stats.SolutionPurchases, stats.SolutionRevenue));
+
+            Assert.Equal(2, stats.Certificates);
+            Assert.Equal(1, stats.ActiveCertificates);
+            Assert.Equal(1, stats.RevokedCertificates);
+            Assert.Equal(2, stats.SolutionPurchases);
+            Assert.Equal(4000000m, stats.SolutionRevenue);
         }
 
         [Fact]
@@ -219,7 +224,11 @@ namespace MathChain.Infrastructure.IntegrationTests
 
             await using var context = Context();
             var status = await Indexer(context).GetStatusAsync(CancellationToken.None);
-            Assert.Equal((300L, 10, 290L, 290L), (status.ChainHead!.Value, status.Confirmations, status.ConfirmedHead!.Value, status.LastIndexedBlock!.Value));
+
+            Assert.Equal(300L, status.ChainHead);
+            Assert.Equal(10, status.Confirmations);
+            Assert.Equal(290L, status.ConfirmedHead);
+            Assert.Equal(290L, status.LastIndexedBlock);
         }
     }
 }

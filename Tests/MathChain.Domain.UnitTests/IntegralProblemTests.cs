@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using MathChain.Domain.Entities;
+﻿using MathChain.Domain.Entities;
 using MathChain.Domain.Enums;
 
 namespace MathChain.Domain.UnitTests
@@ -19,8 +18,8 @@ namespace MathChain.Domain.UnitTests
 
             var result = integralProblem.GetProblemStatement();
 
-            result.Should().Contain("∫");
-            result.Should().Contain("x^2");
+            Assert.Contains("∫", result);
+            Assert.Contains("x^2", result);
         }
 
         [Fact]
@@ -30,8 +29,10 @@ namespace MathChain.Domain.UnitTests
             {
                 CorrectSolution = 0.333
             };
+
             var result = integralProblem.ValidateSolution("0.333");
-            result.Should().BeTrue();
+
+            Assert.True(result);
         }
 
         [Fact]
@@ -41,8 +42,10 @@ namespace MathChain.Domain.UnitTests
             {
                 CorrectSolution = 0.333
             };
+
             var result = integralProblem.ValidateSolution("0.999");
-            result.Should().BeFalse();
+
+            Assert.False(result);
         }
 
         [Fact]
@@ -52,9 +55,10 @@ namespace MathChain.Domain.UnitTests
             {
                 CorrectSolution = 0.333
             };
-            var result = integralProblem.ValidateSolution("0.334");
-            result.Should().BeTrue();
-        }
 
+            var result = integralProblem.ValidateSolution("0.334");
+
+            Assert.True(result);
+        }
     }
 }

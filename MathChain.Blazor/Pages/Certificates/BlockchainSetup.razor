@@ -253,6 +253,67 @@
 			}
 		</MudPaper>
 
+		<MudText Typo="Typo.h5" Style="color: #ffffff; font-weight: 600;" Class="mt-8 mb-4">Blockchain index</MudText>
+
+		<MudPaper Elevation="2" Class="pa-6" Style="background-color: #16213e; color: #ffffff;" id="chain-index">
+			@if (_chainIndex == null)
+			{
+				<MudAlert Severity="Severity.Error">@_chainIndexError</MudAlert>
+			}
+			else
+			{
+				<MudStack Spacing="3">
+					<MudText Typo="Typo.body2" Style="color: rgba(255, 255, 255, 0.7);">
+						The index is rebuilt only from the events of the MathChain contracts, so it can be checked against the blockchain at any time. It is available to everyone through GraphQL.
+					</MudText>
+
+					@if (!_chainIndex.IndexerStatus.Enabled)
+					{
+						<MudAlert Severity="Severity.Info" id="index-status">
+							The indexer is disabled. Set Indexer:StartBlock to the block of the first MathChain contract and restart the API.
+						</MudAlert>
+					}
+					else
+					{
+						<div>
+							<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Indexed up to block</MudText>
+							<MudText Typo="Typo.body1" id="index-progress">
+								@(_chainIndex.IndexerStatus.LastIndexedBlock?.ToString("N0") ?? "not started") of @(_chainIndex.IndexerStatus.ConfirmedHead?.ToString("N0") ?? "?")
+								@if (IndexProgress.HasValue)
+								{
+									<span> (@IndexProgress.Value.ToString("0.0")%)</span>
+								}
+							</MudText>
+							@if (IndexProgress.HasValue)
+							{
+								<MudProgressLinear Value="@IndexProgress.Value" Color="Color.Info" Class="mt-1" Style="height: 6px;" />
+							}
+							@if (_chainIndex.IndexerStatus.ChainHead.HasValue)
+							{
+								<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);" id="index-confirmations">
+									The chain is at block @_chainIndex.IndexerStatus.ChainHead.Value.ToString("N0"). A block is indexed after @_chainIndex.IndexerStatus.Confirmations confirmations, so a reorganisation cannot change what is already indexed.
+								</MudText>
+							}
+						</div>
+					}
+
+					<MudGrid Spacing="2">
+						@foreach (var (label, value) in IndexFigures)
+						{
+							<MudItem xs="6" sm="3">
+								<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">@label</MudText>
+								<MudText Typo="Typo.h6" Class="index-figure">@value</MudText>
+							</MudItem>
+						}
+					</MudGrid>
+
+					<div>
+						<a href="@Api.GraphQlEndpoint" target="_blank" rel="noopener noreferrer" style="color: #00e5ff;">Open the GraphQL explorer</a>
+					</div>
+				</MudStack>
+			}
+		</MudPaper>
+
 		<MudText Typo="Typo.h5" Style="color: #ffffff; font-weight: 600;" Class="mt-8 mb-4">Paid solutions</MudText>
 
 		<MudPaper Elevation="2" Class="pa-6" Style="background-color: #16213e; color: #ffffff;" id="solution-setup">
@@ -345,6 +406,8 @@
 
 	private CertificateSetupDto? _setup;
 	private CurriculumPublicationStatusDto? _publication;
+	private ChainIndexOverviewDto? _chainIndex;
+	private string? _chainIndexError;
 	private string? _publicationError;
 	private bool _publishing;
 	private SolutionPaymentSetupDto? _solutionSetup;
@@ -392,7 +455,46 @@
 
 		await ReloadSolutionSetupAsync();
 		await ReloadPublicationAsync();
+		await ReloadChainIndexAsync();
 		_loading = false;
+	}
+
+	private async Task ReloadChainIndexAsync()
+	{
+		var result = await Api.QueryGraphQlAsync<ChainIndexOverviewDto>(ApiService.ChainOverviewQuery);
+
+		_chainIndex = result.Data;
+		_chainIndexError = result.Error ?? "The blockchain index could not be loaded.";
+	}
+
+	private double? IndexProgress
+	{
+		get
+		{
+			var status = _chainIndex?.IndexerStatus;
+
+			if (status?.LastIndexedBlock == null || status.ConfirmedHead == null || status.ConfirmedHead < status.StartBlock)
+			{
+				return null;
+			}
+
+			return Math.Clamp(100.0 * (status.LastIndexedBlock.Value - status.StartBlock + 1) / (status.ConfirmedHead.Value - status.StartBlock + 1), 0, 100);
+		}
+	}
+
+	private IEnumerable<(string Label, string Value)> IndexFigures
+	{
+		get
+		{
+			var stats = _chainIndex!.Stats;
+			yield return ("Certificates", stats.Certificates.ToString());
+			yield return ("Revoked", stats.RevokedCertificates.ToString());
+			yield return ("Claimed by smart accounts", stats.CertificatesClaimedBySmartAccounts.ToString());
+			yield return ("Smart accounts", stats.SmartAccounts.ToString());
+			yield return ("Solution purchases", stats.SolutionPurchases.ToString());
+			yield return ("Revenue", $"{stats.SolutionRevenue / 1_000_000m:0.##} USDC");
+			yield return ("Curriculum versions", stats.CurriculumVersions.ToString());
+		}
 	}
 
 	private async Task ReloadPublicationAsync()

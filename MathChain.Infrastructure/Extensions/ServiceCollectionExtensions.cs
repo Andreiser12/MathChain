@@ -2,8 +2,10 @@
 using MathChain.Blockchain.Certificates;
 using MathChain.Blockchain.Common;
 using MathChain.Blockchain.Curriculum;
+using MathChain.Blockchain.Indexing;
 using MathChain.Blockchain.Solutions;
 using MathChain.Domain.Interfaces;
+using MathChain.Infrastructure.Indexing;
 using MathChain.Infrastructure.Ipfs;
 using MathChain.Infrastructure.Solutions;
 using MathChain.Infrastructure.Wolfram;
@@ -27,6 +29,10 @@ namespace MathChain.Infrastructure.Extensions
             services.AddSingleton<ISmartAccountService, SmartAccountService>();
             services.AddSingleton<ICurriculumRegistry, CurriculumRegistry>();
             services.AddSingleton<ISolutionCatalog, EmbeddedSolutionCatalog>();
+            services.AddSingleton(configuration.GetSection("Indexer").Get<ChainIndexerSettings>() ?? new ChainIndexerSettings());
+            services.AddSingleton<IChainLogReader, ChainLogReader>();
+            services.AddScoped<ChainIndexer>();
+            services.AddHostedService<ChainIndexerService>();
 
             return services;
         }

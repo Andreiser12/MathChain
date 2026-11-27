@@ -46,6 +46,14 @@ builder.Services.AddInfrastructureLayer(builder.Configuration);
 builder.Services.AddWalletAuthentication(builder.Configuration);
 builder.Services.AddSingleton(builder.Configuration.GetSection("SignIn").Get<SignInSettings>() ?? new SignInSettings());
 builder.Services.AddApplicationLayer();
+builder.Services
+    .AddGraphQLServer()
+    .AddQueryType<MathChain.API.GraphQL.ChainQuery>()
+    .AddFiltering()
+    .AddSorting()
+    .AddMaxExecutionDepthRule(6)
+    .ModifyOptions(options => options.DefaultResolverStrategy = HotChocolate.Execution.ExecutionStrategy.Serial)
+    .ModifyRequestOptions(options => options.IncludeExceptionDetails = builder.Environment.IsDevelopment());
 
 var app = builder.Build();
 
@@ -63,6 +71,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapGraphQL("/api/graphql")
+    .WithOptions(new HotChocolate.AspNetCore.GraphQLServerOptions { Tool = { ServeMode = HotChocolate.AspNetCore.GraphQLToolServeMode.Embedded } })
+    .AllowAnonymous();
 
 if (importFolder != null)
 {

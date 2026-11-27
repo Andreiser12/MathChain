@@ -88,6 +88,46 @@
 					</div>
 				}
 			</MudStack>
+
+			@if (_indexLoaded)
+			{
+				<MudDivider Class="my-4" />
+				<MudText Typo="Typo.subtitle1" Style="font-weight: 600;" Class="mb-2">On-chain history</MudText>
+
+				@if (_onChain == null)
+				{
+					<MudText Typo="Typo.body2" Style="color: rgba(255, 255, 255, 0.6);" id="chain-history">
+						The blockchain index has not reached this certificate yet.
+					</MudText>
+				}
+				else
+				{
+					<MudStack Spacing="2" id="chain-history">
+						<div>
+							<MudText Typo="Typo.caption" Style="color: rgba(255, 255, 255, 0.6);">Issued in block @_onChain.IssuedBlock.ToString("N0")</MudText>
+							<MudText Typo="Typo.body2">
+								@_onChain.IssuedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm") ·
+								<a href="@ExplorerLink("tx", _onChain.IssuedTransaction)" target="_blank" rel="noopener noreferrer" style="color: #00e5ff;">transaction</a>
+							</MudText>
+						</div>
+						@if (_onChain.ClaimedBySmartAccount)
+						{
+							<MudChip T="string" Size="Size.Small" Color="Color.Info" Variant="Variant.Outlined" Class="chain-claimed">Claimed from a smart account, gas paid by the paymaster</MudChip>
+						}
+						@if (_onChain.Revoked)
+						{
+							<div class="chain-revoked">
+								<MudText Typo="Typo.caption" Style="color: #ff8a80;">Revoked</MudText>
+								<MudText Typo="Typo.body2">
+									@(_onChain.RevokedAt?.ToLocalTime().ToString("dd.MM.yyyy HH:mm")) by
+									<span style="word-break: break-all;">@_onChain.RevokedBy</span> ·
+									<a href="@ExplorerLink("tx", _onChain.RevokedTransaction ?? string.Empty)" target="_blank" rel="noopener noreferrer" style="color: #00e5ff;">transaction</a>
+								</MudText>
+							</div>
+						}
+					</MudStack>
+				}
+			}
 		}
 	</MudPaper>
 </MudContainer>
@@ -100,6 +140,8 @@
 	public string? Key { get; set; }
 
 	private CertificateVerificationDto? _verification;
+	private ChainCertificateDto? _onChain;
+	private bool _indexLoaded;
 	private string? _error;
 	private bool _loading = true;
 
@@ -140,5 +182,16 @@
 		_verification = result.Data;
 		_error = result.Error;
 		_loading = false;
+
+		var history = await Api.QueryGraphQlAsync<ChainCertificateResultDto>(ApiService.ChainCertificateQuery, new { tokenId = TokenId });
+		_onChain = history.Data?.Certificate;
+		_indexLoaded = history.Error == null && history.Data?.IndexerStatus.Enabled == true;
+	}
+
+	private string ExplorerLink(string kind, string value)
+	{
+		var explorer = _verification?.ExplorerUrl;
+
+		return string.IsNullOrEmpty(explorer) ? "#" : $"{explorer}/{kind}/{value}";
 	}
 }

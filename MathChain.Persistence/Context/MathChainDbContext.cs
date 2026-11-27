@@ -24,6 +24,12 @@ namespace MathChain.Persistence.Context
         public DbSet<CurriculumFormula> CurriculumFormulas { get; set; }
         public DbSet<ChapterPrerequisite> ChapterPrerequisites { get; set; }
         public DbSet<ContentBlock> ContentBlocks { get; set; }
+        public DbSet<ChainCertificate> ChainCertificates { get; set; }
+        public DbSet<ChainSmartAccount> ChainSmartAccounts { get; set; }
+        public DbSet<ChainSolutionPurchase> ChainSolutionPurchases { get; set; }
+        public DbSet<ChainPriceChange> ChainPriceChanges { get; set; }
+        public DbSet<ChainCurriculumPublication> ChainCurriculumPublications { get; set; }
+        public DbSet<IndexerCheckpoint> IndexerCheckpoints { get; set; }
         public DbSet<ExternalLogin> ExternalLogins { get; set; }
         public DbSet<Certificate> Certificates { get; set; }
         public DbSet<PracticeExercise> PracticeExercises { get; set; }

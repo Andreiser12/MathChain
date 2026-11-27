@@ -20,6 +20,7 @@ namespace MathChain.Gateway.Extensions
             services.AddScoped<IPracticeExerciseGateway, PracticeExerciseRepository>();
             services.AddScoped<ISolutionPurchaseGateway, SolutionPurchaseRepository>();
             services.AddScoped<IContentBlockGateway, ContentBlockRepository>();
+            services.AddScoped<IChainIndexGateway, ChainIndexRepository>();
 
             return services;
         }

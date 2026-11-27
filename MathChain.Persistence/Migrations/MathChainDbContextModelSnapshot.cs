@@ -134,6 +134,204 @@ namespace MathChain.Persistence.Migrations
                     b.ToTable("Certificates", (string)null);
                 });
 
+            modelBuilder.Entity("MathChain.Domain.Entities.ChainCertificate", b =>
+                {
+                    b.Property<long>("TokenId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("ClaimedBySmartAccount")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("DataHash")
+                        .IsRequired()
+                        .HasMaxLength(66)
+                        .HasColumnType("character varying(66)");
+
+                    b.Property<string>("Holder")
+                        .IsRequired()
+                        .HasMaxLength(42)
+                        .HasColumnType("character varying(42)");
+
+                    b.Property<DateTime>("IssuedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("IssuedBlock")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("IssuedTransaction")
+                        .IsRequired()
+                        .HasMaxLength(66)
+                        .HasColumnType("character varying(66)");
+
+                    b.Property<string>("Issuer")
+                        .IsRequired()
+                        .HasMaxLength(42)
+                        .HasColumnType("character varying(42)");
+
+                    b.Property<int>("Kind")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Revoked")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("RevokedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("RevokedBy")
+                        .HasMaxLength(42)
+                        .HasColumnType("character varying(42)");
+
+                    b.Property<string>("RevokedTransaction")
+                        .HasMaxLength(66)
+                        .HasColumnType("character varying(66)");
+
+                    b.Property<string>("SubjectId")
+                        .IsRequired()
+                        .HasMaxLength(66)
+                        .HasColumnType("character varying(66)");
+
+                    b.HasKey("TokenId");
+
+                    b.HasIndex("Holder");
+
+                    b.ToTable("ChainCertificates", (string)null);
+                });
+
+            modelBuilder.Entity("MathChain.Domain.Entities.ChainCurriculumPublication", b =>
+                {
+                    b.Property<long>("Version")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Block")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Cid")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("PublishedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Publisher")
+                        .IsRequired()
+                        .HasMaxLength(42)
+                        .HasColumnType("character varying(42)");
+
+                    b.Property<string>("Transaction")
+                        .IsRequired()
+                        .HasMaxLength(66)
+                        .HasColumnType("character varying(66)");
+
+                    b.HasKey("Version");
+
+                    b.ToTable("ChainCurriculumPublications", (string)null);
+                });
+
+            modelBuilder.Entity("MathChain.Domain.Entities.ChainPriceChange", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(80)
+                        .HasColumnType("character varying(80)");
+
+                    b.Property<long>("Block")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("Price")
+                        .HasPrecision(38)
+                        .HasColumnType("numeric(38,0)");
+
+                    b.Property<int>("Tier")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Transaction")
+                        .IsRequired()
+                        .HasMaxLength(66)
+                        .HasColumnType("character varying(66)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ChainPriceChanges", (string)null);
+                });
+
+            modelBuilder.Entity("MathChain.Domain.Entities.ChainSmartAccount", b =>
+                {
+                    b.Property<string>("Account")
+                        .HasMaxLength(42)
+                        .HasColumnType("character varying(42)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("CreatedBlock")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Owner")
+                        .IsRequired()
+                        .HasMaxLength(42)
+                        .HasColumnType("character varying(42)");
+
+                    b.Property<string>("Transaction")
+                        .IsRequired()
+                        .HasMaxLength(66)
+                        .HasColumnType("character varying(66)");
+
+                    b.HasKey("Account");
+
+                    b.HasIndex("Owner");
+
+                    b.ToTable("ChainSmartAccounts", (string)null);
+                });
+
+            modelBuilder.Entity("MathChain.Domain.Entities.ChainSolutionPurchase", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(80)
+                        .HasColumnType("character varying(80)");
+
+                    b.Property<string>("Account")
+                        .IsRequired()
+                        .HasMaxLength(42)
+                        .HasColumnType("character varying(42)");
+
+                    b.Property<long>("Block")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Payer")
+                        .IsRequired()
+                        .HasMaxLength(42)
+                        .HasColumnType("character varying(42)");
+
+                    b.Property<decimal>("Price")
+                        .HasPrecision(38)
+                        .HasColumnType("numeric(38,0)");
+
+                    b.Property<DateTime>("PurchasedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("SolutionId")
+                        .IsRequired()
+                        .HasMaxLength(66)
+                        .HasColumnType("character varying(66)");
+
+                    b.Property<int>("Tier")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Transaction")
+                        .IsRequired()
+                        .HasMaxLength(66)
+                        .HasColumnType("character varying(66)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Account");
+
+                    b.ToTable("ChainSolutionPurchases", (string)null);
+                });
+
             modelBuilder.Entity("MathChain.Domain.Entities.ChapterPrerequisite", b =>
                 {
                     b.Property<Guid>("ChapterId")
@@ -501,6 +699,26 @@ namespace MathChain.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Grades", (string)null);
+                });
+
+            modelBuilder.Entity("MathChain.Domain.Entities.IndexerCheckpoint", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<long>("ChainId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("LastBlock")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IndexerCheckpoints", (string)null);
                 });
 
             modelBuilder.Entity("MathChain.Domain.Entities.MessageComment", b =>

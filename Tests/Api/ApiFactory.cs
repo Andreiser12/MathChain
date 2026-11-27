@@ -28,6 +28,7 @@ namespace MathChain.Tests.Api
         public FakeSolutionPaymentRegistry SolutionRegistry { get; } = new();
         public InMemoryContentBlockGateway ContentBlocks { get; } = new();
         public FakeCurriculumRegistry CurriculumRegistry { get; } = new();
+        public FakeChainIndexGateway ChainIndex { get; } = new();
 
         public ApiFactory()
         {
@@ -35,6 +36,7 @@ namespace MathChain.Tests.Api
             Environment.SetEnvironmentVariable("Jwt__Key", "integration-tests-key-with-at-least-32-bytes");
             Environment.SetEnvironmentVariable("Google__ClientId", GoogleTokenFactory.ClientId);
             Environment.SetEnvironmentVariable("Custody__MasterSecret", "integration-tests-master-secret-with-32-bytes");
+            Environment.SetEnvironmentVariable("Indexer__Enabled", "false");
             ExternalLogins = new InMemoryExternalLoginGateway(Users);
         }
 
@@ -63,6 +65,7 @@ namespace MathChain.Tests.Api
                 services.AddSingleton<ISolutionPaymentRegistry>(SolutionRegistry);
                 services.AddSingleton<IContentBlockGateway>(ContentBlocks);
                 services.AddSingleton<ICurriculumRegistry>(CurriculumRegistry);
+                services.AddSingleton<IChainIndexGateway>(ChainIndex);
                 services.AddSingleton<IConfigurationManager<OpenIdConnectConfiguration>>(
                     new StaticConfigurationManager<OpenIdConnectConfiguration>(Google.CreateConfiguration()));
             });

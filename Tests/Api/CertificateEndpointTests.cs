@@ -33,7 +33,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task IssueThenVerify_TeacherIssuesAndAnyoneWithTheKeySeesTheGrade()
+        public async Task IssueThenVerify_ShouldShowTheGradeToAnyoneWithTheKey_WhenTheTeacherIssuesTheCertificate()
         {
             var classRoom = AddClassRoomWithGradedStudent(Student);
             var teacher = _factory.CreateClientAs(Teacher, UserRole.Teacher);
@@ -64,7 +64,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Verify_UnknownTokenOrWrongKey_ReturnsErrorEnvelope()
+        public async Task Verify_ShouldReturnAnErrorEnvelope_WhenTheTokenIsUnknownOrTheKeyIsWrong()
         {
             var classRoom = AddClassRoomWithGradedStudent("0x7777777777777777777777777777777777777777");
             var issueResponse = await _factory.CreateClientAs(Teacher, UserRole.Teacher)
@@ -81,7 +81,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task ProtectedCertificateEndpoints_RejectAnonymousStudentsAndNonAdmins()
+        public async Task ProtectedCertificateEndpoints_ShouldRejectTheRequest_WhenTheUserIsAnonymousAStudentOrNotAnAdmin()
         {
             var classRoom = AddClassRoomWithGradedStudent("0x8888888888888888888888888888888888888888");
             var anonymous = _factory.CreateClient();
@@ -97,7 +97,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Setup_AsAdmin_ReturnsIssuerAndNetwork()
+        public async Task Setup_ShouldReturnTheIssuerAndTheNetwork_WhenTheUserIsAnAdmin()
         {
             var admin = _factory.CreateClientAs("0x6666666666666666666666666666666666666666", UserRole.Admin);
 
@@ -109,7 +109,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task OldIntegralEndpoints_AreRemoved()
+        public async Task OldIntegralEndpoints_ShouldReturnNotFound_WhenTheyAreCalled()
         {
             var response = await _factory.CreateClientAs(Teacher, UserRole.Teacher)
                 .GetAsync($"/api/integral/balance/{Teacher}", TestContext.Current.CancellationToken);

@@ -34,7 +34,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task UploadThenDownload_ReturnsTheSameBytesWithImmutableCaching()
+        public async Task UploadThenDownload_ShouldReturnTheSameBytesWithImmutableCaching_WhenTheFileIsDownloadedByItsCid()
         {
             var content = Encoding.UTF8.GetBytes("homework " + Guid.NewGuid());
             var cid = await UploadAsync(content);
@@ -52,7 +52,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Download_MatchingETag_Returns304()
+        public async Task Download_ShouldReturn304_WhenTheETagMatches()
         {
             var cid = await UploadAsync(Encoding.UTF8.GetBytes("cached " + Guid.NewGuid()));
             var request = new HttpRequestMessage(HttpMethod.Get, $"/api/ipfs/{cid}");
@@ -70,7 +70,7 @@ namespace MathChain.Tests.Api
         [InlineData("Qm")]
         [InlineData("QmYTNyRmU9Ms8voG3bSKm9xVvVH4om65q7FuiYuDLGDpMs.png")]
         [InlineData("not-a-cid")]
-        public async Task Download_InvalidIdentifier_Returns400(string value)
+        public async Task Download_ShouldReturn400_WhenTheIdentifierIsInvalid(string value)
         {
             var response = await _factory.CreateClient().GetAsync($"/api/ipfs/{value}", TestContext.Current.CancellationToken);
 
@@ -79,7 +79,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Download_UnknownIdentifier_Returns404()
+        public async Task Download_ShouldReturn404_WhenTheIdentifierIsUnknown()
         {
             var response = await _factory.CreateClient().GetAsync("/api/ipfs/bafkreihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku", TestContext.Current.CancellationToken);
 
@@ -87,7 +87,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Download_FileNameWithPath_KeepsOnlyTheName()
+        public async Task Download_ShouldKeepOnlyTheName_WhenTheFileNameContainsAPath()
         {
             var cid = await UploadAsync(Encoding.UTF8.GetBytes("named " + Guid.NewGuid()));
 
@@ -98,7 +98,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Upload_LargerThanTenMegabytes_Returns400()
+        public async Task Upload_ShouldReturn400_WhenTheFileIsLargerThanTenMegabytes()
         {
             var student = _factory.CreateClientAs("0x5555555555555555555555555555555555555572", UserRole.Student);
 
@@ -109,7 +109,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Upload_Anonymous_Returns401()
+        public async Task Upload_ShouldReturn401_WhenTheUserIsAnonymous()
         {
             var response = await _factory.CreateClient().PostAsync("/api/ipfs/upload", FileForm(new byte[] { 1 }, "a.bin"), TestContext.Current.CancellationToken);
 

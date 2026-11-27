@@ -20,7 +20,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public void EveryEmbeddedSolution_MatchesAnExerciseOfTheCurriculum()
+        public void EveryEmbeddedSolution_ShouldMatchAnExerciseOfTheCurriculum_WhenTheCatalogIsLoaded()
         {
             var catalog = new EmbeddedSolutionCatalog();
             var found = 0;
@@ -58,7 +58,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public void Find_ReturnsTheStepsOnlyForTheSameTemplate()
+        public void Find_ShouldReturnTheStepsOnlyForTheSameTemplate_WhenTheCodeOrderLatexOrQueryDiffers()
         {
             var file = JsonSerializer.Serialize(new
             {
@@ -84,7 +84,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public void Constructor_RejectsAFormulaDefinedTwice()
+        public void FromJson_ShouldThrowInvalidOperationException_WhenAFormulaIsDefinedTwice()
         {
             var file = JsonSerializer.Serialize(new { formulas = new Dictionary<string, object[]> { ["code-f1"] = Array.Empty<object>() } });
 

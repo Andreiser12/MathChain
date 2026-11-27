@@ -38,7 +38,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task SetPrerequisites_OnlyAdminsCanChangeThem()
+        public async Task SetPrerequisites_ShouldAcceptTheChangeOnly_WhenTheUserIsAnAdmin()
         {
             var (_, first, second, _) = AddTree();
             var body = new { prerequisiteIds = new[] { first.Id } };
@@ -56,7 +56,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task SetPrerequisites_Cycle_Returns400WithTheCycle()
+        public async Task SetPrerequisites_ShouldReturn400WithTheCycle_WhenTheChangeCreatesACycle()
         {
             var (_, first, second, _) = AddTree();
             var admin = _factory.CreateClientAs("0x6666666666666666666666666666666666666667", UserRole.Admin);
@@ -69,7 +69,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task LockedChapter_StudentSeesTheLockAndCannotPractice()
+        public async Task LockedChapter_ShouldShowTheLockAndBlockPractice_WhenTheStudentHasNotFinishedThePrerequisite()
         {
             var (root, first, second, secondFormula) = AddTree();
             await _factory.CreateClientAs("0x6666666666666666666666666666666666666667", UserRole.Admin)

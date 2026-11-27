@@ -37,7 +37,7 @@ namespace MathChain.Tests.Api
         [InlineData("/api/dashboard")]
         [InlineData("/api/auth/me")]
         [InlineData("/api/user")]
-        public async Task ProtectedEndpoint_WithoutToken_ReturnsUnauthorizedEnvelope(string url)
+        public async Task ProtectedEndpoint_ShouldReturnAnUnauthorizedEnvelope_WhenNoTokenIsSent(string url)
         {
             var response = await _factory.CreateClient().GetAsync(url, TestContext.Current.CancellationToken);
 
@@ -46,7 +46,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task UnknownRoute_WithoutToken_ReturnsUnauthorized()
+        public async Task UnknownRoute_ShouldReturnUnauthorized_WhenNoTokenIsSent()
         {
             var response = await _factory.CreateClient().GetAsync("/api/does-not-exist", TestContext.Current.CancellationToken);
 
@@ -54,7 +54,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task PublicEndpoints_WithoutToken_AreReachable()
+        public async Task PublicEndpoints_ShouldBeReachable_WhenNoTokenIsSent()
         {
             var client = _factory.CreateClient();
 
@@ -66,7 +66,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task CreateClassRoom_AsStudent_ReturnsForbiddenEnvelope()
+        public async Task CreateClassRoom_ShouldReturnAForbiddenEnvelope_WhenTheUserIsAStudent()
         {
             var response = await _factory.CreateClientAs(Student, UserRole.Student)
                 .PostAsJsonAsync("/api/classroom/create", new { name = "Hacked" }, TestContext.Current.CancellationToken);
@@ -76,7 +76,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task CreateClassRoom_AsTeacher_IgnoresTeacherWalletFromBody()
+        public async Task CreateClassRoom_ShouldIgnoreTheTeacherWalletFromTheBody_WhenTheUserIsATeacher()
         {
             var response = await _factory.CreateClientAs(Teacher, UserRole.Teacher)
                 .PostAsJsonAsync("/api/classroom/create", new { name = "Geometry", teacherWallet = OtherTeacher }, TestContext.Current.CancellationToken);
@@ -86,7 +86,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task DeleteClassRoom_ByAnotherTeacher_ReturnsForbiddenAndKeepsClassRoom()
+        public async Task DeleteClassRoom_ShouldReturnForbiddenAndKeepTheClassRoom_WhenTheUserIsAnotherTeacher()
         {
             var classRoom = AddClassRoom(Teacher);
 
@@ -98,7 +98,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task DeleteClassRoom_ByOwner_ReturnsOk()
+        public async Task DeleteClassRoom_ShouldReturnOk_WhenTheUserOwnsTheClassRoom()
         {
             var classRoom = AddClassRoom(Teacher);
 
@@ -110,7 +110,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task GetClassRooms_OfAnotherTeacher_ReturnsForbidden()
+        public async Task GetClassRooms_ShouldReturnForbidden_WhenTheyBelongToAnotherTeacher()
         {
             var response = await _factory.CreateClientAs(OtherTeacher, UserRole.Teacher)
                 .GetAsync($"/api/classroom/by-teacher/{Teacher}", TestContext.Current.CancellationToken);
@@ -119,7 +119,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task GetAllUsers_AsAdmin_ReturnsOk()
+        public async Task GetAllUsers_ShouldReturnOk_WhenTheUserIsAnAdmin()
         {
             var response = await _factory.CreateClientAs("0x4444444444444444444444444444444444444444", UserRole.Admin)
                 .GetAsync("/api/user", TestContext.Current.CancellationToken);

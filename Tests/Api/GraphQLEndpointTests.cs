@@ -49,7 +49,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Certificates_FilterSortAndPage_AreAvailableWithoutLogin()
+        public async Task Certificates_ShouldSupportFilteringSortingAndPaging_WhenTheUserIsAnonymous()
         {
             var result = await QueryAsync("""
                 query ($holder: String!) {
@@ -69,7 +69,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Certificates_WithoutOrder_AreSortedByTokenId()
+        public async Task Certificates_ShouldBeSortedByTokenId_WhenNoOrderIsGiven()
         {
             var result = await QueryAsync("{ certificates(take: 3) { items { tokenId } } }");
 
@@ -77,7 +77,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Certificates_OrderedByIssueDate_UseThatOrder()
+        public async Task Certificates_ShouldUseTheRequestedOrder_WhenOrderedByIssueDate()
         {
             var result = await QueryAsync("{ certificates(take: 2, order: { issuedAt: DESC }) { items { tokenId } } }");
 
@@ -85,7 +85,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Certificate_ByTokenId_ReturnsTheRevocation()
+        public async Task Certificate_ShouldReturnTheRevocation_WhenQueriedByTokenId()
         {
             var result = await QueryAsync("{ certificate(tokenId: 9) { tokenId revoked revokedTransaction issuedBlock } missing: certificate(tokenId: 999) { tokenId } }");
 
@@ -96,7 +96,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Certificates_MoreThanTheMaximumPageSize_IsRejected()
+        public async Task Certificates_ShouldBeRejected_WhenMoreThanTheMaximumPageSizeIsRequested()
         {
             var result = await QueryAsync("{ certificates(take: 500) { items { tokenId } } }");
 
@@ -104,7 +104,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task StatsAndIndexerStatus_SummariseTheIndex()
+        public async Task StatsAndIndexerStatus_ShouldSummariseTheIndex_WhenTheIndexHasData()
         {
             var result = await QueryAsync("{ stats { certificates revokedCertificates solutionPurchases solutionRevenue curriculumVersions } indexerStatus { enabled lastIndexedBlock } }");
 
@@ -117,7 +117,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Mutations_DoNotExist()
+        public async Task Mutations_ShouldBeRejected_WhenTheClientSendsOne()
         {
             var result = await QueryAsync("mutation { revoke(tokenId: 1) }", expected: HttpStatusCode.BadRequest);
 
@@ -125,7 +125,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Introspection_DescribesTheSchema()
+        public async Task Introspection_ShouldDescribeTheSchema_WhenATypeIsQueried()
         {
             var result = await QueryAsync("{ __type(name: \"ChainCertificate\") { fields { name } } }");
 

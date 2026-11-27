@@ -36,7 +36,7 @@ namespace MathChain.Tests.Practice
         }
 
         [Fact]
-        public void Generate_Expand_SubstitutesValuesAndKeepsLatexGroups()
+        public void Generate_ShouldSubstituteTheValuesAndKeepTheLatexGroups_WhenTheQueryIsAnExpansion()
         {
             var template = Template("expand ((1/{a})*x + {b})^2", @"(\frac{1}{{a}}x + {b})^2", ("a", 2, 4), ("b", 1, 3));
 
@@ -49,7 +49,7 @@ namespace MathChain.Tests.Practice
         }
 
         [Fact]
-        public void Generate_EquationLatex_KeepsBothSides()
+        public void Generate_ShouldKeepBothSides_WhenTheLatexIsAnEquation()
         {
             var template = Template("{a}", @"2^{x} = 2^{{a}}", ("a", 3, 3));
 
@@ -61,7 +61,7 @@ namespace MathChain.Tests.Practice
         }
 
         [Fact]
-        public void Generate_ComputedPlaceholders_AreEvaluated()
+        public void Generate_ShouldEvaluateThePlaceholders_WhenTheyAreComputed()
         {
             var template = Template("factor x^4 - {a**4} + {a*a*a}", @"x^4 - {a**4} + {a*a*a}", ("a", 2, 3));
 
@@ -73,7 +73,7 @@ namespace MathChain.Tests.Practice
         }
 
         [Fact]
-        public void Generate_LatexGroupsWithoutTemplateVariables_AreLeftAlone()
+        public void Generate_ShouldLeaveTheLatexGroupsAlone_WhenTheyHaveNoTemplateVariables()
         {
             var template = Template("expand ({a}x + {b}/x)^2", @"({a}x + \frac{{{b}}}{{x}})^{2}", ("a", 2, 4), ("b", 1, 3));
 
@@ -84,7 +84,7 @@ namespace MathChain.Tests.Practice
         }
 
         [Fact]
-        public void Generate_NumericQuery_StoresRoundedNumber()
+        public void Generate_ShouldStoreARoundedNumber_WhenTheQueryIsNumeric()
         {
             var template = Template("({a}/{b})", @"\int \frac{{a}}{{b}} \,dx", ("a", 6, 30), ("b", 2, 5));
 
@@ -96,7 +96,7 @@ namespace MathChain.Tests.Practice
         }
 
         [Fact]
-        public void Generate_SamplesEveryVariableInsideItsInclusiveRange()
+        public void Generate_ShouldSampleEveryVariableInsideItsInclusiveRange_WhenTheTemplateHasVariables()
         {
             var random = new SequenceRandom(5, 9);
 
@@ -106,7 +106,7 @@ namespace MathChain.Tests.Practice
         }
 
         [Fact]
-        public void Generate_TemplateWithoutVariables_UsesTheLegacyRandomA()
+        public void Generate_ShouldUseTheLegacyRandomA_WhenTheTemplateHasNoVariables()
         {
             var random = new SequenceRandom(4);
             var template = new ExerciseTemplate { WolframQuery = "{a}", LatexTemplate = @"\int {a} \,dx", IsRandom = false };
@@ -118,7 +118,7 @@ namespace MathChain.Tests.Practice
         }
 
         [Fact]
-        public void Generate_CustomRequirementAndHint_AreKeptWithSubstitutedValues()
+        public void Generate_ShouldKeepTheRequirementAndTheHintWithSubstitutedValues_WhenTheyAreCustom()
         {
             var template = Template("expand ({a}x + 1)^2", "({a}x + 1)^2", ("a", 2, 4));
             template.Requirement = "Dezvolta:";
@@ -136,7 +136,7 @@ namespace MathChain.Tests.Practice
         [InlineData("", "x")]
         [InlineData("expand ({a} + 1)^2", "({a} + 1)^2")]
         [InlineData("limit x->0 sin(x)/x", "x")]
-        public void Generate_ExercisesThatCannotBeVerified_Throw(string query, string latex)
+        public void Generate_ShouldThrow_WhenTheExerciseCannotBeVerified(string query, string latex)
         {
             Assert.Throws<MathExpressionParseException>(() => ExerciseGenerator.Generate(Template(query, latex, ("a", 2, 5)), new SequenceRandom(2)));
         }

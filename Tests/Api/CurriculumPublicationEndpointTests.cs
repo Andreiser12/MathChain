@@ -14,7 +14,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task PublishAndVerify_AdminPublishesAndAnyoneCanReadTheLatestAnchor()
+        public async Task PublishAndVerify_ShouldLetAnyoneReadTheLatestAnchor_WhenAnAdminPublishesTheCurriculum()
         {
             var anonymous = _factory.CreateClient();
             var teacher = _factory.CreateClientAs("0x1111111111111111111111111111111111111113", UserRole.Teacher);

@@ -54,7 +54,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateChallengeAsync_ValidAddress_ReturnsSignInWithEthereumMessage()
+        public async Task CreateChallengeAsync_ShouldReturnASignInWithEthereumMessage_WhenTheAddressIsValid()
         {
             var challenge = await _context.CreateChallengeAsync(new LoginChallengeRequest { WalletAddress = Address.ToLowerInvariant() });
 
@@ -67,7 +67,7 @@ namespace MathChain.Tests.Application
         [Theory]
         [InlineData(1L)]
         [InlineData(8453L)]
-        public async Task CreateChallengeAsync_WalletChainId_IsUsedInMessage(long chainId)
+        public async Task CreateChallengeAsync_ShouldUseTheChainIdInTheMessage_WhenTheWalletSendsIt(long chainId)
         {
             var challenge = await _context.CreateChallengeAsync(new LoginChallengeRequest { WalletAddress = Address, ChainId = chainId });
 
@@ -77,14 +77,14 @@ namespace MathChain.Tests.Application
         [Theory]
         [InlineData(0L)]
         [InlineData(-5L)]
-        public async Task CreateChallengeAsync_InvalidChainId_ThrowsBusinessRuleException(long chainId)
+        public async Task CreateChallengeAsync_ShouldThrowBusinessRuleException_WhenTheChainIdIsInvalid(long chainId)
         {
             await Assert.ThrowsAsync<BusinessRuleException>(() =>
                 _context.CreateChallengeAsync(new LoginChallengeRequest { WalletAddress = Address, ChainId = chainId }));
         }
 
         [Fact]
-        public async Task CreateChallengeAsync_ChainOutsideAllowedList_ThrowsBusinessRuleException()
+        public async Task CreateChallengeAsync_ShouldThrowBusinessRuleException_WhenTheChainIsNotAllowed()
         {
             _signInSettings.AllowedChainIds.AddRange(new[] { 1L, 11155111L });
 
@@ -96,7 +96,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateChallengeAsync_TwoRequests_UseDifferentNonces()
+        public async Task CreateChallengeAsync_ShouldUseDifferentNonces_WhenTwoChallengesAreRequested()
         {
             var first = await RequestMessageAsync();
             var second = await RequestMessageAsync();
@@ -109,14 +109,14 @@ namespace MathChain.Tests.Application
         [InlineData("0x123")]
         [InlineData("not-an-address")]
         [InlineData("00x52908400098527886E0F7030069857D2E4169EE7")]
-        public async Task CreateChallengeAsync_InvalidAddress_ThrowsBusinessRuleException(string address)
+        public async Task CreateChallengeAsync_ShouldThrowBusinessRuleException_WhenTheAddressIsInvalid(string address)
         {
             await Assert.ThrowsAsync<BusinessRuleException>(() =>
                 _context.CreateChallengeAsync(new LoginChallengeRequest { WalletAddress = address }));
         }
 
         [Fact]
-        public async Task VerifyAsync_ExistingUserWithValidSignature_ReturnsTokenWithWalletAndRole()
+        public async Task VerifyAsync_ShouldReturnATokenWithTheWalletAndTheRole_WhenAnExistingUserSignsCorrectly()
         {
             AddExistingUser(UserRole.Teacher);
             var message = await RequestMessageAsync();
@@ -133,7 +133,7 @@ namespace MathChain.Tests.Application
         [Theory]
         [InlineData("Student", UserRole.Student)]
         [InlineData("teacher", UserRole.Teacher)]
-        public async Task VerifyAsync_NewUserWithAllowedRole_RegistersUser(string role, UserRole expectedRole)
+        public async Task VerifyAsync_ShouldRegisterTheUser_WhenANewUserChoosesAnAllowedRole(string role, UserRole expectedRole)
         {
             var message = await RequestMessageAsync();
 
@@ -150,7 +150,7 @@ namespace MathChain.Tests.Application
         [InlineData("2")]
         [InlineData("999")]
         [InlineData("xyz")]
-        public async Task VerifyAsync_NewUserWithForbiddenRole_ThrowsBusinessRuleException(string role)
+        public async Task VerifyAsync_ShouldThrowBusinessRuleException_WhenANewUserChoosesAForbiddenRole(string role)
         {
             var message = await RequestMessageAsync();
 
@@ -160,7 +160,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task VerifyAsync_NewUserWithoutRole_ThrowsNotFoundException()
+        public async Task VerifyAsync_ShouldThrowNotFoundException_WhenANewUserChoosesNoRole()
         {
             var message = await RequestMessageAsync();
 
@@ -169,7 +169,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task VerifyAsync_SignatureFromAnotherWallet_ThrowsUnauthorizedException()
+        public async Task VerifyAsync_ShouldThrowUnauthorizedException_WhenTheSignatureIsFromAnotherWallet()
         {
             AddExistingUser(UserRole.Admin);
             var message = await RequestMessageAsync();
@@ -179,7 +179,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task VerifyAsync_MalformedSignature_ThrowsUnauthorizedException()
+        public async Task VerifyAsync_ShouldThrowUnauthorizedException_WhenTheSignatureIsMalformed()
         {
             AddExistingUser(UserRole.Student);
             await RequestMessageAsync();
@@ -189,7 +189,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task VerifyAsync_ReusedSignature_ThrowsUnauthorizedException()
+        public async Task VerifyAsync_ShouldThrowUnauthorizedException_WhenTheSignatureIsReused()
         {
             AddExistingUser(UserRole.Student);
             var message = await RequestMessageAsync();
@@ -200,7 +200,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task VerifyAsync_FailedAttempt_ConsumesChallenge()
+        public async Task VerifyAsync_ShouldConsumeTheChallenge_WhenTheAttemptFails()
         {
             AddExistingUser(UserRole.Student);
             var message = await RequestMessageAsync();
@@ -212,7 +212,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task VerifyAsync_ExpiredChallenge_ThrowsUnauthorizedException()
+        public async Task VerifyAsync_ShouldThrowUnauthorizedException_WhenTheChallengeHasExpired()
         {
             AddExistingUser(UserRole.Student);
             var message = await RequestMessageAsync();
@@ -223,7 +223,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task VerifyAsync_WithoutChallenge_ThrowsUnauthorizedException()
+        public async Task VerifyAsync_ShouldThrowUnauthorizedException_WhenThereIsNoChallenge()
         {
             AddExistingUser(UserRole.Student);
 

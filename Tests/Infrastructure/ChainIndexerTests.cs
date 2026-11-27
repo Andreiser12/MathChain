@@ -58,7 +58,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task RunOnceAsync_WithoutStartBlock_IsDisabled()
+        public async Task RunOnceAsync_ShouldReportDisabled_WhenThereIsNoStartBlock()
         {
             _settings.StartBlock = 0;
 
@@ -67,7 +67,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task RunOnceAsync_ReaderNotConfigured_IsDisabled()
+        public async Task RunOnceAsync_ShouldReportDisabled_WhenTheReaderIsNotConfigured()
         {
             _reader.IsConfigured = false;
 
@@ -75,7 +75,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task RunOnceAsync_ReadsParallelWindowsFromTheStartBlockAndSavesTheCheckpoint()
+        public async Task RunOnceAsync_ShouldReadParallelWindowsFromTheStartBlockAndSaveTheCheckpoint_WhenItRunsForTheFirstTime()
         {
             var result = await RunAsync();
 
@@ -87,7 +87,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task RunOnceAsync_StopsBeforeTheUnconfirmedBlocks()
+        public async Task RunOnceAsync_ShouldStopBeforeTheUnconfirmedBlocks_WhenTheHeadIsClose()
         {
             _reader.Head = 130;
 
@@ -98,7 +98,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task RunOnceAsync_CertificateLifecycleAcrossWindows_IsAppliedInOrder()
+        public async Task RunOnceAsync_ShouldApplyTheEventsInOrder_WhenACertificateLifecycleSpansSeveralWindows()
         {
             _reader.Head = 1000;
             _reader.Logs.Add(Issued(7, 120));
@@ -118,7 +118,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task RunOnceAsync_ReprocessingTheSameBlocks_DoesNotDuplicateAnything()
+        public async Task RunOnceAsync_ShouldNotDuplicateAnything_WhenTheSameBlocksAreReprocessed()
         {
             _reader.Head = 300;
             _reader.Logs.Add(Issued(1, 110));
@@ -143,7 +143,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task RunOnceAsync_RangeRefused_HalvesTheWindowAndContinues()
+        public async Task RunOnceAsync_ShouldHalveTheWindowAndContinue_WhenTheRangeIsRefused()
         {
             _reader.Head = 400;
             _reader.MaximumRange = 20;
@@ -159,7 +159,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task RunOnceAsync_IndexBuiltForAnotherChain_Throws()
+        public async Task RunOnceAsync_ShouldThrow_WhenTheIndexWasBuiltForAnotherChain()
         {
             await RunAsync();
             _reader.ChainId = 1;
@@ -168,7 +168,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task RunOnceAsync_CurriculumPublication_StoresTheTextCid()
+        public async Task RunOnceAsync_ShouldStoreTheTextCid_WhenTheCurriculumIsPublished()
         {
             var cid = ContentId.ForBlock(ContentCodec.Raw, new byte[] { 1, 2, 3 });
             _reader.Head = 200;
@@ -181,7 +181,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task RunOnceAsync_ReadsEachBlockTimeOnce()
+        public async Task RunOnceAsync_ShouldReadEachBlockTimeOnce_WhenABlockHasSeveralEvents()
         {
             _reader.Head = 200;
             _reader.Logs.Add(Issued(1, 110, 0));
@@ -194,7 +194,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task GetStatsAsync_SummarisesTheIndex()
+        public async Task GetStatsAsync_ShouldSummariseTheIndex_WhenItHasCertificatesAndPurchases()
         {
             _reader.Head = 300;
             _reader.Logs.Add(Issued(1, 110));
@@ -211,7 +211,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task GetStatusAsync_UpToDate_HasReachedTheConfirmedHead()
+        public async Task GetStatusAsync_ShouldReportTheConfirmedHead_WhenTheIndexIsUpToDate()
         {
             _reader.Head = 300;
 

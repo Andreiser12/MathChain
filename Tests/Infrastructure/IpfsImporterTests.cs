@@ -31,7 +31,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task ImportFolderAsync_ImportsVerifiedFilesAndReportsTheRest()
+        public async Task ImportFolderAsync_ShouldImportTheVerifiedFilesAndReportTheRest_WhenTheFolderHasMixedFiles()
         {
             var plain = WriteLegacy("chapter snapshot");
             var withExtension = WriteLegacy("image bytes", ".png");
@@ -58,7 +58,7 @@ namespace MathChain.Tests.Infrastructure
         [Theory]
         [InlineData("QmXoNkP3DBcSVpFSPw5WZrxs2LvbKDGtvQSmhxNXYYVtwJ")]
         [InlineData("QmZKHh6Tx6USLZX5aNBmLpVA7hYA1qo9bHbMVfsgAWfz66")]
-        public async Task ImportFolderAsync_GenuineIpfsVersionZeroFile_IsImportedAsItsDag(string referenceCid)
+        public async Task ImportFolderAsync_ShouldImportTheFileAsItsDag_WhenItIsAGenuineIpfsVersionZeroFile(string referenceCid)
         {
             var content = new byte[600000];
             for (var i = 0; i < content.Length; i++)
@@ -77,7 +77,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task ImportFolderAsync_RunTwice_DoesNotDuplicate()
+        public async Task ImportFolderAsync_ShouldNotDuplicateAnything_WhenItRunsTwice()
         {
             WriteLegacy("chapter snapshot");
             var importer = new IpfsImporter(_blocks);
@@ -91,7 +91,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task ImportFolderAsync_MissingFolder_Throws()
+        public async Task ImportFolderAsync_ShouldThrow_WhenTheFolderIsMissing()
         {
             await Assert.ThrowsAsync<DirectoryNotFoundException>(() => new IpfsImporter(_blocks).ImportFolderAsync(_folder + "-missing"));
         }

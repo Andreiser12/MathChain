@@ -136,7 +136,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetOfferAsync_ListsPricesSolutionsAndPurchases()
+        public async Task GetOfferAsync_ShouldListThePricesSolutionsAndPurchases_WhenTheStudentHasAPurchase()
         {
             AddCompletedPurchase(0);
 
@@ -154,7 +154,7 @@ namespace MathChain.Tests.Application
         [Theory]
         [InlineData(UserRole.Teacher)]
         [InlineData(UserRole.Admin)]
-        public async Task GetOfferAsync_TeachersAndAdmins_OpenSolutionsForFree(UserRole role)
+        public async Task GetOfferAsync_ShouldOpenTheSolutionsForFree_WhenTheUserIsATeacherOrAnAdmin(UserRole role)
         {
             _currentUser.As(Teacher, role);
 
@@ -166,7 +166,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetOfferAsync_WhenTheNetworkIsDown_ShowsSolutionsWithoutPrices()
+        public async Task GetOfferAsync_ShouldShowTheSolutionsWithoutPrices_WhenTheNetworkIsDown()
         {
             _registry.PricesUnavailable = true;
 
@@ -178,7 +178,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetOfferAsync_FormulaWithGenericExercises_HasNoSolutions()
+        public async Task GetOfferAsync_ShouldHaveNoSolutions_WhenTheFormulaUsesGenericExercises()
         {
             _formula.ExercisesJson = null;
 
@@ -189,7 +189,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetOfferAsync_RequiresLogin_AndAnExistingFormula()
+        public async Task GetOfferAsync_ShouldRejectTheRequest_WhenTheUserIsAnonymousOrTheFormulaDoesNotExist()
         {
             await Assert.ThrowsAsync<NotFoundException>(() => _context.GetOfferAsync(Guid.NewGuid()));
 
@@ -198,7 +198,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateQuoteAsync_StoresTheQuote_AndReturnsTheDataToSign()
+        public async Task CreateQuoteAsync_ShouldStoreTheQuoteAndReturnTheDataToSign_WhenTheStudentAsksForAQuote()
         {
             var quote = await QuoteAsync();
 
@@ -240,7 +240,7 @@ namespace MathChain.Tests.Application
         [InlineData("")]
         [InlineData("0x123")]
         [InlineData("0xzz88888888888888888888888888888888888888")]
-        public async Task CreateQuoteAsync_RequiresAWalletAddress(string payer)
+        public async Task CreateQuoteAsync_ShouldThrowBusinessRuleException_WhenThePayerHasNoWalletAddress(string payer)
         {
             var error = await Assert.ThrowsAsync<BusinessRuleException>(() => QuoteAsync(payer: payer));
 
@@ -252,7 +252,7 @@ namespace MathChain.Tests.Application
         [InlineData(1)]
         [InlineData(3)]
         [InlineData(-1)]
-        public async Task CreateQuoteAsync_ExerciseWithoutSolution_IsNotFound(int index)
+        public async Task CreateQuoteAsync_ShouldThrowNotFoundException_WhenTheExerciseHasNoSolution(int index)
         {
             var error = await Assert.ThrowsAsync<NotFoundException>(() => QuoteAsync(index));
 
@@ -260,7 +260,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateQuoteAsync_AlreadyOwned_IsRejected()
+        public async Task CreateQuoteAsync_ShouldThrowBusinessRuleException_WhenTheSolutionIsAlreadyOwned()
         {
             AddCompletedPurchase(2);
 
@@ -270,7 +270,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateQuoteAsync_WhilePaymentIsBeingProcessed_IsRejected()
+        public async Task CreateQuoteAsync_ShouldRejectTheQuote_WhenAPaymentIsBeingProcessed()
         {
             var first = await QuoteAsync();
             _purchases.Purchases.Single().Status = SolutionPurchaseStatus.Submitted;
@@ -282,7 +282,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateQuoteAsync_PaidOnChainButMissingInTheDatabase_RecordsTheOwnership()
+        public async Task CreateQuoteAsync_ShouldRecordTheOwnership_WhenItIsPaidOnChainButMissingInTheDatabase()
         {
             _registry.PurchasedOnChain.Add(FakeSolutionPaymentRegistry.Key(Student, _registry.ComputeSolutionId(_formula.Id, 2)));
 
@@ -294,7 +294,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateQuoteAsync_FreeAccessUsers_DoNotPay()
+        public async Task CreateQuoteAsync_ShouldNotCharge_WhenTheUserHasFreeAccess()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 
@@ -303,7 +303,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateQuoteAsync_WithoutARelayer_IsUnavailable()
+        public async Task CreateQuoteAsync_ShouldThrowServiceUnavailableException_WhenThereIsNoRelayer()
         {
             _registry.CanRelayValue = false;
 
@@ -312,7 +312,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitPaymentAsync_ConfirmedTransaction_CompletesThePurchase()
+        public async Task SubmitPaymentAsync_ShouldCompleteThePurchase_WhenTheTransactionIsConfirmed()
         {
             var quote = await QuoteAsync();
 
@@ -337,7 +337,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitPaymentAsync_SecondCall_DoesNotPayTwice()
+        public async Task SubmitPaymentAsync_ShouldNotPayTwice_WhenItIsCalledASecondTime()
         {
             var quote = await QuoteAsync();
             await PayAsync(quote.PurchaseId);
@@ -349,7 +349,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitPaymentAsync_ParallelRequestThatAlreadyStarted_DoesNotSendAgain()
+        public async Task SubmitPaymentAsync_ShouldNotSendAgain_WhenAParallelRequestAlreadyStarted()
         {
             var quote = await QuoteAsync();
             _purchases.AfterRead = stored =>
@@ -365,7 +365,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitPaymentAsync_SignatureFromAnotherWallet_KeepsTheQuoteOpen()
+        public async Task SubmitPaymentAsync_ShouldKeepTheQuoteOpen_WhenTheSignatureIsFromAnotherWallet()
         {
             var quote = await QuoteAsync();
 
@@ -378,7 +378,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitPaymentAsync_AfterThePaymentWindow_FailsWithoutSending()
+        public async Task SubmitPaymentAsync_ShouldFailWithoutSending_WhenThePaymentWindowHasPassed()
         {
             var quote = await QuoteAsync();
             _time.Now = _time.Now + _options.QuoteLifetime;
@@ -392,7 +392,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitPaymentAsync_RejectedByTheContract_FailsWithTheReason()
+        public async Task SubmitPaymentAsync_ShouldFailWithTheReason_WhenTheContractRejectsThePayment()
         {
             var quote = await QuoteAsync();
             _registry.SubmitError = new BusinessRuleException("The paying wallet does not have enough USDC.");
@@ -411,7 +411,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitPaymentAsync_NetworkFailure_LetsTheStudentRetry()
+        public async Task SubmitPaymentAsync_ShouldLetTheStudentRetry_WhenTheNetworkFails()
         {
             var quote = await QuoteAsync();
             _registry.SubmitError = new ServiceUnavailableException("The blockchain network could not be reached. Try again later.");
@@ -424,7 +424,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitPaymentAsync_AlreadyPaidOnChain_CompletesWithoutPayingAgain()
+        public async Task SubmitPaymentAsync_ShouldCompleteWithoutPayingAgain_WhenItIsAlreadyPaidOnChain()
         {
             var quote = await QuoteAsync();
             var stored = _purchases.Purchases.Single();
@@ -438,7 +438,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitPaymentAsync_RevertedTransaction_FailsAndNothingIsUnlocked()
+        public async Task SubmitPaymentAsync_ShouldFailAndUnlockNothing_WhenTheTransactionIsReverted()
         {
             var quote = await QuoteAsync();
             _registry.NextOutcome = SolutionPaymentState.Reverted;
@@ -452,7 +452,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitPaymentAsync_RevertedBecauseSomeoneElseRelayedIt_Completes()
+        public async Task SubmitPaymentAsync_ShouldComplete_WhenItRevertedBecauseSomeoneElseRelayedIt()
         {
             var quote = await QuoteAsync();
             var stored = _purchases.Purchases.Single();
@@ -465,7 +465,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitPaymentAsync_TransactionStillPending_IsConfirmedLater()
+        public async Task SubmitPaymentAsync_ShouldConfirmThePurchaseLater_WhenTheTransactionIsStillPending()
         {
             var quote = await QuoteAsync();
             _registry.NextOutcome = SolutionPaymentState.Pending;
@@ -486,7 +486,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitPaymentAsync_WaitsForTheConfirmation()
+        public async Task SubmitPaymentAsync_ShouldWaitForTheConfirmation_WhenTheOutcomeIsNotKnownYet()
         {
             _options.ConfirmationWait = TimeSpan.FromSeconds(30);
             _registry.PendingPollsBeforeOutcome = 2;
@@ -499,7 +499,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitPaymentAsync_EventForADifferentPurchase_IsNotAccepted()
+        public async Task SubmitPaymentAsync_ShouldNotAcceptTheEvent_WhenItIsForADifferentPurchase()
         {
             var quote = await QuoteAsync();
             _registry.ChangeOutcome = (_, outcome) =>
@@ -515,7 +515,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task PurchasesOfAnotherAccount_AreNotVisible()
+        public async Task PurchaseAccess_ShouldThrowNotFoundException_WhenThePurchaseBelongsToAnotherAccount()
         {
             var quote = await QuoteAsync();
             _currentUser.As(OtherStudent, UserRole.Student);
@@ -526,7 +526,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetSolutionAsync_PaidSolution_UsesTheValuesOfTheExercise()
+        public async Task GetSolutionAsync_ShouldUseTheValuesOfTheExercise_WhenTheSolutionIsPaid()
         {
             AddCompletedPurchase(0);
             var exercise = AddExercise(0, "{\"a\":7,\"b\":11}");
@@ -540,7 +540,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetSolutionAsync_WithoutPaying_IsForbidden()
+        public async Task GetSolutionAsync_ShouldThrowForbiddenException_WhenTheStudentHasNotPaid()
         {
             var exercise = AddExercise(0, "{\"a\":7,\"b\":11}");
             AddCompletedPurchase(0, OtherStudent);
@@ -553,7 +553,7 @@ namespace MathChain.Tests.Application
         [Theory]
         [InlineData(UserRole.Teacher)]
         [InlineData(UserRole.Admin)]
-        public async Task GetSolutionAsync_TeachersAndAdmins_SeeItForFree(UserRole role)
+        public async Task GetSolutionAsync_ShouldShowTheSolutionForFree_WhenTheUserIsATeacherOrAnAdmin(UserRole role)
         {
             _currentUser.As(Teacher, role);
             var exercise = AddExercise(2, "{\"a\":5}", Teacher);
@@ -564,7 +564,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetSolutionAsync_ExerciseOfAnotherStudent_IsNotFound()
+        public async Task GetSolutionAsync_ShouldReportNotFound_WhenTheExerciseBelongsToAnotherStudent()
         {
             AddCompletedPurchase(0);
             var exercise = AddExercise(0, "{\"a\":7,\"b\":11}", OtherStudent);
@@ -573,7 +573,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetSolutionAsync_ExerciseCreatedBeforeValuesWereStored_AsksToReload()
+        public async Task GetSolutionAsync_ShouldAskToReload_WhenTheExerciseWasCreatedBeforeValuesWereStored()
         {
             AddCompletedPurchase(0);
             var exercise = AddExercise(0, null);
@@ -584,7 +584,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetSolutionAsync_TemplateChangedAfterTheSolutionWasWritten_HasNoSolution()
+        public async Task GetSolutionAsync_ShouldHaveNoSolution_WhenTheTemplateChangedAfterTheSolutionWasWritten()
         {
             _catalog = Catalog("{a}^{2}");
             _context = CreateContext();
@@ -596,7 +596,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetPaymentSetupAsync_ShowsPricesAndTheRelayer_ToAdminsOnly()
+        public async Task GetPaymentSetupAsync_ShouldShowThePricesAndTheRelayerOnlyToAdmins_WhenTheSetupIsRequested()
         {
             await Assert.ThrowsAsync<ForbiddenException>(() => _context.GetPaymentSetupAsync());
 
@@ -610,7 +610,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetPaymentSetupAsync_WhenNotConfigured_SaysSo()
+        public async Task GetPaymentSetupAsync_ShouldReportThatPricesCannotBeRead_WhenTheContractIsNotConfigured()
         {
             _currentUser.As(Admin, UserRole.Admin);
             _registry.CanRead = false;
@@ -625,7 +625,7 @@ namespace MathChain.Tests.Application
         [InlineData("Easy", 1.5, "setPrice:Easy:1500000")]
         [InlineData("medium", 2, "setPrice:Medium:2000000")]
         [InlineData("Hard", 0.000001, "setPrice:Hard:1")]
-        public void BuildPriceChange_ConvertsThePriceToTokenUnits(string difficulty, double price, string expectedData)
+        public void BuildPriceChange_ShouldConvertThePriceToTokenUnits_WhenAnAdminChangesAPrice(string difficulty, double price, string expectedData)
         {
             _currentUser.As(Admin, UserRole.Admin);
 
@@ -642,7 +642,7 @@ namespace MathChain.Tests.Application
         [InlineData("Easy", "0.0000001")]
         [InlineData("Expert", "1")]
         [InlineData("", "1")]
-        public void BuildPriceChange_RejectsInvalidPrices(string difficulty, string price)
+        public void BuildPriceChange_ShouldThrowBusinessRuleException_WhenThePriceIsInvalid(string difficulty, string price)
         {
             _currentUser.As(Admin, UserRole.Admin);
 
@@ -654,7 +654,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void BuildPriceChange_IsForAdminsOnly()
+        public void BuildPriceChange_ShouldThrowForbiddenException_WhenTheUserIsNotAnAdmin()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 

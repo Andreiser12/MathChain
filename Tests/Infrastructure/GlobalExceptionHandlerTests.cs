@@ -42,7 +42,7 @@ namespace MathChain.Tests.Infrastructure
 
         [Theory]
         [MemberData(nameof(DomainExceptions))]
-        public async Task InvokeAsync_DomainException_WritesEnvelopeWithStatusCode(Exception exception, int expectedStatusCode)
+        public async Task InvokeAsync_ShouldWriteAnEnvelopeWithTheStatusCode_WhenADomainExceptionIsThrown(Exception exception, int expectedStatusCode)
         {
             var context = CreateContext();
 
@@ -55,7 +55,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task InvokeAsync_UnexpectedException_HidesDetailsAndReturns500()
+        public async Task InvokeAsync_ShouldHideTheDetailsAndReturn500_WhenAnUnexpectedExceptionIsThrown()
         {
             var context = CreateContext();
 
@@ -68,7 +68,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task InvokeAsync_NoException_LeavesResponseUntouched()
+        public async Task InvokeAsync_ShouldLeaveTheResponseUntouched_WhenNoExceptionIsThrown()
         {
             var context = CreateContext();
 
@@ -79,7 +79,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task InvokeAsync_ResponseAlreadyStarted_RethrowsException()
+        public async Task InvokeAsync_ShouldRethrowTheException_WhenTheResponseHasAlreadyStarted()
         {
             var context = CreateContext();
             context.Features.Set<IHttpResponseFeature>(new StartedResponseFeature());

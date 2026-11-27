@@ -7,7 +7,7 @@ namespace MathChain.Tests.Domain
     public class IntegralProblemTests
     {
         [Fact]
-        public void GetProblemStatement_ReturnCorrectFormat()
+        public void GetProblemStatement_ShouldReturnTheCorrectFormat_WhenTheProblemHasBounds()
         {
             var integralProblem = new IntegralProblem
             {
@@ -24,7 +24,7 @@ namespace MathChain.Tests.Domain
         }
 
         [Fact]
-        public void ValidateSolution_CorrectSolution_ReturnsTrue()
+        public void ValidateSolution_ShouldReturnTrue_WhenTheSolutionIsCorrect()
         {
             var integralProblem = new IntegralProblem
             {
@@ -35,7 +35,7 @@ namespace MathChain.Tests.Domain
         }
 
         [Fact]
-        public void ValidateSolution_WrongSolution_ReturnsFalse()
+        public void ValidateSolution_ShouldReturnFalse_WhenTheSolutionIsWrong()
         {
             var integralProblem = new IntegralProblem
             {
@@ -46,7 +46,7 @@ namespace MathChain.Tests.Domain
         }
 
         [Fact]
-        public void ValidateSolution_ApproximateSolution_ReturnsTrue()
+        public void ValidateSolution_ShouldReturnTrue_WhenTheSolutionIsApproximate()
         {
             var integralProblem = new IntegralProblem
             {

@@ -49,7 +49,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task StudentPaysForASolution_AndSeesItWithTheNumbersOfTheExercise()
+        public async Task SolutionPurchase_ShouldShowTheSolutionWithTheNumbersOfTheExercise_WhenTheStudentPays()
         {
             var formula = AddLimitsFormula();
             var studentWallet = "0x5555555555555555555555555555555555555561";
@@ -95,7 +95,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task WrongSignature_IsABadRequest()
+        public async Task SubmitPayment_ShouldReturnBadRequest_WhenTheSignatureIsMalformed()
         {
             var formula = AddLimitsFormula();
             var student = _factory.CreateClientAs("0x5555555555555555555555555555555555555563", UserRole.Student);
@@ -112,7 +112,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Endpoints_RequireLogin_AndTheSetupIsForAdmins()
+        public async Task SolutionEndpoints_ShouldRequireLoginAndKeepTheSetupForAdmins_WhenCalledByOtherUsers()
         {
             var token = TestContext.Current.CancellationToken;
             var anonymous = _factory.CreateClient();

@@ -31,7 +31,7 @@ namespace MathChain.Tests.Practice
         [InlineData("exp(1)", Math.E)]
         [InlineData("3pi/3", Math.PI)]
         [InlineData("4e/2", 2 * Math.E)]
-        public void Parse_Arithmetic_EvaluatesWithUsualPrecedence(string input, double expected)
+        public void Parse_ShouldEvaluateWithTheUsualPrecedence_WhenTheExpressionIsArithmetic(string input, double expected)
         {
             Assert.Equal(expected, Evaluate(input), 10);
         }
@@ -49,7 +49,7 @@ namespace MathChain.Tests.Practice
         [InlineData("x^-1", 0.5)]
         [InlineData("X + Y", 5)]
         [InlineData("x + y + z", 10)]
-        public void Parse_ImplicitMultiplication_FollowsWrittenMathematics(string input, double expected)
+        public void Parse_ShouldFollowWrittenMathematics_WhenTheMultiplicationIsImplicit(string input, double expected)
         {
             Assert.Equal(expected, Evaluate(input), 10);
         }
@@ -67,13 +67,13 @@ namespace MathChain.Tests.Practice
         [InlineData("sqrt 4")]
         [InlineData("1.2.3")]
         [InlineData("2 pi 3")]
-        public void Parse_InvalidInput_Throws(string input)
+        public void Parse_ShouldThrow_WhenTheInputIsInvalid(string input)
         {
             Assert.Throws<MathExpressionParseException>(() => MathExpressionParser.Parse(input, AnswerChecker.Variables));
         }
 
         [Fact]
-        public void Parse_TooLongOrTooDeep_IsRejected()
+        public void Parse_ShouldThrowMathExpressionParseException_WhenTheInputIsTooLongOrTooDeep()
         {
             Assert.Throws<MathExpressionParseException>(() => MathExpressionParser.Parse(new string('1', MathExpressionParser.MaximumLength + 1), AnswerChecker.Variables));
             Assert.Throws<MathExpressionParseException>(() => MathExpressionParser.Parse(new string('(', 100) + "x" + new string(')', 100), AnswerChecker.Variables));
@@ -81,7 +81,7 @@ namespace MathChain.Tests.Practice
         }
 
         [Fact]
-        public void Parse_VariablesNotAllowed_AreRejected()
+        public void Parse_ShouldThrowMathExpressionParseException_WhenTheInputUsesVariablesThatAreNotAllowed()
         {
             Assert.Throws<MathExpressionParseException>(() => MathExpressionParser.Parse("x + 1", Array.Empty<char>()));
         }

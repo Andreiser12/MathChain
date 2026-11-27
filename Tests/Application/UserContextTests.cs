@@ -25,7 +25,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CheckUserExistsAsync_UnknownWallet_ReturnsFalse()
+        public async Task CheckUserExistsAsync_ShouldReturnFalse_WhenTheWalletIsUnknown()
         {
             var exists = await _context.CheckUserExistsAsync("0xnew");
 
@@ -33,7 +33,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CheckUserExistsAsync_KnownWalletWithDifferentCase_ReturnsTrue()
+        public async Task CheckUserExistsAsync_ShouldReturnTrue_WhenAKnownWalletHasADifferentCase()
         {
             AddUser("0xabc");
 
@@ -43,7 +43,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetByWalletAddressAsync_OwnUnknownWallet_ThrowsNotFoundException()
+        public async Task GetByWalletAddressAsync_ShouldThrowNotFoundException_WhenTheOwnWalletIsUnknown()
         {
             _currentUser.As("0xmissing", UserRole.Student);
 
@@ -51,7 +51,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetByWalletAddressAsync_AnotherUsersWallet_ThrowsForbiddenException()
+        public async Task GetByWalletAddressAsync_ShouldThrowForbiddenException_WhenTheWalletBelongsToAnotherUser()
         {
             AddUser("0xabc");
             _currentUser.As("0xother", UserRole.Teacher);
@@ -60,7 +60,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetByWalletAddressAsync_Admin_ReturnsAnyUser()
+        public async Task GetByWalletAddressAsync_ShouldReturnAnyUser_WhenTheUserIsAnAdmin()
         {
             var user = AddUser("0xabc");
             _currentUser.As("0xadmin", UserRole.Admin);
@@ -69,7 +69,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetAllUsersAsync_NonAdmin_ThrowsForbiddenException()
+        public async Task GetAllUsersAsync_ShouldThrowForbiddenException_WhenTheUserIsNotAnAdmin()
         {
             _currentUser.As("0xteacher", UserRole.Teacher);
 

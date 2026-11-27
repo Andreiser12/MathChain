@@ -69,7 +69,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_GoogleStudent_IsClaimedByTheSmartAccount()
+        public async Task ClaimChapterCertificateAsync_ShouldClaimTheCertificateThroughTheSmartAccount_WhenTheStudentUsesGoogle()
         {
             SignInAsGoogleStudent();
 
@@ -98,7 +98,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_GoogleStudent_KeepsTheOwnerAsStudentWallet()
+        public async Task ClaimChapterCertificateAsync_ShouldKeepTheOwnerAsTheStudentWallet_WhenTheStudentUsesGoogle()
         {
             SignInAsGoogleStudent();
 
@@ -114,7 +114,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task VerifyAsync_CertificateHeldBySmartAccount_MatchesTheBlockchain()
+        public async Task VerifyAsync_ShouldMatchTheBlockchain_WhenTheCertificateIsHeldByASmartAccount()
         {
             SignInAsGoogleStudent();
             var certificate = await _context.ClaimChapterCertificateAsync(_chapter.Id);
@@ -128,7 +128,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task VerifyAsync_TokenOfAnotherAccountWithTheSameData_DoesNotMatch()
+        public async Task VerifyAsync_ShouldReportAMismatch_WhenTheTokenBelongsToAnotherAccountWithTheSameData()
         {
             SignInAsGoogleStudent();
             var certificate = await _context.ClaimChapterCertificateAsync(_chapter.Id);
@@ -141,7 +141,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_MetaMaskStudent_UsesThePlatformIssuer()
+        public async Task ClaimChapterCertificateAsync_ShouldUseThePlatformIssuer_WhenTheStudentUsesMetaMask()
         {
             _currentUser.As(MetaMaskStudent, UserRole.Student);
             SolveEverything(MetaMaskStudent);
@@ -155,7 +155,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_GoogleStudentWithLinkedWallet_UsesThePlatformIssuer()
+        public async Task ClaimChapterCertificateAsync_ShouldUseThePlatformIssuer_WhenTheGoogleStudentHasALinkedWallet()
         {
             _googleStudent.WalletAddress = MetaMaskStudent;
             _users.Users.RemoveAll(u => u.Id != _googleStudent.Id);
@@ -169,7 +169,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_SmartAccountsNotConfigured_UsesThePlatformIssuer()
+        public async Task ClaimChapterCertificateAsync_ShouldUseThePlatformIssuer_WhenSmartAccountsAreNotConfigured()
         {
             _smartAccounts.IsConfigured = false;
             SignInAsGoogleStudent();
@@ -182,7 +182,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_NetworkFailsBeforeMining_KeepsAPendingCertificateAndRetries()
+        public async Task ClaimChapterCertificateAsync_ShouldKeepAPendingCertificateAndRetry_WhenTheNetworkFailsBeforeMining()
         {
             SignInAsGoogleStudent();
             _smartAccounts.FailBeforeMining = true;
@@ -203,7 +203,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_ResponseLostAfterMining_RecoversTheMinedToken()
+        public async Task ClaimChapterCertificateAsync_ShouldRecoverTheMinedToken_WhenTheResponseIsLostAfterMining()
         {
             SignInAsGoogleStudent();
             _smartAccounts.FailAfterMining = true;
@@ -221,7 +221,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_UnknownActiveToken_IsRevokedBeforeANewClaim()
+        public async Task ClaimChapterCertificateAsync_ShouldRevokeTheTokenBeforeANewClaim_WhenAnUnknownActiveTokenExists()
         {
             SignInAsGoogleStudent();
             _registry.Tokens.Add(new OnChainCertificate
@@ -243,7 +243,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_ActiveTokenWithOtherData_IsNotAdoptedByThePendingCertificate()
+        public async Task ClaimChapterCertificateAsync_ShouldNotAdoptTheToken_WhenTheActiveTokenHasOtherData()
         {
             SignInAsGoogleStudent();
             var pending = new Certificate
@@ -277,7 +277,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_GoogleStudentSecondClaim_ThrowsBusinessRuleException()
+        public async Task ClaimChapterCertificateAsync_ShouldThrowBusinessRuleException_WhenAGoogleStudentClaimsASecondTime()
         {
             SignInAsGoogleStudent();
             await _context.ClaimChapterCertificateAsync(_chapter.Id);
@@ -288,7 +288,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task RevokeAsync_CertificateClaimedBySmartAccount_IsRevokedThroughTheClaimsContract()
+        public async Task RevokeAsync_ShouldRevokeThroughTheClaimsContract_WhenTheCertificateWasClaimedByASmartAccount()
         {
             SignInAsGoogleStudent();
             var certificate = await _context.ClaimChapterCertificateAsync(_chapter.Id);
@@ -302,7 +302,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task RevokeAsync_PendingClaimMinedWithoutTokenId_FindsTheTokenOfTheSmartAccount()
+        public async Task RevokeAsync_ShouldFindTheTokenOfTheSmartAccount_WhenAPendingClaimWasMinedWithoutATokenId()
         {
             SignInAsGoogleStudent();
             _smartAccounts.FailAfterMining = true;
@@ -316,7 +316,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task RevokeAsync_SmartAccountsNoLongerConfigured_ThrowsServiceUnavailableException()
+        public async Task RevokeAsync_ShouldThrowServiceUnavailableException_WhenSmartAccountsAreNoLongerConfigured()
         {
             SignInAsGoogleStudent();
             var certificate = await _context.ClaimChapterCertificateAsync(_chapter.Id);
@@ -329,7 +329,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task RevokeAsync_MetaMaskCertificate_IsRevokedByThePlatformIssuer()
+        public async Task RevokeAsync_ShouldRevokeThroughThePlatformIssuer_WhenTheCertificateBelongsToAMetaMaskStudent()
         {
             _currentUser.As(MetaMaskStudent, UserRole.Student);
             SolveEverything(MetaMaskStudent);
@@ -343,7 +343,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetMySmartAccountAsync_GoogleStudent_ReturnsTheCounterfactualAccount()
+        public async Task GetMySmartAccountAsync_ShouldReturnTheCounterfactualAccount_WhenTheStudentUsesGoogle()
         {
             _currentUser.As(_googleWallet, UserRole.Student);
 
@@ -360,7 +360,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetMySmartAccountAsync_MetaMaskStudent_IsNotAvailable()
+        public async Task GetMySmartAccountAsync_ShouldReportThatNoAccountIsAvailable_WhenTheStudentUsesMetaMask()
         {
             _currentUser.As(MetaMaskStudent, UserRole.Student);
 
@@ -371,7 +371,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetSetupAsync_IncludesTheSmartAccountContracts()
+        public async Task GetSetupAsync_ShouldIncludeTheSmartAccountContracts_WhenSmartAccountsAreConfigured()
         {
             _currentUser.As("0x6666666666666666666666666666666666666666", UserRole.Admin);
 

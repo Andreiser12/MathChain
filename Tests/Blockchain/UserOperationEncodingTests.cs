@@ -62,7 +62,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void ComputeVoucherDigest_MatchesTheClaimsContract()
+        public void ComputeVoucherDigest_ShouldMatchTheClaimsContract_WhenItIsComputedForAVoucher()
         {
             var digest = UserOperationEncoding.ComputeVoucherDigest(Claims, ChainId, Sender, CertificateKind.Chapter,
                 Subject.HexToByteArray(), DataHash.HexToByteArray(), Deadline);
@@ -72,7 +72,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void ClaimAndExecuteCalls_MatchTheContractAbi()
+        public void ClaimAndExecuteCalls_ShouldMatchTheContractAbi_WhenTheClaimIsWrappedInAnExecuteCall()
         {
             var claim = new ClaimCertificateFunction
             {
@@ -89,7 +89,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void InitCode_AndFactoryCalls_MatchTheFactory()
+        public void InitCodeAndFactoryCalls_ShouldMatchTheFactory_WhenTheAccountIsDeployed()
         {
             var create = new CreateAccountFunction { Owner = Owner, Salt = 0 };
 
@@ -99,7 +99,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void ComputeSponsorHash_MatchesThePaymaster_AndIgnoresThePaymasterSignature()
+        public void ComputeSponsorHash_ShouldMatchThePaymasterAndIgnoreThePaymasterSignature_WhenItIsComputedForAnOperation()
         {
             Assert.Equal(SponsorHash, Hex(UserOperationEncoding.ComputeSponsorHash(Operation(false), Paymaster, ChainId, ValidUntil, 0)));
             Assert.Equal(SponsorHash, Hex(UserOperationEncoding.ComputeSponsorHash(Operation(true), Paymaster, ChainId, ValidUntil, 0)));
@@ -108,13 +108,13 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void PaymasterData_MatchesTheSignedLayout()
+        public void PaymasterData_ShouldMatchTheSignedLayout_WhenTheOperationIsSponsored()
         {
             Assert.Equal(PaymasterAndData, Hex(Operation(true).PaymasterAndData));
         }
 
         [Fact]
-        public void ComputeUserOpHash_MatchesTheEntryPoint()
+        public void ComputeUserOpHash_ShouldMatchTheEntryPoint_WhenItIsComputedForAnOperation()
         {
             var operation = Operation(true);
 
@@ -124,7 +124,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void HandleOps_EncodesThePackedOperation()
+        public void HandleOps_ShouldEncodeThePackedOperation_WhenTheOperationIsSigned()
         {
             var operation = Operation(true);
             operation.Signature = OwnerSignature.HexToByteArray();
@@ -135,21 +135,21 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void AdminCalls_MatchTheContracts()
+        public void AdminCalls_ShouldMatchTheContracts_WhenTheAdminDepositsOrGrantsTheRole()
         {
             Assert.Equal(Deposit, Hex(new PaymasterDepositFunction().GetCallData()));
             Assert.Equal(GrantRole, Hex(new GrantRoleFunction { Role = CertificateEncoding.IssuerRole, Account = Claims }.GetCallData()));
         }
 
         [Fact]
-        public void Events_HaveTheEntryPointSignatures()
+        public void Events_ShouldHaveTheEntryPointSignatures_WhenTheirTopicsAreComputed()
         {
             Assert.Equal(UserOperationEventTopic, "0x" + EventExtensions.GetEventABI<UserOperationEvent>().Sha3Signature);
             Assert.Equal(RevertReasonTopic, "0x" + EventExtensions.GetEventABI<UserOperationRevertReasonEvent>().Sha3Signature);
         }
 
         [Fact]
-        public void PackUints_RejectsValuesThatDoNotFit()
+        public void PackUints_ShouldThrow_WhenAValueDoesNotFit()
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => UserOperationEncoding.PackUints(BigInteger.One << 128, 0));
             Assert.Throws<ArgumentOutOfRangeException>(() => UserOperationEncoding.PackUints(0, -1));

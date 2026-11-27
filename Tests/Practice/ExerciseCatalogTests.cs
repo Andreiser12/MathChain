@@ -16,7 +16,7 @@ namespace MathChain.Tests.Practice
         [InlineData("")]
         [InlineData("not json")]
         [InlineData("[]")]
-        public void ForFormula_WithoutExercises_UsesTheNineGenericExercises(string? json)
+        public void ForFormula_ShouldUseTheNineGenericExercises_WhenThereAreNoExercises(string? json)
         {
             var exercises = ExerciseCatalog.ForFormula(json);
 
@@ -28,7 +28,7 @@ namespace MathChain.Tests.Practice
         }
 
         [Fact]
-        public void ForFormula_OnlyTheoryPlaceholders_UsesTheGenericExercises()
+        public void ForFormula_ShouldUseTheGenericExercises_WhenThereAreOnlyTheoryPlaceholders()
         {
             var json = Json(
                 new { difficulty = "Easy", wolframQuery = "simplify |\\pm x|=x", latexTemplate = "|\\pm x|=x", variables = new { a = new[] { 2, 5 } } },
@@ -38,7 +38,7 @@ namespace MathChain.Tests.Practice
         }
 
         [Fact]
-        public void ForFormula_RealExercises_KeepsOnlyTheVerifiableOnesAndRenumbersThem()
+        public void ForFormula_ShouldKeepOnlyTheVerifiableOnesAndRenumberThem_WhenTheFormulaHasRealExercises()
         {
             var json = Json(
                 new { difficulty = "Easy", wolframQuery = "expand (x + {a})^2", latexTemplate = "(x + {a})^2", variables = new { a = new[] { 2, 5 } } },
@@ -54,7 +54,7 @@ namespace MathChain.Tests.Practice
         }
 
         [Fact]
-        public void ForFormula_IsDeterministic()
+        public void ForFormula_ShouldReturnTheSameExercises_WhenItIsCalledTwiceWithTheSameFormula()
         {
             var json = Json(new { wolframQuery = "expand (x + {a})^2", latexTemplate = "(x + {a})^2", variables = new { a = new[] { 2, 5 } } });
 
@@ -63,7 +63,7 @@ namespace MathChain.Tests.Practice
         }
 
         [Fact]
-        public void ForFormula_EveryCurriculumFile_ProducesUsableExercises()
+        public void ForFormula_ShouldProduceUsableExercises_WhenReadingEveryCurriculumFile()
         {
             var directory = Path.Combine(FindRepositoryRoot(), "MathChain.Blazor", "wwwroot", "data", "curriculum");
             var withOwnExercises = 0;

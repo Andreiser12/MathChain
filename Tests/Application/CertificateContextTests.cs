@@ -57,7 +57,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task IssueClassCertificatesAsync_Owner_IssuesOneCertificatePerGradedStudentInOneTransaction()
+        public async Task IssueClassCertificatesAsync_ShouldIssueOneCertificatePerGradedStudentInOneTransaction_WhenTheUserOwnsTheClassRoom()
         {
             var issued = await IssueAsync();
 
@@ -70,7 +70,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task IssueClassCertificatesAsync_StoresDataThatReproducesTheOnChainHash()
+        public async Task IssueClassCertificatesAsync_ShouldStoreDataThatReproducesTheOnChainHash_WhenTheCertificatesAreIssued()
         {
             await IssueAsync();
 
@@ -98,7 +98,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task IssueClassCertificatesAsync_SecondCall_HasNobodyLeftToCertify()
+        public async Task IssueClassCertificatesAsync_ShouldHaveNobodyLeftToCertify_WhenItIsCalledASecondTime()
         {
             await IssueAsync();
 
@@ -109,7 +109,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task IssueClassCertificatesAsync_SelectedStudents_IssuesOnlyThose()
+        public async Task IssueClassCertificatesAsync_ShouldIssueOnlyForThoseStudents_WhenStudentsAreSelected()
         {
             var issued = await IssueAsync(OtherStudent.ToUpperInvariant().Replace("0X", "0x"), OtherStudent);
 
@@ -118,7 +118,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task IssueClassCertificatesAsync_SelectedStudentWithoutFinalGrade_ThrowsBusinessRuleException()
+        public async Task IssueClassCertificatesAsync_ShouldThrowBusinessRuleException_WhenASelectedStudentHasNoFinalGrade()
         {
             await Assert.ThrowsAsync<BusinessRuleException>(() => IssueAsync(Student, UngradedStudent));
 
@@ -127,13 +127,13 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task IssueClassCertificatesAsync_SelectedStudentNotEnrolled_ThrowsNotFoundException()
+        public async Task IssueClassCertificatesAsync_ShouldThrowNotFoundException_WhenASelectedStudentIsNotEnrolled()
         {
             await Assert.ThrowsAsync<NotFoundException>(() => IssueAsync(Admin));
         }
 
         [Fact]
-        public async Task IssueClassCertificatesAsync_SelectedStudentAlreadyCertified_ThrowsBusinessRuleException()
+        public async Task IssueClassCertificatesAsync_ShouldThrowBusinessRuleException_WhenASelectedStudentIsAlreadyCertified()
         {
             await IssueAsync(Student);
 
@@ -145,7 +145,7 @@ namespace MathChain.Tests.Application
         [Theory]
         [InlineData(Student, UserRole.Student)]
         [InlineData(OtherTeacher, UserRole.Teacher)]
-        public async Task IssueClassCertificatesAsync_NotOwner_ThrowsForbiddenAndIssuesNothing(string wallet, UserRole role)
+        public async Task IssueClassCertificatesAsync_ShouldThrowForbiddenAndIssueNothing_WhenTheUserDoesNotOwnTheClassRoom(string wallet, UserRole role)
         {
             _currentUser.As(wallet, role);
 
@@ -156,7 +156,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task IssueClassCertificatesAsync_Anonymous_ThrowsUnauthorizedException()
+        public async Task IssueClassCertificatesAsync_ShouldThrowUnauthorizedException_WhenTheUserIsAnonymous()
         {
             _currentUser.Anonymous();
 
@@ -164,13 +164,13 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task IssueClassCertificatesAsync_UnknownClassRoom_ThrowsNotFoundException()
+        public async Task IssueClassCertificatesAsync_ShouldThrowNotFoundException_WhenTheClassRoomDoesNotExist()
         {
             await Assert.ThrowsAsync<NotFoundException>(() => _context.IssueClassCertificatesAsync(Guid.NewGuid(), null));
         }
 
         [Fact]
-        public async Task IssueClassCertificatesAsync_Admin_IssuesInTheNameOfTheClassTeacher()
+        public async Task IssueClassCertificatesAsync_ShouldIssueInTheNameOfTheClassTeacher_WhenTheUserIsAnAdmin()
         {
             _currentUser.As(Admin, UserRole.Admin);
 
@@ -180,7 +180,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task IssueClassCertificatesAsync_NotConfigured_ThrowsServiceUnavailableException()
+        public async Task IssueClassCertificatesAsync_ShouldThrowServiceUnavailableException_WhenTheBlockchainIsNotConfigured()
         {
             _registry.CanIssue = false;
 
@@ -190,7 +190,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task IssueClassCertificatesAsync_NetworkFailure_KeepsPendingRecordAndRetryReusesItsSecret()
+        public async Task IssueClassCertificatesAsync_ShouldKeepThePendingRecordAndReuseItsSecretOnRetry_WhenTheNetworkFails()
         {
             _registry.FailBeforeMining = true;
             await Assert.ThrowsAsync<ServiceUnavailableException>(() => IssueAsync(Student));
@@ -210,7 +210,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task IssueClassCertificatesAsync_TransactionMinedButResponseLost_AdoptsTheOnChainCertificate()
+        public async Task IssueClassCertificatesAsync_ShouldAdoptTheOnChainCertificate_WhenTheTransactionWasMinedButTheResponseWasLost()
         {
             _registry.FailAfterMining = true;
             await Assert.ThrowsAsync<ServiceUnavailableException>(() => IssueAsync(Student));
@@ -227,7 +227,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task IssueClassCertificatesAsync_GradeChangedWhilePending_CommitsToTheNewGrade()
+        public async Task IssueClassCertificatesAsync_ShouldCommitToTheNewGrade_WhenTheGradeChangesWhilePending()
         {
             _registry.FailBeforeMining = true;
             await Assert.ThrowsAsync<ServiceUnavailableException>(() => IssueAsync(Student));
@@ -243,7 +243,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task IssueClassCertificatesAsync_UnknownActiveCertificateOnChain_ReplacesIt()
+        public async Task IssueClassCertificatesAsync_ShouldReplaceTheCertificate_WhenAnUnknownActiveCertificateExistsOnChain()
         {
             _registry.Tokens.Add(new OnChainCertificate
             {
@@ -262,7 +262,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task IssueClassCertificatesAsync_LargeClass_SplitsIntoSeveralTransactions()
+        public async Task IssueClassCertificatesAsync_ShouldSplitIntoSeveralTransactions_WhenTheClassIsLarge()
         {
             for (var index = 0; index < 60; index++)
             {
@@ -278,7 +278,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task IssueClassCertificatesAsync_EnrollmentWithUppercaseWallet_StoresLowercaseAddress()
+        public async Task IssueClassCertificatesAsync_ShouldStoreALowercaseAddress_WhenTheEnrollmentHasAnUppercaseWallet()
         {
             Enroll("0xABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFABCD", 10);
 
@@ -288,7 +288,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task RevokeAsync_Owner_RevokesOnChainAndAllowsACorrectedCertificate()
+        public async Task RevokeAsync_ShouldRevokeOnChainAndAllowACorrectedCertificate_WhenTheUserOwnsTheClassRoom()
         {
             await IssueAsync(Student);
             var original = Stored(Student);
@@ -311,7 +311,7 @@ namespace MathChain.Tests.Application
         [Theory]
         [InlineData(Student, UserRole.Student)]
         [InlineData(OtherTeacher, UserRole.Teacher)]
-        public async Task RevokeAsync_NotOwner_ThrowsForbiddenAndKeepsCertificate(string wallet, UserRole role)
+        public async Task RevokeAsync_ShouldThrowForbiddenAndKeepTheCertificate_WhenTheUserDoesNotOwnTheClassRoom(string wallet, UserRole role)
         {
             await IssueAsync(Student);
             _currentUser.As(wallet, role);
@@ -323,7 +323,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task RevokeAsync_Admin_CanRevokeAnyCertificate()
+        public async Task RevokeAsync_ShouldRevokeAnyCertificate_WhenTheUserIsAnAdmin()
         {
             await IssueAsync(Student);
             _currentUser.As(Admin, UserRole.Admin);
@@ -334,7 +334,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task RevokeAsync_UnknownOrAlreadyRevokedCertificate_IsRejected()
+        public async Task RevokeAsync_ShouldRejectTheRequest_WhenTheCertificateIsUnknownOrAlreadyRevoked()
         {
             await IssueAsync(Student);
             var id = Stored(Student).Id;
@@ -346,7 +346,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task RevokeAsync_PendingCertificateThatWasMined_IsRevokedOnChainToo()
+        public async Task RevokeAsync_ShouldRevokeItOnChainToo_WhenAPendingCertificateWasMined()
         {
             _registry.FailAfterMining = true;
             await Assert.ThrowsAsync<ServiceUnavailableException>(() => IssueAsync(Student));
@@ -359,7 +359,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task RevokeAsync_PendingCertificateThatWasNeverMined_IsOnlyClosedInTheDatabase()
+        public async Task RevokeAsync_ShouldOnlyCloseItInTheDatabase_WhenAPendingCertificateWasNeverMined()
         {
             _registry.FailBeforeMining = true;
             await Assert.ThrowsAsync<ServiceUnavailableException>(() => IssueAsync(Student));
@@ -371,7 +371,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetClassCertificatesAsync_Owner_SeesStatusOfEveryCertificate()
+        public async Task GetClassCertificatesAsync_ShouldReturnTheStatusOfEveryCertificate_WhenTheUserOwnsTheClassRoom()
         {
             await IssueAsync();
 
@@ -382,7 +382,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetClassCertificatesAsync_Student_ThrowsForbiddenException()
+        public async Task GetClassCertificatesAsync_ShouldThrowForbiddenException_WhenTheUserIsAStudent()
         {
             _currentUser.As(Student, UserRole.Student);
 
@@ -390,7 +390,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetMyCertificatesAsync_Student_SeesOnlyOwnCertificatesWithVerificationKey()
+        public async Task GetMyCertificatesAsync_ShouldReturnOnlyTheirOwnCertificatesWithTheVerificationKey_WhenTheUserIsAStudent()
         {
             await IssueAsync();
             _currentUser.As(Student.ToUpperInvariant().Replace("0X", "0x"), UserRole.Student);
@@ -404,7 +404,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetMyCertificatesAsync_HidesPendingCertificates()
+        public async Task GetMyCertificatesAsync_ShouldHideTheCertificate_WhenItIsStillPending()
         {
             _registry.FailBeforeMining = true;
             await Assert.ThrowsAsync<ServiceUnavailableException>(() => IssueAsync(Student));
@@ -414,7 +414,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task VerifyAsync_AnonymousWithoutKey_ShowsOnlyPublicBlockchainFacts()
+        public async Task VerifyAsync_ShouldShowOnlyPublicBlockchainFacts_WhenAnAnonymousUserHasNoKey()
         {
             await IssueAsync(Student);
             _currentUser.Anonymous();
@@ -435,7 +435,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task VerifyAsync_WithVerificationKey_RevealsDetailsThatMatchTheBlockchain()
+        public async Task VerifyAsync_ShouldRevealDetailsThatMatchTheBlockchain_WhenTheVerificationKeyIsGiven()
         {
             await IssueAsync(Student);
             _currentUser.Anonymous();
@@ -451,7 +451,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task VerifyAsync_GradeChangedInDatabaseAfterIssuing_IsReportedAsNotMatching()
+        public async Task VerifyAsync_ShouldReportAMismatch_WhenTheGradeChangedInTheDatabaseAfterIssuing()
         {
             await IssueAsync(Student);
             var key = Stored(Student).Salt;
@@ -465,7 +465,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task VerifyAsync_TeacherChangedInDatabaseAfterIssuing_IsReportedAsNotMatching()
+        public async Task VerifyAsync_ShouldReportAMismatch_WhenTheTeacherChangedInTheDatabaseAfterIssuing()
         {
             await IssueAsync(Student);
             var key = Stored(Student).Salt;
@@ -475,7 +475,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task VerifyAsync_WrongKey_ThrowsBusinessRuleExceptionWithoutRevealingDetails()
+        public async Task VerifyAsync_ShouldThrowBusinessRuleExceptionWithoutRevealingDetails_WhenTheKeyIsWrong()
         {
             await IssueAsync();
 
@@ -484,7 +484,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task VerifyAsync_RevokedCertificate_IsNotValid()
+        public async Task VerifyAsync_ShouldReportTheCertificateAsInvalid_WhenItWasRevoked()
         {
             await IssueAsync(Student);
             var certificate = Stored(Student);
@@ -500,13 +500,13 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task VerifyAsync_UnknownToken_ThrowsNotFoundException()
+        public async Task VerifyAsync_ShouldThrowNotFoundException_WhenTheTokenDoesNotExist()
         {
             await Assert.ThrowsAsync<NotFoundException>(() => _context.VerifyAsync(42, null));
         }
 
         [Fact]
-        public async Task VerifyAsync_BlockchainNotConfigured_ThrowsServiceUnavailableException()
+        public async Task VerifyAsync_ShouldThrowServiceUnavailableException_WhenTheBlockchainIsNotConfigured()
         {
             _registry.CanRead = false;
 
@@ -514,7 +514,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetSetupAsync_Admin_SeesIssuerStatusAndGrantRoleCallData()
+        public async Task GetSetupAsync_ShouldReturnTheIssuerStatusAndTheGrantRoleCallData_WhenTheUserIsAnAdmin()
         {
             _currentUser.As(Admin, UserRole.Admin);
             _registry.HasIssuerRole = false;
@@ -530,7 +530,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetSetupAsync_WithoutIssuerKey_ReportsThatCertificatesCannotBeIssued()
+        public async Task GetSetupAsync_ShouldReportThatCertificatesCannotBeIssued_WhenThereIsNoIssuerKey()
         {
             _currentUser.As(Admin, UserRole.Admin);
             _registry.CanIssue = false;
@@ -543,13 +543,13 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetSetupAsync_Teacher_ThrowsForbiddenException()
+        public async Task GetSetupAsync_ShouldThrowForbiddenException_WhenTheUserIsATeacher()
         {
             await Assert.ThrowsAsync<ForbiddenException>(() => _context.GetSetupAsync());
         }
 
         [Fact]
-        public async Task GetBalanceAsync_OwnWallet_ReturnsNetworkBalance()
+        public async Task GetBalanceAsync_ShouldReturnTheNetworkBalance_WhenTheWalletIsTheirOwn()
         {
             _registry.Balances[Teacher] = 0.25m;
 
@@ -557,13 +557,13 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetBalanceAsync_AnotherWallet_ThrowsForbiddenException()
+        public async Task GetBalanceAsync_ShouldThrowForbiddenException_WhenTheWalletBelongsToSomeoneElse()
         {
             await Assert.ThrowsAsync<ForbiddenException>(() => _context.GetBalanceAsync(Student));
         }
 
         [Fact]
-        public async Task GetBalanceAsync_BlockchainNotConfigured_ReturnsZero()
+        public async Task GetBalanceAsync_ShouldReturnZero_WhenTheBlockchainIsNotConfigured()
         {
             _registry.CanRead = false;
 

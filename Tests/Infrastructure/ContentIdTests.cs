@@ -15,7 +15,7 @@ namespace MathChain.Tests.Infrastructure
         [InlineData(128UL, "8001")]
         [InlineData(300UL, "ac02")]
         [InlineData(16384UL, "808001")]
-        public void Varint_EncodesAndDecodes(ulong value, string hex)
+        public void Varint_ShouldEncodeAndDecode_WhenTheValueIsValid(ulong value, string hex)
         {
             Assert.Equal(hex, Convert.ToHexString(Varint.Encode(value)).ToLowerInvariant());
             Assert.True(Varint.TryRead(Convert.FromHexString(hex), out var decoded, out var length));
@@ -27,7 +27,7 @@ namespace MathChain.Tests.Infrastructure
         [InlineData("80")]
         [InlineData("8000")]
         [InlineData("")]
-        public void Varint_TruncatedOrOverlong_IsRejected(string hex)
+        public void Varint_ShouldBeRejected_WhenItIsTruncatedOrOverlong(string hex)
         {
             Assert.False(Varint.TryRead(Convert.FromHexString(hex), out _, out _));
         }
@@ -40,7 +40,7 @@ namespace MathChain.Tests.Infrastructure
         [InlineData("foob", "mzxw6yq")]
         [InlineData("fooba", "mzxw6ytb")]
         [InlineData("foobar", "mzxw6ytboi")]
-        public void Base32_MatchesRfc4648(string text, string encoded)
+        public void Base32_ShouldMatchRfc4648_WhenEncodingTheTestVectors(string text, string encoded)
         {
             Assert.Equal(encoded, Base32.Encode(Encoding.ASCII.GetBytes(text)));
             Assert.True(Base32.TryDecode(encoded, out var decoded));
@@ -52,19 +52,19 @@ namespace MathChain.Tests.Infrastructure
         [InlineData("mzxw7")]
         [InlineData("mzxw6=")]
         [InlineData("m")]
-        public void Base32_InvalidOrNonCanonical_IsRejected(string encoded)
+        public void Base32_ShouldBeRejected_WhenTheTextIsInvalidOrNonCanonical(string encoded)
         {
             Assert.False(Base32.TryDecode(encoded, out _));
         }
 
         [Fact]
-        public void ForBlock_EmptyRawBlock_IsTheWellKnownEmptyCid()
+        public void ForBlock_ShouldReturnTheWellKnownEmptyCid_WhenTheRawBlockIsEmpty()
         {
             Assert.Equal(EmptyRaw, ContentId.ForBlock(ContentCodec.Raw, Array.Empty<byte>()).ToString());
         }
 
         [Fact]
-        public void Parse_VersionOne_RoundTrips()
+        public void Parse_ShouldRoundTrip_WhenTheCidIsVersionOne()
         {
             var cid = ContentId.Parse(EmptyRaw);
 
@@ -76,7 +76,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public void Parse_LegacyIdentifier_UsesTheHashOfTheWholeFile()
+        public void Parse_ShouldUseTheHashOfTheWholeFile_WhenTheIdentifierIsLegacy()
         {
             var content = Encoding.UTF8.GetBytes("legacy file");
             var multihash = new byte[] { 0x12, 0x20 }.Concat(SHA256.HashData(content)).ToArray();
@@ -93,7 +93,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public void Parse_ExistingLegacyIdentifierFromTheRepository_IsAccepted()
+        public void Parse_ShouldAcceptTheIdentifier_WhenItIsALegacyIdentifierFromTheRepository()
         {
             Assert.True(ContentId.TryParse("QmYTNyRmU9Ms8voG3bSKm9xVvVH4om65q7FuiYuDLGDpMs", out var cid));
             Assert.True(cid!.IsVersionZero);
@@ -111,14 +111,14 @@ namespace MathChain.Tests.Infrastructure
         [InlineData("bafkreihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvykv")]
         [InlineData("bafkreihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyk")]
         [InlineData("zdj7WWeQ43G6JJvLWQWZpyHuAMq6uYWRjkBXFad11vE2LHhQ7")]
-        public void TryParse_InvalidValues_AreRejected(string? text)
+        public void TryParse_ShouldReturnFalse_WhenTheValueIsInvalid(string? text)
         {
             Assert.False(ContentId.TryParse(text, out var cid));
             Assert.Null(cid);
         }
 
         [Fact]
-        public void TryParse_UnsupportedCodec_IsRejected()
+        public void TryParse_ShouldReturnFalse_WhenTheCodecIsUnsupported()
         {
             var bytes = new List<byte> { 0x01, 0x71, 0x12, 0x20 };
             bytes.AddRange(new byte[32]);
@@ -127,7 +127,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public void TryParseBinary_VersionZeroMultihash_IsDagPb()
+        public void TryParseBinary_ShouldReturnADagPbCid_WhenTheBytesAreAVersionZeroMultihash()
         {
             var cid = ContentId.Parse("QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH");
 
@@ -137,7 +137,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public void Base58_RoundTripsLeadingZeros()
+        public void Base58_ShouldRoundTrip_WhenTheBytesHaveLeadingZeros()
         {
             var bytes = new byte[] { 0, 0, 1, 2, 3 };
 

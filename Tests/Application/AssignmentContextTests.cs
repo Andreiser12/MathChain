@@ -45,7 +45,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetAssignmentsByClassRoomAsync_Member_ReturnsAssignmentsWithSubmissionCount()
+        public async Task GetAssignmentsByClassRoomAsync_ShouldReturnTheAssignmentsWithTheSubmissionCount_WhenTheUserIsAMember()
         {
             AddSubmission(Student);
             AddSubmission(OtherStudent);
@@ -59,7 +59,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetAssignmentsByClassRoomAsync_Outsider_ThrowsForbiddenException()
+        public async Task GetAssignmentsByClassRoomAsync_ShouldThrowForbiddenException_WhenTheUserIsNotAMember()
         {
             _currentUser.As(Outsider, UserRole.Student);
 
@@ -67,7 +67,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetAssignmentByIdAsync_UnknownAssignment_ThrowsNotFoundException()
+        public async Task GetAssignmentByIdAsync_ShouldThrowNotFoundException_WhenTheAssignmentDoesNotExist()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 
@@ -75,7 +75,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetAssignmentByIdAsync_Outsider_ThrowsForbiddenException()
+        public async Task GetAssignmentByIdAsync_ShouldThrowForbiddenException_WhenTheUserIsNotAMember()
         {
             _currentUser.As(Outsider, UserRole.Student);
 
@@ -83,7 +83,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateAssignmentAsync_Owner_StoresTrimmedAssignmentInClassRoom()
+        public async Task CreateAssignmentAsync_ShouldStoreTheTrimmedAssignmentInTheClassRoom_WhenTheUserOwnsTheClassRoom()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 
@@ -96,7 +96,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateAssignmentAsync_EmptyTitle_ThrowsBusinessRuleException()
+        public async Task CreateAssignmentAsync_ShouldThrowBusinessRuleException_WhenTheTitleIsEmpty()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 
@@ -107,7 +107,7 @@ namespace MathChain.Tests.Application
         [Theory]
         [InlineData(Student, UserRole.Student)]
         [InlineData(OtherTeacher, UserRole.Teacher)]
-        public async Task CreateAssignmentAsync_NotOwner_ThrowsForbiddenAndStoresNothing(string wallet, UserRole role)
+        public async Task CreateAssignmentAsync_ShouldThrowForbiddenAndStoreNothing_WhenTheUserDoesNotOwnTheClassRoom(string wallet, UserRole role)
         {
             _currentUser.As(wallet, role);
 
@@ -116,7 +116,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task DeleteAssignmentAsync_Owner_RemovesAssignment()
+        public async Task DeleteAssignmentAsync_ShouldRemoveTheAssignment_WhenTheUserOwnsTheClassRoom()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 
@@ -126,7 +126,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task DeleteAssignmentAsync_Student_ThrowsForbiddenAndKeepsAssignment()
+        public async Task DeleteAssignmentAsync_ShouldThrowForbiddenAndKeepTheAssignment_WhenTheUserIsAStudent()
         {
             _currentUser.As(Student, UserRole.Student);
 
@@ -135,7 +135,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task DeleteAssignmentAsync_UnknownAssignment_ThrowsNotFoundException()
+        public async Task DeleteAssignmentAsync_ShouldThrowNotFoundException_WhenTheAssignmentDoesNotExist()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 
@@ -143,7 +143,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetSubmissionsAsync_Owner_SeesEverySubmissionWithGrade()
+        public async Task GetSubmissionsAsync_ShouldReturnEverySubmissionWithItsGrade_WhenTheUserOwnsTheClassRoom()
         {
             var graded = AddSubmission(Student);
             AddSubmission(OtherStudent);
@@ -160,7 +160,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetSubmissionsAsync_Student_SeesOnlyOwnSubmission()
+        public async Task GetSubmissionsAsync_ShouldReturnOnlyTheirOwnSubmission_WhenTheUserIsAStudent()
         {
             var own = AddSubmission(Student);
             AddSubmission(OtherStudent);
@@ -172,7 +172,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetSubmissionsAsync_UnknownAssignment_ThrowsNotFoundException()
+        public async Task GetSubmissionsAsync_ShouldThrowNotFoundException_WhenTheAssignmentDoesNotExist()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 
@@ -180,7 +180,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitAssignmentAsync_EnrolledStudent_UsesWalletFromToken()
+        public async Task SubmitAssignmentAsync_ShouldUseTheWalletFromTheToken_WhenTheStudentIsEnrolled()
         {
             _currentUser.As("0xStudent", UserRole.Student);
 
@@ -191,7 +191,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitAssignmentAsync_SecondSubmission_UpdatesExistingSubmission()
+        public async Task SubmitAssignmentAsync_ShouldUpdateTheExistingSubmission_WhenTheStudentSubmitsAgain()
         {
             var first = AddSubmission(Student, "first");
             _currentUser.As(Student, UserRole.Student);
@@ -207,7 +207,7 @@ namespace MathChain.Tests.Application
         [Theory]
         [InlineData(Teacher, UserRole.Teacher)]
         [InlineData(Outsider, UserRole.Student)]
-        public async Task SubmitAssignmentAsync_NotEnrolledStudent_ThrowsForbiddenException(string wallet, UserRole role)
+        public async Task SubmitAssignmentAsync_ShouldThrowForbiddenException_WhenTheStudentIsNotEnrolled(string wallet, UserRole role)
         {
             _currentUser.As(wallet, role);
 
@@ -216,7 +216,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitAssignmentAsync_UnknownAssignment_ThrowsNotFoundException()
+        public async Task SubmitAssignmentAsync_ShouldThrowNotFoundException_WhenTheAssignmentDoesNotExist()
         {
             _currentUser.As(Student, UserRole.Student);
 
@@ -224,7 +224,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GradeSubmissionAsync_Owner_SavesGrade()
+        public async Task GradeSubmissionAsync_ShouldSaveTheGrade_WhenTheUserOwnsTheClassRoom()
         {
             var submission = AddSubmission(Student);
             _currentUser.As(Teacher, UserRole.Teacher);
@@ -238,7 +238,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GradeSubmissionAsync_Regrade_UpdatesExistingGrade()
+        public async Task GradeSubmissionAsync_ShouldUpdateTheExistingGrade_WhenTheSubmissionIsGradedAgain()
         {
             var submission = AddSubmission(Student);
             _grades.Grades.Add(new Grade { Id = Guid.NewGuid(), SubmissionId = submission.Id, Score = 50, Feedback = "Slab" });
@@ -254,7 +254,7 @@ namespace MathChain.Tests.Application
         [Theory]
         [InlineData(-1)]
         [InlineData(100.5)]
-        public async Task GradeSubmissionAsync_ScoreOutsideRange_ThrowsBusinessRuleException(double score)
+        public async Task GradeSubmissionAsync_ShouldThrowBusinessRuleException_WhenTheScoreIsOutsideTheRange(double score)
         {
             var submission = AddSubmission(Student);
             _currentUser.As(Teacher, UserRole.Teacher);
@@ -266,7 +266,7 @@ namespace MathChain.Tests.Application
         [Theory]
         [InlineData(Student, UserRole.Student)]
         [InlineData(OtherTeacher, UserRole.Teacher)]
-        public async Task GradeSubmissionAsync_NotOwner_ThrowsForbiddenException(string wallet, UserRole role)
+        public async Task GradeSubmissionAsync_ShouldThrowForbiddenException_WhenTheUserDoesNotOwnTheClassRoom(string wallet, UserRole role)
         {
             var submission = AddSubmission(Student);
             _currentUser.As(wallet, role);
@@ -276,7 +276,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GradeSubmissionAsync_UnknownSubmission_ThrowsNotFoundException()
+        public async Task GradeSubmissionAsync_ShouldThrowNotFoundException_WhenTheSubmissionDoesNotExist()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 

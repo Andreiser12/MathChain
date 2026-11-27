@@ -37,7 +37,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task PracticeThenClaim_StudentSolvesTheChapterAndReceivesACertificate()
+        public async Task PracticeThenClaim_ShouldIssueACertificate_WhenTheStudentSolvesTheChapter()
         {
             var (chapter, formula) = AddChapterWithOneExercise();
             var student = _factory.CreateClientAs("0x5555555555555555555555555555555555555551", UserRole.Student);
@@ -72,7 +72,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task PracticeEndpoints_RequireLogin()
+        public async Task PracticeEndpoints_ShouldReturnUnauthorized_WhenTheUserIsAnonymous()
         {
             var (chapter, formula) = AddChapterWithOneExercise();
             var anonymous = _factory.CreateClient();
@@ -83,7 +83,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task AnswerToAnotherStudentsExercise_ReturnsNotFound()
+        public async Task Answer_ShouldReturnNotFound_WhenTheExerciseBelongsToAnotherStudent()
         {
             var (_, formula) = AddChapterWithOneExercise();
             var owner = _factory.CreateClientAs("0x5555555555555555555555555555555555555552", UserRole.Student);
@@ -96,7 +96,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task TeacherCannotClaimAChapterCertificate()
+        public async Task ClaimChapterCertificate_ShouldReturnForbidden_WhenTheUserIsATeacher()
         {
             var (chapter, _) = AddChapterWithOneExercise();
 
@@ -109,7 +109,7 @@ namespace MathChain.Tests.Api
         [Theory]
         [InlineData("POST", "/api/dashboard/record-solved")]
         [InlineData("GET", "/api/dashboard/practice-progress?formulaId=x")]
-        public async Task OldSelfReportedPracticeEndpoints_AreRemoved(string method, string url)
+        public async Task OldSelfReportedPracticeEndpoints_ShouldBeUnavailable_WhenTheyAreCalled(string method, string url)
         {
             var client = _factory.CreateClientAs("0x5555555555555555555555555555555555555555", UserRole.Student);
 

@@ -60,7 +60,7 @@ namespace MathChain.Tests.Blockchain
         [InlineData("SolutionPurchased", "0x61353848b345ecbeeb17162e8f5bea365badd95fc3a20b3f68030ef43ff33534")]
         [InlineData("PriceChanged", "0x884cf27d975be4e0d670dacaac663443178b41024dabddd43ab6aac563325f2e")]
         [InlineData("CurriculumPublished", "0x26f12d0f02b837eea36c6c7b37618a98c0e1f7772cde29ef969e809258a668c2")]
-        public void Topic_MatchesTheSoliditySignature(string name, string expected)
+        public void Topic_ShouldMatchTheSoliditySignature_WhenItIsComputedForAnIndexedEvent(string name, string expected)
         {
             var topic = name switch
             {
@@ -77,7 +77,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void Decode_CertificateIssued_ReadsIndexedAndDataFields()
+        public void Decode_ShouldReadTheIndexedAndDataFields_WhenTheLogIsCertificateIssued()
         {
             var subject = Enumerable.Repeat((byte)0x11, 32).ToArray();
             var dataHash = Enumerable.Repeat((byte)0x22, 32).ToArray();
@@ -97,7 +97,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void Decode_PriceChangedWithIndexedEnum_ReadsTheTier()
+        public void Decode_ShouldReadTheTier_WhenPriceChangedHasAnIndexedEnum()
         {
             var log = Log(Solutions, new[] { ChainLogReader.Topic<PriceChangedEvent>(), Word("uint8", 2) },
                 new ABIEncode().GetABIEncoded(new ABIValue("uint256", new BigInteger(3000000))));
@@ -108,7 +108,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void Decode_CurriculumPublished_ReadsTheDynamicBytes()
+        public void Decode_ShouldReadTheDynamicBytes_WhenTheLogIsCurriculumPublished()
         {
             var cid = new byte[] { 0x01, 0x55, 0x12, 0x20 }.Concat(Enumerable.Repeat((byte)0xab, 32)).ToArray();
             var log = Log(Registry, new[] { ChainLogReader.Topic<CurriculumPublishedEvent>(), Word("uint256", 3), Word("address", Issuer) },
@@ -122,7 +122,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void Decode_EventFromAnotherContract_IsIgnored()
+        public void Decode_ShouldIgnoreTheLog_WhenTheEventComesFromAnotherContract()
         {
             var log = Log("0x9999999999999999999999999999999999999999",
                 new[] { ChainLogReader.Topic<CertificateRevokedEvent>(), Word("uint256", 7), Word("address", Issuer) }, Array.Empty<byte>());
@@ -131,7 +131,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void Decode_EventThatTheContractDoesNotEmit_IsIgnored()
+        public void Decode_ShouldIgnoreTheLog_WhenTheContractDoesNotEmitThatEvent()
         {
             var log = Log(Solutions, new[] { ChainLogReader.Topic<CertificateRevokedEvent>(), Word("uint256", 7), Word("address", Issuer) }, Array.Empty<byte>());
 
@@ -139,7 +139,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void Decode_MalformedData_IsSkipped()
+        public void Decode_ShouldSkipTheLog_WhenTheDataIsMalformed()
         {
             var log = Log(Certificates,
                 new[] { ChainLogReader.Topic<CertificateIssuedEvent>(), Word("uint256", 7), Word("address", Student), Word("address", Issuer) }, new byte[] { 1, 2, 3 });
@@ -148,7 +148,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void IsRangeError_RecognisesTheWaysNodesRefuseLargeRanges()
+        public void IsRangeError_ShouldReturnTrue_WhenANodeRefusesALargeRange()
         {
             var jsonRpc = new Nethereum.JsonRpc.Client.RpcResponseException(new Nethereum.JsonRpc.Client.RpcError(-32614, "eth_getLogs is limited to a 200 range"));
             var payload = new Nethereum.JsonRpc.Client.RpcClientUnknownException("Error occurred when trying to send rpc requests(s): eth_getLogs",
@@ -161,7 +161,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void IsRangeError_OtherFailures_AreNotRangeErrors()
+        public void IsRangeError_ShouldReturnFalse_WhenTheFailureIsNotAboutTheRange()
         {
             var timeout = new Nethereum.JsonRpc.Client.RpcClientUnknownException("Error occurred when trying to send rpc requests(s): eth_getLogs",
                 new HttpRequestException("Response status code does not indicate success: 503 (Service Unavailable).", null, System.Net.HttpStatusCode.ServiceUnavailable));
@@ -171,7 +171,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void Constructor_WithoutContracts_IsNotConfigured()
+        public void Constructor_ShouldNotBeConfigured_WhenThereAreNoContracts()
         {
             var reader = new ChainLogReader(new BlockchainSettings { RpcUrl = "http://127.0.0.1:8545", ChainId = 1 }, NullLogger<ChainLogReader>.Instance);
 

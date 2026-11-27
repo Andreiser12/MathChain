@@ -51,7 +51,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void Build_ProducesCanonicalJsonWithSortedKeysAndChapters()
+        public void Build_ShouldProduceCanonicalJsonWithSortedKeysAndChapters_WhenTheCurriculumIsBuilt()
         {
             var documents = Build();
             var formulasCid = _ipfs.ComputeHash(documents.ChapterFormulas[_first.Id]);
@@ -68,7 +68,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void Build_SameCurriculumInAnotherOrder_GivesTheSameBytes()
+        public void Build_ShouldGiveTheSameBytes_WhenTheSameCurriculumIsInAnotherOrder()
         {
             var before = Build().Manifest;
             _curriculum.Chapters.Reverse();
@@ -78,7 +78,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void Build_AnyChange_ChangesTheManifest()
+        public void Build_ShouldChangeTheManifest_WhenAnythingChanges()
         {
             var original = _ipfs.ComputeHash(Build().Manifest);
 
@@ -96,7 +96,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void Build_ManifestIsValidJson()
+        public void Build_ShouldProduceValidJson_WhenTheManifestIsParsed()
         {
             using var document = JsonDocument.Parse(Build().Manifest);
 
@@ -104,7 +104,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetStatusAsync_NothingPublished_ShowsTheCurrentCid()
+        public async Task GetStatusAsync_ShouldShowTheCurrentCid_WhenNothingIsPublished()
         {
             var status = await _context.GetStatusAsync();
 
@@ -119,7 +119,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task PublishAsync_StoresTheDocumentsAndAnchorsTheCid()
+        public async Task PublishAsync_ShouldStoreTheDocumentsAndAnchorTheCid_WhenTheCurriculumIsPublished()
         {
             var status = await _context.PublishAsync();
 
@@ -134,7 +134,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetStatusAsync_AfterAChange_ReportsThatTheCurriculumDiffersFromTheChain()
+        public async Task GetStatusAsync_ShouldReportThatTheCurriculumDiffersFromTheChain_WhenItChangedAfterPublishing()
         {
             await _context.PublishAsync();
 
@@ -148,7 +148,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task PublishAsync_Unchanged_ThrowsBusinessRuleException()
+        public async Task PublishAsync_ShouldThrowBusinessRuleException_WhenTheCurriculumIsUnchanged()
         {
             await _context.PublishAsync();
 
@@ -159,7 +159,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task PublishAsync_AfterAChange_CreatesANewVersion()
+        public async Task PublishAsync_ShouldCreateANewVersion_WhenTheCurriculumChanged()
         {
             await _context.PublishAsync();
             _curriculum.Formulas.RemoveAt(1);
@@ -170,7 +170,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task PublishAsync_NotAdmin_ThrowsForbiddenException()
+        public async Task PublishAsync_ShouldThrowForbiddenException_WhenTheUserIsNotAnAdmin()
         {
             _currentUser.As("0x1111111111111111111111111111111111111111", UserRole.Teacher);
 
@@ -180,7 +180,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task PublishAsync_RegistryWithoutKey_ThrowsServiceUnavailableException()
+        public async Task PublishAsync_ShouldThrowServiceUnavailableException_WhenTheRegistryHasNoKey()
         {
             _registry.CanPublish = false;
 
@@ -188,7 +188,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetStatusAsync_ChainUnreachable_StillShowsTheCurrentCid()
+        public async Task GetStatusAsync_ShouldStillShowTheCurrentCid_WhenTheChainIsUnreachable()
         {
             _registry.Unreachable = true;
 
@@ -199,7 +199,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetLatestAsync_IsAvailableToVisitors()
+        public async Task GetLatestAsync_ShouldReturnTheLatestVersion_WhenTheUserIsAVisitor()
         {
             await _context.PublishAsync();
             _currentUser.Anonymous();
@@ -211,7 +211,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetLatestAsync_RegistryNotConfigured_ReturnsNothing()
+        public async Task GetLatestAsync_ShouldReturnNothing_WhenTheRegistryIsNotConfigured()
         {
             _registry.CanRead = false;
 

@@ -61,7 +61,7 @@ namespace MathChain.Tests.Infrastructure
         [InlineData("tiny-tree-three-levels", 50, 4, 3, 21, "bafybeieh7clgyomf7jydlst2tkvmkscvapdneblojm6yqato654bgpuzdq")]
         [InlineData("tiny-tree-full", 36, 4, 3, 13, "bafybeic5jvreccx77myt5zgphyllbhb4aizmxw4mudjmvalfysqerledku")]
         [InlineData("tiny-tree-full-plus-one", 37, 4, 3, 17, "bafybeidoykhqzrhayhpqncuk7vfsxcfft5hpeekjzh5cmijkclhalknlli")]
-        public void Build_MatchesTheReferenceImplementation(string name, int size, int chunkSize, int maximumChildren, int blockCount, string root)
+        public void Build_ShouldMatchTheReferenceImplementation_WhenTheContentHasTheGivenSize(string name, int size, int chunkSize, int maximumChildren, int blockCount, string root)
         {
             var file = UnixFsDag.Build(Content(size), chunkSize, maximumChildren);
 
@@ -71,7 +71,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public void Build_Text_MatchesTheReferenceImplementation()
+        public void Build_ShouldMatchTheReferenceImplementation_WhenTheContentIsText()
         {
             var file = UnixFsDag.Build(Encoding.UTF8.GetBytes("MathChain curriculum\n"));
 
@@ -79,7 +79,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public void Build_TwoLevels_ProducesTheSameBlocksByteForByte()
+        public void Build_ShouldProduceTheSameBlocksByteForByte_WhenTheDagHasTwoLevels()
         {
             var file = UnixFsDag.Build(Content(13), 4, 3);
 
@@ -87,7 +87,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public void Build_PartialLastGroup_ProducesTheSameBlocksByteForByte()
+        public void Build_ShouldProduceTheSameBlocksByteForByte_WhenTheLastGroupIsPartial()
         {
             var file = UnixFsDag.Build(Content(37), 4, 3);
 
@@ -130,7 +130,7 @@ namespace MathChain.Tests.Infrastructure
         [InlineData(0UL, 600000, 262144, 174, 4, "QmZKHh6Tx6USLZX5aNBmLpVA7hYA1qo9bHbMVfsgAWfz66")]
         [InlineData(0UL, 13, 4, 3, 7, "Qmf6L3Zms7brtfEBLM1Myc2o2RA3YD7UYi3bp8LtEAekUc")]
         [InlineData(0UL, 37, 4, 3, 17, "QmUWE4mTuBKa5qTMZymxmR1wfnP8t5pnrvUstcqfrazvsX")]
-        public void BuildVersionZero_MatchesTheReferenceImplementation(ulong leafType, int size, int chunkSize, int maximumChildren, int blockCount, string root)
+        public void BuildVersionZero_ShouldMatchTheReferenceImplementation_WhenTheContentHasTheGivenSize(ulong leafType, int size, int chunkSize, int maximumChildren, int blockCount, string root)
         {
             var file = UnixFsDag.BuildVersionZero(Content(size), leafType, chunkSize, maximumChildren);
 
@@ -139,7 +139,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public void BuildVersionZero_ProducesTheSameBlocksByteForByte()
+        public void BuildVersionZero_ShouldProduceTheSameBlocksByteForByte_WhenTheLastGroupHasOneExtraBlock()
         {
             var file = UnixFsDag.BuildVersionZero(Content(37), UnixFsData.FileType, 4, 3);
 
@@ -150,7 +150,7 @@ namespace MathChain.Tests.Infrastructure
         [InlineData(2UL, 600000)]
         [InlineData(0UL, 600000)]
         [InlineData(2UL, 1000)]
-        public async Task ReadAsync_VersionZeroDag_RebuildsTheOriginalContent(ulong leafType, int size)
+        public async Task ReadAsync_ShouldRebuildTheOriginalContent_WhenTheDagIsVersionZero(ulong leafType, int size)
         {
             var content = Content(size);
             var file = UnixFsDag.BuildVersionZero(content, leafType);
@@ -168,7 +168,7 @@ namespace MathChain.Tests.Infrastructure
         [InlineData(524298, 262144, 174)]
         [InlineData(50, 4, 3)]
         [InlineData(37, 4, 3)]
-        public async Task ReadAsync_RebuildsTheOriginalContent(int size, int chunkSize, int maximumChildren)
+        public async Task ReadAsync_ShouldRebuildTheOriginalContent_WhenTheDagIsVersionOne(int size, int chunkSize, int maximumChildren)
         {
             var content = Content(size);
             var file = UnixFsDag.Build(content, chunkSize, maximumChildren);
@@ -181,7 +181,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task ReadAsync_TamperedLeaf_IsRejected()
+        public async Task ReadAsync_ShouldThrowInvalidDataException_WhenALeafIsTampered()
         {
             var file = UnixFsDag.Build(Content(50), 4, 3);
             var store = file.Blocks.ToDictionary(b => b.Cid, b => (byte[])b.Bytes.Clone());
@@ -193,7 +193,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task ReadAsync_MissingBlock_IsRejected()
+        public async Task ReadAsync_ShouldRejectTheDag_WhenABlockIsMissing()
         {
             var file = UnixFsDag.Build(Content(50), 4, 3);
             var store = file.Blocks.Skip(1).ToDictionary(b => b.Cid, b => b.Bytes);
@@ -203,7 +203,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task ReadAsync_LargerThanTheLimit_IsRejected()
+        public async Task ReadAsync_ShouldRejectTheDag_WhenItIsLargerThanTheLimit()
         {
             var file = UnixFsDag.Build(Content(50), 4, 3);
             var store = file.Blocks.ToDictionary(b => b.Cid, b => b.Bytes);

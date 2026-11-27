@@ -27,7 +27,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void RequireWallet_Anonymous_ThrowsUnauthorizedException()
+        public void RequireWallet_ShouldThrowUnauthorizedException_WhenTheUserIsAnonymous()
         {
             _currentUser.Anonymous();
 
@@ -35,7 +35,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void RequireWallet_ReturnsTrimmedLowercaseWallet()
+        public void RequireWallet_ShouldReturnATrimmedLowercaseWallet_WhenTheWalletHasSpacesAndUppercaseLetters()
         {
             _currentUser.As("  0xABCdef  ", UserRole.Student);
 
@@ -43,7 +43,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void RequireRole_AllowedRole_ReturnsWallet()
+        public void RequireRole_ShouldReturnTheWallet_WhenTheRoleIsAllowed()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 
@@ -51,7 +51,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void RequireRole_OtherRole_ThrowsForbiddenException()
+        public void RequireRole_ShouldThrowForbiddenException_WhenTheRoleIsNotAllowed()
         {
             _currentUser.As(Student, UserRole.Student);
 
@@ -59,7 +59,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void RequireRole_Admin_PassesAnyRoleCheck()
+        public void RequireRole_ShouldPassAnyRoleCheck_WhenTheUserIsAnAdmin()
         {
             _currentUser.As(Admin, UserRole.Admin);
 
@@ -67,7 +67,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void RequireRole_Anonymous_ThrowsUnauthorizedBeforeForbidden()
+        public void RequireRole_ShouldThrowUnauthorizedBeforeForbidden_WhenTheUserIsAnonymous()
         {
             _currentUser.Anonymous();
 
@@ -75,7 +75,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void RequireSelfOrAdmin_SameWalletDifferentCase_IsAllowed()
+        public void RequireSelfOrAdmin_ShouldAllowAccess_WhenTheWalletIsTheSameWithADifferentCase()
         {
             _currentUser.As(Student, UserRole.Student);
 
@@ -83,7 +83,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void RequireSelfOrAdmin_OtherWallet_ThrowsForbiddenException()
+        public void RequireSelfOrAdmin_ShouldThrowForbiddenException_WhenTheWalletBelongsToSomeoneElse()
         {
             _currentUser.As(Student, UserRole.Student);
 
@@ -91,7 +91,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void RequireSelfOrAdmin_Admin_CanAccessAnyWallet()
+        public void RequireSelfOrAdmin_ShouldAllowAnyWallet_WhenTheUserIsAnAdmin()
         {
             _currentUser.As(Admin, UserRole.Admin);
 
@@ -99,7 +99,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task RequireOwnerAsync_Owner_ReturnsClassRoom()
+        public async Task RequireOwnerAsync_ShouldReturnTheClassRoom_WhenTheUserOwnsIt()
         {
             _currentUser.As("0xTeacher", UserRole.Teacher);
 
@@ -109,7 +109,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task RequireOwnerAsync_EnrolledStudent_ThrowsForbiddenException()
+        public async Task RequireOwnerAsync_ShouldThrowForbiddenException_WhenTheUserIsAnEnrolledStudent()
         {
             _currentUser.As(Student, UserRole.Student);
 
@@ -117,7 +117,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task RequireOwnerAsync_UnknownClassRoom_ThrowsNotFoundException()
+        public async Task RequireOwnerAsync_ShouldThrowNotFoundException_WhenTheClassRoomDoesNotExist()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 
@@ -125,7 +125,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task RequireOwnerAsync_Anonymous_ThrowsUnauthorizedBeforeLookup()
+        public async Task RequireOwnerAsync_ShouldThrowUnauthorizedBeforeTheLookup_WhenTheUserIsAnonymous()
         {
             _currentUser.Anonymous();
 
@@ -136,7 +136,7 @@ namespace MathChain.Tests.Application
         [InlineData(Teacher, UserRole.Teacher)]
         [InlineData("0xSTUDENT", UserRole.Student)]
         [InlineData(Admin, UserRole.Admin)]
-        public async Task RequireMemberAsync_OwnerEnrolledStudentOrAdmin_IsAllowed(string wallet, UserRole role)
+        public async Task RequireMemberAsync_ShouldAllowAccess_WhenTheUserIsTheOwnerAnEnrolledStudentOrAnAdmin(string wallet, UserRole role)
         {
             _currentUser.As(wallet, role);
 
@@ -146,7 +146,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task RequireMemberAsync_Outsider_ThrowsForbiddenException()
+        public async Task RequireMemberAsync_ShouldThrowForbiddenException_WhenTheUserIsNotAMember()
         {
             _currentUser.As(Outsider, UserRole.Student);
 
@@ -154,7 +154,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task RequireEnrolledStudentAsync_EnrolledStudent_ReturnsWallet()
+        public async Task RequireEnrolledStudentAsync_ShouldReturnTheWallet_WhenTheStudentIsEnrolled()
         {
             _currentUser.As("0xStudent", UserRole.Student);
 
@@ -162,7 +162,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task RequireEnrolledStudentAsync_OwnerTeacher_ThrowsForbiddenException()
+        public async Task RequireEnrolledStudentAsync_ShouldThrowForbiddenException_WhenTheUserIsTheOwnerTeacher()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 

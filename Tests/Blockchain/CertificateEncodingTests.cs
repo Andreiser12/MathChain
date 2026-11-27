@@ -54,7 +54,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void ToSubjectBytes_KeepsTheWholeIdentifierAndRoundTrips()
+        public void ToSubjectBytes_ShouldKeepTheWholeIdentifierAndRoundTrip_WhenAGuidIsEncoded()
         {
             var bytes = CertificateEncoding.ToSubjectBytes(ClassId);
 
@@ -64,13 +64,13 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void ComputeDataHash_MatchesTheSolidityEncoding()
+        public void ComputeDataHash_ShouldMatchTheSolidityEncoding_WhenTheCertificateIsForAClass()
         {
             Assert.Equal(ClassDataHash, CertificateEncoding.ComputeDataHash(ClassCommitment()));
         }
 
         [Fact]
-        public void ComputeDataHash_ChapterCertificateWithoutTeacher_MatchesTheSolidityEncoding()
+        public void ComputeDataHash_ShouldMatchTheSolidityEncoding_WhenAChapterCertificateHasNoTeacher()
         {
             var commitment = ClassCommitment();
             commitment.Kind = CertificateKind.Chapter;
@@ -82,7 +82,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void ComputeDataHash_ChangesWhenAnyFieldChanges()
+        public void ComputeDataHash_ShouldChange_WhenAnyFieldChanges()
         {
             var changes = new Action<CertificateCommitment>[]
             {
@@ -108,7 +108,7 @@ namespace MathChain.Tests.Blockchain
         [InlineData(Salt, -1, Student)]
         [InlineData(Salt, 65536, Student)]
         [InlineData(Salt, 9, "not-an-address")]
-        public void ComputeDataHash_InvalidInput_Throws(string salt, int grade, string student)
+        public void ComputeDataHash_ShouldThrow_WhenTheInputIsInvalid(string salt, int grade, string student)
         {
             var commitment = ClassCommitment();
             commitment.Salt = salt;
@@ -119,7 +119,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void CreateSalt_ReturnsDifferent32ByteValues()
+        public void CreateSalt_ShouldReturnDifferent32ByteValues_WhenItIsCalledRepeatedly()
         {
             var salts = Enumerable.Range(0, 50).Select(_ => CertificateEncoding.CreateSalt()).ToList();
 
@@ -128,19 +128,19 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void IssuerRole_MatchesTheContractConstant()
+        public void IssuerRole_ShouldMatchTheContractConstant_WhenItIsComputedFromTheRoleName()
         {
             Assert.Equal(IssuerRoleHex, CertificateEncoding.ToHex(CertificateEncoding.IssuerRole));
         }
 
         [Fact]
-        public void BuildGrantIssuerRoleCallData_MatchesTheContractAbi()
+        public void BuildGrantIssuerRoleCallData_ShouldMatchTheContractAbi_WhenTheIssuerRoleIsGranted()
         {
             Assert.Equal(GrantRoleCallData, CertificateEncoding.BuildGrantIssuerRoleCallData(Issuer));
         }
 
         [Fact]
-        public void IssueBatchFunction_EncodesLikeTheContractAbi()
+        public void IssueBatchFunction_ShouldEncodeLikeTheContractAbi_WhenSeveralStudentsAreIssued()
         {
             var message = new IssueBatchFunction
             {
@@ -154,7 +154,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void RevokeFindAndGetFunctions_EncodeLikeTheContractAbi()
+        public void RevokeFindAndGetFunctions_ShouldEncodeLikeTheContractAbi_WhenATokenIsRevokedFoundOrRead()
         {
             Assert.Equal(RevokeCallData, CallData(new RevokeFunction { TokenId = new BigInteger(7) }));
             Assert.Equal(GetCertificateCallData, CallData(new GetCertificateFunction { TokenId = new BigInteger(7) }));
@@ -167,7 +167,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void GetCertificateOutput_DecodesTheContractStruct()
+        public void GetCertificateOutput_ShouldDecodeTheContractStruct_WhenTheContractReturnsACertificate()
         {
             var certificate = new FunctionCallDecoder().DecodeFunctionOutput<GetCertificateOutput>(GetCertificateResult).Certificate;
 
@@ -181,7 +181,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void CertificateIssuedEvent_HasTheContractEventSignature()
+        public void CertificateIssuedEvent_ShouldHaveTheContractEventSignature_WhenItsTopicIsComputed()
         {
             Assert.Equal(CertificateIssuedTopic, "0x" + EventExtensions.GetEventABI<CertificateIssuedEvent>().Sha3Signature);
         }
@@ -190,7 +190,7 @@ namespace MathChain.Tests.Blockchain
         [InlineData("AccessControlUnauthorizedAccount(address,bytes32)", "0xe2517d3f")]
         [InlineData("CertificateAlreadyIssued(uint256)", "0x62d90dde")]
         [InlineData("CertificateAlreadyRevoked(uint256)", "0xe3092565")]
-        public void ErrorSelector_MatchesTheContractErrors(string signature, string expectedSelector)
+        public void ErrorSelector_ShouldMatchTheContractErrors_WhenItIsComputedFromTheErrorSignature(string signature, string expectedSelector)
         {
             Assert.Equal(expectedSelector, CertificateEncoding.ToHex(CertificateEncoding.ErrorSelector(signature)));
         }

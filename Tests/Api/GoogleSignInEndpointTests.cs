@@ -33,7 +33,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Providers_WithoutToken_ReturnsGoogleClientId()
+        public async Task Providers_ShouldReturnTheGoogleClientId_WhenNoTokenIsSent()
         {
             var response = await _client.GetAsync("/api/auth/providers", TestContext.Current.CancellationToken);
 
@@ -42,7 +42,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task GoogleSignIn_NewTeacher_RegistersAndCanUseProtectedEndpoints()
+        public async Task GoogleSignIn_ShouldRegisterTheUserAndAllowProtectedEndpoints_WhenTheTeacherIsNew()
         {
             var subject = Guid.NewGuid().ToString("N");
 
@@ -69,7 +69,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task GoogleSignIn_ReturningUser_ReturnsOkWithSameAddress()
+        public async Task GoogleSignIn_ShouldReturnOkWithTheSameAddress_WhenTheUserReturns()
         {
             var subject = Guid.NewGuid().ToString("N");
             var first = (await ReadEnvelopeAsync(await SignInAsync(NewIdToken(subject), "Student"))).GetProperty("data");
@@ -83,7 +83,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task GoogleSignIn_TokenSignedByAnotherKey_ReturnsUnauthorizedEnvelope()
+        public async Task GoogleSignIn_ShouldReturnAnUnauthorizedEnvelope_WhenTheTokenIsSignedByAnotherKey()
         {
             var forged = new Fakes.GoogleTokenFactory().CreateToken("attacker", DateTimeOffset.UtcNow);
 
@@ -94,7 +94,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task GoogleSignIn_AdminRole_ReturnsBadRequest()
+        public async Task GoogleSignIn_ShouldReturnBadRequest_WhenTheRequestedRoleIsAdmin()
         {
             var response = await SignInAsync(NewIdToken(Guid.NewGuid().ToString("N")), "Admin");
 
@@ -102,7 +102,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task GoogleSignIn_MissingToken_ReturnsBadRequestEnvelope()
+        public async Task GoogleSignIn_ShouldReturnABadRequestEnvelope_WhenTheTokenIsMissing()
         {
             var response = await _client.PostAsJsonAsync("/api/auth/google", new { role = "Student" }, TestContext.Current.CancellationToken);
 

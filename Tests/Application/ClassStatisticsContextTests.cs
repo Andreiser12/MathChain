@@ -43,7 +43,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetClassStatisticsAsync_MixedSubmissions_CountsOnTimeLateAndMissing()
+        public async Task GetClassStatisticsAsync_ShouldCountOnTimeLateAndMissingSubmissions_WhenTheSubmissionsAreMixed()
         {
             Enroll("0xa");
             Enroll("0xb");
@@ -66,7 +66,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetClassStatisticsAsync_TestsInClass_AreNotCountedAsAssignments()
+        public async Task GetClassStatisticsAsync_ShouldNotCountTestsAsAssignments_WhenTheClassHasTests()
         {
             Enroll("0xa");
             AddAssignment(null);
@@ -78,7 +78,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetClassStatisticsAsync_EmptyClassRoom_ReturnsEmptyStatistics()
+        public async Task GetClassStatisticsAsync_ShouldReturnEmptyStatistics_WhenTheClassRoomIsEmpty()
         {
             var stats = await _context.GetClassStatisticsAsync(_classRoomId);
 
@@ -88,13 +88,13 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetClassStatisticsAsync_UnknownClassRoom_ThrowsNotFoundException()
+        public async Task GetClassStatisticsAsync_ShouldThrowNotFoundException_WhenTheClassRoomDoesNotExist()
         {
             await Assert.ThrowsAsync<NotFoundException>(() => _context.GetClassStatisticsAsync(Guid.NewGuid()));
         }
 
         [Fact]
-        public async Task GetClassStatisticsAsync_EnrolledStudent_ThrowsForbiddenException()
+        public async Task GetClassStatisticsAsync_ShouldThrowForbiddenException_WhenTheUserIsAnEnrolledStudent()
         {
             Enroll("0xa");
             _currentUser.As("0xa", UserRole.Student);

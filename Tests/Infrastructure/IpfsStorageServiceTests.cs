@@ -36,7 +36,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task SaveFileAsync_SmallFile_IsOneRawBlockWithTheStandardCid()
+        public async Task SaveFileAsync_ShouldStoreOneRawBlockWithTheStandardCid_WhenTheFileIsSmall()
         {
             var cid = await _service.SaveFileAsync(Encoding.UTF8.GetBytes("MathChain curriculum\n"));
 
@@ -46,7 +46,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task SaveFileAsync_LargeFile_IsStoredAsAMerkleDag()
+        public async Task SaveFileAsync_ShouldStoreAMerkleDag_WhenTheFileIsLarge()
         {
             var content = Content(2 * 262144 + 10);
 
@@ -58,7 +58,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task SaveFileAsync_TenMegabytes_IsAccepted()
+        public async Task SaveFileAsync_ShouldAcceptTheFile_WhenItHasTenMegabytes()
         {
             var content = Content(IIpfsStorageService.MaximumFileSize);
 
@@ -69,7 +69,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task SaveFileAsync_SameFileTwice_StoresTheBlocksOnce()
+        public async Task SaveFileAsync_ShouldStoreTheBlocksOnce_WhenTheSameFileIsSavedTwice()
         {
             var content = Content(300000);
 
@@ -82,7 +82,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task SaveFileAsync_EmptyOrTooLarge_IsRejected()
+        public async Task SaveFileAsync_ShouldThrowBusinessRuleException_WhenTheFileIsEmptyOrTooLarge()
         {
             await Assert.ThrowsAsync<BusinessRuleException>(() => _service.SaveFileAsync(Array.Empty<byte>()));
             var exception = await Assert.ThrowsAsync<BusinessRuleException>(() => _service.SaveFileAsync(new byte[IIpfsStorageService.MaximumFileSize + 1]));
@@ -92,7 +92,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task GetFileAsync_TamperedBlock_ReturnsNothing()
+        public async Task GetFileAsync_ShouldReturnNothing_WhenABlockIsTampered()
         {
             var content = Content(300000);
             var cid = await _service.SaveFileAsync(content);
@@ -103,7 +103,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task GetFileAsync_MissingBlock_ReturnsNothing()
+        public async Task GetFileAsync_ShouldReturnNothing_WhenABlockIsMissing()
         {
             var cid = await _service.SaveFileAsync(Content(300000));
             _blocks.Blocks.Remove(_blocks.Blocks.Keys.First(k => k != cid));
@@ -112,7 +112,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task GetFileAsync_LegacyContent_IsVerifiedWithTheOldAlgorithm()
+        public async Task GetFileAsync_ShouldVerifyTheContentWithTheOldAlgorithm_WhenTheContentIsLegacy()
         {
             var content = Encoding.UTF8.GetBytes("old chapter snapshot");
             var cid = LegacyCid(content);
@@ -130,14 +130,14 @@ namespace MathChain.Tests.Infrastructure
         [InlineData("Qm")]
         [InlineData("not-a-cid")]
         [InlineData("")]
-        public async Task GetFileAsync_InvalidIdentifier_ReturnsNothing(string value)
+        public async Task GetFileAsync_ShouldReturnNothing_WhenTheIdentifierIsInvalid(string value)
         {
             Assert.Null(await _service.GetFileAsync(value));
             Assert.False(await _service.FileExistsAsync(value));
         }
 
         [Fact]
-        public void ComputeHash_DoesNotStoreAnything()
+        public void ComputeHash_ShouldNotStoreAnything_WhenTheHashIsComputed()
         {
             Assert.Equal("bafkreihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku", _service.ComputeHash(Array.Empty<byte>()));
             Assert.Empty(_blocks.Blocks);

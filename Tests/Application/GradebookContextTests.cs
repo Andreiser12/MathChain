@@ -37,7 +37,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetGradebookAsync_HomeworkAndTestGrades_ReturnsAllGradesOrderedByDate()
+        public async Task GetGradebookAsync_ShouldReturnAllGradesOrderedByDate_WhenThereAreHomeworkAndTestGrades()
         {
             AddGradedWork(new Test { Id = Guid.NewGuid() }, 8, new DateTime(2026, 2, 1));
             AddGradedWork(new Assignment { Id = Guid.NewGuid() }, 9.5, new DateTime(2026, 1, 10));
@@ -50,7 +50,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SetFinalGradeAsync_EnrolledStudent_UpdatesFinalGrade()
+        public async Task SetFinalGradeAsync_ShouldUpdateTheFinalGrade_WhenTheStudentIsEnrolled()
         {
             await _context.SetFinalGradeAsync(_classRoomId, StudentWallet, 9);
 
@@ -58,13 +58,13 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SetFinalGradeAsync_UnknownStudent_ThrowsNotFoundException()
+        public async Task SetFinalGradeAsync_ShouldThrowNotFoundException_WhenTheStudentIsUnknown()
         {
             await Assert.ThrowsAsync<NotFoundException>(() => _context.SetFinalGradeAsync(_classRoomId, "0xnobody", 9));
         }
 
         [Fact]
-        public async Task RemoveStudentAsync_EnrolledStudent_RemovesEnrollment()
+        public async Task RemoveStudentAsync_ShouldRemoveTheEnrollment_WhenTheStudentIsEnrolled()
         {
             await _context.RemoveStudentAsync(_classRoomId, StudentWallet);
 
@@ -72,7 +72,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetGradebookAsync_AnotherTeacher_ThrowsForbiddenException()
+        public async Task GetGradebookAsync_ShouldThrowForbiddenException_WhenTheUserIsAnotherTeacher()
         {
             _currentUser.As("0xotherteacher", UserRole.Teacher);
 
@@ -80,7 +80,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SetFinalGradeAsync_EnrolledStudent_ThrowsForbiddenException()
+        public async Task SetFinalGradeAsync_ShouldThrowForbiddenException_WhenTheUserIsAnEnrolledStudent()
         {
             _currentUser.As(StudentWallet, UserRole.Student);
 
@@ -89,7 +89,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task RemoveStudentAsync_UnknownStudent_ThrowsNotFoundException()
+        public async Task RemoveStudentAsync_ShouldThrowNotFoundException_WhenTheStudentIsUnknown()
         {
             await Assert.ThrowsAsync<NotFoundException>(() => _context.RemoveStudentAsync(_classRoomId, "0xnobody"));
         }

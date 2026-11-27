@@ -62,7 +62,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetChapterProgressAsync_CountsSolvedExercisesPerFormula()
+        public async Task GetChapterProgressAsync_ShouldCountTheSolvedExercisesPerFormula_WhenTheStudentHasSolvedSomeExercises()
         {
             _practice.MarkSolved(Student, _first.Id, 0);
             _practice.MarkSolved(Student, _first.Id, 0);
@@ -81,7 +81,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetChapterProgressAsync_FormulaWithGenericExercises_MakesCertificatesUnavailable()
+        public async Task GetChapterProgressAsync_ShouldMakeCertificatesUnavailable_WhenAFormulaUsesGenericExercises()
         {
             AddFormula("Teorie", JsonSerializer.Serialize(new[] { new { wolframQuery = "simplify |x|\\geq 0", latexTemplate = "|x|\\geq 0" } }));
 
@@ -92,7 +92,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetChapterProgressAsync_ChapterWithoutFormulas_IsNotAvailable()
+        public async Task GetChapterProgressAsync_ShouldMakeCertificatesUnavailable_WhenTheChapterHasNoFormulas()
         {
             var empty = new CurriculumChapter { Id = Guid.NewGuid(), Title = "Gol", ChapterSlug = "gol", Version = 1 };
             _curriculum.Chapters.Add(empty);
@@ -104,13 +104,13 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetChapterProgressAsync_UnknownChapter_ThrowsNotFoundException()
+        public async Task GetChapterProgressAsync_ShouldThrowNotFoundException_WhenTheChapterDoesNotExist()
         {
             await Assert.ThrowsAsync<NotFoundException>(() => _context.GetChapterProgressAsync(Guid.NewGuid()));
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_EveryExerciseSolved_IssuesACertificateForTheStudent()
+        public async Task ClaimChapterCertificateAsync_ShouldIssueACertificateForTheStudent_WhenEveryExerciseIsSolved()
         {
             SolveEverything();
 
@@ -136,7 +136,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_IsShownInProgressAndCanBeVerified()
+        public async Task ClaimChapterCertificateAsync_ShouldShowTheCertificateInTheProgressAndLetItBeVerified_WhenItIsClaimed()
         {
             SolveEverything();
             var certificate = await _context.ClaimChapterCertificateAsync(_chapter.Id);
@@ -153,7 +153,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_NotEverythingSolved_ThrowsBusinessRuleException()
+        public async Task ClaimChapterCertificateAsync_ShouldThrowBusinessRuleException_WhenNotEverythingIsSolved()
         {
             SolveEverything();
             _practice.Exercises.RemoveAt(_practice.Exercises.Count - 1);
@@ -165,7 +165,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_ExercisesSolvedByAnotherStudent_DoNotCount()
+        public async Task ClaimChapterCertificateAsync_ShouldIgnoreTheExercises_WhenTheyWereSolvedByAnotherStudent()
         {
             SolveEverything(OtherStudent);
 
@@ -173,7 +173,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_ChapterWithGenericExercises_ThrowsBusinessRuleException()
+        public async Task ClaimChapterCertificateAsync_ShouldThrowBusinessRuleException_WhenTheChapterHasGenericExercises()
         {
             var generic = AddFormula("Teorie", null);
             SolveEverything();
@@ -189,7 +189,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_SecondClaim_ThrowsBusinessRuleException()
+        public async Task ClaimChapterCertificateAsync_ShouldThrowBusinessRuleException_WhenTheCertificateIsClaimedASecondTime()
         {
             SolveEverything();
             await _context.ClaimChapterCertificateAsync(_chapter.Id);
@@ -200,7 +200,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_NetworkFailure_CanBeRetriedWithTheSameRecord()
+        public async Task ClaimChapterCertificateAsync_ShouldRetryWithTheSameRecord_WhenTheNetworkFails()
         {
             SolveEverything();
             _registry.FailBeforeMining = true;
@@ -216,7 +216,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_TwoStudents_GetSeparateCertificates()
+        public async Task ClaimChapterCertificateAsync_ShouldIssueSeparateCertificates_WhenTwoStudentsClaimTheSameChapter()
         {
             SolveEverything();
             SolveEverything(OtherStudent);
@@ -229,7 +229,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_Teacher_ThrowsForbiddenException()
+        public async Task ClaimChapterCertificateAsync_ShouldThrowForbiddenException_WhenTheUserIsATeacher()
         {
             SolveEverything(Teacher);
             _currentUser.As(Teacher, UserRole.Teacher);
@@ -238,7 +238,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_Anonymous_ThrowsUnauthorizedException()
+        public async Task ClaimChapterCertificateAsync_ShouldThrowUnauthorizedException_WhenTheUserIsAnonymous()
         {
             _currentUser.Anonymous();
 
@@ -246,7 +246,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_NotConfigured_ThrowsServiceUnavailableException()
+        public async Task ClaimChapterCertificateAsync_ShouldThrowServiceUnavailableException_WhenTheBlockchainIsNotConfigured()
         {
             SolveEverything();
             _registry.CanIssue = false;
@@ -255,7 +255,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task RevokeAsync_ChapterCertificate_OnlyAdminCanRevokeAndStudentCanClaimAgain()
+        public async Task RevokeAsync_ShouldLetOnlyAnAdminRevokeAndTheStudentClaimAgain_WhenTheCertificateIsForAChapter()
         {
             SolveEverything();
             var certificate = await _context.ClaimChapterCertificateAsync(_chapter.Id);

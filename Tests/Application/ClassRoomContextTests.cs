@@ -43,7 +43,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateClassRoomAsync_Teacher_OwnsClassRoomRegardlessOfRequestWallet()
+        public async Task CreateClassRoomAsync_ShouldMakeTheTeacherTheOwnerRegardlessOfTheRequestWallet_WhenTheUserIsATeacher()
         {
             _currentUser.As("0xTEACHER", UserRole.Teacher);
 
@@ -56,7 +56,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateClassRoomAsync_Student_ThrowsForbiddenException()
+        public async Task CreateClassRoomAsync_ShouldThrowForbiddenException_WhenTheUserIsAStudent()
         {
             _currentUser.As(Student, UserRole.Student);
 
@@ -65,7 +65,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateClassRoomAsync_Anonymous_ThrowsUnauthorizedException()
+        public async Task CreateClassRoomAsync_ShouldThrowUnauthorizedException_WhenTheUserIsAnonymous()
         {
             _currentUser.Anonymous();
 
@@ -73,7 +73,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateClassRoomAsync_MissingName_ThrowsBusinessRuleException()
+        public async Task CreateClassRoomAsync_ShouldThrowBusinessRuleException_WhenTheNameIsMissing()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 
@@ -81,7 +81,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task JoinClassRoomAsync_Student_EnrollsWalletFromToken()
+        public async Task JoinClassRoomAsync_ShouldEnrollTheWalletFromTheToken_WhenTheUserIsAStudent()
         {
             var classRoom = AddClassRoom("ABC234");
             _currentUser.As("0xSTUDENT", UserRole.Student);
@@ -93,7 +93,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task JoinClassRoomAsync_Teacher_ThrowsForbiddenException()
+        public async Task JoinClassRoomAsync_ShouldThrowForbiddenException_WhenTheUserIsATeacher()
         {
             AddClassRoom("ABC234");
             _currentUser.As(OtherTeacher, UserRole.Teacher);
@@ -102,7 +102,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task JoinClassRoomAsync_UnknownCode_ThrowsNotFoundException()
+        public async Task JoinClassRoomAsync_ShouldThrowNotFoundException_WhenTheCodeIsUnknown()
         {
             AddClassRoom("ABC234");
             _currentUser.As(Student, UserRole.Student);
@@ -111,7 +111,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task JoinClassRoomAsync_AlreadyEnrolled_ThrowsBusinessRuleException()
+        public async Task JoinClassRoomAsync_ShouldThrowBusinessRuleException_WhenTheStudentIsAlreadyEnrolled()
         {
             AddClassRoom("ABC234");
             _currentUser.As(Student, UserRole.Student);
@@ -122,7 +122,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetClassRoomByIdAsync_EnrolledStudent_ReturnsClassRoom()
+        public async Task GetClassRoomByIdAsync_ShouldReturnTheClassRoom_WhenTheStudentIsEnrolled()
         {
             var classRoom = AddClassRoom();
             Enroll(classRoom, Student);
@@ -134,7 +134,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetClassRoomByIdAsync_StudentNotEnrolled_ThrowsForbiddenException()
+        public async Task GetClassRoomByIdAsync_ShouldThrowForbiddenException_WhenTheStudentIsNotEnrolled()
         {
             var classRoom = AddClassRoom();
             _currentUser.As(Student, UserRole.Student);
@@ -143,7 +143,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetClassRoomByIdAsync_UnknownId_ThrowsNotFoundException()
+        public async Task GetClassRoomByIdAsync_ShouldThrowNotFoundException_WhenTheIdIsUnknown()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 
@@ -151,7 +151,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetByTeacherWalletAsync_AnotherTeachersWallet_ThrowsForbiddenException()
+        public async Task GetByTeacherWalletAsync_ShouldThrowForbiddenException_WhenTheWalletBelongsToAnotherTeacher()
         {
             AddClassRoom();
             _currentUser.As(OtherTeacher, UserRole.Teacher);
@@ -160,7 +160,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetByTeacherWalletAsync_OwnWalletWithDifferentCase_ReturnsClassRooms()
+        public async Task GetByTeacherWalletAsync_ShouldReturnTheClassRooms_WhenTheOwnWalletHasADifferentCase()
         {
             AddClassRoom();
             _currentUser.As(Teacher, UserRole.Teacher);
@@ -171,7 +171,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task DeleteClassRoomAsync_Owner_RemovesClassRoom()
+        public async Task DeleteClassRoomAsync_ShouldRemoveTheClassRoom_WhenTheUserOwnsIt()
         {
             var classRoom = AddClassRoom();
             _currentUser.As(Teacher, UserRole.Teacher);
@@ -182,7 +182,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task DeleteClassRoomAsync_AnotherTeacher_ThrowsForbiddenException()
+        public async Task DeleteClassRoomAsync_ShouldThrowForbiddenException_WhenTheUserIsAnotherTeacher()
         {
             var classRoom = AddClassRoom();
             _currentUser.As(OtherTeacher, UserRole.Teacher);
@@ -192,7 +192,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task DeleteClassRoomAsync_Admin_RemovesAnyClassRoom()
+        public async Task DeleteClassRoomAsync_ShouldRemoveAnyClassRoom_WhenTheUserIsAnAdmin()
         {
             var classRoom = AddClassRoom();
             _currentUser.As("0xadmin", UserRole.Admin);
@@ -203,7 +203,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task DeleteClassRoomAsync_UnknownId_ThrowsNotFoundException()
+        public async Task DeleteClassRoomAsync_ShouldThrowNotFoundException_WhenTheIdIsUnknown()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 

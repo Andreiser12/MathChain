@@ -24,7 +24,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Post_MalformedJson_ReturnsEnvelopeWithValidationErrors()
+        public async Task Post_ShouldReturnAnEnvelopeWithValidationErrors_WhenTheJsonIsMalformed()
         {
             var content = new StringContent("{ this is not json", Encoding.UTF8, "application/json");
 
@@ -39,7 +39,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Get_UnknownRoute_ReturnsNotFoundEnvelope()
+        public async Task Get_ShouldReturnANotFoundEnvelope_WhenTheRouteIsUnknown()
         {
             var response = await _signedInClient.GetAsync("/api/classroom/not-a-guid", TestContext.Current.CancellationToken);
 
@@ -50,7 +50,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Patch_UnsupportedMethod_ReturnsMethodNotAllowedEnvelope()
+        public async Task Patch_ShouldReturnAMethodNotAllowedEnvelope_WhenTheMethodIsNotSupported()
         {
             var response = await _signedInClient.SendAsync(new HttpRequestMessage(HttpMethod.Patch, "/api/auth/challenge"), TestContext.Current.CancellationToken);
 

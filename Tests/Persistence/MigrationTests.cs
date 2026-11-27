@@ -19,7 +19,7 @@ namespace MathChain.Tests.Persistence
         }
 
         [Fact]
-        public void Model_HasNoChangesMissingFromMigrations()
+        public void Model_ShouldHaveNoChangesMissingFromMigrations_WhenComparedWithTheSnapshot()
         {
             using var context = CreateContext();
             var snapshotModel = context.GetService<IMigrationsAssembly>().ModelSnapshot?.Model;
@@ -40,7 +40,7 @@ namespace MathChain.Tests.Persistence
         }
 
         [Fact]
-        public void EveryMigrationClass_IsDiscoverableByEntityFramework()
+        public void EveryMigrationClass_ShouldBeDiscoverableByEntityFramework_WhenTheAssemblyIsScanned()
         {
             var migrationTypes = typeof(MathChainDbContext).Assembly.GetTypes()
                 .Where(type => type.IsSubclassOf(typeof(Migration)) && !type.IsAbstract)

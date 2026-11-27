@@ -48,7 +48,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task SignInFlow_NewStudent_RegistersAndTokenIdentifiesWallet()
+        public async Task SignInFlow_ShouldRegisterTheUserAndIssueATokenForTheWallet_WhenTheStudentIsNew()
         {
             var wallet = EthECKey.GenerateKey();
 
@@ -66,7 +66,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task SignInFlow_ExistingUser_ReturnsOk()
+        public async Task SignInFlow_ShouldReturnOk_WhenTheUserAlreadyExists()
         {
             var wallet = EthECKey.GenerateKey();
             await LoginAsync(wallet, "Teacher");
@@ -77,7 +77,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Me_WithoutToken_ReturnsUnauthorizedEnvelope()
+        public async Task Me_ShouldReturnAnUnauthorizedEnvelope_WhenNoTokenIsSent()
         {
             var response = await GetMeAsync(null);
 
@@ -88,7 +88,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Me_WithTamperedRole_ReturnsUnauthorized()
+        public async Task Me_ShouldReturnUnauthorized_WhenTheRoleInTheTokenIsTampered()
         {
             var verifyResponse = await LoginAsync(EthECKey.GenerateKey(), "Student");
             var token = (await ReadDataAsync(verifyResponse)).GetProperty("token").GetString()!;
@@ -102,7 +102,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task Verify_WithWrongWalletSignature_ReturnsUnauthorizedEnvelope()
+        public async Task Verify_ShouldReturnAnUnauthorizedEnvelope_WhenTheSignatureIsFromAnotherWallet()
         {
             var wallet = EthECKey.GenerateKey();
             var address = wallet.GetPublicAddress();
@@ -117,7 +117,7 @@ namespace MathChain.Tests.Api
         }
 
         [Fact]
-        public async Task OldLoginEndpoint_IsRemoved()
+        public async Task OldLoginEndpoint_ShouldReturnMethodNotAllowed_WhenItIsCalled()
         {
             var response = await _factory.CreateClientAs("0x52908400098527886e0f7030069857d2e4169ee7", UserRole.Student).PostAsJsonAsync("/api/user/login", new { walletAddress = "0x52908400098527886e0f7030069857d2e4169ee7", role = "Admin" }, TestContext.Current.CancellationToken);
 

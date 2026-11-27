@@ -35,7 +35,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task VerifyAsync_ValidToken_ReturnsSubject()
+        public async Task VerifyAsync_ShouldReturnTheSubject_WhenTheTokenIsValid()
         {
             var identity = await CreateVerifier().VerifyAsync(_google.CreateToken(Subject, _time.Now));
 
@@ -43,7 +43,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task VerifyAsync_IssuerWithoutScheme_IsAccepted()
+        public async Task VerifyAsync_ShouldAcceptTheToken_WhenTheIssuerHasNoScheme()
         {
             var claims = Claims();
             claims["iss"] = "accounts.google.com";
@@ -54,7 +54,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task VerifyAsync_TokenIssuedForAnotherApplication_IsRejected()
+        public async Task VerifyAsync_ShouldRejectTheToken_WhenItWasIssuedForAnotherApplication()
         {
             var claims = Claims();
             claims["aud"] = "another-app.apps.googleusercontent.com";
@@ -63,7 +63,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task VerifyAsync_TokenFromAnotherIssuer_IsRejected()
+        public async Task VerifyAsync_ShouldRejectTheToken_WhenItComesFromAnotherIssuer()
         {
             var claims = Claims();
             claims["iss"] = "https://accounts.evil.example";
@@ -72,7 +72,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task VerifyAsync_RecentlyIssuedButExpiredToken_IsRejected()
+        public async Task VerifyAsync_ShouldRejectTheToken_WhenItWasRecentlyIssuedButHasExpired()
         {
             var claims = Claims();
             claims["iat"] = _time.Now.AddMinutes(-5).ToUnixTimeSeconds();
@@ -82,7 +82,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task VerifyAsync_TokenExpiredWithinClockSkew_IsAccepted()
+        public async Task VerifyAsync_ShouldAcceptTheToken_WhenItExpiredWithinTheClockSkew()
         {
             var claims = Claims();
             claims["iat"] = _time.Now.AddMinutes(-5).ToUnixTimeSeconds();
@@ -92,7 +92,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task VerifyAsync_TokenNotValidYet_IsRejected()
+        public async Task VerifyAsync_ShouldRejectTheToken_WhenItIsNotValidYet()
         {
             var claims = Claims();
             claims["nbf"] = _time.Now.AddSeconds(_settings.ClockSkewSeconds + 1).ToUnixTimeSeconds();
@@ -101,7 +101,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task VerifyAsync_TokenIssuedTooLongAgo_IsRejected()
+        public async Task VerifyAsync_ShouldRejectTheToken_WhenItWasIssuedTooLongAgo()
         {
             var token = _google.CreateToken(Subject, _time.Now);
             _time.Now = _time.Now.AddMinutes(_settings.MaxTokenAgeMinutes).AddSeconds(_settings.ClockSkewSeconds + 1);
@@ -110,7 +110,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task VerifyAsync_TokenWithinMaxAge_IsAccepted()
+        public async Task VerifyAsync_ShouldAcceptTheToken_WhenItIsWithinTheMaximumAge()
         {
             var token = _google.CreateToken(Subject, _time.Now);
             _time.Now = _time.Now.AddMinutes(_settings.MaxTokenAgeMinutes);
@@ -119,13 +119,13 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task VerifyAsync_TokenIssuedInTheFuture_IsRejected()
+        public async Task VerifyAsync_ShouldRejectTheToken_WhenItIsIssuedInTheFuture()
         {
             await AssertRejectedAsync(_google.CreateToken(Subject, _time.Now.AddMinutes(5)));
         }
 
         [Fact]
-        public async Task VerifyAsync_TokenSignedByAnotherKey_IsRejected()
+        public async Task VerifyAsync_ShouldRejectTheToken_WhenItIsSignedByAnotherKey()
         {
             var attacker = new GoogleTokenFactory();
 
@@ -133,13 +133,13 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task VerifyAsync_TokenWithUnknownKeyId_IsRejected()
+        public async Task VerifyAsync_ShouldRejectTheToken_WhenTheKeyIdIsUnknown()
         {
             await AssertRejectedAsync(_google.CreateToken(Claims(), "unknown-key"));
         }
 
         [Fact]
-        public async Task VerifyAsync_TokenSignedByUnknownKey_RefreshesKeysOnceAndIsRejected()
+        public async Task VerifyAsync_ShouldRefreshTheKeysOnceAndRejectTheToken_WhenItIsSignedByAnUnknownKey()
         {
             var attacker = new GoogleTokenFactory("attacker-key");
             var manager = new RotatingConfigurationManager(() => _google.CreateConfiguration());
@@ -149,19 +149,19 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task VerifyAsync_UnsignedToken_IsRejected()
+        public async Task VerifyAsync_ShouldRejectTheToken_WhenItIsUnsigned()
         {
             await AssertRejectedAsync(_google.CreateUnsignedToken(Claims()));
         }
 
         [Fact]
-        public async Task VerifyAsync_TokenSignedWithPublicKeyAsHmacSecret_IsRejected()
+        public async Task VerifyAsync_ShouldRejectTheToken_WhenThePublicKeyIsUsedAsAnHmacSecret()
         {
             await AssertRejectedAsync(_google.CreateTokenSignedWithPublicKeyAsSecret(Claims()));
         }
 
         [Fact]
-        public async Task VerifyAsync_TamperedPayload_IsRejected()
+        public async Task VerifyAsync_ShouldRejectTheToken_WhenThePayloadIsTampered()
         {
             var parts = _google.CreateToken(Subject, _time.Now).Split('.');
             var otherClaims = Claims();
@@ -175,7 +175,7 @@ namespace MathChain.Tests.Infrastructure
         [InlineData("sub")]
         [InlineData("iat")]
         [InlineData("exp")]
-        public async Task VerifyAsync_TokenWithoutRequiredClaim_IsRejected(string claim)
+        public async Task VerifyAsync_ShouldRejectTheToken_WhenARequiredClaimIsMissing(string claim)
         {
             var claims = Claims();
             claims.Remove(claim);
@@ -187,13 +187,13 @@ namespace MathChain.Tests.Infrastructure
         [InlineData("not-a-token")]
         [InlineData("a.b.c")]
         [InlineData("....")]
-        public async Task VerifyAsync_MalformedToken_IsRejected(string token)
+        public async Task VerifyAsync_ShouldRejectTheToken_WhenItIsMalformed(string token)
         {
             await AssertRejectedAsync(token);
         }
 
         [Fact]
-        public async Task VerifyAsync_WithoutClientId_ThrowsBusinessRuleException()
+        public async Task VerifyAsync_ShouldThrowBusinessRuleException_WhenThereIsNoClientId()
         {
             _settings.ClientId = "  ";
             var verifier = CreateVerifier();
@@ -203,7 +203,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task VerifyAsync_SigningKeysUnavailable_ThrowsServiceUnavailableException()
+        public async Task VerifyAsync_ShouldThrowServiceUnavailableException_WhenTheSigningKeysAreUnavailable()
         {
             var verifier = CreateVerifier(new RotatingConfigurationManager(() => throw new InvalidOperationException("network down")));
 
@@ -211,7 +211,7 @@ namespace MathChain.Tests.Infrastructure
         }
 
         [Fact]
-        public async Task VerifyAsync_KeyRotatedByGoogle_RefreshesKeysAndAcceptsToken()
+        public async Task VerifyAsync_ShouldRefreshTheKeysAndAcceptTheToken_WhenGoogleRotatedTheKey()
         {
             var rotatedGoogle = new GoogleTokenFactory("rotated-key");
             var manager = new RotatingConfigurationManager(() => _google.CreateConfiguration(), () => rotatedGoogle.CreateConfiguration());

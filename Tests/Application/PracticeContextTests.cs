@@ -47,7 +47,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetFormulaAsync_ListsTheFormulaOwnExercises()
+        public async Task GetFormulaAsync_ShouldListTheOwnExercisesOfTheFormula_WhenTheFormulaHasExercises()
         {
             var formula = await _context.GetFormulaAsync(_formula.Id);
 
@@ -58,7 +58,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetFormulaAsync_UnknownFormula_UsesTheGenericExercises()
+        public async Task GetFormulaAsync_ShouldUseTheGenericExercises_WhenTheFormulaIsUnknown()
         {
             var formula = await _context.GetFormulaAsync(Guid.NewGuid());
 
@@ -67,7 +67,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task StartExerciseAsync_CreatesAnExerciseWithoutRevealingTheAnswer()
+        public async Task StartExerciseAsync_ShouldCreateAnExerciseWithoutRevealingTheAnswer_WhenAStudentStartsIt()
         {
             var exercise = await _context.StartExerciseAsync(_formula.Id, 0);
 
@@ -83,7 +83,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task StartExerciseAsync_OpenExercise_IsReusedInsteadOfCreatingAnother()
+        public async Task StartExerciseAsync_ShouldReuseTheOpenExercise_WhenOneIsAlreadyOpen()
         {
             var first = await _context.StartExerciseAsync(_formula.Id, 0);
             var second = await _context.StartExerciseAsync(_formula.Id, 0);
@@ -95,13 +95,13 @@ namespace MathChain.Tests.Application
         [Theory]
         [InlineData(-1)]
         [InlineData(2)]
-        public async Task StartExerciseAsync_IndexOutsideTheList_ThrowsNotFoundException(int index)
+        public async Task StartExerciseAsync_ShouldThrowNotFoundException_WhenTheIndexIsOutsideTheList(int index)
         {
             await Assert.ThrowsAsync<NotFoundException>(() => _context.StartExerciseAsync(_formula.Id, index));
         }
 
         [Fact]
-        public async Task StartExerciseAsync_Anonymous_ThrowsUnauthorizedException()
+        public async Task StartExerciseAsync_ShouldThrowUnauthorizedException_WhenTheUserIsAnonymous()
         {
             _currentUser.Anonymous();
 
@@ -109,7 +109,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitAnswerAsync_CorrectAnswer_MarksSolvedAndRecordsTheAttempt()
+        public async Task SubmitAnswerAsync_ShouldMarkTheExerciseSolvedAndRecordTheAttempt_WhenTheAnswerIsCorrect()
         {
             var exercise = await _context.StartExerciseAsync(_formula.Id, 0);
 
@@ -127,7 +127,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitAnswerAsync_WrongAnswer_UsesAnAttemptAndRecordsNothing()
+        public async Task SubmitAnswerAsync_ShouldUseAnAttemptAndRecordNothing_WhenTheAnswerIsWrong()
         {
             var exercise = await _context.StartExerciseAsync(_formula.Id, 0);
 
@@ -141,7 +141,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitAnswerAsync_EquivalentButNotExpanded_IsNotSolved()
+        public async Task SubmitAnswerAsync_ShouldNotMarkTheExerciseSolved_WhenTheAnswerIsEquivalentButNotExpanded()
         {
             var exercise = await _context.StartExerciseAsync(_formula.Id, 0);
 
@@ -153,7 +153,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitAnswerAsync_UnreadableAnswer_DoesNotUseAnAttempt()
+        public async Task SubmitAnswerAsync_ShouldNotUseAnAttempt_WhenTheAnswerIsUnreadable()
         {
             var exercise = await _context.StartExerciseAsync(_formula.Id, 0);
 
@@ -165,7 +165,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitAnswerAsync_AfterTheLastAttempt_ClosesTheExerciseAndStartGivesANewOne()
+        public async Task SubmitAnswerAsync_ShouldCloseTheExerciseAndLetStartGiveANewOne_WhenTheLastAttemptIsUsed()
         {
             var exercise = await _context.StartExerciseAsync(_formula.Id, 0);
 
@@ -182,7 +182,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitAnswerAsync_ExpiredExercise_ThrowsBusinessRuleException()
+        public async Task SubmitAnswerAsync_ShouldThrowBusinessRuleException_WhenTheExerciseHasExpired()
         {
             var exercise = await _context.StartExerciseAsync(_formula.Id, 0);
             _time.Now = _time.Now + PracticeContext.ExerciseLifetime;
@@ -194,7 +194,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitAnswerAsync_LastAttemptsUsedByAParallelRequest_IsRejected()
+        public async Task SubmitAnswerAsync_ShouldRejectTheAnswer_WhenAParallelRequestUsedTheLastAttempts()
         {
             var exercise = await _context.StartExerciseAsync(_formula.Id, 0);
             _practice.AfterRead = stored => stored.Attempts = PracticeContext.MaximumAttempts;
@@ -207,7 +207,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitAnswerAsync_SameCorrectAnswerSentTwiceInParallel_IsRecordedOnce()
+        public async Task SubmitAnswerAsync_ShouldRecordTheAnswerOnce_WhenTheSameCorrectAnswerIsSentTwiceInParallel()
         {
             var exercise = await _context.StartExerciseAsync(_formula.Id, 0);
             _practice.AfterRegisterAttempt = stored => stored.SolvedAt = _time.Now.UtcDateTime;
@@ -220,7 +220,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitAnswerAsync_SolvedExercise_CannotBeSolvedAgain()
+        public async Task SubmitAnswerAsync_ShouldRejectTheAnswer_WhenTheExerciseIsAlreadySolved()
         {
             var exercise = await _context.StartExerciseAsync(_formula.Id, 0);
             await AnswerAsync(exercise.ExerciseId, "x^2 + 4x + 4");
@@ -231,7 +231,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitAnswerAsync_ExerciseOfAnotherStudent_ThrowsNotFoundException()
+        public async Task SubmitAnswerAsync_ShouldThrowNotFoundException_WhenTheExerciseBelongsToAnotherStudent()
         {
             var exercise = await _context.StartExerciseAsync(_formula.Id, 0);
             _currentUser.As(OtherStudent, UserRole.Student);
@@ -242,13 +242,13 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitAnswerAsync_UnknownExercise_ThrowsNotFoundException()
+        public async Task SubmitAnswerAsync_ShouldThrowNotFoundException_WhenTheExerciseDoesNotExist()
         {
             await Assert.ThrowsAsync<NotFoundException>(() => AnswerAsync(Guid.NewGuid(), "1"));
         }
 
         [Fact]
-        public async Task GetFormulaAsync_ShowsOnlyTheCurrentStudentsProgress()
+        public async Task GetFormulaAsync_ShouldShowOnlyTheProgressOfTheCurrentStudent_WhenSeveralStudentsPractice()
         {
             var exercise = await _context.StartExerciseAsync(_formula.Id, 1);
             await AnswerAsync(exercise.ExerciseId, "(x - 3)(x + 3)");

@@ -17,7 +17,7 @@ namespace MathChain.Tests.Gateway
         }
 
         [Fact]
-        public async Task ContentBlockRepository_AddMissingAsync_StoresEachBlockOnce()
+        public async Task AddMissingAsync_ShouldStoreEachBlockOnce_WhenTheSameBlockIsAddedAgain()
         {
             var block = new ContentBlock { Cid = "bafkreihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku", Codec = 0x55, Data = Array.Empty<byte>(), Size = 0, CreatedAt = DateTime.UtcNow };
             await using (var dbContext = CreateDbContext())
@@ -37,7 +37,7 @@ namespace MathChain.Tests.Gateway
         }
 
         [Fact]
-        public async Task ContentBlockRepository_GetReferencesAsync_ListsEveryStoredIdentifier()
+        public async Task GetReferencesAsync_ShouldListEveryStoredIdentifier_WhenAChapterHasAnIpfsHash()
         {
             var chapterId = Guid.NewGuid();
             await using (var dbContext = CreateDbContext())
@@ -57,7 +57,7 @@ namespace MathChain.Tests.Gateway
         }
 
         [Fact]
-        public async Task CurriculumRepository_ReplacePrerequisitesAsync_ReplacesOnlyTheArcsOfTheChapter()
+        public async Task ReplacePrerequisitesAsync_ShouldReplaceOnlyTheArcsOfTheChapter_WhenOtherChaptersHavePrerequisites()
         {
             var first = Guid.NewGuid();
             var second = Guid.NewGuid();
@@ -85,7 +85,7 @@ namespace MathChain.Tests.Gateway
         }
 
         [Fact]
-        public async Task CurriculumRepository_GetFormulasByChapterIdsAsync_ReturnsOnlyTheRequestedChapters()
+        public async Task GetFormulasByChapterIdsAsync_ShouldReturnOnlyTheRequestedChapters_WhenSeveralChaptersHaveFormulas()
         {
             var wanted = Guid.NewGuid();
             await using (var dbContext = CreateDbContext())
@@ -105,7 +105,7 @@ namespace MathChain.Tests.Gateway
         }
 
         [Fact]
-        public async Task CurriculumRepository_UpdateAsync_PersistsFormulasCountAndIncrementsVersion()
+        public async Task UpdateAsync_ShouldPersistTheFormulasCountAndIncrementTheVersion_WhenTheChapterIsSaved()
         {
             var chapter = new CurriculumChapter { Id = Guid.NewGuid(), Title = "Integrale", ChapterSlug = "integrale", Category = "Analiza", Version = 1 };
             await using (var dbContext = CreateDbContext())
@@ -130,7 +130,7 @@ namespace MathChain.Tests.Gateway
         }
 
         [Fact]
-        public async Task ExternalLoginRepository_TryCreateUserWithLoginAsync_StoresUserAndLoginTogether()
+        public async Task TryCreateUserWithLoginAsync_ShouldStoreTheUserAndTheLoginTogether_WhenTheGoogleAccountIsNew()
         {
             var user = new User { Id = Guid.NewGuid(), WalletAddress = "0xc1dae98e6a141323b6fc845fb41f516bad87d356", Role = MathChain.Domain.Enums.UserRole.Teacher, CreatedAt = DateTime.UtcNow };
             var login = new ExternalLogin { Id = Guid.NewGuid(), UserId = user.Id, Provider = ExternalLogin.GoogleProvider, Subject = "108204268033311374519", CreatedAt = DateTime.UtcNow };
@@ -154,7 +154,7 @@ namespace MathChain.Tests.Gateway
         }
 
         [Fact]
-        public async Task ClassContentRepository_GetCommentsByMessageIdsAsync_ReturnsRequestedCommentsOldestFirst()
+        public async Task GetCommentsByMessageIdsAsync_ShouldReturnTheRequestedCommentsOldestFirst_WhenTheMessageHasComments()
         {
             var messageId = Guid.NewGuid();
             await using (var dbContext = CreateDbContext())

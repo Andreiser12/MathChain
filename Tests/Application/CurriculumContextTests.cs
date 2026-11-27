@@ -48,7 +48,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetRootChaptersAsync_Anonymous_ReturnsOrderedRootsWithDescendantTotals()
+        public async Task GetRootChaptersAsync_ShouldReturnTheOrderedRootsWithDescendantTotals_WhenTheUserIsAnonymous()
         {
             _currentUser.Anonymous();
             var analysis = AddChapter("Analiza", "analiza", order: 2, formulasCount: 1);
@@ -67,7 +67,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetChapterDetailAsync_BySlugIgnoringCase_ReturnsBreadcrumbsAndOrderedSubChapters()
+        public async Task GetChapterDetailAsync_ShouldReturnTheBreadcrumbsAndOrderedSubChapters_WhenTheSlugHasADifferentCase()
         {
             _currentUser.Anonymous();
             var analysis = AddChapter("Analiza", "analiza");
@@ -83,7 +83,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetChapterDetailAsync_ById_ReturnsChapter()
+        public async Task GetChapterDetailAsync_ShouldReturnTheChapter_WhenItIsRequestedById()
         {
             var chapter = AddChapter("Analiza", "analiza");
 
@@ -94,19 +94,19 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetChapterDetailAsync_UnknownChapter_ThrowsNotFoundException()
+        public async Task GetChapterDetailAsync_ShouldThrowNotFoundException_WhenTheChapterDoesNotExist()
         {
             await Assert.ThrowsAsync<NotFoundException>(() => _context.GetChapterDetailAsync("nu-exista"));
         }
 
         [Fact]
-        public async Task GetChapterDetailAsync_BlankIdentifier_ThrowsBusinessRuleException()
+        public async Task GetChapterDetailAsync_ShouldThrowBusinessRuleException_WhenTheIdentifierIsBlank()
         {
             await Assert.ThrowsAsync<BusinessRuleException>(() => _context.GetChapterDetailAsync("  "));
         }
 
         [Fact]
-        public async Task GetFormulasByChapterAsync_Anonymous_ReturnsFormulasInOrder()
+        public async Task GetFormulasByChapterAsync_ShouldReturnTheFormulasInOrder_WhenTheUserIsAnonymous()
         {
             _currentUser.Anonymous();
             var chapter = AddChapter("Integrale", "integrale");
@@ -119,13 +119,13 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetFormulasByChapterAsync_UnknownChapter_ThrowsNotFoundException()
+        public async Task GetFormulasByChapterAsync_ShouldThrowNotFoundException_WhenTheChapterDoesNotExist()
         {
             await Assert.ThrowsAsync<NotFoundException>(() => _context.GetFormulasByChapterAsync(Guid.NewGuid().ToString()));
         }
 
         [Fact]
-        public async Task CreateChapterAsync_Admin_BuildsSlugFromTitle()
+        public async Task CreateChapterAsync_ShouldBuildTheSlugFromTheTitle_WhenTheUserIsAnAdmin()
         {
             var created = await _context.CreateChapterAsync(new CreateChapterRequest { Title = "  Integrale Definite  ", Category = "Analiza" });
 
@@ -136,7 +136,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateChapterAsync_TitleWithRomanianDiacritics_KeepsLettersInSlug()
+        public async Task CreateChapterAsync_ShouldKeepTheLettersInTheSlug_WhenTheTitleHasRomanianDiacritics()
         {
             var created = await _context.CreateChapterAsync(new CreateChapterRequest { Title = "Funcții și șiruri în ână" });
 
@@ -144,14 +144,14 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateChapterAsync_TitleWithoutLettersOrDigits_ThrowsBusinessRuleException()
+        public async Task CreateChapterAsync_ShouldThrowBusinessRuleException_WhenTheTitleHasNoLettersOrDigits()
         {
             await Assert.ThrowsAsync<BusinessRuleException>(() => _context.CreateChapterAsync(new CreateChapterRequest { Title = "∫∑" }));
             Assert.Empty(_gateway.Chapters);
         }
 
         [Fact]
-        public async Task CreateChapterAsync_DuplicateSlug_AppendsRandomSuffix()
+        public async Task CreateChapterAsync_ShouldAppendARandomSuffix_WhenTheSlugAlreadyExists()
         {
             AddChapter("Integrale", "integrale");
 
@@ -161,7 +161,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateChapterAsync_WithoutCategory_InheritsParentCategoryOrTitle()
+        public async Task CreateChapterAsync_ShouldInheritTheParentCategoryOrTitle_WhenTheCategoryIsMissing()
         {
             var withCategory = AddChapter("Integrale", "integrale", category: "Analiza");
             var withoutCategory = AddChapter("Geometrie", "geometrie");
@@ -175,14 +175,14 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateChapterAsync_UnknownParent_ThrowsNotFoundException()
+        public async Task CreateChapterAsync_ShouldThrowNotFoundException_WhenTheParentDoesNotExist()
         {
             await Assert.ThrowsAsync<NotFoundException>(() => _context.CreateChapterAsync(new CreateChapterRequest { Title = "Orfan", ParentId = Guid.NewGuid(), Category = "X" }));
             Assert.Empty(_gateway.Chapters);
         }
 
         [Fact]
-        public async Task CreateChapterAsync_Teacher_ThrowsForbiddenException()
+        public async Task CreateChapterAsync_ShouldThrowForbiddenException_WhenTheUserIsATeacher()
         {
             _currentUser.As("0xteacher", UserRole.Teacher);
 
@@ -191,7 +191,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateChapterAsync_Anonymous_ThrowsUnauthorizedException()
+        public async Task CreateChapterAsync_ShouldThrowUnauthorizedException_WhenTheUserIsAnonymous()
         {
             _currentUser.Anonymous();
 
@@ -199,7 +199,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task UpdateChapterAsync_WithoutSlug_KeepsSlugAndUpdatesFields()
+        public async Task UpdateChapterAsync_ShouldKeepTheSlugAndUpdateTheFields_WhenNoSlugIsGiven()
         {
             var chapter = AddChapter("Integrale", "integrale", formulasCount: 5, category: "Analiza");
 
@@ -213,7 +213,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task UpdateChapterAsync_SlugTakenByAnotherChapter_AppendsRandomSuffix()
+        public async Task UpdateChapterAsync_ShouldAppendARandomSuffix_WhenTheSlugIsTakenByAnotherChapter()
         {
             AddChapter("Algebra", "algebra");
             var chapter = AddChapter("Integrale", "integrale");
@@ -224,7 +224,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task UpdateChapterAsync_SlugWithoutLettersOrDigits_ThrowsBusinessRuleException()
+        public async Task UpdateChapterAsync_ShouldThrowBusinessRuleException_WhenTheSlugHasNoLettersOrDigits()
         {
             var chapter = AddChapter("Integrale", "integrale");
 
@@ -233,13 +233,13 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task UpdateChapterAsync_UnknownChapter_ThrowsNotFoundException()
+        public async Task UpdateChapterAsync_ShouldThrowNotFoundException_WhenTheChapterDoesNotExist()
         {
             await Assert.ThrowsAsync<NotFoundException>(() => _context.UpdateChapterAsync(Guid.NewGuid(), new UpdateChapterRequest { Title = "X" }));
         }
 
         [Fact]
-        public async Task DeleteChapterAsync_Admin_RemovesChapter()
+        public async Task DeleteChapterAsync_ShouldRemoveTheChapter_WhenTheUserIsAnAdmin()
         {
             var chapter = AddChapter("Integrale", "integrale");
 
@@ -248,7 +248,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task DeleteChapterAsync_Teacher_ThrowsForbiddenAndKeepsChapter()
+        public async Task DeleteChapterAsync_ShouldThrowForbiddenAndKeepTheChapter_WhenTheUserIsATeacher()
         {
             var chapter = AddChapter("Integrale", "integrale");
             _currentUser.As("0xteacher", UserRole.Teacher);
@@ -258,13 +258,13 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task DeleteChapterAsync_UnknownChapter_ThrowsNotFoundException()
+        public async Task DeleteChapterAsync_ShouldThrowNotFoundException_WhenTheChapterDoesNotExist()
         {
             await Assert.ThrowsAsync<NotFoundException>(() => _context.DeleteChapterAsync(Guid.NewGuid()));
         }
 
         [Fact]
-        public async Task UpdateIpfsHashAsync_Admin_UpdatesHash()
+        public async Task UpdateIpfsHashAsync_ShouldUpdateTheHash_WhenTheUserIsAnAdmin()
         {
             AddChapter("Integrale", "integrale");
 
@@ -274,13 +274,13 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task UpdateIpfsHashAsync_UnknownChapter_ThrowsNotFoundException()
+        public async Task UpdateIpfsHashAsync_ShouldThrowNotFoundException_WhenTheChapterDoesNotExist()
         {
             await Assert.ThrowsAsync<NotFoundException>(() => _context.UpdateIpfsHashAsync("nu-exista", "QmNew"));
         }
 
         [Fact]
-        public async Task CreateFormulaAsync_Admin_GeneratesCodeAndOrderAndUpdatesChapter()
+        public async Task CreateFormulaAsync_ShouldGenerateTheCodeAndTheOrderAndUpdateTheChapter_WhenTheUserIsAnAdmin()
         {
             var chapter = AddChapter("Integrale", "integrale");
             AddFormula(chapter, "integrale-f1", 1);
@@ -298,7 +298,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateFormulaAsync_ExplicitCode_IsTrimmed()
+        public async Task CreateFormulaAsync_ShouldTrimTheCode_WhenTheCodeIsGivenExplicitly()
         {
             var chapter = AddChapter("Integrale", "integrale");
 
@@ -309,7 +309,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateFormulaAsync_IpfsUnavailable_StillSavesFormulaAndCount()
+        public async Task CreateFormulaAsync_ShouldStillSaveTheFormulaAndTheCount_WhenIpfsIsUnavailable()
         {
             var chapter = AddChapter("Integrale", "integrale");
             chapter.IpfsHash = "QmOld";
@@ -323,7 +323,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateFormulaAsync_WithoutIpfsService_SavesFormula()
+        public async Task CreateFormulaAsync_ShouldSaveTheFormula_WhenThereIsNoIpfsService()
         {
             var context = new CurriculumContext(_gateway, new AccessGuard(_currentUser, new InMemoryClassRoomGateway()));
             var chapter = AddChapter("Integrale", "integrale");
@@ -335,7 +335,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateFormulaAsync_MissingLatex_ThrowsBusinessRuleException()
+        public async Task CreateFormulaAsync_ShouldThrowBusinessRuleException_WhenTheLatexIsMissing()
         {
             var chapter = AddChapter("Integrale", "integrale");
 
@@ -344,13 +344,13 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateFormulaAsync_UnknownChapter_ThrowsNotFoundException()
+        public async Task CreateFormulaAsync_ShouldThrowNotFoundException_WhenTheChapterDoesNotExist()
         {
             await Assert.ThrowsAsync<NotFoundException>(() => _context.CreateFormulaAsync(Guid.NewGuid(), new CreateFormulaRequest { Title = "Formula", Latex = "x" }));
         }
 
         [Fact]
-        public async Task CreateFormulaAsync_Teacher_ThrowsForbiddenException()
+        public async Task CreateFormulaAsync_ShouldThrowForbiddenException_WhenTheUserIsATeacher()
         {
             var chapter = AddChapter("Integrale", "integrale");
             _currentUser.As("0xteacher", UserRole.Teacher);
@@ -360,7 +360,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task UpdateFormulaAsync_Admin_UpdatesFormulaAndResyncsChapter()
+        public async Task UpdateFormulaAsync_ShouldUpdateTheFormulaAndResyncTheChapter_WhenTheUserIsAnAdmin()
         {
             var chapter = AddChapter("Integrale", "integrale");
             var formula = AddFormula(chapter, "int-1", 1);
@@ -375,13 +375,13 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task UpdateFormulaAsync_UnknownFormula_ThrowsNotFoundException()
+        public async Task UpdateFormulaAsync_ShouldThrowNotFoundException_WhenTheFormulaDoesNotExist()
         {
             await Assert.ThrowsAsync<NotFoundException>(() => _context.UpdateFormulaAsync(Guid.NewGuid(), new UpdateFormulaRequest { Title = "X", Latex = "x" }));
         }
 
         [Fact]
-        public async Task DeleteFormulaAsync_Admin_RemovesFormulaAndUpdatesCount()
+        public async Task DeleteFormulaAsync_ShouldRemoveTheFormulaAndUpdateTheCount_WhenTheUserIsAnAdmin()
         {
             var chapter = AddChapter("Integrale", "integrale", formulasCount: 2);
             var formula = AddFormula(chapter, "int-1", 1);
@@ -394,7 +394,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task DeleteFormulaAsync_UnknownFormula_ThrowsNotFoundException()
+        public async Task DeleteFormulaAsync_ShouldThrowNotFoundException_WhenTheFormulaDoesNotExist()
         {
             await Assert.ThrowsAsync<NotFoundException>(() => _context.DeleteFormulaAsync(Guid.NewGuid()));
         }

@@ -15,13 +15,13 @@ namespace MathChain.Tests.Blockchain
         [InlineData(Secret, "11111111-2222-3333-4444-555555555555", "0xc1dae98e6a141323b6fc845fb41f516bad87d356")]
         [InlineData(Secret, "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee", "0xa106d85c0d051d63db56782c4790dac5f3238a41")]
         [InlineData("another-master-secret-with-at-least-32-bytes", "11111111-2222-3333-4444-555555555555", "0x33849c584de76fde6a927c4f44881fccc82c9b7f")]
-        public void GetOwnerAddress_MatchesIndependentReferenceImplementation(string secret, string userId, string expectedAddress)
+        public void GetOwnerAddress_ShouldMatchAnIndependentReferenceImplementation_WhenGivenTheSameSecretAndUser(string secret, string userId, string expectedAddress)
         {
             Assert.Equal(expectedAddress, CreateDeriver(secret).GetOwnerAddress(Guid.Parse(userId)));
         }
 
         [Fact]
-        public void GetOwnerAddress_SameUser_IsStableAcrossInstances()
+        public void GetOwnerAddress_ShouldReturnTheSameAddressAcrossInstances_WhenTheUserIsTheSame()
         {
             var userId = Guid.NewGuid();
 
@@ -29,7 +29,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void GetOwnerAddress_ManyUsers_ReturnsDistinctLowercaseAddresses()
+        public void GetOwnerAddress_ShouldReturnDistinctLowercaseAddresses_WhenThereAreManyUsers()
         {
             var deriver = CreateDeriver();
 
@@ -42,7 +42,7 @@ namespace MathChain.Tests.Blockchain
         [Theory]
         [InlineData("")]
         [InlineData("too-short-secret")]
-        public void GetOwnerAddress_WithoutLongEnoughSecret_Throws(string secret)
+        public void GetOwnerAddress_ShouldThrow_WhenTheSecretIsTooShort(string secret)
         {
             var deriver = CreateDeriver(secret);
 
@@ -51,7 +51,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void GetOwnerAddress_EmptyUserId_Throws()
+        public void GetOwnerAddress_ShouldThrow_WhenTheUserIdIsEmpty()
         {
             Assert.Throws<ArgumentException>(() => CreateDeriver().GetOwnerAddress(Guid.Empty));
         }

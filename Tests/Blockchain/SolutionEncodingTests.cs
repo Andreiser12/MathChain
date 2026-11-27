@@ -65,7 +65,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void ComputeSolutionId_MatchesTheSolidityEncoding()
+        public void ComputeSolutionId_ShouldMatchTheSolidityEncodingAndRejectInvalidIndices_WhenItIsComputedForAFormula()
         {
             Assert.Equal(SolutionId, SolutionEncoding.ComputeSolutionId(FormulaId, 4));
             Assert.NotEqual(SolutionId, SolutionEncoding.ComputeSolutionId(FormulaId, 5));
@@ -74,7 +74,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void ComputeNonce_MatchesTheContractPurchaseNonce()
+        public void ComputeNonce_ShouldMatchTheContractPurchaseNonce_WhenItIsComputedForAPurchase()
         {
             Assert.Equal(Nonce, SolutionEncoding.ComputeNonce(ChainId, Contract, Account, SolutionId, SolutionTier.Hard, Salt));
             Assert.Equal(Nonce, Registry().ComputeNonce(Account, SolutionId, SolutionTier.Hard, Salt));
@@ -83,14 +83,14 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void ComputeDomainSeparator_MatchesTheUsdcContractOnBaseSepolia()
+        public void ComputeDomainSeparator_ShouldMatchTheUsdcContract_WhenItIsComputedForBaseSepolia()
         {
             Assert.Equal(BaseSepoliaUsdcDomain, SolutionEncoding.ComputeDomainSeparator("USDC", "2", ChainId, Token));
             Assert.NotEqual(BaseSepoliaUsdcDomain, SolutionEncoding.ComputeDomainSeparator("USD Coin", "2", ChainId, Token));
         }
 
         [Fact]
-        public void ComputeAuthorizationDigest_MatchesTheTypedDataSignedByTheWallet()
+        public void ComputeAuthorizationDigest_ShouldMatchTheTypedDataSignedByTheWallet_WhenItIsComputedForAnAuthorization()
         {
             var digest = SolutionEncoding.ComputeAuthorizationDigest(BaseSepoliaUsdcDomain, Payer, Contract, Price, 0, ValidBefore, Nonce);
 
@@ -99,7 +99,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void IsSignedByPayer_AcceptsOnlyTheSignedOrder()
+        public void IsSignedByPayer_ShouldAcceptOnlyTheSignedOrder_WhenAnyFieldOfTheOrderChanges()
         {
             var registry = Registry();
 
@@ -130,7 +130,7 @@ namespace MathChain.Tests.Blockchain
         [InlineData("01", 28)]
         [InlineData("1b", 27)]
         [InlineData("00", 27)]
-        public void TrySplitSignature_NormalizesTheRecoveryId(string recoveryByte, int expectedV)
+        public void TrySplitSignature_ShouldNormalizeTheRecoveryId_WhenTheSignatureIsValid(string recoveryByte, int expectedV)
         {
             var signature = Signature[..^2] + recoveryByte;
 
@@ -145,19 +145,19 @@ namespace MathChain.Tests.Blockchain
         [InlineData("")]
         [InlineData("not hex")]
         [InlineData("0x1234")]
-        public void TrySplitSignature_RejectsMalformedSignatures(string? signature)
+        public void TrySplitSignature_ShouldReturnFalse_WhenTheSignatureIsMalformed(string? signature)
         {
             Assert.False(SolutionEncoding.TrySplitSignature(signature, out _, out _, out _));
         }
 
         [Fact]
-        public void TrySplitSignature_RejectsAnUnknownRecoveryId()
+        public void TrySplitSignature_ShouldReturnFalse_WhenTheRecoveryIdIsUnknown()
         {
             Assert.False(SolutionEncoding.TrySplitSignature(Signature[..^2] + "05", out _, out _, out _));
         }
 
         [Fact]
-        public void BuyFunction_EncodesTheAuthorizationTuple()
+        public void BuyFunction_ShouldEncodeTheAuthorizationTuple_WhenASolutionIsBought()
         {
             SolutionEncoding.TrySplitSignature(Signature, out var v, out var r, out var s);
             var message = new BuySolutionFunction
@@ -182,14 +182,14 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void BuildSetPriceCallData_MatchesTheContractAbi()
+        public void BuildSetPriceCallData_ShouldMatchTheContractAbiAndRejectAZeroPrice_WhenAPriceIsSet()
         {
             Assert.Equal(SetPriceCallData, Registry().BuildSetPriceCallData(SolutionTier.Medium, 2_500_000));
             Assert.Throws<BusinessRuleException>(() => Registry().BuildSetPriceCallData(SolutionTier.Medium, 0));
         }
 
         [Fact]
-        public void IsPurchasedFunction_MatchesTheContractAbi()
+        public void IsPurchasedFunction_ShouldMatchTheContractAbi_WhenAPurchaseIsChecked()
         {
             var message = new IsSolutionPurchasedFunction { Account = Account, SolutionId = SolutionId.HexToByteArray() };
 
@@ -197,7 +197,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void PricesOutput_DecodesTheThreeTiers()
+        public void PricesOutput_ShouldDecodeTheThreeTiers_WhenTheContractReturnsThePrices()
         {
             var prices = new FunctionCallDecoder().DecodeFunctionOutput<SolutionPricesOutput>(PricesResult);
 
@@ -207,7 +207,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void SolutionPurchasedEvent_DecodesTheContractLog()
+        public void SolutionPurchasedEvent_ShouldDecodeTheContractLog_WhenASolutionIsPurchased()
         {
             Assert.Equal(PurchasedTopic, "0x" + EventExtensions.GetEventABI<SolutionPurchasedEvent>().Sha3Signature);
 
@@ -236,13 +236,13 @@ namespace MathChain.Tests.Blockchain
         [Theory]
         [InlineData("AlreadyPurchased(address,bytes32)", "0x77a670ee")]
         [InlineData("PriceMismatch(uint256,uint256)", "0x3ad7771a")]
-        public void ErrorSelector_MatchesTheSolutionContractErrors(string signature, string expectedSelector)
+        public void ErrorSelector_ShouldMatchTheSolutionContractErrors_WhenItIsComputedFromTheErrorSignature(string signature, string expectedSelector)
         {
             Assert.Equal(expectedSelector, CertificateEncoding.ToHex(CertificateEncoding.ErrorSelector(signature)));
         }
 
         [Fact]
-        public void Registry_WithoutAddresses_IsNotConfigured()
+        public void Registry_ShouldNotBeConfigured_WhenThereAreNoAddresses()
         {
             var registry = new SolutionPaymentRegistry(new BlockchainSettings { RpcUrl = "http://127.0.0.1:1", ChainId = ChainId },
                 new PlatformTransactionLock(), NullLogger<SolutionPaymentRegistry>.Instance);
@@ -253,7 +253,7 @@ namespace MathChain.Tests.Blockchain
         }
 
         [Fact]
-        public void Registry_WithTheIssuerKey_CanRelay()
+        public void Registry_ShouldBeAbleToRelay_WhenItHasTheIssuerKey()
         {
             var registry = Registry("0x" + new string('1', 64));
 

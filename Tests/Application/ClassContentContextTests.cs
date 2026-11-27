@@ -52,7 +52,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetAnnouncementsAsync_Member_ReturnsNewestFirstWithShortAuthorName()
+        public async Task GetAnnouncementsAsync_ShouldReturnTheNewestFirstWithAShortAuthorName_WhenTheUserIsAMember()
         {
             AddAnnouncement("Vechi", DateTime.UtcNow.AddDays(-1));
             AddAnnouncement("Nou", DateTime.UtcNow);
@@ -65,7 +65,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetAnnouncementsAsync_ReturnsCommentsOfEachAnnouncement()
+        public async Task GetAnnouncementsAsync_ShouldReturnTheCommentsOfEachAnnouncement_WhenTheAnnouncementsHaveComments()
         {
             var announcement = AddAnnouncement("Anunt", DateTime.UtcNow);
             _content.Comments.Add(new MessageComment { Id = Guid.NewGuid(), MessageId = announcement.Id, AuthorWallet = Student, Content = "Mersi", CreatedAt = DateTime.UtcNow.AddMinutes(1) });
@@ -80,7 +80,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetAnnouncementsAsync_Outsider_ThrowsForbiddenException()
+        public async Task GetAnnouncementsAsync_ShouldThrowForbiddenException_WhenTheUserIsNotAMember()
         {
             _currentUser.As(Outsider, UserRole.Student);
 
@@ -88,7 +88,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateAnnouncementAsync_Owner_UsesWalletFromToken()
+        public async Task CreateAnnouncementAsync_ShouldUseTheWalletFromTheToken_WhenTheUserOwnsTheClassRoom()
         {
             _currentUser.As(Teacher.ToUpperInvariant().Replace("0X", "0x"), UserRole.Teacher);
 
@@ -101,7 +101,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateAnnouncementAsync_EmptyTitle_ThrowsBusinessRuleException()
+        public async Task CreateAnnouncementAsync_ShouldThrowBusinessRuleException_WhenTheTitleIsEmpty()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 
@@ -109,7 +109,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task CreateAnnouncementAsync_Student_ThrowsForbiddenException()
+        public async Task CreateAnnouncementAsync_ShouldThrowForbiddenException_WhenTheUserIsAStudent()
         {
             _currentUser.As(Student, UserRole.Student);
 
@@ -118,7 +118,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task AddCommentAsync_EnrolledStudent_StoresTrimmedCommentFromToken()
+        public async Task AddCommentAsync_ShouldStoreTheTrimmedCommentWithTheWalletFromTheToken_WhenTheStudentIsEnrolled()
         {
             var announcement = AddAnnouncement("Anunt", DateTime.UtcNow);
             _currentUser.As(Student, UserRole.Student);
@@ -131,7 +131,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task AddCommentAsync_UnknownMessage_ThrowsNotFoundException()
+        public async Task AddCommentAsync_ShouldThrowNotFoundException_WhenTheMessageDoesNotExist()
         {
             _currentUser.As(Student, UserRole.Student);
 
@@ -139,7 +139,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task AddCommentAsync_Outsider_ThrowsForbiddenException()
+        public async Task AddCommentAsync_ShouldThrowForbiddenException_WhenTheUserIsNotAMember()
         {
             var announcement = AddAnnouncement("Anunt", DateTime.UtcNow);
             _currentUser.As(Outsider, UserRole.Student);
@@ -149,7 +149,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task AddCommentAsync_EmptyContent_ThrowsBusinessRuleException()
+        public async Task AddCommentAsync_ShouldThrowBusinessRuleException_WhenTheContentIsEmpty()
         {
             var announcement = AddAnnouncement("Anunt", DateTime.UtcNow);
             _currentUser.As(Student, UserRole.Student);
@@ -158,7 +158,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task AddMediaAsync_EnrolledStudent_UsesWalletFromToken()
+        public async Task AddMediaAsync_ShouldUseTheWalletFromTheToken_WhenTheStudentIsEnrolled()
         {
             _currentUser.As(Student, UserRole.Student);
 
@@ -170,7 +170,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task AddMediaAsync_MissingIpfsHash_ThrowsBusinessRuleException()
+        public async Task AddMediaAsync_ShouldThrowBusinessRuleException_WhenTheIpfsHashIsMissing()
         {
             _currentUser.As(Student, UserRole.Student);
 
@@ -178,7 +178,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task AddMediaAsync_Outsider_ThrowsForbiddenException()
+        public async Task AddMediaAsync_ShouldThrowForbiddenException_WhenTheUserIsNotAMember()
         {
             _currentUser.As(Outsider, UserRole.Student);
 
@@ -188,7 +188,7 @@ namespace MathChain.Tests.Application
         [Theory]
         [InlineData(Student, UserRole.Student)]
         [InlineData(Teacher, UserRole.Teacher)]
-        public async Task DeleteMediaAsync_UploaderOrTeacher_RemovesMedia(string wallet, UserRole role)
+        public async Task DeleteMediaAsync_ShouldRemoveTheMedia_WhenTheUserIsTheUploaderOrTheTeacher(string wallet, UserRole role)
         {
             var media = AddMedia(Student);
             _currentUser.As(wallet, role);
@@ -199,7 +199,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task DeleteMediaAsync_OtherStudent_ThrowsForbiddenAndKeepsMedia()
+        public async Task DeleteMediaAsync_ShouldThrowForbiddenAndKeepTheMedia_WhenTheUserIsAnotherStudent()
         {
             var media = AddMedia(Student);
             _currentUser.As(OtherStudent, UserRole.Student);
@@ -209,7 +209,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task DeleteMediaAsync_UnknownMedia_ThrowsNotFoundException()
+        public async Task DeleteMediaAsync_ShouldThrowNotFoundException_WhenTheMediaDoesNotExist()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 
@@ -217,7 +217,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetResourcesAsync_EnrolledStudent_ReturnsResources()
+        public async Task GetResourcesAsync_ShouldReturnTheResources_WhenTheStudentIsEnrolled()
         {
             AddResource();
             _currentUser.As(Student, UserRole.Student);
@@ -226,7 +226,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task AddResourceAsync_Owner_StoresTrimmedResource()
+        public async Task AddResourceAsync_ShouldStoreTheTrimmedResource_WhenTheUserOwnsTheClassRoom()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 
@@ -240,7 +240,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task AddResourceAsync_Student_ThrowsForbiddenException()
+        public async Task AddResourceAsync_ShouldThrowForbiddenException_WhenTheUserIsAStudent()
         {
             _currentUser.As(Student, UserRole.Student);
 
@@ -249,7 +249,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task AddResourceAsync_MissingTitle_ThrowsBusinessRuleException()
+        public async Task AddResourceAsync_ShouldThrowBusinessRuleException_WhenTheTitleIsMissing()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 
@@ -257,7 +257,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task DeleteResourceAsync_Owner_RemovesResource()
+        public async Task DeleteResourceAsync_ShouldRemoveTheResource_WhenTheUserOwnsTheClassRoom()
         {
             var resource = AddResource();
             _currentUser.As(Teacher, UserRole.Teacher);
@@ -268,7 +268,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task DeleteResourceAsync_Student_ThrowsForbiddenAndKeepsResource()
+        public async Task DeleteResourceAsync_ShouldThrowForbiddenAndKeepTheResource_WhenTheUserIsAStudent()
         {
             AddResource();
             _currentUser.As(Student, UserRole.Student);
@@ -278,7 +278,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task DeleteResourceAsync_UnknownResource_ThrowsNotFoundException()
+        public async Task DeleteResourceAsync_ShouldThrowNotFoundException_WhenTheResourceDoesNotExist()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 

@@ -116,7 +116,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SetPrerequisitesAsync_Admin_SavesThemAndTheDetailShowsThem()
+        public async Task SetPrerequisitesAsync_ShouldSaveThemAndShowThemInTheDetail_WhenTheUserIsAnAdmin()
         {
             await BuildChainAsync();
             _currentUser.Anonymous();
@@ -129,7 +129,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SetPrerequisitesAsync_NotAdmin_ThrowsForbiddenException()
+        public async Task SetPrerequisitesAsync_ShouldThrowForbiddenException_WhenTheUserIsNotAnAdmin()
         {
             _currentUser.As(Teacher, UserRole.Teacher);
 
@@ -140,7 +140,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SetPrerequisitesAsync_MainChapter_IsRejected()
+        public async Task SetPrerequisitesAsync_ShouldRejectTheChange_WhenTheChapterIsAMainChapter()
         {
             _currentUser.As(Admin, UserRole.Admin);
 
@@ -151,7 +151,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SetPrerequisitesAsync_ItselfOrAChapterWithAnotherParent_IsRejected()
+        public async Task SetPrerequisitesAsync_ShouldRejectTheChange_WhenThePrerequisiteIsItselfOrHasAnotherParent()
         {
             _currentUser.As(Admin, UserRole.Admin);
 
@@ -165,7 +165,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SetPrerequisitesAsync_Cycle_IsRejectedWithTheChaptersOfTheCycle()
+        public async Task SetPrerequisitesAsync_ShouldRejectTheChangeWithTheChaptersOfTheCycle_WhenItCreatesACycle()
         {
             await BuildChainAsync();
             _currentUser.As(Admin, UserRole.Admin);
@@ -179,7 +179,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SetPrerequisitesAsync_EmptyList_RemovesThePrerequisites()
+        public async Task SetPrerequisitesAsync_ShouldRemoveThePrerequisites_WhenTheListIsEmpty()
         {
             await BuildChainAsync();
 
@@ -190,7 +190,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetChapterDetailAsync_WithoutPrerequisites_KeepsTheOrderOfTheChapters()
+        public async Task GetChapterDetailAsync_ShouldKeepTheOrderOfTheChapters_WhenThereAreNoPrerequisites()
         {
             var detail = await _context.GetChapterDetailAsync(_algebra.Id.ToString());
 
@@ -198,7 +198,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetChapterDetailAsync_OrdersTheSubchaptersTopologically()
+        public async Task GetChapterDetailAsync_ShouldOrderTheSubchaptersTopologically_WhenTheyHavePrerequisites()
         {
             await RequireAsync(_powers, _logarithms);
 
@@ -208,7 +208,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetChapterDetailAsync_CycleAlreadyInTheData_FallsBackToTheChapterOrder()
+        public async Task GetChapterDetailAsync_ShouldFallBackToTheChapterOrder_WhenACycleIsAlreadyInTheData()
         {
             _curriculum.Prerequisites.Add(new ChapterPrerequisite { ChapterId = _powers.Id, PrerequisiteId = _radicals.Id });
             _curriculum.Prerequisites.Add(new ChapterPrerequisite { ChapterId = _radicals.Id, PrerequisiteId = _powers.Id });
@@ -222,7 +222,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetChapterDetailAsync_Student_SeesWhichChaptersAreLocked()
+        public async Task GetChapterDetailAsync_ShouldShowWhichChaptersAreLocked_WhenTheUserIsAStudent()
         {
             await BuildChainAsync();
             _currentUser.As(Student, UserRole.Student);
@@ -238,7 +238,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetChapterDetailAsync_SubchapterOfALockedChapter_ShowsWhyTheParentIsLocked()
+        public async Task GetChapterDetailAsync_ShouldShowWhyTheParentIsLocked_WhenTheSubchapterBelongsToALockedChapter()
         {
             await BuildChainAsync();
             _currentUser.As(Student, UserRole.Student);
@@ -252,7 +252,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetChapterDetailAsync_SolvingThePrerequisites_UnlocksTheChaptersInOrder()
+        public async Task GetChapterDetailAsync_ShouldUnlockTheChaptersInOrder_WhenThePrerequisitesAreSolved()
         {
             await BuildChainAsync();
             _currentUser.As(Student, UserRole.Student);
@@ -280,7 +280,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetChapterDetailAsync_PartlySolvedPrerequisite_KeepsTheChapterLocked()
+        public async Task GetChapterDetailAsync_ShouldKeepTheChapterLocked_WhenThePrerequisiteIsOnlyPartlySolved()
         {
             await BuildChainAsync();
             _currentUser.As(Student, UserRole.Student);
@@ -293,7 +293,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetChapterDetailAsync_ExercisesOfAnotherStudent_DoNotUnlockAnything()
+        public async Task GetChapterDetailAsync_ShouldUnlockNothing_WhenTheExercisesWereSolvedByAnotherStudent()
         {
             await BuildChainAsync();
             var formula = FormulaOf(_powers);
@@ -305,7 +305,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetChapterDetailAsync_EmptyPrerequisite_CountsAsCompleted()
+        public async Task GetChapterDetailAsync_ShouldCountThePrerequisiteAsCompleted_WhenItIsEmpty()
         {
             var comingSoon = AddChapter("Coming soon", _geometry, 1);
             var vectors = AddChapter("Vectors", _geometry, 2, withFormula: true);
@@ -319,7 +319,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetChapterDetailAsync_TeacherAndVisitor_SeeNoLocks()
+        public async Task GetChapterDetailAsync_ShouldShowNoLocks_WhenTheUserIsATeacherOrAVisitor()
         {
             await BuildChainAsync();
 
@@ -332,7 +332,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task StartExerciseAsync_LockedChapter_ThrowsForbiddenException()
+        public async Task StartExerciseAsync_ShouldThrowForbiddenException_WhenTheChapterIsLocked()
         {
             await BuildChainAsync();
             _currentUser.As(Student, UserRole.Student);
@@ -345,7 +345,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task StartExerciseAsync_AfterThePrerequisites_IsAllowed()
+        public async Task StartExerciseAsync_ShouldStartTheExercise_WhenThePrerequisitesAreCompleted()
         {
             await BuildChainAsync();
             _currentUser.As(Student, UserRole.Student);
@@ -358,7 +358,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task StartExerciseAsync_Teacher_IsNotBlocked()
+        public async Task StartExerciseAsync_ShouldNotBlockTheUser_WhenTheUserIsATeacher()
         {
             await BuildChainAsync();
             _currentUser.As(Teacher, UserRole.Teacher);
@@ -369,7 +369,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SubmitAnswerAsync_ChapterLockedAfterTheExerciseStarted_ThrowsForbiddenException()
+        public async Task SubmitAnswerAsync_ShouldThrowForbiddenException_WhenTheChapterIsLockedAfterTheExerciseStarted()
         {
             _currentUser.As(Student, UserRole.Student);
             var exercise = await _practiceContext.StartExerciseAsync(FormulaOf(_logarithms).Id, 0);
@@ -382,7 +382,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task ClaimChapterCertificateAsync_LockedChapter_ThrowsForbiddenException()
+        public async Task ClaimChapterCertificateAsync_ShouldThrowForbiddenException_WhenTheChapterIsLocked()
         {
             await BuildChainAsync();
             var registry = new FakeCertificateRegistry();
@@ -397,7 +397,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void ChaptersNeededFor_IncludesOnlyTheSubtreesThatDecideTheStatus()
+        public void ChaptersNeededFor_ShouldIncludeOnlyTheSubtreesThatDecideTheStatus_WhenAChapterHasAPrerequisite()
         {
             var prerequisites = new List<ChapterPrerequisite>
             {

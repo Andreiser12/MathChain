@@ -21,7 +21,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void TopologicalSort_WithoutArcs_PutsTheLastSourceFirst()
+        public void TopologicalSort_ShouldPutTheLastSourceFirst_WhenThereAreNoArcs()
         {
             var result = TopologicalSorter.TopologicalSort(new[] { "a", "b", "c" }, Arcs());
 
@@ -30,7 +30,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void TopologicalSort_Chain_KeepsTheChainOrder()
+        public void TopologicalSort_ShouldKeepTheChainOrder_WhenTheGraphIsAChain()
         {
             var arcs = new[] { ("a", "b"), ("b", "c"), ("c", "d") };
 
@@ -40,7 +40,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void TopologicalSort_Diamond_RespectsEveryArc()
+        public void TopologicalSort_ShouldRespectEveryArc_WhenTheGraphIsADiamond()
         {
             var arcs = new[] { ("a", "b"), ("a", "c"), ("b", "d"), ("c", "d") };
 
@@ -52,7 +52,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void TopologicalSort_SeveralComponents_VisitsEveryNode()
+        public void TopologicalSort_ShouldVisitEveryNode_WhenTheGraphHasSeveralComponents()
         {
             var arcs = new[] { ("a", "b"), ("c", "d"), ("e", "d") };
 
@@ -63,7 +63,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void TopologicalSort_OrderIsTheDecreasingOrderOfFinishTimes()
+        public void TopologicalSort_ShouldOrderTheNodesByDecreasingFinishTimes_WhenTheGraphIsAcyclic()
         {
             var arcs = new[] { ("a", "b"), ("a", "c"), ("c", "b"), ("d", "a") };
 
@@ -74,7 +74,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void TopologicalSort_TimesFollowTheDepthFirstTraversal()
+        public void TopologicalSort_ShouldRecordTimesThatFollowTheDepthFirstTraversal_WhenTheGraphIsAChain()
         {
             var result = TopologicalSorter.TopologicalSort(new[] { "a", "b", "c" }, Arcs(("a", "b"), ("b", "c")));
 
@@ -88,7 +88,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void TopologicalSort_Circuit_ReturnsTheCircuitFoundThroughTheBackArc()
+        public void TopologicalSort_ShouldReturnTheCircuitFoundThroughTheBackArc_WhenTheGraphHasACircuit()
         {
             var result = TopologicalSorter.TopologicalSort(new[] { "a", "b", "c", "d" },
                 Arcs(("a", "b"), ("b", "c"), ("c", "a"), ("c", "d")));
@@ -99,7 +99,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void TopologicalSort_CircuitReachedFromAnotherNode_ReturnsOnlyTheCircuit()
+        public void TopologicalSort_ShouldReturnOnlyTheCircuit_WhenTheCircuitIsReachedFromAnotherNode()
         {
             var result = TopologicalSorter.TopologicalSort(new[] { "s", "a", "b" },
                 Arcs(("s", "a"), ("a", "b"), ("b", "a")));
@@ -108,7 +108,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void TopologicalSort_Loop_IsACircuit()
+        public void TopologicalSort_ShouldReportACircuit_WhenANodeHasALoop()
         {
             var result = TopologicalSorter.TopologicalSort(new[] { "a" }, Arcs(("a", "a")));
 
@@ -116,7 +116,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void TopologicalSort_ArcToAFinishedNode_IsNotACircuit()
+        public void TopologicalSort_ShouldNotReportACircuit_WhenAnArcPointsToAFinishedNode()
         {
             var result = TopologicalSorter.TopologicalSort(new[] { "a", "b", "c" }, Arcs(("a", "b"), ("c", "b")));
 
@@ -124,7 +124,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void TopologicalSort_EmptyGraph_ReturnsAnEmptyOrder()
+        public void TopologicalSort_ShouldReturnAnEmptyOrder_WhenTheGraphIsEmpty()
         {
             var result = TopologicalSorter.TopologicalSort(Array.Empty<string>(), Arcs());
 
@@ -133,19 +133,19 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void TopologicalSort_DuplicateNode_IsRejected()
+        public void TopologicalSort_ShouldThrowArgumentException_WhenANodeAppearsTwice()
         {
             Assert.Throws<ArgumentException>(() => TopologicalSorter.TopologicalSort(new[] { "a", "a" }, Arcs()));
         }
 
         [Fact]
-        public void TopologicalSort_ArcToAnUnknownNode_IsRejected()
+        public void TopologicalSort_ShouldThrowArgumentException_WhenAnArcPointsToAnUnknownNode()
         {
             Assert.Throws<ArgumentException>(() => TopologicalSorter.TopologicalSort(new[] { "a" }, Arcs(("a", "x"))));
         }
 
         [Fact]
-        public void TopologicalSort_ReadsTheArcsOfEveryNodeOnlyOnce()
+        public void TopologicalSort_ShouldReadTheArcsOfEveryNodeOnlyOnce_WhenNodesShareSuccessors()
         {
             var calls = new Dictionary<string, int>();
             var arcs = Arcs(("a", "b"), ("a", "c"), ("b", "d"), ("c", "d"), ("d", "e"));
@@ -161,7 +161,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void TopologicalSort_RandomGraphs_AgreeWithAnIndependentAcyclicityTest()
+        public void TopologicalSort_ShouldAgreeWithAnIndependentAcyclicityTest_WhenTheGraphsAreRandom()
         {
             var random = new Random(20261126);
 

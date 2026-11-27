@@ -35,7 +35,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetDashboardStatsAsync_Anonymous_ThrowsUnauthorizedException()
+        public async Task GetDashboardStatsAsync_ShouldThrowUnauthorizedException_WhenTheUserIsAnonymous()
         {
             _currentUser.Anonymous();
 
@@ -43,7 +43,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task GetDashboardStatsAsync_CurrentUser_IsMarkedAndRanked()
+        public async Task GetDashboardStatsAsync_ShouldMarkAndRankTheCurrentUser_WhenTheUserIsLoggedIn()
         {
             _users.Users.Add(new User { Id = Guid.NewGuid(), WalletAddress = "0xa" });
             _users.Users.Add(new User { Id = Guid.NewGuid(), WalletAddress = "0xb" });

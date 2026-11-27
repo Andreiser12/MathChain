@@ -44,7 +44,7 @@ namespace MathChain.Tests.Application
         [Theory]
         [InlineData("Student", UserRole.Student)]
         [InlineData("teacher", UserRole.Teacher)]
-        public async Task SignInWithGoogleAsync_NewUserWithRole_RegistersUserWithCustodialAddress(string role, UserRole expectedRole)
+        public async Task SignInWithGoogleAsync_ShouldRegisterTheUserWithACustodialAddress_WhenANewUserChoosesARole(string role, UserRole expectedRole)
         {
             var result = await SignInAsync(Subject, role);
 
@@ -60,7 +60,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SignInWithGoogleAsync_NewUser_TokenIdentifiesCustodialAddressAndRole()
+        public async Task SignInWithGoogleAsync_ShouldIssueATokenWithTheCustodialAddressAndTheRole_WhenTheUserIsNew()
         {
             var result = await SignInAsync(Subject, "Teacher");
 
@@ -71,7 +71,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SignInWithGoogleAsync_NewUserWithoutRole_ThrowsNotFoundAndStoresNothing()
+        public async Task SignInWithGoogleAsync_ShouldThrowNotFoundAndStoreNothing_WhenANewUserChoosesNoRole()
         {
             await Assert.ThrowsAsync<NotFoundException>(() => SignInAsync(Subject, null));
 
@@ -82,7 +82,7 @@ namespace MathChain.Tests.Application
         [Theory]
         [InlineData("Admin")]
         [InlineData("2")]
-        public async Task SignInWithGoogleAsync_NewUserWithForbiddenRole_ThrowsBusinessRuleException(string role)
+        public async Task SignInWithGoogleAsync_ShouldThrowBusinessRuleException_WhenANewUserChoosesAForbiddenRole(string role)
         {
             await Assert.ThrowsAsync<BusinessRuleException>(() => SignInAsync(Subject, role));
 
@@ -91,7 +91,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SignInWithGoogleAsync_ReturningUser_KeepsAddressAndIgnoresRequestedRole()
+        public async Task SignInWithGoogleAsync_ShouldKeepTheAddressAndIgnoreTheRequestedRole_WhenTheUserReturns()
         {
             var first = await SignInAsync(Subject, "Student");
 
@@ -105,7 +105,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SignInWithGoogleAsync_ReturningUserWithoutRole_LogsIn()
+        public async Task SignInWithGoogleAsync_ShouldLogTheUserIn_WhenAReturningUserSendsNoRole()
         {
             await SignInAsync(Subject, "Student");
 
@@ -115,7 +115,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SignInWithGoogleAsync_DifferentGoogleAccounts_GetDifferentUsers()
+        public async Task SignInWithGoogleAsync_ShouldCreateDifferentUsers_WhenTheGoogleAccountsAreDifferent()
         {
             var first = await SignInAsync(Subject, "Student");
             var second = await SignInAsync("999999999999999999999", "Student");
@@ -125,7 +125,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SignInWithGoogleAsync_ConcurrentRegistration_ReturnsTheUserThatWasStored()
+        public async Task SignInWithGoogleAsync_ShouldReturnTheStoredUser_WhenTheRegistrationIsConcurrent()
         {
             var winner = new User { Id = Guid.NewGuid(), WalletAddress = "0xwinner", Role = UserRole.Teacher };
             _logins.ConcurrentRegistration = (winner, new ExternalLogin { Id = Guid.NewGuid(), UserId = winner.Id, Provider = ExternalLogin.GoogleProvider, Subject = Subject });
@@ -142,13 +142,13 @@ namespace MathChain.Tests.Application
         [Theory]
         [InlineData("")]
         [InlineData("   ")]
-        public async Task SignInWithGoogleAsync_BlankToken_ThrowsBusinessRuleException(string idToken)
+        public async Task SignInWithGoogleAsync_ShouldThrowBusinessRuleException_WhenTheTokenIsBlank(string idToken)
         {
             await Assert.ThrowsAsync<BusinessRuleException>(() => _context.SignInWithGoogleAsync(new GoogleSignInRequest { IdToken = idToken, Role = "Student" }));
         }
 
         [Fact]
-        public async Task SignInWithGoogleAsync_InvalidToken_ThrowsUnauthorizedAndStoresNothing()
+        public async Task SignInWithGoogleAsync_ShouldThrowUnauthorizedAndStoreNothing_WhenTheTokenIsInvalid()
         {
             await Assert.ThrowsAsync<UnauthorizedException>(() => _context.SignInWithGoogleAsync(new GoogleSignInRequest { IdToken = "forged", Role = "Teacher" }));
 
@@ -156,7 +156,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public async Task SignInWithGoogleAsync_DoesNotAffectWalletUsers()
+        public async Task SignInWithGoogleAsync_ShouldNotAffectWalletUsers_WhenAGoogleUserRegisters()
         {
             _users.Users.Add(new User { Id = Guid.NewGuid(), WalletAddress = "0x52908400098527886e0f7030069857d2e4169ee7", Role = UserRole.Teacher });
 
@@ -167,7 +167,7 @@ namespace MathChain.Tests.Application
         }
 
         [Fact]
-        public void GetSignInProviders_ReturnsConfiguredGoogleClientId()
+        public void GetSignInProviders_ShouldReturnTheGoogleClientIdOrNull_WhenGoogleIsConfiguredOrNot()
         {
             Assert.Equal(_google.ClientId, _context.GetSignInProviders().GoogleClientId);
 
